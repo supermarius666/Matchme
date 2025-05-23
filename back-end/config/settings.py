@@ -14,8 +14,8 @@ from pathlib import Path
 import os
 import sys
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
-sys.path.insert(0, str(BASE_DIR / "back-end"))
+BASE_DIR = Path(__file__).resolve().parent.parent
+# sys.path.insert(0, str(BASE_DIR / "back-end"))
 
 
 # Quick-start development settings - unsuitable for production
@@ -34,6 +34,10 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
 	'apps.main.apps.MainConfig',
+	'apps.feed.apps.FeedConfig',
+	'apps.accounts.apps.AccountsConfig',
+	'apps.chat.apps.ChatConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -57,7 +61,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / '..' / 'front-end' / 'template'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,7 +83,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'db' / 'db.sqlite3',
     }
 }
 
@@ -119,10 +123,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 # Templates
-TEMPLATES[0]['DIRS'] = [BASE_DIR / 'front-end' / 'template']
-STATICFILES_DIRS = [BASE_DIR / 'front-end' / 'static']
+STATICFILES_DIRS = [
+    BASE_DIR.parent / 'front-end' / 'static',
+]
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / ".." /'staticfiles_collected'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'front-end' / 'media'

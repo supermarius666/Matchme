@@ -1,0 +1,6 @@
+- [accounts/models.py] default_profile_pic non vogliamo salvarla per ogni utente nel DB ma salvare solo una flag che indica che non ce l'ha e caricare sempre la stessa immagine
+    invece che sempre nuove
+
+- [feed/models.py] mettere constraint che fa user1 < user2 per evitare ridondanze (a,b) (b,a) (a,a) (b,b)
+
+- [chat/models.py] vedi se mettere proprio campi user1 e user2 per il model ChatRoom oppure accederci dalla tabella Match

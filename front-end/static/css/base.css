@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    background-color: #f8f8f8;
+}
+
+/* Navbar Styling */
+.navbar {
+    background-color: #fff; /* White background */
+    color: #333; /* Dark grey text */
+    padding: 10px 0; /* Reduced padding slightly */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+}
+
+.navbar-brand a {
+    color: #ff4081; /* Accent color, like a pink */
+    text-decoration: none;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+.navbar-nav {
+    list-style: none;
+    display: flex; /* Flex display for desktop */
+    margin: 0;
+    padding: 0;
+    flex-grow: 1; /* Allow nav links to take available space */
+    justify-content: center; /* Center links on larger screens */
+    transition: max-height 0.3s ease-in-out; /* Smooth transition for mobile menu */
+    overflow: hidden; /* Hide overflow during transition */
+}
+
+.navbar-nav li {
+    margin: 0 15px;
+}
+
+.navbar-nav a {
+    color: #333;
+    text-decoration: none;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav a:hover {
+    color: #ff4081; /* Highlight on hover */
+}
+
+.navbar-actions {
+    /* These styles apply to the login button wrapper */
+    display: flex; /* Use flex to align button if needed */
+    align-items: center;
+}
+
+.navbar-actions .btn-login {
+    background-color: #ff4081; /* Accent color */
+    color: #fff;
+    border: none;
+    padding: 8px 18px; /* Adjusted padding slightly */
+    border-radius: 20px; /* Pill shape */
+    cursor: pointer;
+    font-size: 0.95em; /* Adjusted font size slightly */
+    transition: background-color 0.3s ease;
+}
+
+.navbar-actions .btn-login:hover {
+    background-color: #e03570; /* Darker shade on hover */
+}
+
+.hamburger {
+    display: none; /* Hidden by default on larger screens */
+    font-size: 1.6em; /* Slightly larger icon */
+    cursor: pointer;
+    color: #333;
+    margin-left: 20px; /* Add space between login button and hamburger */
+}
+
+
+/* Responsive Styles (for smaller screens) */
+@media (max-width: 768px) {
+    .navbar .container {
+        /* Flex-wrap is already set, no need to repeat */
+        justify-content: space-between; /* Ensure space between brand and actions/hamburger */
+    }
+
+    .navbar-brand {
+        flex-basis: auto; /* Let content determine width */
+        margin-right: auto; /* Push brand to the left */
+    }
+
+    .navbar-actions {
+         /* Keep login button on the right */
+         flex-basis: auto; /* Let content determine width */
+         order: 2; /* Place actions to the right of brand */
+    }
+
+    .hamburger {
+        display: block; /* Show hamburger on small screens */
+        order: 3; /* Place hamburger after actions on the top row */
+    }
+
+    .navbar-nav {
+        /* Hide nav links by default in a collapsible way */
+        max-height: 0; /* Start with 0 height */
+        flex-direction: column;
+        width: 100%; /* Full width when displayed */
+        text-align: center;
+        margin-top: 10px;
+        flex-basis: 100%; /* Take full width in the wrapped layout */
+    }
+
+    .navbar-nav.active {
+        max-height: 200px; /* Or a value large enough to contain all links */
+        /* Ensure display is block or flex if needed for inner layout,
+           but max-height handles visibility for collapsing */
+    }
+
+    .navbar-nav li {
+        margin: 10px 0; /* Add vertical spacing */
+    }
+
+    /* Adjust the order of elements when the menu is active */
+    /* This might not be strictly necessary depending on layout,
+       but can help ensure the menu appears below the top row */
+     .navbar-brand,
+     .navbar-actions,
+     .hamburger {
+         order: initial; /* Reset order for the top row */
+     }
+
+     .navbar-nav.active {
+         order: 4; /* Place the active menu below the top row */
+     }
+}
