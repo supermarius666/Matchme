@@ -1,12 +1,77 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} | Chatroom{% endblock %}
+{% block title %} | Chat with {{ chat_user }}{% endblock %}
 {% block style %}
 	<link rel="stylesheet" href="{% static 'css/chat/chat.css' %}"/>
 {% endblock %}
 {% block content %}
-Ciao {{ request.user.username }}!
+<h1>{{ room.name }}'s chat</h1>
+
+    <!-- input dove scrivere messaggi -->
+    <form id="chat_form">
+        <input type="text" name="message">
+    </form>
+
+    <!-- container dei messaggi -->
+    <div id="messages">
+        {% for message in messages %}
+            <div>
+                <h5 style="display: inline-block;">{{ message.user_sender.username }}: </h5><p style="display: inline-block;">{{ message.message_payload }} </p><p style="display: inline-block;"> | {{ message.time_stamp }}</p>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
 
 {% block script %}
+
+<script type="text/javascript">
+    roomName = "{{ room.name }}"
+    username = "{{ request.user.username }}"
+
+    // protocollo://ip/<url_corrispondente_al_consumer_per_connettersi_a_server>
+    let url = `ws://${window.location.host}/ws/${roomName}/`
+
+    // crea oggetto socket che cerca di connettersi al Server su "url"
+    const chatSocket = new WebSocket(url)
+
+    // funzione che ascolta messaggi in arrivo dal Server (in formato JSON)
+    chatSocket.onmessage = function(event){
+        let data = JSON.parse(event.data)
+        console.log("Data: ", data)
+
+        // se messaggio ha type "chat" aggiungo messaggio nel div
+        if (data.type === "chat") {
+            let messages = document.getElementById("messages")
+
+            let html =  `<div>`
+                html +=     `<h5 style="display: inline-block;">${data.username}: </h5>`
+                html +=     `<p style="display: inline-block;"> ${data.message} </p>`
+                html +=     `<p style="display: inline-block;"> | ${data.time_stamp}</p>`
+                html += `</div>`
+            
+            // "beforeend" fa append in fondo
+            messages.insertAdjacentHTML("beforeend", html)
+        }
+    }
+
+    // form per submit del messaggio
+    let form = document.getElementById("chat_form")
+
+    form.addEventListener("submit", (event)=> { //(event)=> {...} è un Arrow Function
+        event.preventDefault() // ?
+
+        // contenuto input html del form
+        let message = event.target.message.value
+
+        // manda messaggio al server sulla socket (in formato JSON)
+        chatSocket.send(JSON.stringify({
+            "username":username,
+            "message":message            
+        }))
+        
+        // restetto il form in modo da poter resubmittare altri messaggi in futuro
+        form.reset()
+    })
+
+</script>
 {% endblock %}

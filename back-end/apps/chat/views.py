@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import ChatRoom
+from .models import ChatRoom, Message
 from apps.accounts.models import UserProfile
 from django.db.models import Q
 
@@ -11,8 +11,9 @@ def chatroom_view(request, username):
           user2=UserProfile.objects.get(username=username))
     )
 
-    # TODO aggiungi anche messaggi (per entrare nella room è visualizzare i messaggi scritti prima che entrassi) (i messaggi sono entry di una tabella nel DB)
-    # TODO messages = Message.objects.filter(room=room)[0:25]
+    # prende ultimi 10 messaggi ("-time_stamp") e poi inverte la lista per stamparli in ordine cronologico
+    messages = Message.objects.filter(room=room).order_by("-time_stamp")[0:10]
+    messages = list(messages)[::-1]
 
-    context = {"room": room}
+    context = {"room": room, "chat_user": username, "messages": messages}
     return render(request, "chat/chatroom.html", context)

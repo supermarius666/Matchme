@@ -1,0 +1,5 @@
+django
+channels==3.0.5
+Pillow
+
+# se non va channels==3.0.5 provare con channels e basta

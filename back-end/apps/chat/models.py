@@ -31,6 +31,12 @@ class Message(models.Model):
         on_delete=models.CASCADE, 
     )
 
+    # utente che ha spedito il messaggio
+    user_sender = models.ForeignKey(
+        UserProfile,
+        on_delete=models.CASCADE
+    ) 
+
     message_payload = models.CharField(
         max_length=1000
     )
@@ -38,3 +44,6 @@ class Message(models.Model):
     time_stamp = models.DateTimeField(
 
     )
+
+    def __str__(self):
+        return f"[{self.room.name}] {self.user_sender} : \"{self.message_payload}\" | {self.time_stamp}"
