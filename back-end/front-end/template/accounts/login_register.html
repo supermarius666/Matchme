@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} | Auth{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/accounts/accounts.css' %}">
+{% endblock %}
+{% block content %}
+<div class="form-container">
+
+    <div id="login-card" class="account-card">
+        <h2>Login</h2>
+        <form id="login-form" method="post" action="{% url 'accounts' %}">
+            {% csrf_token %}
+            <input type="hidden" name="action_type" value="login">
+
+            <div class="form-group">
+                <label for="login-username">Username:</label>
+                <input type="text" id="login-username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="password" required>
+            </div>
+            <button type="submit">Accedi</button>
+        </form>
+    </div>
+
+    <div id="registration-card" class="account-card" style="display:none;">
+        <h2>Registrazione</h2>
+        <form id="registration-form" method="post" action="{% url 'accounts' %}">
+            {% csrf_token %}
+            <input type="hidden" name="action_type" value="register">
+
+            <div class="form-group">
+                <label for="reg-username">Username:</label>
+                <input type="text" id="reg-username" name="username_r" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="reg-nome">Nome:</label>
+                    <input type="text" id="reg-nome" name="first_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-cognome">Cognome:</label>
+                    <input type="text" id="reg-cognome" name="last_name" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="reg-data-nascita">Data di Nascita:</label>
+                <input type="date" id="reg-data-nascita" name="data_nascita" required>
+            </div>
+            <div class="form-group">
+                <label for="reg-sesso">Sesso:</label>
+                <select id="reg-sesso" name="sesso" required>
+                    <option value="">Seleziona</option>
+                    <option value="M">Maschio</option>
+                    <option value="F">Femmina</option>
+                    <option value="O">Altro</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="reg-email">Email:</label>
+                <input type="email" id="reg-email" name="email" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="reg-password">Password:</label>
+                    <input type="password" id="reg-password" name="password1_r" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-conferma-password">Conferma Password:</label>
+                    <input type="password" id="reg-conferma-password" name="password2_r" required>
+                </div>
+            </div>
+
+            <button type="submit">Registrati</button>
+        </form>
+    </div>
+
+    <a href="#" class="toggle-link" id="toggle-to-registration">Non hai un account? Registrati qui</a>
+    <a href="#" class="toggle-link" id="toggle-to-login" style="display: none;">Hai già un account? Accedi qui</a>
+</div>
+
+{% endblock %}
+{% block script %}
+<script src="{% static 'js/accounts/accounts.js' %}"></script>
+{% endblock %}
