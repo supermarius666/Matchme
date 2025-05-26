@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} | Chatroom{% endblock %}
+{% block style %}
+	<link rel="stylesheet" href="{% static 'css/chat/chat.css' %}"/>
+{% endblock %}
+{% block content %}
+Ciao {{ request.user.username }}!
+{% endblock %}
+
+{% block script %}
+{% endblock %}

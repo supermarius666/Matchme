@@ -24,7 +24,8 @@ class Match(models.Model):
 
     room = models.ForeignKey(
         ChatRoom,
-        on_delete=models.CASCADE, 
+        on_delete=models.CASCADE,
+        null=True
     )
 
     status = models.CharField(

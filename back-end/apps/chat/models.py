@@ -4,7 +4,12 @@ from apps.accounts.models import UserProfile
 # NOTA: avendo Match una primary key su ChatRoom, nella chatroom si può accedere a due user
 # con una query nel database
 class ChatRoom(models.Model):
-    room_id = models.AutoField(
+    #id = models.AutoField(
+    #    primary_key=True
+    #)
+
+    name = models.CharField(
+        max_length=255,
         primary_key=True
     )
 

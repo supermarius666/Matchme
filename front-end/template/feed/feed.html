@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} | Feed{% endblock %}
+{% block style %}
+	<link rel="stylesheet" href="{% static 'css/feed/feed.css' %}"/>
+{% endblock %}
+{% block content %}
+Ciao {{ request.user.username }}!
+
+<div class="feed-container">
+    <div class="feed-left-sidebar">
+        <div class="feed-sidebar-content">
+            <h1>Hi {{ request.user.username }}.</h1>
+
+            <h1>Select mode</h1>
+            <a href="">1. See people who asked you a match</a>
+            <a href="">2. See feed</a>
+
+            <h1>Incoming requests</h1>
+
+            <br>
+            <br>
+
+            <h1>Chats with Matches</h1>
+            <p>Le chat con i match che hai fatto</p>
+
+            <div class="feed-friends-list">
+                {% for user in matched_users %}
+                    <div class="feed-friend">
+                        <img src="https://i.pravatar.cc/50?u=user3" alt="User Profile Picture" class="feed-profile-pic">
+                        <span class="feed-username">{{ user.username }}</span><br>
+                        <a href="{% url 'chatroom' user.username %}" class="feed-start-chat-button">Chat</a>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <br>
+            <br>
+            
+            <div class="feed-filters">
+                <h1>Filters</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="feed-feed-container">
+
+        
+        <!-- come prima cosa visualizziamo i pending_users -->
+        {% for user in pending_users_arrived %}
+            <div class="feed-post">
+                <div class="feed-post-header">
+                    <img src="https://i.pravatar.cc/50?u=user1" alt="User Profile Picture" class="feed-profile-pic">
+                    <button class="feed-username">{{ user.username }}</button>
+                </div>
+                <div class="feed-post-image">
+                    <img src="https://picsum.photos/600/400?random=1" alt="Post Image">
+                </div>
+                <div class="feed-post-actions">
+                    <form action="{% url 'feed' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="liked_username" value="{{ user.username }}">
+                        <button type="submit" class="feed-action-button feed-like-button"><i class="far fa-heart"></i>Like</button>
+                    </form>
+                    <form action="{% url 'feed' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="disliked_username" value="{{ user.username }}">
+                        <button type="submit" class="feed-action-button feed-dislike-button"><i class="far fa-thumbs-down"></i>Dont Like</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+
+        <!-- poi visualizziamo tutti gli altri utenti -->
+        {% for user in users %}
+            {% if user not in pending_users_arrived and user not in matched_users and user not in pending_users_sent and user != request.user %}
+                <div class="feed-post">
+                    <div class="feed-post-header">
+                        <img src="https://i.pravatar.cc/50?u=user1" alt="User Profile Picture" class="feed-profile-pic">
+                        <button class="feed-username">{{ user.username }}</button>
+                    </div>
+                    <div class="feed-post-image">
+                        <img src="https://picsum.photos/600/400?random=1" alt="Post Image">
+                    </div>
+                    <div class="feed-post-actions">
+                        <form action="{% url 'feed' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="liked_username" value="{{ user.username }}">
+                            <button type="submit" class="feed-action-button feed-like-button"><i class="far fa-heart"></i>Like</button>
+                        </form>
+                        <form action="{% url 'feed' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="disliked_username" value="{{ user.username }}">
+                            <button type="submit" class="feed-action-button feed-dislike-button"><i class="far fa-thumbs-down"></i>Dont Like</button>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+</div>
+{% endblock %}
+
+{% block script %}
+{% endblock %}

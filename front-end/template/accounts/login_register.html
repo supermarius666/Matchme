@@ -9,7 +9,7 @@
 
     <div id="login-card" class="account-card">
         <h2>Login</h2>
-        <form id="login-form" method="post" action="{% url 'accounts' %}">
+        <form id="login-form" method="post" action="{% url 'authenticate' %}">
             {% csrf_token %}
             <input type="hidden" name="action_type" value="login">
 
@@ -27,7 +27,7 @@
 
     <div id="registration-card" class="account-card" style="display:none;">
         <h2>Registrazione</h2>
-        <form id="registration-form" method="post" action="{% url 'accounts' %}">
+        <form id="registration-form" method="post" action="{% url 'authenticate' %}">
             {% csrf_token %}
             <input type="hidden" name="action_type" value="register">
 

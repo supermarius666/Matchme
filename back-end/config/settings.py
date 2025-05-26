@@ -38,6 +38,8 @@ INSTALLED_APPS = [
 	'apps.accounts.apps.AccountsConfig',
 	'apps.chat.apps.ChatConfig',
 
+    'channels',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,6 +47,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+ASGI_APPLICATION = "config.asgi.application"
+
+CHANNEL_LAYERS = {
+        "default":{
+            # non usiamo Redis come database e usiamo semplicemente InMemoryChannelLayer
+            # (DA NON USARE IN PRODUZIONE MA SOLO PER TESTING)
+            "BACKEND":"channels.layers.InMemoryChannelLayer"
+        }
+    }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

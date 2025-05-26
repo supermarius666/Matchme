@@ -24,9 +24,16 @@
 				<li><a href="#">About Us</a></li>
 			</ul>
 			<div class="navbar-actions">
-				<div class="navbar-actions">
-					<a href="{% url 'accounts' %}" class="btn-login">Login</a>
-				</div>
+				{% if request.user.is_authenticated %}
+					<form method="POST" action="{% url 'logout' %}">
+						{% csrf_token %}
+						<button type="submit" class="btn-login">Logout</button>
+					</form>
+				{% else %}
+					<div class="navbar-actions">
+						<a href="{% url 'authenticate' %}" class="btn-login">Login</a>
+					</div>
+				{% endif %}
 
 			</div>
 			<div class="hamburger" id="hamburger">
