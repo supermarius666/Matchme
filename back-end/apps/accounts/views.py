@@ -14,6 +14,7 @@ def auth_view(request):
             username = request.POST.get('username')
             password = request.POST.get('password')
             user = authenticate(request, username=username, password=password)
+            print("USER: ", user)
             if user:
                 login(request, user)
                 return redirect('home')
@@ -47,7 +48,11 @@ def auth_view(request):
 
     return render(request, 'accounts/login_register.html')
 
-
+@login_required
+def logout_view(request):
+    if request.method == "POST":
+        logout(request)
+    return redirect("home")
 
 @login_required
 def preferences_view(request):
@@ -74,8 +79,6 @@ def preferences_view(request):
         return redirect('upload_photo')  # Reindirizza alla pagina del profilo (o dove preferisci)
 
     return render(request, 'accounts/preferences.html')  # Il template con il form per le preferenze
-
-
 
 @login_required
 def update_bio(request):

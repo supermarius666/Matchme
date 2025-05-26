@@ -1,6 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, Group, Permission
-from django.contrib.auth.models import BaseUserManager
+from django.contrib.auth.models import AbstractUser, Group, Permission, BaseUserManager
 
 GENDER_CHOICES = [
     ('M', "Male"),
@@ -8,8 +7,8 @@ GENDER_CHOICES = [
     ('O', "Other")
 ]
 
-
-
+# Per usare il metodo create_user() anche su user custom che estendono AbstractUser,
+# bisogna creare la classe CustoUserManager e nella classe user custom aggiungere campo objects = CustomUserManager()
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, email=None, password=None, **extra_fields):
         if not username:

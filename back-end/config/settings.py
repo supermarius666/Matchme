@@ -87,6 +87,8 @@ DATABASES = {
     }
 }
 
+# Serve per rendere UserProfile la classe a cui Django guarda per usare metodi di AbstractUser come login() o authenticate()
+AUTH_USER_MODEL = 'accounts.UserProfile'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
