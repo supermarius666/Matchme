@@ -1,11 +1,29 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
+from django.contrib.auth.models import BaseUserManager
 
 GENDER_CHOICES = [
     ('M', "Male"),
     ('F', "Female"),
     ('O', "Other")
 ]
+
+
+
+class CustomUserManager(BaseUserManager):
+    def create_user(self, username, email=None, password=None, **extra_fields):
+        if not username:
+            raise ValueError('Il campo username è obbligatorio')
+        email = self.normalize_email(email)
+        user = self.model(username=username, email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, username, email=None, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        return self.create_user(username, email, password, **extra_fields)
 
 class UserProfile(AbstractUser):
     # AbstractUser already provides:
@@ -74,10 +92,13 @@ class UserProfile(AbstractUser):
         related_name="user_profiles"
     )
 
+    objects = CustomUserManager()
+
     def __str__(self):
         return self.username
 
     # Add custom methods
+
 
 class UserPreferences(models.Model):
     user = models.OneToOneField(

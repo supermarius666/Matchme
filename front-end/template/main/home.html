@@ -5,6 +5,7 @@
 	<link rel="stylesheet" href="{% static 'css/main/home.css' %}">
 {% endblock %}
 {% block content %}
+Ciao {{ request.user.username }}!
 <div class="page-container">
   <div class="stack-area">
     
@@ -59,7 +60,7 @@
             </div>
             <div class="message user">Che fai domani?</div>
             <div class="message other">Nulla, perché?</div>
-            <div class="message user">Si va a letto?</div>
+            <div class="message user">Si va a comprare il latte?</div>
             <div class="message other">Mi sa proprio di sì!!!</div>
           </div>
         </li>
@@ -90,11 +91,11 @@
           <div class="content">Eccoci alla quinta!</div>
         </li>
         <li class="rcard floating-card">
-          <div class="sub">Love</div>
+          <div class="sub">LUCA</div>
           <div class="content">Per le conversazioni più che originali</div>
         </li>
         <li class="rcard floating-card">
-          <div class="sub">SORECA</div>
+          <div class="sub">MIAO</div>
           <div class="content">Per le conversazioni più che originali</div>
         </li>
       </ul>
@@ -123,7 +124,7 @@
     </a>
 
     <!-- Pulsante Google Play Store -->
-    <a href="https://play.google.com/store/apps/details?id=com.tinder" target="_blank" class="download-button">
+    <a href="https://play.google.com/" target="_blank" class="download-button">
       <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" 
            alt="Google Play Store" height="50">
     </a>
@@ -131,6 +132,8 @@
   </div>
 </div>
 
-
 {% endblock %}
-<script src="{% static 'js/main/home.js' %}"></script>
+
+{% block script %}
+  <script src="{% static 'js/main/home.js' %}"></script>
+{% endblock %}

@@ -99,20 +99,20 @@ main {
 }
 
 .navbar-actions .btn-login {
-    background-color: #ff4081;
-    /* Accent color */
-    color: #fff;
+    background-color: #ff4081; /* Accent color */
+    color: #fff; /* White text */
     border: none;
     padding: 8px 18px;
-    /* Adjusted padding slightly */
-    border-radius: 20px;
-    /* Pill shape */
-    cursor: pointer;
+    border-radius: 20px; /* Pill shape */
+    cursor: pointer; /* Indicate it's clickable */
     font-size: 0.95em;
-    /* Adjusted font size slightly */
     transition: background-color 0.3s ease;
-}
 
+    /* AGGIUNGI/ASSICURATI DI AVERE QUESTI PER FARLO SEMBRARE UN PULSANTE E NON UN LINK */
+    text-decoration: none; /* Rimuove la sottolineatura predefinita del link */
+    display: inline-block; /* Permette di applicare padding e margin correttamente, utile per dimensioni "da pulsante" */
+    /* Se necessario, potresti aggiungere text-align: center; se vuoi centrare il testo all'interno del padding */
+}
 .navbar-actions .btn-login:hover {
     background-color: #e03570;
     /* Darker shade on hover */

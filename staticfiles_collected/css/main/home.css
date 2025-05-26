@@ -262,7 +262,7 @@ body {
 
 /* get_started */
 .hero-section {
-	background-image: url("{% static 'img/get_started.jpg' %}");
+	background-image: url("/static/img/get_started.jpg");
 	background-size: cover;
 	background-position: center;
 	height: 100vh;
@@ -275,40 +275,76 @@ body {
 }
 
 
-  .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 1;
-  }
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.6);
+	z-index: 1;
+}
 
-  .content_get_started {
-    position: relative;
-    z-index: 2;
-    color: #fff;
-  }
+.content_get_started {
+	position: relative;
+	z-index: 2;
+	color: #fff;
+}
 
-  .content h1 {
-    font-size: 3.5rem;
-    font-weight: bold;
-    margin-bottom: 30px;
-  }
+.content h1 {
+	font-size: 3.5rem;
+	font-weight: bold;
+	margin-bottom: 30px;
+}
 
-  .cta-button {
-    background-color: #ff3e5c;
-    border: none;
-    border-radius: 999px;
-    padding: 15px 35px;
-    color: #fff;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  }
+.cta-button {
+	background-color: #ff3e5c;
+	border: none;
+	border-radius: 999px;
+	padding: 15px 35px;
+	color: #fff;
+	font-size: 1.2rem;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
 
-  .cta-button:hover {
-    background-color: #e03250;
-  }
+.cta-button:hover {
+	background-color: #e03250;
+}
+
+/* download section */
+.download-section {
+	text-align: center;
+	margin: 4rem 0;
+}
+
+.download-section h2 {
+	margin-bottom: 2rem;
+}
+
+.download-buttons {
+	display: flex;
+	justify-content: center;
+	gap: 2rem;
+	/* Spaziatura tra i pulsanti */
+}
+
+.download-button {
+	width: 150px;
+	/* Imposta una larghezza fissa per i pulsanti */
+}
+
+.download-button img {
+	width: 100%;
+	/* Assicura che l'immagine occupi tutta la larghezza del pulsante */
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	transition: transform 0.3s ease;
+	/* Aggiunge una transizione per l'hover */
+}
+
+.download-button img:hover {
+	transform: scale(1.05);
+	/* Effetto di ingrandimento al passaggio del mouse */
+}
