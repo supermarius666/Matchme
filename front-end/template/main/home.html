@@ -5,7 +5,6 @@
 	<link rel="stylesheet" href="{% static 'css/main/home.css' %}">
 {% endblock %}
 {% block content %}
-Ciao {{ request.user.username }}!
 <div class="page-container">
   <div class="stack-area">
     
@@ -56,11 +55,11 @@ Ciao {{ request.user.username }}!
             <!-- Chat content -->
             <div class="user-header">
               <img src="https://i.pravatar.cc/40?img=3" class="avatar" alt="Avatar Giulia" />
-              <span class="username">Giulia</span>
+              <span class="username">Giulio</span>
             </div>
             <div class="message user">Che fai domani?</div>
             <div class="message other">Nulla, perché?</div>
-            <div class="message user">Si scopa?</div>
+            <div class="message user">Si esce?</div>
             <div class="message other">Mi sa proprio di sì!!!</div>
           </div>
         </li>
@@ -91,7 +90,7 @@ Ciao {{ request.user.username }}!
           <div class="content">Eccoci alla quinta!</div>
         </li>
         <li class="rcard floating-card">
-          <div class="sub">SUCA</div>
+          <div class="sub">Bau</div>
           <div class="content">Per le conversazioni più che originali</div>
         </li>
         <li class="rcard floating-card">
@@ -104,14 +103,44 @@ Ciao {{ request.user.username }}!
   </div>
 </div>
 
+<!-- marquee -->
+<div class="gallery-container">
+<div class="gallery">
+    <h1>MATCHME</h1>
+    <h1>MATCHME</h1>
+    <h1>MATCHME</h1>
+    <section>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </section>
+
+    <section>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+    </section>
+
+  <section></section>
+</div>
+</div>
+
+
 <section class="hero-section">
     <div class="overlay"></div>
     <div class="content_get_started">
       <!-- <h1>Trova chi fa per te con MatchMe</h1> -->
        <h1>Trova il tuo match ora</h1>
-      <button class="cta-button">Crea il tuo profilo</button>
+        <a href="{% url 'authenticate' %}" class="btn_start">Crea il tuo profilo</a>
     </div>
 </section>
+
 
 <div class="container download-section">
   <h2>Download Now!</h2>

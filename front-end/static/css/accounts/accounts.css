@@ -1,9 +1,9 @@
 body {
-    background-image: url("/static/img/login_wall.jpg");
+    background-image: url("/static/img/login_wall.jpg"); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed; 
+    background-attachment: fixed;
     font-family: sans-serif;
 }
 
