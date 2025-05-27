@@ -1,5 +1,5 @@
 body {
-    background-image: url("/static/img/login_wall.jpg"); 
+    background-image: url("/static/img/login_wall.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -107,4 +107,54 @@ button:hover {
     .form-row .form-group {
         margin-bottom: 15px;
     }
+}
+
+.input-icon {
+    position: relative;
+}
+
+.input-icon i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    font-size: 16px;
+    pointer-events: none;
+}
+
+.input-icon input[type="text"] {
+    padding-left: 35px;
+}
+
+.password-toggle {
+    position: relative;
+}
+
+.password-toggle i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #aaa;
+}
+
+.password-toggle .fa-eye,
+.password-toggle .fa-eye-slash {
+    pointer-events: auto;
+    right: 10px;
+    left: auto;
+}
+
+.form-group.input-icon.password-toggle input[type="password"] {
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
+.error-message {
+    color: #d9534f;
+    background-color: #f2dede;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
 }

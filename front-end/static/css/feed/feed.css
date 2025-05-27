@@ -296,7 +296,10 @@ body, html {
         padding: 12px 0;
     }
 
-    .feed-nav-button i,
+    .feed-nav-button i {
+        margin-right: 0;
+    }
+
     .feed-create-post-button i {
         margin-right: 0;
     }

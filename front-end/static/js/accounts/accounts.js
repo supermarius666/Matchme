@@ -18,3 +18,11 @@ const loginCard = document.getElementById('login-card');
             toggleToLoginLink.style.display = 'none';
             toggleToRegistrationLink.style.display = 'inline';
         });
+
+
+/* nascodi o meno la password */
+document.getElementById('toggle-password').addEventListener('click', function () {
+  const pwd = document.getElementById('login-password');
+  pwd.type = pwd.type === 'password' ? 'text' : 'password';
+  this.classList.toggle('fa-eye-slash');
+});
