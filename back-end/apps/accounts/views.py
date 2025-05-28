@@ -57,27 +57,35 @@ def logout_view(request):
 @login_required
 def preferences_view(request):
     if request.method == 'POST':
-        selected_prefs = request.POST.getlist('interested_in')
+      
+        selected_prefs = request.POST.getlist('interested_in')  
+
+        # campo bio 
         bio = request.POST.get('bio', '').strip()[:255]
 
+        
         preferences, created = UserPreferences.objects.get_or_create(user=request.user)
 
-        all_pref = UserPreferences._meta.get_fields()
+       
+        all_pref = UserPreferences._meta.get_fields()        
         interests = [field.name for field in all_pref]
-
+        
         for interest in interests:
+            
             if interest in selected_prefs:
+                
                 setattr(preferences, interest, True)
-
+    
         preferences.save()
 
+       
         profile = UserProfile.objects.get(username=request.user.username)
         profile.bio = bio
         profile.save()
 
-        return redirect('upload_photo')
+        return redirect('upload_photo') 
 
-    return render(request, 'accounts/preferences.html')
+    return render(request, 'accounts/preferences.html') 
 
 @login_required
 def update_bio(request):
@@ -86,7 +94,8 @@ def update_bio(request):
         profile, _ = UserProfile.objects.get_or_create(user=request.user)
         profile.bio = bio
         profile.save()
-    return redirect('profile')
+    return redirect('profile')  
+
 
 @login_required
 def upload_photo(request):
@@ -96,16 +105,20 @@ def upload_photo(request):
             user_profile = request.user
             user_profile.profile_picture = profile_pic
             user_profile.save()
-            return redirect('home')
-
+            return redirect('home')  
+    
     return render(request, 'accounts/upload_photo.html')
 
-def profile(request):
-    user_profile = request.user.profile
+
+
+def profile(request): 
+    user_profile = request.user.profile  
     user_preferences = UserPreferences.objects.get(user=request.user)
     return render(request, 'accounts/profile.html', {
-        'user_profile': user_profile,
+        'user_profile': user_profile, 
         'user_preferences': user_preferences,
-        'user': request.user,
-        'is_owner': True
+        'user': request.user,       
+        'is_owner': True             
     })
+
+

@@ -37,6 +37,7 @@
 /* Messaggi inviati da me */
 .my-message {
     justify-content: flex-end;
+    margin-left: auto;
 }
 
 /* Messaggi ricevuti */

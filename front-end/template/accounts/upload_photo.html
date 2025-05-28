@@ -90,14 +90,14 @@
                 padding: 20px;
             }
             .profile-pic-container {
-                 width: 120px;
-                 height: 120px;
+                width: 120px;
+                height: 120px;
             }
         }
     </style>
 </head>
 <body>
-   <div class="container">
+    <div class="container">
         <div class="card">
             <h2>Carica Foto Profilo</h2>
             <form id="upload-photo-form" method="post" action="{% url 'feed' %}" enctype="multipart/form-data">
@@ -147,7 +147,7 @@
                     profilePic.src = defaultAvatarSrc;
                 }
             } else {
-                 profilePic.src = defaultAvatarSrc;
+                profilePic.src = defaultAvatarSrc;
             }
         });
     </script>

@@ -2,14 +2,14 @@
 {% load static %}
 {% block title %} | Chat with {{ chat_user }}{% endblock %}
 {% block style %}
-	<link rel="stylesheet" href="{% static 'css/chat/chat.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/chat/chat.css' %}"/>
 {% endblock %}
 {% block content %}
 
 <div class="chat-container">
 
     <div class="chat-header">
-        <h2>{{ room.name }}</h2>
+        <h2>{{ chat_user }}</h2> 
     </div>
 
     <div id="messages" class="messages-container">
@@ -37,12 +37,19 @@
     </form>
 
 </div>
-
 {% endblock %}
 
 {% block script %}
 
 <script type="text/javascript">
+
+    function formatTime(timeString) {
+        const date = new Date(timeString);
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        return `${hours}:${minutes}`;
+    }
+
     roomName = "{{ room.name }}"
     username = "{{ request.user.username }}"
 
@@ -54,16 +61,24 @@
         let data = JSON.parse(event.data)
         console.log("Data: ", data)
 
+        
+        let formatedTime = formatTime(data.time_stamp)
         if (data.type === "chat") {
-            let messages = document.getElementById("messages")
-
-            let html =  `<div>`
-                html +=     `<h5 style="display: inline-block;">${data.username}: </h5>`
-                html +=     `<p style="display: inline-block;"> ${data.message} </p>`
-                html +=     `<p style="display: inline-block;"> | ${data.time_stamp}</p>`
-                html += `</div>`
+            let messages = document.getElementById("messages");
             
-            messages.insertAdjacentHTML("beforeend", html)
+            let messageClass = (data.username === username) ? "my-message" : "other-message";
+
+            let html = `<div class="message-container ${messageClass}">
+                            <div class="message-bubble">
+                                <div class="message-text">${data.message}</div>
+                                <div class="message-timestamp">${formatedTime}</div>
+                            </div>
+                        </div>`;
+
+            messages.insertAdjacentHTML("beforeend", html);
+            
+            messages.scrollTop = messages.scrollHeight;
+
         }
     }
 
@@ -76,7 +91,7 @@
 
         chatSocket.send(JSON.stringify({
             "username":username,
-            "message":message            
+            "message":message          
         }))
         
         form.reset()

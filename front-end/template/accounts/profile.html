@@ -176,7 +176,6 @@
             margin-right: 0;
         }
 
-
         .intro-box p {
             margin-top: 0;
             margin-bottom: 15px;
@@ -210,7 +209,6 @@
             border-color: transparent;
         }
 
-
         .intro-box #edit-bio-btn {
             display: inline-block;
             background-color: #e4e6eb;
@@ -227,7 +225,6 @@
         .intro-box #edit-bio-btn:hover {
             background-color: #d8dade;
         }
-
 
         .create-post-area {
             background-color: #fff;
@@ -289,7 +286,6 @@
         .logout-form button:hover {
             background-color: #166fe5;
         }
-
 
         @media (max-width: 768px) {
             .container {
@@ -354,7 +350,6 @@
                 font-size: 14px;
             }
         }
-
     </style>
 </head>
 <body>
@@ -370,7 +365,6 @@
                     <h1>{{ user.first_name }} {{ user.last_name }}</h1>
                 </div>
                 <p class="username-display">@{{ user.username }}</p>
-
             </div>
 
             <div class="profile-nav">
@@ -501,7 +495,7 @@
                             return response.json();
                         })
                         .then(data => {
-                            console.log('Bio saved:', data);
+                               console.log('Bio saved:', data);
                         })
                         .catch(error => {
                             console.error('Fetch error:', error);
