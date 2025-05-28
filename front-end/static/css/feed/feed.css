@@ -1,3 +1,256 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    background-color: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 60px;
+
+    gap: 40px;
+}
+
+main {
+    flex-grow: 1;
+}
+
+.navbar {
+    background-color: #fff;
+    color: #333;
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    flex-wrap: wrap;
+}
+
+.navbar-brand a {
+    color: #ff4081;
+    text-decoration: none;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+.navbar-nav {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1;
+    justify-content: center;
+    transition: max-height 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+.navbar-nav li {
+    margin: 0 15px;
+}
+
+.navbar-nav a {
+    color: #333;
+    text-decoration: none;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav a:hover {
+    color: #ff4081;
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-actions .btn-login {
+    background-color: #ff4081;
+    color: #fff;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.95em;
+    transition: background-color 0.3s ease;
+
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.navbar-actions .btn-login:hover {
+    background-color: #e03570;
+}
+
+.hamburger {
+    display: none;
+    font-size: 1.6em;
+    cursor: pointer;
+    color: #333;
+    margin-left: 20px;
+}
+
+.footer {
+    background-color: #1a1a1a;
+    color: #fce4ec;
+    padding: 1.5rem 1rem;
+    position: sticky;
+    overflow: hidden;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    flex: 1 1 200px;
+    margin: 10px;
+}
+
+.footer-title {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #ff4081;
+    margin-bottom: 10px;
+}
+
+.footer-heading {
+    font-size: 1.2em;
+    margin-bottom: 8px;
+    color: #f8bbd0;
+}
+
+.footer-text {
+    font-size: 0.9em;
+    color: #fce4ec;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section a {
+    color: #fce4ec;
+    text-decoration: none;
+    display: block;
+    margin: 6px 0;
+    font-size: 0.95em;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.footer-section a:hover {
+    transform: translateX(5px);
+    text-shadow: 1px 1px 5px #ff80ab;
+    color: #ff80ab;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.social-links a {
+    font-size: 1.2em;
+    color: #fce4ec;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-links a:hover {
+    transform: scale(1.2);
+    color: #ff4081;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 0.85em;
+    color: #f8bbd0;
+    margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-section {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar .container {
+        justify-content: space-between;
+    }
+
+    .navbar-brand {
+        flex-basis: auto;
+        margin-right: auto;
+    }
+
+    .navbar-actions {
+        flex-basis: auto;
+        order: 2;
+    }
+
+    .hamburger {
+        display: block;
+        order: 3;
+    }
+
+    .navbar-nav {
+        max-height: 0;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+        flex-basis: 100%;
+    }
+
+    .navbar-nav.active {
+        max-height: 200px;
+    }
+
+    .navbar-nav li {
+        margin: 10px 0;
+    }
+
+    .navbar-brand,
+    .navbar-actions,
+    .hamburger {
+        order: initial;
+    }
+
+    .navbar-nav.active {
+        order: 4;
+    }
+}
+
 .main-content-wrapper {
     display: flex;
     height: 100%;
@@ -103,6 +356,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
     -ms-overflow-style: none;
     scrollbar-width: none;
 }

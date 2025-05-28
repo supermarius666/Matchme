@@ -61,19 +61,18 @@
         let data = JSON.parse(event.data)
         console.log("Data: ", data)
 
-        
         let formatedTime = formatTime(data.time_stamp)
         if (data.type === "chat") {
             let messages = document.getElementById("messages");
-            
+                        
             let messageClass = (data.username === username) ? "my-message" : "other-message";
 
             let html = `<div class="message-container ${messageClass}">
-                            <div class="message-bubble">
-                                <div class="message-text">${data.message}</div>
-                                <div class="message-timestamp">${formatedTime}</div>
-                            </div>
-                        </div>`;
+                                <div class="message-bubble">
+                                    <div class="message-text">${data.message}</div>
+                                    <div class="message-timestamp">${formatedTime}</div>
+                                </div>
+                            </div>`;
 
             messages.insertAdjacentHTML("beforeend", html);
             
@@ -91,7 +90,7 @@
 
         chatSocket.send(JSON.stringify({
             "username":username,
-            "message":message          
+            "message":message           
         }))
         
         form.reset()
