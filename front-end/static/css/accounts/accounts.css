@@ -1,9 +1,9 @@
 body {
-    background-image: url("/static/img/login_wall.jpg");
+    background-image: url("/static/img/login_wall.jpg"); /* Modifica il percorso in base al tuo file */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed; 
+    background-attachment: fixed; /* Fa sì che l'immagine rimanga fissa durante lo scroll */
     font-family: sans-serif;
 }
 
@@ -108,3 +108,83 @@ button:hover {
         margin-bottom: 15px;
     }
 }
+
+
+/* nuovo stile */
+.input-icon {
+    position: relative;
+    /* Aggiungi overflow: hidden se noti problemi di testo che fuoriesce */
+    /* overflow: hidden; */
+}
+
+.input-icon i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    font-size: 16px;
+    pointer-events: none; /* L'icona non deve essere cliccabile */
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"],
+.form-group input[type="date"],
+.form-group select {
+    width: 100%;
+    padding: 10px; /* Padding di default */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    /* Rimuovi padding-left: 35px; da qui se era presente */
+}
+
+
+/* Applica padding-left solo agli input all'interno di .input-icon */
+.input-icon input[type="text"]{
+    padding-left: 35px; /* Aumenta il padding a sinistra per fare spazio all'icona */
+    /* Assicurati che questo sia specifico per gli input con icona */
+}
+
+
+.password-toggle {
+    position: relative;
+    /* Questa classe dovrebbe essere combinata con input-icon se vuoi entrambe le icone */
+    /* Se la classe input-icon è già presente sul div, questi stili si applicano */
+}
+
+.password-toggle i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #aaa;
+}
+
+.password-toggle .fa-eye,
+.password-toggle .fa-eye-slash { 
+    pointer-events: auto;
+    right: 10px; 
+    left: auto; 
+}
+
+.form-group.input-icon.password-toggle input[type="password"] {
+    padding-left: 35px;
+    padding-right: 35px; 
+}
+
+.input-icon .fa-user,
+.input-icon .fa-envelope,
+.input-icon .fa-calendar-alt,
+.input-icon .fa-lock {
+}
+
+.error-message {
+    color: #d9534f;
+    background-color: #f2dede;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+

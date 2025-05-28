@@ -2,24 +2,53 @@
 {% load static %}
 {% block title %} | Chat with {{ chat_user }}{% endblock %}
 {% block style %}
+    {# Link to the new CSS file #}
 	<link rel="stylesheet" href="{% static 'css/chat/chat.css' %}"/>
 {% endblock %}
 {% block content %}
-<h1>{{ room.name }}'s chat</h1>
 
-    <!-- input dove scrivere messaggi -->
-    <form id="chat_form">
-        <input type="text" name="message">
-    </form>
+{# Main container for the chat layout #}
+<div class="chat-container">
 
-    <!-- container dei messaggi -->
-    <div id="messages">
+    {# Optional: Header bar (replace h1 or style it) #}
+    <div class="chat-header">
+        <h2>{{ room.name }}</h2> {# Or {{ chat_user.username }} for 1:1 chat #}
+        {# Add status or profile picture here if you have them #}
+    </div>
+
+    {# container dei messaggi - will scroll #}
+    <div id="messages" class="messages-container">
         {% for message in messages %}
-            <div>
-                <h5 style="display: inline-block;">{{ message.user_sender.username }}: </h5><p style="display: inline-block;">{{ message.message_payload }} </p><p style="display: inline-block;"> | {{ message.time_stamp }}</p>
+            {# Message container: Aligns the bubble left or right #}
+            <div class="message-container {% if message.user_sender.username == request.user.username %}my-message{% else %}other-message{% endif %}">
+                {# The message bubble itself #}
+                <div class="message-bubble">
+                    {# Show username only for other users in group chats #}
+                    {% if message.user_sender.username != request.user.username and room.is_group %} {# Assuming room has an is_group attribute #}
+                        <div class="message-username">{{ message.user_sender.username }}</div>
+                    {% endif %}
+                    <div class="message-text">{{ message.message_payload }}</div>
+                    {# Timestamp inside the bubble, aligned right #}
+                    <div class="message-timestamp">{{ message.time_stamp|date:"H:i" }}</div> {# Format time as HH:MM #}
+                </div>
             </div>
         {% endfor %}
     </div>
+
+    {# input dove scrivere messaggi - fixed at bottom #}
+    <form id="chat_form" class="message-input-form">
+        <input type="text" name="message" placeholder="Type a message..." autocomplete="off">
+        <button type="submit" class="send-button">
+            {# SVG icon for send (paper airplane) #}
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="send-icon">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+        </button>
+    </form>
+
+</div> {# End chat-container #}
+
 {% endblock %}
 
 {% block script %}

@@ -1,0 +1,94 @@
+/* Contenitore generale della chat */
+.chat-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Header */
+.chat-header {
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/* Contenitore dei messaggi */
+.messages-container {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+}
+
+/* Ogni messaggio */
+.message-container {
+    display: flex;
+    margin-bottom: 10px;
+    max-width: 80%;
+}
+
+/* Messaggi inviati da me */
+.my-message {
+    justify-content: flex-end;
+}
+
+/* Messaggi ricevuti */
+.other-message {
+    justify-content: flex-start;
+}
+
+/* Bolla del messaggio */
+.message-bubble {
+    background-color: #e0e0e0;
+    padding: 10px 15px;
+    border-radius: 15px;
+    position: relative;
+    max-width: 100%;
+}
+
+.my-message .message-bubble {
+    background-color: #cce5ff;
+}
+
+/* Username */
+.message-username {
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+/* Timestamp */
+.message-timestamp {
+    font-size: 0.75em;
+    text-align: right;
+    margin-top: 5px;
+    color: #555;
+}
+
+/* Form input */
+.message-input-form {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.message-input-form input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+}
+
+.send-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}

@@ -5,7 +5,6 @@
 	<link rel="stylesheet" href="{% static 'css/main/home.css' %}">
 {% endblock %}
 {% block content %}
-Ciao {{ request.user.username }}!
 <div class="page-container">
   <div class="stack-area">
     
@@ -60,7 +59,7 @@ Ciao {{ request.user.username }}!
             </div>
             <div class="message user">Che fai domani?</div>
             <div class="message other">Nulla, perché?</div>
-            <div class="message user">Si scopa?</div>
+            <div class="message user">Si ?</div>
             <div class="message other">Mi sa proprio di sì!!!</div>
           </div>
         </li>
@@ -91,7 +90,7 @@ Ciao {{ request.user.username }}!
           <div class="content">Eccoci alla quinta!</div>
         </li>
         <li class="rcard floating-card">
-          <div class="sub">SUCA</div>
+          <div class="sub"></div>
           <div class="content">Per le conversazioni più che originali</div>
         </li>
         <li class="rcard floating-card">
@@ -104,20 +103,51 @@ Ciao {{ request.user.username }}!
   </div>
 </div>
 
+<!-- marquee -->
+<div class="gallery-container">
+<div class="gallery">
+    <h1>MATCHME</h1>
+    <h1>MATCHME</h1>
+    <h1>MATCHME</h1>
+    <section>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </section>
+
+    <section>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+    </section>
+
+  <section></section>
+</div>
+</div>
+
+
 <section class="hero-section">
     <div class="overlay"></div>
     <div class="content_get_started">
       <!-- <h1>Trova chi fa per te con MatchMe</h1> -->
        <h1>Trova il tuo match ora</h1>
-      <button class="cta-button">Crea il tuo profilo</button>
+        <a href="{% url 'authenticate' %}" class="btn_start">Crea il tuo profilo</a>
     </div>
 </section>
 
-<div class="container download-section">
-  <h2>Download Now!</h2>
-  <div class="download-buttons" style="display: flex; gap: 1rem; align-items: center;">
-    
-    <!-- Pulsante Apple App Store -->
+<section class="download-section">
+  <div class="download-content">
+    <h1>Download MatchMe and start chatting instantly!</h1>
+    <p>Find compatible people near you — anytime, anywhere.</p>
+
+    <div class="download-buttons">
+      <!-- Pulsante Apple App Store -->
     <a href="https://apps.apple.com" target="_blank" class="download-button">
       <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" 
            alt="Apple App Store" height="50">
@@ -128,9 +158,14 @@ Ciao {{ request.user.username }}!
       <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" 
            alt="Google Play Store" height="50">
     </a>
+    </div>
 
+     <div class="rating">
+      ⭐⭐⭐⭐⭐ Rated 4.8 on App Store · 10,000+ downloads
+    </div>
   </div>
-</div>
+</section>
+
 
 {% endblock %}
 

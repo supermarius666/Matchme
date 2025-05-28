@@ -43,3 +43,39 @@ document.querySelectorAll('.left .card').forEach(card => {
 	const randomDeg = (Math.random() * 12) - 4; // Rotazione tra -4 e 8 gradi
 	card.style.setProperty('--rotation', `${randomDeg}deg`);
 });
+
+/* marquee */
+ gsap.registerPlugin(ScrollTrigger)
+    gsap.to("body", {
+        backgroundColor: "black",
+        scrollTrigger: {
+            trigger: ".gallery-container",
+            start: "top center", 
+            end: "50% center",
+            toggleActions: "play reverse play reverse",
+            scrub: true,
+        }
+    });
+    const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+    })
+
+    function raf(time) {
+        lenis.raf(time)
+        requestAnimationFrame(raf)
+    }
+
+    requestAnimationFrame(raf)
+
+    const tl = gsap.timeline({
+        scrollTrigger: {
+        trigger: '.mimg',
+        scrub: true
+        }
+    })
+    .to('.mimg', {
+        stagger: .2,
+        y: -700,
+        scrub: true
+    })

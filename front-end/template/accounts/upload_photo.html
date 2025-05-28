@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carica Foto Profilo</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        .card {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            text-align: center; /* Centra la label sopra l'immagine */
+        }
+
+        /* Stili per l'area circolare dell'immagine */
+        .profile-pic-container {
+            width: 150px; /* Dimensione del cerchio */
+            height: 150px;
+            border-radius: 50%; /* Rende l'area circolare */
+            overflow: hidden; /* Nasconde le parti dell'immagine che escono dal cerchio */
+            margin: 0 auto 20px auto; /* Centra il contenitore e aggiunge margine sotto */
+            background-color: #ccc; /* Colore di sfondo di fallback */
+            cursor: pointer; /* Indica che è cliccabile */
+            position: relative; /* Per posizionare l'input file */
+            display: flex; /* Centra l'immagine */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-pic-container img {
+            display: block; /* Rimuove spazio extra sotto l'immagine */
+            width: 100%; /* Fa in modo che l'immagine copra il contenitore */
+            height: 100%;
+            object-fit: cover; /* Assicura che l'immagine copra il cerchio senza distorsioni */
+        }
+
+        /* Nasconde l'input file originale */
+        .form-group input[type="file"] {
+            display: none;
+        }
+
+
+        button {
+            background-color: #5cb85c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        /* Media query per schermi più piccoli */
+        @media (max-width: 480px) {
+            .card {
+                width: 90%;
+                padding: 20px; /* Riduci il padding su schermi piccoli */
+            }
+            .profile-pic-container {
+                 width: 120px;
+                 height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+   <div class="container">
+        <div class="card">
+            <h2>Carica Foto Profilo</h2>
+            <form id="upload-photo-form" method="post" action="{% url 'upload_photo' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label>Clicca sul cerchio per caricare la foto:</label>
+                    <div class="profile-pic-container" id="profile-pic-container">
+                        <img id="profile-pic" src="{{ user.profile.profile_picture.url }}" alt="Avatar di default">
+                    </div>
+
+                    <input type="file" id="image-upload" name="profile_picture" accept="image/*">
+                </div>
+
+                <button type="submit">Salva Foto</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const profilePicContainer = document.getElementById('profile-pic-container');
+        const profilePic = document.getElementById('profile-pic');
+        const imageUpload = document.getElementById('image-upload');
+        const defaultAvatarSrc = profilePic.src; // Salva il percorso dell'immagine di default
+
+        // Funzione per gestire il click sul contenitore dell'immagine
+        profilePicContainer.addEventListener('click', () => {
+            imageUpload.click(); // Attiva il click sull'input file nascosto
+        });
+
+        // Funzione per gestire il cambio dell'input file
+        imageUpload.addEventListener('change', (event) => {
+            const file = event.target.files[0]; // Ottiene il file selezionato
+
+            if (file) {
+                // Controlla se è un'immagine (opzionale, ma consigliato)
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+
+                    reader.onload = (e) => {
+                        // Visualizza l'immagine selezionata nel cerchio
+                        profilePic.src = e.target.result;
+                    };
+
+                    // Legge il file come Data URL (per la visualizzazione)
+                    reader.readAsDataURL(file);
+                } else {
+                    alert('Per favore, seleziona un file immagine.');
+                    // Resetta l'input file e l'immagine visualizzata se il file non è un'immagine
+                    imageUpload.value = ''; // Pulisce l'input file
+                    profilePic.src = defaultAvatarSrc; // Ripristina l'immagine di default
+                }
+            } else {
+                // Se l'utente annulla la selezione del file, ripristina l'immagine di default
+                 profilePic.src = defaultAvatarSrc;
+            }
+        });
+
+        // Quando il form viene inviato, l'input file nascosto conterrà il file selezionato (se c'è)
+        // Se non è stato selezionato nessun file, l'input file sarà vuoto e Django gestirà
+        // l'assenza del file in base alla definizione del tuo form e model.
+
+    </script>
+</body>
+</html>

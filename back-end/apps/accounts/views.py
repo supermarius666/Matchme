@@ -44,7 +44,7 @@ def auth_view(request):
                     gender=sesso
                 )
                 login(request, user)
-                return redirect('home')
+                return redirect('preferences')
 
     return render(request, 'accounts/login_register.html')
 
@@ -58,21 +58,31 @@ def logout_view(request):
 def preferences_view(request):
     if request.method == 'POST':
         # Ottieni le preferenze selezionate dal form
-        interests = request.POST.getlist('interested_in')  # getlist per raccogliere tutte le checkbox selezionate
+        selected_prefs = request.POST.getlist('interested_in')  # getlist per raccogliere tutte le checkbox selezionate
         
         # campo bio 
         bio = request.POST.get('bio', '').strip()[:255]
 
         # Trova o crea l'oggetto UserPreferences associato all'utente
         preferences, created = UserPreferences.objects.get_or_create(user=request.user)
+        print("Preferences A")
 
         # Salva le preferenze nell'oggetto UserPreferences
-        preferences.interested_in = interests
+        all_pref = UserPreferences._meta.get_fields()        
+        interests = [field.name for field in all_pref]
+        
+        for interest in interests:
+            
+            if interest in selected_prefs:
+                # lo metto true
+                setattr(preferences, interest, True)
+    
         preferences.save()
-
+        print("Preferences B")
 
         # Salva o crea UserProfile
-        profile, _ = UserProfile.objects.get_or_create(user=request.user)
+        profile = UserProfile.objects.get(username=request.user.username)
+        print(f"User{profile}")
         profile.bio = bio
         profile.save()
 
@@ -88,12 +98,6 @@ def update_bio(request):
         profile.bio = bio
         profile.save()
     return redirect('profile')  # Sostituisci con il nome corretto della tua view del profilo
-
-@login_required
-def view_preferences(request):
-    preferences = UserPreferences.objects.get(user=request.user)
-    return render(request, 'accounts/view_preferences.html', {'preferences': preferences})
-
 
 
 @login_required
