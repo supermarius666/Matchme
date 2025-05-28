@@ -100,7 +100,7 @@
    <div class="container">
         <div class="card">
             <h2>Carica Foto Profilo</h2>
-            <form id="upload-photo-form" method="post" action="{% url 'upload_photo' %}" enctype="multipart/form-data">
+            <form id="upload-photo-form" method="post" action="{% url 'feed' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 
                 <div class="form-group">

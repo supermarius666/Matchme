@@ -107,6 +107,9 @@ class UserPreferences(models.Model):
     )
 
     # Fields TBD
+    male = models.BooleanField(default=False)
+    female = models.BooleanField(default=False)
+    other = models.BooleanField(default=False)
     musica = models.BooleanField(default=False)
     videogiochi = models.BooleanField(default=False)
     sport = models.BooleanField(default=False)

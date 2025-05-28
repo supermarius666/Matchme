@@ -1,0 +1,532 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.username }} | Profilo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1010px;
+            margin: 0 auto;
+            background-color: #fff;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            min-height: 100vh;
+        }
+
+        .cover-photo-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background-color: #ddd;
+            background-image: url("{% static 'img/default_cov.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            border-bottom: 1px solid #dadde1;
+        }
+
+        .profile-header-area {
+            background-color: #fff;
+            padding: 0 20px;
+            border-bottom: 1px solid #dadde1;
+        }
+
+        .profile-header-content {
+            display: flex;
+            align-items: flex-start;
+            transform: translateY(-50%);
+            margin-bottom: -80px;
+            padding-top: 130px;
+        }
+
+        .profile-picture {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            object-fit: cover;
+            margin-right: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .user-name {
+            margin-top: auto;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .user-name h1 {
+            margin: 0;
+            font-size: 32px;
+            color: #050505;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .username-display {
+            font-size: 17px;
+            color: #65676b;
+            display: block;
+            margin-top: -15px;
+            margin-bottom: 20px;
+        }
+
+        .profile-nav {
+            margin-top: 10px;
+            padding-left: 190px;
+            padding-bottom: 10px;
+        }
+
+        .profile-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .profile-nav li {
+            margin-right: 25px;
+        }
+
+        .profile-nav a {
+            text-decoration: none;
+            color: #65676b;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 15px 0;
+            display: block;
+            border-bottom: 3px solid transparent;
+            transition: color 0.2s ease, border-bottom-color 0.2s ease;
+        }
+
+        .profile-nav a:hover {
+            color: #1877f2;
+            border-bottom-color: #1877f2;
+        }
+
+        .profile-content {
+            display: flex;
+            padding: 20px;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .sidebar {
+            flex: 1;
+            max-width: 360px;
+        }
+
+        .main-content {
+            flex: 2;
+        }
+
+        .info-box, .preferences-box, .intro-box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .info-box h2, .preferences-box h2, .intro-box h2 {
+            font-size: 20px;
+            color: #050505;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .info-box p {
+            margin-bottom: 10px;
+            color: #65676b;
+            font-size: 15px;
+        }
+
+        .info-box strong {
+            color: #050505;
+        }
+
+        .preferences-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .preferences-box li {
+            background-color: #f0f2f5;
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            margin-right: 8px;
+            border-radius: 5px;
+            font-size: 15px;
+            color: #050505;
+            display: inline-block;
+        }
+        .preferences-box li:last-child {
+            margin-right: 0;
+        }
+
+
+        .intro-box p {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #65676b;
+            font-size: 15px;
+        }
+
+        .intro-box #bio-textarea {
+            width: 100%;
+            height: 120px;
+            resize: vertical;
+            font-size: 16px;
+            padding: 10px;
+            border: 1px solid #dadde1;
+            border-radius: 5px;
+            color: #333;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+            margin-bottom: 10px;
+        }
+
+        .intro-box #bio-textarea:focus {
+            border-color: #1877f2;
+            background-color: #fff;
+        }
+
+        .intro-box #bio-textarea[readonly] {
+            background-color: #f0f2f5;
+            cursor: default;
+            border-color: transparent;
+        }
+
+
+        .intro-box #edit-bio-btn {
+            display: inline-block;
+            background-color: #e4e6eb;
+            color: #050505;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+
+        .intro-box #edit-bio-btn:hover {
+            background-color: #d8dade;
+        }
+
+
+        .create-post-area {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .create-post-area textarea {
+            width: 100%;
+            border: none;
+            resize: none;
+            padding: 10px 0;
+            font-size: 16px;
+            margin-bottom: 10px;
+            outline: none;
+        }
+
+        .create-post-area .options {
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #f0f2f5;
+            padding-top: 10px;
+        }
+
+        .create-post-area .options button {
+            background: none;
+            border: none;
+            color: #65676b;
+            font-size: 15px;
+            cursor: pointer;
+            padding: 8px 10px;
+            border-radius: 5px;
+            transition: background-color 0.2s ease;
+        }
+
+        .create-post-area .options button:hover {
+            background-color: #f2f2f2;
+        }
+
+        .logout-form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .logout-form button {
+            background-color: #1877f2;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.2s ease;
+        }
+
+        .logout-form button:hover {
+            background-color: #166fe5;
+        }
+
+
+        @media (max-width: 768px) {
+            .container {
+                margin-top: 0;
+                box-shadow: none;
+            }
+            .profile-header-area {
+                padding: 0 10px;
+            }
+            .profile-header-content {
+                flex-direction: column;
+                align-items: center;
+                transform: translateY(-20%);
+                margin-bottom: -30px;
+                padding-top: 80px;
+            }
+            .profile-picture {
+                width: 120px;
+                height: 120px;
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            .user-name {
+                margin-top: 0;
+                margin-bottom: 5px;
+                text-align: center;
+            }
+            .username-display {
+                font-size: 15px;
+                margin-top: 0;
+                margin-bottom: 10px;
+                text-align: center;
+            }
+            .profile-nav {
+                padding-left: 0;
+                margin-top: 10px;
+                text-align: center;
+            }
+            .profile-nav ul {
+                justify-content: center;
+            }
+            .profile-content {
+                flex-direction: column;
+                padding: 10px;
+                gap: 10px;
+            }
+            .sidebar {
+                max-width: 100%;
+            }
+            .info-box, .preferences-box, .intro-box, .create-post-area {
+                padding: 15px;
+                margin-bottom: 10px;
+            }
+            .intro-box #bio-textarea {
+                height: 100px;
+            }
+            .logout-form {
+                margin-top: 10px;
+            }
+            .preferences-box li {
+                padding: 6px 10px;
+                font-size: 14px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="cover-photo-container">
+        </div>
+
+        <div class="profile-header-area">
+            <div class="profile-header-content">
+                <img class="profile-picture" src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo">
+
+                <div class="user-name">
+                    <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+                </div>
+                <p class="username-display">@{{ user.username }}</p>
+
+            </div>
+
+            <div class="profile-nav">
+                <ul>
+                    <li><a href="#">Timeline</a></li>
+                    <li><a href="#">Informazioni</a></li>
+                    <li><a href="#">Amici</a></li>
+                    <li><a href="#">Foto</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <div class="sidebar">
+                <div class="intro-box">
+                    <h2>Bio</h2>
+                    <textarea id="bio-textarea" maxlength="255" readonly>{{ user_profile.bio|default:"Aggiungi una breve biografia per parlare un po' di te." }}</textarea>
+                    <button id="edit-bio-btn" data-save-url="/save-bio-url/">Modifica</button>
+                </div>
+
+                <div class="info-box">
+                    <h2>Informazioni</h2>
+                    <p><strong>Nome Utente:</strong> {{ user.username }}</p>
+                    <p><strong>Nome Completo:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+                    <p><strong>Data di Nascita:</strong> {{ user_profile.birth_date|default:"Non specificata" }}</p>
+                </div>
+
+                <div class="info-box">
+                    <h2>Statistiche</h2>
+                    {% if user_profile.user_stats %}
+                        <p><strong>Match totali:</strong> {{ user_profile.user_stats.match_counter }}</p>
+                        <p><strong>Like inviati:</strong> {{ user_profile.user_stats.like_sent_counter }}</p>
+                        <p><strong>Dislike inviati:</strong> {{ user_profile.user_stats.dislike_sent_counter }}</p>
+                        <p><strong>Like ricevuti:</strong> {{ user_profile.user_stats.like_recv_counter }}</p>
+                        <p><strong>Dislike ricevuti:</strong> {{ user_profile.user_stats.dislike_recv_counter }}</p>
+                        {% if user_profile.user_stats.like_sent_counter > 0 %}
+                           <p><strong>Tasso di match:</strong> {{ user_profile.user_stats.match_rate|floatformat:2 }}%</p>
+                        {% else %}
+                           <p><strong>Tasso di match:</strong> N/D</p>
+                        {% endif %}
+                        <p><strong>Registrato il:</strong> {{ user_profile.user_stats.registration_day|date:"d/m/Y" }}</p>
+                    {% else %}
+                        <p>Statistiche non disponibili per questo utente.</p>
+                    {% endif %}
+                </div>
+
+                <div class="preferences-box">
+                    <h2>Interessi</h2>
+                    <ul>
+                        {% if user_preferences.interested_in %}
+                            {% for preference in user_preferences.interested_in %}
+                                <li>{{ preference|capfirst }}</li>
+                            {% endfor %}
+                        {% else %}
+                            <li>Nessun interesse specificato.</li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <div class="logout-form">
+                    <form method="POST" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit">Esci</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="main-content">
+                <div class="create-post-area">
+                    <textarea placeholder="A cosa stai pensando, {{ user.first_name }}?"></textarea>
+                    <div class="options">
+                        <button>Foto/Video</button>
+                        <button>Tagga Amici</button>
+                        <button>Stato d'animo/Attività</button>
+                    </div>
+                </div>
+
+                <div style="background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); text-align: center; color: #65676b;">
+                    Area per i post dell'utente
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const bioTextarea = document.getElementById('bio-textarea');
+            const editBtn = document.getElementById('edit-bio-btn');
+            const saveUrl = editBtn.dataset.saveUrl;
+
+            if (bioTextarea.hasAttribute('readonly')) {
+                bioTextarea.style.backgroundColor = '#f0f2f5';
+            } else {
+                bioTextarea.style.backgroundColor = 'white';
+            }
+
+            editBtn.addEventListener('click', () => {
+                if (bioTextarea.hasAttribute('readonly')) {
+                    bioTextarea.removeAttribute('readonly');
+                    bioTextarea.focus();
+                    editBtn.textContent = 'Salva';
+                    editBtn.style.backgroundColor = '#1877f2';
+                    editBtn.style.color = 'white';
+                    bioTextarea.style.backgroundColor = 'white';
+
+                } else {
+                    const newBio = bioTextarea.value;
+                    bioTextarea.setAttribute('readonly', true);
+                    editBtn.textContent = 'Modifica';
+                    editBtn.style.backgroundColor = '#e4e6eb';
+                    editBtn.style.color = '#050505';
+                    bioTextarea.style.backgroundColor = '#f0f2f5';
+
+                    if (saveUrl) {
+                        fetch(saveUrl, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': getCookie('csrftoken')
+                            },
+                            body: JSON.stringify({ bio: newBio })
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                console.error('Error saving bio:', response.statusText);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Bio saved:', data);
+                        })
+                        .catch(error => {
+                            console.error('Fetch error:', error);
+                        });
+                    } else {
+                        console.warn("Save URL not provided in data-save-url attribute.");
+                    }
+                }
+            });
+
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        if (cookie.startsWith(name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+        });
+    </script>
+</body>
+</html>
