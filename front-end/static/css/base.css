@@ -12,7 +12,6 @@ body {
     flex-direction: column;
     min-height: 100vh;
     padding-top: 60px;
-
     gap: 40px;
 }
 
@@ -89,7 +88,6 @@ main {
     cursor: pointer;
     font-size: 0.95em;
     transition: background-color 0.3s ease;
-
     text-decoration: none;
     display: inline-block;
     text-align: center;

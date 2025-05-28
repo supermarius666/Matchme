@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 /* Contenitore generale della chat */
-=======
->>>>>>> f05e45cb957dc4e2c5e57a274c8bdb81266f9168
 .chat-container {
     max-width: 900px;
     margin: 0 auto;
@@ -13,10 +10,7 @@
     overflow: hidden;
 }
 
-<<<<<<< HEAD
 /* Header */
-=======
->>>>>>> f05e45cb957dc4e2c5e57a274c8bdb81266f9168
 .chat-header {
     background-color: #f1f1f1;
     padding: 10px;
@@ -25,10 +19,7 @@
     font-weight: bold;
 }
 
-<<<<<<< HEAD
 /* Contenitore dei messaggi */
-=======
->>>>>>> f05e45cb957dc4e2c5e57a274c8bdb81266f9168
 .messages-container {
     flex: 1;
     padding: 10px;
@@ -36,36 +27,24 @@
     background-color: #f9f9f9;
 }
 
-<<<<<<< HEAD
 /* Ogni messaggio */
-=======
->>>>>>> f05e45cb957dc4e2c5e57a274c8bdb81266f9168
 .message-container {
     display: flex;
     margin-bottom: 10px;
     max-width: 80%;
 }
 
-<<<<<<< HEAD
 /* Messaggi inviati da me */
-=======
->>>>>>> f05e45cb957dc4e2c5e57a274c8bdb81266f9168
 .my-message {
     justify-content: flex-end;
 }
 
-<<<<<<< HEAD
 /* Messaggi ricevuti */
-=======
->>>>>>> f05e45cb957dc4e2c5e57a274c8bdb81266f9168
 .other-message {
     justify-content: flex-start;
 }
 
-<<<<<<< HEAD
 /* Bolla del messaggio */
-=======
->>>>>>> f05e45cb957dc4e2c5e57a274c8bdb81266f9168
 .message-bubble {
     background-color: #e0e0e0;
     padding: 10px 15px;
@@ -78,19 +57,13 @@
     background-color: #cce5ff;
 }
 
-<<<<<<< HEAD
 /* Username */
-=======
->>>>>>> f05e45cb957dc4e2c5e57a274c8bdb81266f9168
 .message-username {
     font-weight: bold;
     margin-bottom: 3px;
 }
 
-<<<<<<< HEAD
 /* Timestamp */
-=======
->>>>>>> f05e45cb957dc4e2c5e57a274c8bdb81266f9168
 .message-timestamp {
     font-size: 0.75em;
     text-align: right;
@@ -98,10 +71,7 @@
     color: #555;
 }
 
-<<<<<<< HEAD
 /* Form input */
-=======
->>>>>>> f05e45cb957dc4e2c5e57a274c8bdb81266f9168
 .message-input-form {
     display: flex;
     padding: 10px;

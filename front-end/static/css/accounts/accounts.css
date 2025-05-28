@@ -1,13 +1,9 @@
 body {
-    background-image: url("/static/img/login_wall.jpg"); /* Modifica il percorso in base al tuo file */
+    background-image: url("/static/img/login_wall.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-<<<<<<< HEAD
-    background-attachment: fixed; /* Fa sì che l'immagine rimanga fissa durante lo scroll */
-=======
     background-attachment: fixed;
->>>>>>> f05e45cb957dc4e2c5e57a274c8bdb81266f9168
     font-family: sans-serif;
 }
 
@@ -113,17 +109,8 @@ button:hover {
     }
 }
 
-<<<<<<< HEAD
-
-/* nuovo stile */
 .input-icon {
     position: relative;
-    /* Aggiungi overflow: hidden se noti problemi di testo che fuoriesce */
-    /* overflow: hidden; */
-=======
-.input-icon {
-    position: relative;
->>>>>>> f05e45cb957dc4e2c5e57a274c8bdb81266f9168
 }
 
 .input-icon i {
@@ -133,8 +120,7 @@ button:hover {
     transform: translateY(-50%);
     color: #aaa;
     font-size: 16px;
-<<<<<<< HEAD
-    pointer-events: none; /* L'icona non deve essere cliccabile */
+    pointer-events: none;
 }
 
 .form-group input[type="text"],
@@ -143,36 +129,18 @@ button:hover {
 .form-group input[type="date"],
 .form-group select {
     width: 100%;
-    padding: 10px; /* Padding di default */
+    padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
-    /* Rimuovi padding-left: 35px; da qui se era presente */
 }
 
-
-/* Applica padding-left solo agli input all'interno di .input-icon */
 .input-icon input[type="text"]{
-    padding-left: 35px; /* Aumenta il padding a sinistra per fare spazio all'icona */
-    /* Assicurati che questo sia specifico per gli input con icona */
-}
-
-
-.password-toggle {
-    position: relative;
-    /* Questa classe dovrebbe essere combinata con input-icon se vuoi entrambe le icone */
-    /* Se la classe input-icon è già presente sul div, questi stili si applicano */
-=======
-    pointer-events: none;
-}
-
-.input-icon input[type="text"] {
     padding-left: 35px;
 }
 
 .password-toggle {
     position: relative;
->>>>>>> f05e45cb957dc4e2c5e57a274c8bdb81266f9168
 }
 
 .password-toggle i {
@@ -184,33 +152,17 @@ button:hover {
 }
 
 .password-toggle .fa-eye,
-<<<<<<< HEAD
-.password-toggle .fa-eye-slash { 
-    pointer-events: auto;
-    right: 10px; 
-    left: auto; 
-=======
 .password-toggle .fa-eye-slash {
     pointer-events: auto;
     right: 10px;
     left: auto;
->>>>>>> f05e45cb957dc4e2c5e57a274c8bdb81266f9168
 }
 
 .form-group.input-icon.password-toggle input[type="password"] {
     padding-left: 35px;
-<<<<<<< HEAD
-    padding-right: 35px; 
+    padding-right: 35px;
 }
 
-.input-icon .fa-user,
-.input-icon .fa-envelope,
-.input-icon .fa-calendar-alt,
-.input-icon .fa-lock {
-=======
-    padding-right: 35px;
->>>>>>> f05e45cb957dc4e2c5e57a274c8bdb81266f9168
-}
 
 .error-message {
     color: #d9534f;
@@ -219,7 +171,3 @@ button:hover {
     margin-bottom: 15px;
     border-radius: 5px;
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> f05e45cb957dc4e2c5e57a274c8bdb81266f9168

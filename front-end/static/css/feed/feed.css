@@ -337,31 +337,22 @@ body, html {
     .feed-post-header {
         padding: 10px 12px;
     }
-
     .feed-profile-pic {
         width: 28px;
         height: 28px;
         margin-right: 10px;
     }
-
     .feed-username {
         font-size: 13px;
     }
-
     .feed-post-actions {
         padding: 6px 12px;
         gap: 12px;
     }
-
     .feed-action-button i {
         font-size: 18px;
     }
-
     .feed-action-button {
         font-size: 13px;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> f05e45cb957dc4e2c5e57a274c8bdb81266f9168

@@ -1,28 +1,18 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root {
+	--cards: 5;
+	--card-height: 50vh;
+	--card-gap: 3vh;
+	--card-padding: 1.5em;
 }
 
 body {
-    font-family: sans-serif;
-    line-height: 1.6;
-    background-color: #f8f8f8;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    padding-top: 60px;
-    gap: 40px;
+	overflow-x: hidden;
 }
 
-<<<<<<< HEAD
-main {
-    flex-grow: 1;
-=======
 .content_get_started h1 {
-    font-size: 3em;
+    font-size: 3em; /* Molto più grande */
     font-weight: bold;
-    color: #fff; 
+    color: #fff; /* o il colore che preferisci */
     margin-bottom: 30px;
 }
 
@@ -30,10 +20,10 @@ main {
     background-color: #ff4081;
     color: #fff;
     border: none;
-    padding: 16px 36px;
+    padding: 16px 36px; /* Più spazio: pulsante più grande */
     border-radius: 30px;
     cursor: pointer;
-    font-size: 1.5em;
+    font-size: 1.5em; /* Testo più grande */
     transition: background-color 0.3s ease;
 
     text-decoration: none;
@@ -52,31 +42,15 @@ main {
 	padding: 4em 2em;
 	display: flex;
 	justify-content: center;
->>>>>>> f05e45cb957dc4e2c5e57a274c8bdb81266f9168
 }
 
-.navbar {
-    background-color: #fff;
-    color: #333;
-    padding: 10px 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
+.stack-area {
+	display: flex;
+	width: 100%;
+	gap: 2em;
 }
 
-<<<<<<< HEAD
-.navbar .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    flex-wrap: wrap;
-=======
+/* LEFT: Chat stack */
 .left {
 	flex: 1;
 	display: grid;
@@ -84,175 +58,155 @@ main {
 	gap: var(--card-gap);
 	position: relative;
 	background: transparent; 
->>>>>>> f05e45cb957dc4e2c5e57a274c8bdb81266f9168
 }
 
-.navbar-brand a {
-    color: #ff4081;
-    text-decoration: none;
-    font-size: 1.8em;
-    font-weight: bold;
+#cards {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: contents;
 }
 
-.navbar-nav {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-    flex-grow: 1;
-    justify-content: center;
-    transition: max-height 0.3s ease-in-out;
-    overflow: hidden;
+.card {
+	position: sticky;
+	top: 0;
+	padding-top: calc(var(--index) * var(--card-padding));
+	z-index: calc(10 - var(--index));
 }
 
-.navbar-nav li {
-    margin: 0 15px;
+#card1 {
+	--index: 1;
 }
 
-.navbar-nav a {
-    color: #333;
-    text-decoration: none;
-    font-size: 1.1em;
-    transition: color 0.3s ease;
+#card2 {
+	--index: 2;
 }
 
-.navbar-nav a:hover {
-    color: #ff4081;
+#card3 {
+	--index: 3;
 }
 
-.navbar-actions {
-    display: flex;
-    align-items: center;
+#card4 {
+	--index: 4;
 }
 
-.navbar-actions .btn-login {
-    background-color: #ff4081;
-    color: #fff;
-    border: none;
-    padding: 8px 18px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.95em;
-    transition: background-color 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
+.card-body {
+	background-color: rgba(255, 255, 255, 0.9);
+	backdrop-filter: blur(6px);
+	border-radius: 20px;
+	padding: 20px;
+	height: var(--card-height);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	gap: 12px;
 }
 
-.navbar-actions .btn-login:hover {
-    background-color: #e03570;
+.left .card {
+	position: sticky;
+	top: 0;
+	padding-top: calc(var(--index) * var(--card-padding));
+	z-index: calc(10 - var(--index));
+	transform: rotate(var(--rotation, 0deg));
+	transition: transform 0.4s ease;
+	will-change: transform;
 }
 
-.hamburger {
-    display: none;
-    font-size: 1.6em;
-    cursor: pointer;
-    color: #333;
-    margin-left: 20px;
+/* Quando la card è "away", togli la rotazione */
+.left .card.away {
+	transform: rotate(0deg) !important;
 }
 
-.footer {
-    background-color: #1a1a1a;
-    color: #fce4ec;
-    padding: 1.5rem 1rem;
-    position: sticky;
-    overflow: hidden;
+.image-card {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: var(--card-height);
 }
 
-.footer-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
+.full-image {
+	max-width: 100%;
+	max-height: 100%;
+	border-radius: 20px;
+	object-fit: cover;
 }
 
-.footer-section {
-    flex: 1 1 200px;
-    margin: 10px;
+/* Message layout */
+.user-header {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 10px;
 }
 
-.footer-title {
-    font-size: 1.8em;
-    font-weight: bold;
-    color: #ff4081;
-    margin-bottom: 10px;
+.avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid #fff;
 }
 
-.footer-heading {
-    font-size: 1.2em;
-    margin-bottom: 8px;
-    color: #f8bbd0;
+.username {
+	font-weight: 600;
+	font-size: 1.1em;
 }
 
-.footer-text {
-    font-size: 0.9em;
-    color: #fce4ec;
+.message {
+	max-width: 70%;
+	padding: 12px 16px;
+	border-radius: 20px;
+	font-size: 1em;
+	word-break: break-word;
+	animation: slideIn 0.5s ease forwards;
+	opacity: 0;
+	transform: translateY(20px);
 }
 
-.footer-section ul {
-    list-style: none;
-    padding: 0;
+.message.user {
+	align-self: flex-end;
+	background-color: #1e88e5;
+	color: #fff;
+	border-bottom-right-radius: 0;
 }
 
-.footer-section a {
-    color: #fce4ec;
-    text-decoration: none;
-    display: block;
-    margin: 6px 0;
-    font-size: 0.95em;
-    transition: all 0.3s ease;
-    position: relative;
+.message.other {
+	align-self: flex-start;
+	background-color: #eeeeee;
+	color: #333;
+	border-bottom-left-radius: 0;
 }
 
-.footer-section a:hover {
-    transform: translateX(5px);
-    text-shadow: 1px 1px 5px #ff80ab;
-    color: #ff80ab;
+/* Delays for message animations */
+.message:nth-child(2) {
+	animation-delay: 0.3s;
 }
 
-.social-links {
-    display: flex;
-    gap: 15px;
-    margin-top: 10px;
+.message:nth-child(3) {
+	animation-delay: 0.6s;
 }
 
-.social-links a {
-    font-size: 1.2em;
-    color: #fce4ec;
-    transition: transform 0.3s ease, color 0.3s ease;
+.message:nth-child(4) {
+	animation-delay: 0.9s;
 }
 
-.social-links a:hover {
-    transform: scale(1.2);
-    color: #ff4081;
+.message:nth-child(5) {
+	animation-delay: 1.2s;
 }
 
-.footer-bottom {
-    text-align: center;
-    font-size: 0.85em;
-    color: #f8bbd0;
-    margin-top: 30px;
+@keyframes slideIn {
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
-@media (max-width: 768px) {
-    .footer-container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .footer-section {
-        margin-bottom: 20px;
-    }
+.left .card.away {
+	transform: none !important;
 }
 
-<<<<<<< HEAD
-@media (max-width: 768px) {
-    .navbar .container {
-        justify-content: space-between;
-    }
-=======
+/* RIGHT: Textual stacked cards */
 .right {
 	flex: 1;
 	position: sticky;
@@ -264,51 +218,57 @@ main {
 	padding: 3em;
 	background: transparent; 
 }
->>>>>>> f05e45cb957dc4e2c5e57a274c8bdb81266f9168
 
-    .navbar-brand {
-        flex-basis: auto;
-        margin-right: auto;
-    }
+.rcard {
+	position: absolute;
+	width: 350px;
+	height: 350px;
+	border-radius: 25px;
+	padding: 35px;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	transition: 0.4s ease-in-out;
+	text-align: left;
+	top: 24%;
+}
 
-    .navbar-actions {
-        flex-basis: auto;
-        order: 2;
-    }
+.rcard:nth-child(1) {
+	background: rgb(64, 122, 255);
+	z-index: 7;
+}
 
-    .hamburger {
-        display: block;
-        order: 3;
-    }
+.rcard:nth-child(2) {
+	background: rgb(221, 62, 88);
+	z-index: 6;
+	transform: rotate(-2deg) scale(0.98);
+}
 
-    .navbar-nav {
-        max-height: 0;
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
-        margin-top: 10px;
-        flex-basis: 100%;
-    }
+.rcard:nth-child(3) {
+	background: rgb(186, 113, 245);
+	z-index: 5;
+	transform: rotate(-4deg) scale(0.96);
+}
 
-    .navbar-nav.active {
-        max-height: 200px;
-    }
+.rcard:nth-child(4) {
+	background: rgb(228, 110, 26);
+	z-index: 4;
+	transform: rotate(-6deg) scale(0.94);
+}
 
-    .navbar-nav li {
-        margin: 10px 0;
-    }
+.rcard:nth-child(5) {
+	background: rgb(174, 219, 39);
+	z-index: 3;
+	transform: rotate(-8deg) scale(0.92);
+}
 
-    .navbar-brand,
-    .navbar-actions,
-    .hamburger {
-        order: initial;
-    }
+.rcard:nth-child(6) {
+	background: rgb(255, 0, 191);
+	z-index: 2;
+	transform: rotate(-10deg) scale(0.90);
+}
 
-<<<<<<< HEAD
-    .navbar-nav.active {
-        order: 4;
-    }
-=======
 .rcard:nth-child(7) {
 	background: rgba(197, 6, 255, 191);
 	z-index: 1;
@@ -328,6 +288,7 @@ main {
 	line-height: 1.3;
 }
 
+/* get_started */
 .hero-section {
 	background-image: url("/static/img/get_started.jpg");
 	background-size: cover;
@@ -380,6 +341,7 @@ main {
 	background-color: #e03250;
 }
 
+/* download section */
 .download-section {
 	text-align: center;
 	margin: 4rem 0;
@@ -393,23 +355,29 @@ main {
 	display: flex;
 	justify-content: center;
 	gap: 2rem;
+	/* Spaziatura tra i pulsanti */
 }
 
 .download-button {
 	width: 150px;
+	/* Imposta una larghezza fissa per i pulsanti */
 }
 
 .download-button img {
 	width: 100%;
+	/* Assicura che l'immagine occupi tutta la larghezza del pulsante */
 	border-radius: 10px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	transition: transform 0.3s ease;
+	/* Aggiunge una transizione per l'hover */
 }
 
 .download-button img:hover {
 	transform: scale(1.05);
+	/* Effetto di ingrandimento al passaggio del mouse */
 }
 
+/* marquee */
 body::-webkit-scrollbar {
     display: none;
 }
@@ -477,6 +445,8 @@ section {
     white-space: nowrap;
 }
 
+/* dowloand */
+
 .download-section {
   display: flex;
   justify-content: center;
@@ -536,6 +506,7 @@ section {
   margin-top: 10px;
 }
 
+/* 📱 Mobile: <= 600px */
 @media (max-width: 600px) {
   .download-content h1 {
     font-size: 1.8rem;
@@ -555,6 +526,7 @@ section {
   }
 }
 
+/* 🧾 Tablet: 601px - 900px */
 @media (min-width: 601px) and (max-width: 900px) {
   .download-content h1 {
     font-size: 2.2rem;
@@ -565,6 +537,7 @@ section {
   }
 }
 
+/* 🖥️ Desktop: > 900px */
 @media (min-width: 901px) {
   .download-content h1 {
     font-size: 2.5rem;
@@ -575,7 +548,7 @@ section {
   }
 }
 
-
+/* 📱 Mobile & Tablet - Stack vertical layout */
 @media (max-width: 900px) {
   .page-container {
     flex-direction: column;
@@ -634,5 +607,4 @@ section {
   .rcard:nth-child(n) {
     z-index: auto;
   }
->>>>>>> f05e45cb957dc4e2c5e57a274c8bdb81266f9168
 }
