@@ -1,87 +1,123 @@
-{% extends 'base.html' %}
+{% extends 'base_feed_chat.html' %}
 {% load static %}
 {% block title %} | Chat with {{ chat_user }}{% endblock %}
 {% block style %}
-    {# Link to the new CSS file #}
-	<link rel="stylesheet" href="{% static 'css/chat/chat.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/chat/chat.css' %}"/>
 {% endblock %}
 {% block content %}
 
-{# Main container for the chat layout #}
-<div class="chat-container">
+{# Main container for the overall chat application layout #}
+<div class="whatsapp-layout">
 
-    {# Optional: Header bar (replace h1 or style it) #}
-    <div class="chat-header">
-        <h2>{{ chat_user }}</h2> 
+    {# Left Sidebar for Chat List #}
+    <div class="chat-list-sidebar">
+        <div class="search-bar">
+            <input type="text" placeholder="Search or start new chat">
+        </div>
+        <div class="chats">
+            {# This section will be populated dynamically or from your backend #}
+            {# Example chat item - you'll loop through your actual chat rooms #}
+            {% for user in matched_users %}
+                <div class="chat-item active">
+                    <div class="chat-avatar">
+                        <img src="https://i.pravatar.cc/50?u=user3" alt="User Profile Picture" class="feed-profile-pic">
+                    </div>
+
+                    <div class="chat-info">
+                        <div class="chat-name">{{ user.username }}</div>
+                    </div>
+                    <div class="chat-timestamp">02:01 TODO</div>
+                    <a href="{% url 'chatroom' user.username %}" class="feed-start-chat-button">Chat</a>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 
-    {# container dei messaggi - will scroll #}
-    <div id="messages" class="messages-container">
-        {% for message in messages %}
-            {# Message container: Aligns the bubble left or right #}
-            <div class="message-container {% if message.user_sender.username == request.user.username %}my-message{% else %}other-message{% endif %}">
-                {# The message bubble itself #}
-                <div class="message-bubble">
-                    {# Show username only for other users in group chats #}
-                    {% if message.user_sender.username != request.user.username and room.is_group %} {# Assuming room has an is_group attribute #}
-                        <div class="message-username">{{ message.user_sender.username }}</div>
-                    {% endif %}
-                    <div class="message-text">{{ message.message_payload }}</div>
-                    {# Timestamp inside the bubble, aligned right #}
-                    <div class="message-timestamp">{{ message.time_stamp|date:"H:i" }}</div> {# Format time as HH:MM #}
+    {# Main Chat Area #}
+    <div class="main-chat-area">
+        {# Chat Header #}
+        <div class="chat-header-main">
+            <div class="chat-header-info">
+                <div class="chat-avatar-main">
+                    <img src="https://i.pravatar.cc/50?u=user3" alt="User Profile Picture">
+                </div>
+                <div class="chat-details">
+                    <h3>{{ chat_user }}</h3>
+                    <p>typing...</p> {# You might want to update this dynamically via WebSocket #}
                 </div>
             </div>
-        {% endfor %}
-    </div>
+            <div class="chat-header-icons">
+                {# Example icons - replace with actual SVG/font icons #}
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <i class="fa-solid fa-paperclip"></i>
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+            </div>
+        </div>
 
-    {# input dove scrivere messaggi - fixed at bottom #}
-    <form id="chat_form" class="message-input-form">
-        <input type="text" name="message" placeholder="Type a message..." autocomplete="off">
-        <button type="submit" class="send-button">
-            {# SVG icon for send (paper airplane) #}
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="send-icon">
-                <line x1="22" y1="2" x2="11" y2="13"></line>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-            </svg>
-        </button>
-    </form>
+        {# Message container - will scroll #}
+        <div id="messages" class="messages-container">
+            {% for message in messages %}
+                {# Message container: Aligns the bubble left or right #}
+                <div class="message-container {% if message.user_sender.username == request.user.username %}my-message{% else %}other-message{% endif %}">
+                    {# The message bubble itself #}
+                    <div class="message-bubble">
+                        {# Show username only for other users in group chats #}
+                        {% if message.user_sender.username != request.user.username and room.is_group %} {# Assuming room has an is_group attribute #}
+                            <div class="message-username">{{ message.user_sender.username }}</div>
+                        {% endif %}
+                        <div class="message-text">{{ message.message_payload }}</div>
+                        {# Timestamp inside the bubble, aligned right #}
+                        <div class="message-timestamp">{{ message.time_stamp|date:"H:i" }}</div> {# Format time as HH:MM #}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
 
-</div> {# End chat-container #}
+        {# Input where to write messages - fixed at bottom #}
+        <form id="chat_form" class="message-input-form">
+            <i class="fa-regular fa-face-smile emoji-icon"></i> {# Emoji icon #}
+            <input type="text" name="message" placeholder="Type a message..." autocomplete="off">
+            <button type="submit" class="send-button">
+                {# SVG icon for send (paper airplane) #}
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="send-icon">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+            <i class="fa-solid fa-microphone mic-icon"></i> {# Microphone icon #}
+        </form>
+
+    </div> {# End main-chat-area #}
+
+</div> {# End whatsapp-layout #}
 
 {% endblock %}
 
 {% block script %}
-
 <script type="text/javascript">
-
-    // funzione per il parsing della data
+    // Existing JavaScript remains the same for handling messages
     function formatTime(timeString) {
         const date = new Date(timeString);
-        const hours = date.getHours().toString().padStart(2, '0');  // ore con zero davanti se < 10
-        const minutes = date.getMinutes().toString().padStart(2, '0'); // minuti con zero davanti se < 10
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
         return `${hours}:${minutes}`;
     }
 
     roomName = "{{ room.name }}"
     username = "{{ request.user.username }}"
 
-    // protocollo://ip/<url_corrispondente_al_consumer_per_connettersi_a_server>
     let url = `ws://${window.location.host}/ws/${roomName}/`
 
-    // crea oggetto socket che cerca di connettersi al Server su "url"
     const chatSocket = new WebSocket(url)
 
-    // funzione che ascolta messaggi in arrivo dal Server (in formato JSON)
     chatSocket.onmessage = function(event){
         let data = JSON.parse(event.data)
         console.log("Data: ", data)
 
-        
         let formatedTime = formatTime(data.time_stamp)
         if (data.type === "chat") {
             let messages = document.getElementById("messages");
-                        
-            // Determina se è messaggio mio o di un altro
+
             let messageClass = (data.username === username) ? "my-message" : "other-message";
 
             let html = `<div class="message-container ${messageClass}">
@@ -92,31 +128,31 @@
                         </div>`;
 
             messages.insertAdjacentHTML("beforeend", html);
-            
-            // Scrolla automaticamente in fondo ai messaggi
-            messages.scrollTop = messages.scrollHeight;
 
+            messages.scrollTop = messages.scrollHeight;
         }
     }
 
-    // form per submit del messaggio
     let form = document.getElementById("chat_form")
 
-    form.addEventListener("submit", (event)=> { //(event)=> {...} è un Arrow Function
-        event.preventDefault() // ?
+    form.addEventListener("submit", (event)=> {
+        event.preventDefault()
 
-        // contenuto input html del form
         let message = event.target.message.value
 
-        // manda messaggio al server sulla socket (in formato JSON)
         chatSocket.send(JSON.stringify({
             "username":username,
-            "message":message            
+            "message":message
         }))
-        
-        // restetto il form in modo da poter resubmittare altri messaggi in futuro
+
         form.reset()
     })
+
+    // Scroll to the bottom of the messages when the page loads
+    window.onload = function() {
+        const messagesContainer = document.getElementById("messages");
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    };
 
 </script>
 {% endblock %}
