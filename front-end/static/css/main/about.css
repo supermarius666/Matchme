@@ -112,7 +112,6 @@
     transform: translate(0%, 20%) rotate(-3deg);
   }
 
-
   .profile-container {
     margin-top: 5rem;
     display: flex;
@@ -138,7 +137,7 @@
 
 .profile-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 12px 24px rgba(255, 105, 180, 0.5); 
+    box-shadow: 0 12px 24px rgba(255, 105, 180, 0.5);
 }
 
 .profile-pic {

@@ -9,6 +9,13 @@ body {
 	overflow-x: hidden;
 }
 
+.wavy-word {
+    font-family: sans-serif;
+    font-size: 8vw;
+    color: #ff4081;
+    text-align: center;
+}
+
 .content_get_started h1 {
     font-size: 3em; 
     font-weight: bold;

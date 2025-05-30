@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   const container = document.querySelector('.bubble-container');
+  const form_wrapper = document.querySelector('.form-wrapper');
   if (!container) {
     console.error("Missing .bubble-container element");
     return;
@@ -43,8 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let attempts = 0;
     let x, y;
     do {
-      x = Math.random() * (container.clientWidth - size);
-      y = Math.random() * (container.clientHeight - size);
+        const padding = 10;
+        x = padding + Math.random() * (container.clientWidth - size - 2 * padding);
+        y = padding + Math.random() * (container.clientHeight - size - 2 * padding);
       attempts++;
     } while (isOverlapping(x, y, size) && attempts < maxAttempts);
 
@@ -74,12 +76,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function animateBubble(bubble) {
     function move() {
-      const size = bubble.offsetWidth;
-      const maxX = container.clientWidth - size;
-      const maxY = container.clientHeight - size;
-
-      const newX = Math.random() * maxX;
-      const newY = Math.random() * maxY;
+        const size = bubble.offsetWidth;
+        const padding = 10;
+        const maxX = container.clientWidth - size - padding;
+        const maxY = container.clientHeight - size - padding;
+        const newX = padding + Math.random() * maxX;
+        const newY = padding + Math.random() * maxY;
 
       gsap.to(bubble, {
         left: newX,
