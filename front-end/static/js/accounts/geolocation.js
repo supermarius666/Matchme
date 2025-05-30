@@ -4,21 +4,43 @@ if (!navigator.geolocation) {
     throw new Error("No geolocation avaiable")
 }
 
+// function success(pos) {
+//     const lat = pos.coords.latitude
+//     const lng = pos.coords.longitude
+
+//     // link ad un free mapping service (16 è lo zoom)
+//     const link_to_streetmap = `
+//         <a href="https://www.openstreetmap.org/#map=16/${lat}/${lng}">
+//             Your current position: latitude: ${lat}, longitude: ${lng}
+//         </a>
+//     `
+//     const coords = `lat: ${lat}, long: ${lng}`
+//     document.getElementById("geolocation").innerHTML += coords
+
+//     console.log(pos)
+// }
+
+
 function success(pos) {
-    const lat = pos.coords.latitude
-    const lng = pos.coords.longitude
+    const lat = pos.coords.latitude;
+    const lng = pos.coords.longitude;
 
-    // link ad un free mapping service (16 è lo zoom)
-    const link_to_streetmap = `
-        <a href="https://www.openstreetmap.org/#map=16/${lat}/${lng}">
-            Your current position: latitude: ${lat}, longitude: ${lng}
-        </a>
-    `
-    const coords = `lat: ${lat}, long: ${lng}`
-    document.getElementById("geolocation").innerHTML += coords
+    // Reverse geocoding con Nominatim
+    fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`)
+        .then(response => response.json())
+        .then(data => {
+            const city = data.address.city || data.address.town || data.address.village || "Città non trovata";
+            document.getElementById("geolocation").innerHTML = `<strong>${city}</strong>`;
+        })
+        .catch(error => {
+            console.error("Errore nel reverse geocoding:", error);
+            document.getElementById("geolocation").innerHTML = `<em>Errore nel recupero della città</em>`;
+        });
 
-    console.log(pos)
+    console.log("Posizione:", pos);
 }
+
+
 
 function error(err) {
     console.log(err)

@@ -1,184 +1,225 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} | Home{% endblock %}
+{% block title %} | Profilo di {{ user.first_name }}{% endblock %} {# Titolo più specifico per il profilo #}
 {% block style %}
-	<link rel="stylesheet" href="{% static 'css/accounts/profile.css' %}">
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="{% static 'css/accounts/profile.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> {# Assicurati che Font Awesome sia caricato #}
 {% endblock %}
 {% block content %}
 
- <div class="page-wrapper"> 
-    <div class="left-sidebar-new"> {# Nuova sidebar a sinistra che unisce navigazione e header-actions #}
-      
-        {# Spostati qui dalla precedente top-header #}
-        <div class="sidebar-header-actions"> 
-            <i class="fas fa-bell"></i> 
-            <i class="fas fa-envelope"></i> 
-            <img class="header-profile-pic" src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Profilo"> 
-            <span>{{ user.first_name }} <i class="fas fa-caret-down"></i></span> 
-        </div>
+<div class="page-wrapper">
+    <!-- <div class="left-sidebar-new"> -->
+        {# Nuova sidebar a sinistra che unisce navigazione e header-actions #}
+        {# Contenuto della sidebar esistente... #}
+        <!-- <div class="sidebar-header-actions">
+            <i class="fas fa-bell"></i>
+            <i class="fas fa-envelope"></i>
+            <img class="header-profile-pic" src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Profilo">
+            <span>{{ user.first_name }} <i class="fas fa-caret-down"></i></span>
+        </div> -->
+        {# Assumi che qui ci siano i nav-links e il logo come da tuo CSS #}
+        {# Esempio di nav-links (se non sono già nel tuo blocco base) #}
+        <!-- <div class="logo">MyBrand</div> -->
+        <!-- <ul class="nav-links">
+            <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#"><i class="fas fa-search"></i> Scopri</a></li>
+            <li class="active"><a href="#"><i class="fas fa-user"></i> Profilo</a></li>
+            <li><a href="#"><i class="fas fa-envelope"></i> Messaggi <span>3</span></a></li>
+            <li><a href="#"><i class="fas fa-cog"></i> Impostazioni</a></li>
+            <li><button class="nav-logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button></li>
+        </ul> -->
+    <!-- </div> -->
 
-    </div> 
+    <div class="main-content-area">
+        <header class="top-header" style="display: none;">
+            {# La nascondo, o puoi rimuoverla del tutto #}
+        </header>
 
-    <div class="main-content-area"> 
-        {# La top-header è stata quasi svuotata, o potrebbe essere rimossa se non serve più a nulla #}
-        <header class="top-header" style="display: none;"> {# La nascondo, o puoi rimuoverla del tuttof #}
-            {# Contenuto precedente della top-header (search-bar e header-actions) rimosso/spostato #}
-        </header> 
+        <div class="profile-main-section">
+            {# Rimuoviamo il vecchio profile-card e lo sostituiamo con la nuova struttura #}
+            <div class="profile-page-container"> {# Nuovo container principale del profilo, come suggerito in precedenza #}
 
-        <div class="profile-main-section"> 
-            <div class="profile-card"> 
-                <div class="profile-header"> 
-                    <img class="profile-picture" src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo"> 
-                    <div class="profile-info"> 
-                        <h1>{{ user.first_name }} {{ user.last_name }}{% if user_profile.age %}, {{ user_profile.age }}{% endif %}</h1> 
-                        <p class="location" id="geolocation"> 
+                {# SEZIONE FOTO COVER #}
+                <div class="cover-photo-section">
+                    {% if user_profile.cover_picture %}
+                        <img src="{{ user_profile.cover_picture.url }}" alt="Cover Photo" class="cover-image">
+                    {% else %}
+                        <div class="cover-placeholder"></div> {# Placeholder se non c'è foto cover #}
+                    {% endif %}
+                    <div class="cover-overlay">
+                        <button class="edit-cover-btn" aria-label="Modifica foto di copertina" title="Modifica foto di copertina">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    {# Input per l'upload della cover, nascosto #}
+                    <input type="file" id="cover-upload" name="cover_picture" accept="image/*" style="display: none;">
+                </div>
+
+                {# SEZIONE AVATAR, NOME E AZIONI PRINCIPALI #}
+                <div class="profile-header-section">
+                    <div class="profile-avatar-container">
+                        <img src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo" class="profile-avatar">
+                        <div class="avatar-overlay">
+                            <button class="edit-avatar-btn" aria-label="Modifica foto profilo" title="Modifica foto profilo">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                        </div>
+                        {# Input per l'upload dell'avatar, nascosto #}
+                        <input type="file" id="avatar-upload" name="profile_picture" accept="image/*" style="display: none;">
+                    </div>
+
+                    <div class="profile-info-and-actions">
+                        <h1 class="profile-name">{{ user.first_name }} {{ user.last_name }}{% if user_profile.age %}, {{ user_profile.age }}{% endif %}</h1>
+                        <p class="location" id="geolocation">
                             <i class="fas fa-map-marker-alt"></i>
+                            {% if user_profile.location %}
+                                {{ user_profile.location }}
+                            {% endif %}
+                        </p>
+                        <div class="profile-actions">
+                            <button class="btn btn-primary">Modifica Profilo</button>
+                            <button class="btn btn-secondary">Anteprima Pubblica</button>
+                        </div>
+                    </div>
+                </div>
 
-                            <!--
-                            magari facciamo decidere allo user se impostarla lui (quindi info va nel DB)
-                            oppure se vuole lasciare accedere alla posizione e le coord le prendiamo da li
-                            -->
-                            <!-- se user HA autorizzato il sito a chiamare la geolocalizzazione viene aggiunta dal js a questo paragrafo -->
+                {# SEZIONE CONTENUTO (BIOGRAFIA, DETTAGLI RAPIDI, TAB) #}
+                <div class="profile-content-section">
+                    {# BIOGRAFIA - Spostata qui, fuori dalle tab #}
+                    <div class="bio-section card">
+                        <h3>Biography</h3>
+                        <textarea id="bio-textarea" maxlength="255" readonly>{{ user_profile.bio|default:"Scrivi qualcosa di te per far conoscere la tua personalità unica!" }}</textarea>
+                        <button id="edit-bio-btn" class="btn-edit-bio" data-save-url="/save-bio-url/">Modifica</button>
+                        <div id="char-count" style="font-size: 0.8em; color: #666; text-align: right; margin-top: 5px;">0/255</div>
+                    </div>
 
-                            <!-- se user NON HA autorizzato il sito a chiamare la geolocalizzazione il js non si attiva e si renderizza questo: -->
-                            {% if user_profile.location %} 
-                                {{ user_profile.location }} 
-                            {% endif %} 
-                        </p> 
-                    </div> 
-                    <div class="profile-actions"> 
-                        <button class="btn-primary">Modifica Profilo</button> 
-                        <button class="btn-secondary">Anteprima Pubblica</button> 
-                    </div> 
-                </div> 
+                    {# INTERESSI, HOBBIES, STILE DI VITA - Ora una griglia più pulita #}
+                    <div class="profile-details-grid">
+                        <div class="detail-item card">
+                            <i class="fas fa-star icon-interest"></i>
+                            <h4>Interessi:</h4>
+                            <p>{{ user_profile.interests_count|default:"0" }}</p>
+                        </div>
+                        <div class="detail-item card">
+                            <i class="fas fa-pizza-slice icon-hobby"></i>
+                            <h4>Hobbies:</h4>
+                            <p>{{ user_profile.hobbies_count|default:"0" }}</p>
+                        </div>
+                        <div class="detail-item card">
+                            <i class="fas fa-wine-glass icon-lifestyle"></i>
+                            <h4>Stile di Vita:</h4>
+                            <p>{{ user_profile.lifestyle_info|default:"N/A" }}</p>
+                        </div>
+                    </div>
 
-                <div class="profile-quick-info"> 
-                    <div class="info-item"> 
-                        <i class="fas fa-star"></i> 
-                        <p><strong>Interessi:</strong> {{ user_profile.interests_count|default:"0" }}</p> 
-                    </div> 
-                    <div class="info-item"> 
-                        <i class="fas fa-pizza-slice"></i> 
-                        <p><strong>Hobbies:</strong> {{ user_profile.hobbies_count|default:"0" }}</p> 
-                    </div> 
-                    <div class="info-item"> 
-                        <i class="fas fa-wine-glass"></i> 
-                        <p><strong>Stile di Vita:</strong> {{ user_profile.lifestyle_info|default:"N/A" }}</p> 
-                    </div> 
-                </div> 
+                    {# TAB - Rimangono nella loro posizione, ma il contenuto "Biografia" è svuotato o rimosso #}
+                    <div class="profile-tabs card"> {# Aggiunto 'card' per coerenza #}
+                        <div class="tab-buttons">
+                            {# La tab "Biografia" potrebbe essere ancora presente, ma non mostrerà più il contenuto della bio qui #}
+                            <button class="tab-button active" data-tab="user-stats">Statistiche Utente</button> {# Rendo "Statistiche Utente" attiva di default #}
+                            <button class="tab-button" data-tab="user-posts">Post Utente</button>
+                            <button class="tab-button" data-tab="photo-gallery">Galleria Foto</button>
+                            {# Ho rimosso "Biografia" dalle tab per evitare duplicati, ma puoi mantenerla se ha altro contenuto #}
+                            {# Se la tieni, il suo div `tab-content` dovrebbe essere vuoto o riempito con altro #}
+                        </div>
+                        <div class="tab-content-wrapper">
+                            {# Rimuovi il div `id="biography"` da qui, dato che la biografia è stata spostata #}
+                            {# Inizio il contenuto con "Statistiche Utente" #}
+                            <div id="user-stats" class="tab-content active"> {# Assicurati che solo una tab sia 'active' all'inizio #}
+                                <h2>Le Mie Statistiche</h2>
+                                {% if user_profile.dating_stats %}
+                                    <div class="stats-grid">
+                                        <div class="stat-item-detailed">
+                                            <i class="fas fa-heart-pulse"></i>
+                                            <p><strong>Match Totali:</strong> {{ user_profile.dating_stats.total_matches|default:"0" }}</p>
+                                        </div>
+                                        <div class="stat-item-detailed">
+                                            <i class="fas fa-thumbs-up"></i>
+                                            <p><strong>Like Inviati:</strong> {{ user_profile.dating_stats.likes_sent|default:"0" }}</p>
+                                        </div>
+                                        <div class="stat-item-detailed">
+                                            <i class="fas fa-arrow-right-arrow-left"></i>
+                                            <p><strong>Like Ricevuti:</strong> {{ user_profile.dating_stats.likes_received|default:"0" }}</p>
+                                        </div>
+                                        <div class="stat-item-detailed">
+                                            <i class="fas fa-comment-dots"></i>
+                                            <p><strong>Messaggi Scambiati:</strong> {{ user_profile.dating_stats.messages_exchanged|default:"0" }}</p>
+                                        </div>
+                                        <div class="stat-item-detailed">
+                                            <i class="fas fa-percent"></i>
+                                            {% if user_profile.dating_stats.likes_sent > 0 %}
+                                                <p><strong>Tasso di Match:</strong> {{ user_profile.dating_stats.match_rate|floatformat:2 }}%</p>
+                                            {% else %}
+                                                <p><strong>Tasso di Match:</strong> N/D</p>
+                                            {% endif %}
+                                        </div>
+                                        <div class="stat-item-detailed">
+                                            <i class="fas fa-calendar-alt"></i>
+                                            <p><strong>Iscritto dal:</strong> {{ user_profile.dating_stats.registration_date|date:"d/m/Y" }}</p>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <p>Statistiche non disponibili per questo utente.</p>
+                                {% endif %}
+                            </div>
 
-                <div class="profile-tabs"> 
-                    <div class="tab-buttons"> 
-                        <button class="tab-button active" data-tab="biography">Biografia</button> 
-                        <button class="tab-button" data-tab="user-stats">Statistiche Utente</button> 
-                        <button class="tab-button" data-tab="user-posts">Post Utente</button> 
-                        <button class="tab-button" data-tab="photo-gallery">Galleria Foto</button> 
-                    </div> 
-                    <div class="tab-content-wrapper"> 
-                        <div id="biography" class="tab-content active"> 
-                            <h2>La Mia Biografia</h2> 
-                            <textarea id="bio-textarea" maxlength="500" readonly>{{ user_profile.bio|default:"Scrivi qualcosa di te per far conoscere la tua personalità unica!" }}</textarea> 
-                            <button id="edit-bio-btn" data-save-url="/save-bio-url/">Modifica</button> 
-                        </div> 
+                            <div id="user-posts" class="tab-content">
+                                <h2>I Miei Post</h2>
+                                <div class="create-post-area">
+                                    <textarea placeholder="Cosa ti passa per la mente, {{ user.first_name }}?"></textarea>
+                                    <div class="options">
+                                        <button><i class="fas fa-camera"></i> Foto/Video</button>
+                                        <button><i class="fas fa-smile"></i> Umore/Attività</button>
+                                    </div>
+                                </div>
+                                <div class="posts-list">
+                                    {% for post in user_profile.user_posts %}
+                                    <div class="user-post">
+                                        <div class="post-header">
+                                            <img src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo">
+                                            <div>
+                                                <h4>{{ user.first_name }} {{ user.last_name }}</h4>
+                                                <span class="post-date">{{ post.date|date:"d M H:i" }}</span>
+                                            </div>
+                                        </div>
+                                        <p class="post-content">{{ post.content }}</p>
+                                        {% if post.image %}
+                                        <img src="{{ post.image.url }}" alt="Post Image" class="post-image">
+                                        {% endif %}
+                                        <div class="post-actions">
+                                            <button><i class="fas fa-heart"></i> Mi Piace</button>
+                                            <button><i class="fas fa-comment"></i> Commenta</button>
+                                        </div>
+                                    </div>
+                                    {% empty %}
+                                    <p class="no-content-message">Nessun post pubblicato ancora. Condividi qualcosa di te!</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
 
-                        <div id="user-stats" class="tab-content"> 
-                            <h2>Le Mie Statistiche</h2> 
-                            {% if user_profile.dating_stats %} 
-                                <div class="stats-grid"> 
-                                    <div class="stat-item-detailed"> 
-                                        <i class="fas fa-heart-pulse"></i> 
-                                        <p><strong>Match Totali:</strong> {{ user_profile.dating_stats.total_matches|default:"0" }}</p> 
-                                    </div> 
-                                    <div class="stat-item-detailed"> 
-                                        <i class="fas fa-thumbs-up"></i> 
-                                        <p><strong>Like Inviati:</strong> {{ user_profile.dating_stats.likes_sent|default:"0" }}</p> 
-                                    </div> 
-                                    <div class="stat-item-detailed"> 
-                                        <i class="fas fa-arrow-right-arrow-left"></i> 
-                                        <p><strong>Like Ricevuti:</strong> {{ user_profile.dating_stats.likes_received|default:"0" }}</p> 
-                                    </div> 
-                                    <div class="stat-item-detailed"> 
-                                        <i class="fas fa-comment-dots"></i> 
-                                        <p><strong>Messaggi Scambiati:</strong> {{ user_profile.dating_stats.messages_exchanged|default:"0" }}</p> 
-                                    </div> 
-                                    <div class="stat-item-detailed"> 
-                                        <i class="fas fa-percent"></i> 
-                                        {% if user_profile.dating_stats.likes_sent > 0 %} 
-                                            <p><strong>Tasso di Match:</strong> {{ user_profile.dating_stats.match_rate|floatformat:2 }}%</p> 
-                                        {% else %} 
-                                            <p><strong>Tasso di Match:</strong> N/D</p> 
-                                        {% endif %} 
-                                    </div> 
-                                    <div class="stat-item-detailed"> 
-                                        <i class="fas fa-calendar-alt"></i> 
-                                        <p><strong>Iscritto dal:</strong> {{ user_profile.dating_stats.registration_date|date:"d/m/Y" }}</p> 
-                                    </div> 
-                                </div> 
-                            {% else %} 
-                                <p>Statistiche non disponibili per questo utente.</p> 
-                            {% endif %} 
-                        </div> 
-
-                        <div id="user-posts" class="tab-content"> 
-                            <h2>I Miei Post</h2> 
-                            <div class="create-post-area"> 
-                                <textarea placeholder="Cosa ti passa per la mente, {{ user.first_name }}?"></textarea> 
-                                <div class="options"> 
-                                    <button><i class="fas fa-camera"></i> Foto/Video</button> 
-                                    <button><i class="fas fa-smile"></i> Umore/Attività</button> 
-                                </div> 
-                            </div> 
-                            <div class="posts-list"> 
-                                {% for post in user_profile.user_posts %} 
-                                <div class="user-post"> 
-                                    <div class="post-header"> 
-                                        <img src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo"> 
-                                        <div> 
-                                            <h4>{{ user.first_name }} {{ user.last_name }}</h4> 
-                                            <span class="post-date">{{ post.date|date:"d M H:i" }}</span> 
-                                        </div> 
-                                    </div> 
-                                    <p class="post-content">{{ post.content }}</p> 
-                                    {% if post.image %} 
-                                    <img src="{{ post.image.url }}" alt="Post Image" class="post-image"> 
-                                    {% endif %} 
-                                    <div class="post-actions"> 
-                                        <button><i class="fas fa-heart"></i> Mi Piace</button> 
-                                        <button><i class="fas fa-comment"></i> Commenta</button> 
-                                    </div> 
-                                </div> 
-                                {% empty %} 
-                                <p class="no-content-message">Nessun post pubblicato ancora. Condividi qualcosa di te!</p> 
-                                {% endfor %} 
-                            </div> 
-                        </div> 
-
-                        <div id="photo-gallery" class="tab-content"> 
-                            <h2>Galleria Foto</h2> 
-                            <div class="photo-grid"> 
-                                {% for photo in user_profile.gallery_photos %} 
-                                <div class="photo-item"> 
-                                    <img src="{{ photo.image.url }}" alt="Foto Galleria"> 
-                                </div> 
-                                {% empty %} 
-                                <p class="no-content-message">Nessuna foto nella galleria. Aggiungi le tue foto migliori!</p> 
-                                {% endfor %} 
-                            </div> 
-                        </div> 
-                    </div> 
-                </div> 
-            </div> 
-        </div> 
-        
-        {# La sidebar destra è stata tolta dalle tue istruzioni, ma era presente nel tuo CSS #}
-        {# Se vuoi mantenere la sidebar destra, dovrai reinserirla qui o in un'altra parte del layout #}
-        {# Per ora, la lascio fuori, in base alla tua richiesta implicita di riorganizzare solo la sinistra #}
-    </div> 
+                            <div id="photo-gallery" class="tab-content">
+                                <h2>Galleria Foto</h2>
+                                <div class="photo-grid">
+                                    {% for photo in user_profile.gallery_photos %}
+                                    <div class="photo-item">
+                                        <img src="{{ photo.image.url }}" alt="Foto Galleria">
+                                    </div>
+                                    {% empty %}
+                                    <p class="no-content-message">Nessuna foto nella galleria. Aggiungi le tue foto migliori!</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# La sidebar destra, se presente nel tuo layout originale, dovrebbe essere fuori da .profile-main-section #}
+        {# Esempio di dove potrebbe stare la sidebar destra, se la riattivi #}
+   
+    </div>
 </div>
-
-
 
 {% endblock %}
 

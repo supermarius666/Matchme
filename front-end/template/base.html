@@ -36,7 +36,7 @@
 						</div>
 						<div class="dropdown-menu" id="userDropdownMenu">
 							<ul>
-								<li><a href="/accounts/profile">Profilo</a></li>
+								<li><a href="/accounts/profile">Profile</a></li>
 								<li>
 									<form method="POST" action="{% url 'logout' %}">
 										{% csrf_token %}
@@ -50,10 +50,10 @@
 					</div>
 
 					{# TODO: da togliere #}
-					<form method="POST" action="{% url 'logout' %}">
+					<!-- <form method="POST" action="{% url 'logout' %}">
 						{% csrf_token %}
 						<button type="submit" class="btn-login">Logout</button>
-					</form>
+					</form> -->
 				{% else %}
 					<div class="navbar-actions">
 						<a href="{% url 'authenticate' %}" class="btn-login">Login</a>
