@@ -28,6 +28,9 @@
 			</ul>
 			<div class="navbar-actions">
 				{% if request.user.is_authenticated %}
+					<div class="user-avatar">
+                        <img class="user-avatar" src="{% if request.user.profile_picture %}{{ request.user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo"> 
+                    </div>
 					<form method="POST" action="{% url 'logout' %}">
 						{% csrf_token %}
 						<button type="submit" class="btn-login">Logout</button>

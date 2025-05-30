@@ -28,6 +28,28 @@
 			</ul>
 			<div class="navbar-actions">
 				{% if request.user.is_authenticated %}
+
+					<div class="user-menu-container">
+						<div class="user-avatar" id="userAvatarToggle">
+							<img class="user-avatar-img" src="{% if request.user.profile_picture %}{{ request.user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" 
+							alt="Foto Profilo"> 
+						</div>
+						<div class="dropdown-menu" id="userDropdownMenu">
+							<ul>
+								<li><a href="/accounts/profile">Profilo</a></li>
+								<li>
+									<form method="POST" action="{% url 'logout' %}">
+										{% csrf_token %}
+										<button type="submit">Logout</button>
+									</form>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+
+
+
 					<form method="POST" action="{% url 'logout' %}">
 						{% csrf_token %}
 						<button type="submit" class="btn-login">Logout</button>
@@ -94,7 +116,29 @@
 			© 2025 MatchMe. Tutti i diritti riservati.
 		</div>
 	</footer>
+	
+	<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function() {
+		const userAvatarToggle = document.getElementById('userAvatarToggle');
+		const userDropdownMenu = document.getElementById('userDropdownMenu');
 
+		if (userAvatarToggle && userDropdownMenu) {
+			userAvatarToggle.addEventListener('click', function(event) {
+				event.stopPropagation(); // Evita che il click si propaghi al document
+				userDropdownMenu.classList.toggle('show');
+			});
+
+			// Chiudi il menu se si clicca fuori da esso
+			document.addEventListener('click', function(event) {
+				if (!userDropdownMenu.contains(event.target) && !userAvatarToggle.contains(event.target)) {
+					if (userDropdownMenu.classList.contains('show')) {
+						userDropdownMenu.classList.remove('show');
+						}
+					}
+				});
+			}
+		});
+	</script>
 	{% block script %}
 	{% endblock %}
 </body>
