@@ -229,42 +229,42 @@ body {
 }
 
 .rcard:nth-child(1) {
-	background: rgb(64, 122, 255);
+	background: #FF4081;
 	z-index: 7;
 }
 
 .rcard:nth-child(2) {
-	background: rgb(221, 62, 88);
+	background: #000000;
 	z-index: 6;
 	transform: rotate(-2deg) scale(0.98);
 }
 
 .rcard:nth-child(3) {
-	background: rgb(186, 113, 245);
+	background: #FF4081;
 	z-index: 5;
 	transform: rotate(-4deg) scale(0.96);
 }
 
 .rcard:nth-child(4) {
-	background: rgb(228, 110, 26);
+	background: #000000;
 	z-index: 4;
 	transform: rotate(-6deg) scale(0.94);
 }
 
 .rcard:nth-child(5) {
-	background: rgb(174, 219, 39);
+	background: #FF4081;
 	z-index: 3;
 	transform: rotate(-8deg) scale(0.92);
 }
 
 .rcard:nth-child(6) {
-	background: rgb(255, 0, 191);
+	background: #000000;
 	z-index: 2;
 	transform: rotate(-10deg) scale(0.90);
 }
 
 .rcard:nth-child(7) {
-	background: rgba(197, 6, 255, 191);
+	background: #FF4081;
 	z-index: 1;
 	transform: rotate(-12deg) scale(0.88);
 }
