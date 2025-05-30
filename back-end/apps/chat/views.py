@@ -34,5 +34,7 @@ def chatroom_view(request, username):
     # lista degli user con cui si ha un match
     matched_users = get_matched_users(request.user)
 
-    context = {"room": room, "chat_user": username, "messages": messages, "matched_users": matched_users}
+    chat_user = UserProfile.objects.get(username=username)
+
+    context = {"room": room, "chat_user": chat_user, "messages": messages, "matched_users": matched_users}
     return render(request, "chat/chatroom.html", context)

@@ -3,36 +3,43 @@
 {% block title %} | Feed{% endblock %}
 {% block style %}
 	<link rel="stylesheet" href="{% static 'css/feed/feed.css' %}"/>
+    {# <link rel="stylesheet" href="{% static 'css/chat/chat.css' %}"/> #}
 {% endblock %}
 {% block content %}
 
 
-<div class="feed-container">
-    <div class="feed-left-sidebar">
-        <div class="feed-sidebar-content">
-            <h1>Hi @{{ request.user.username }}.</h1>
-
-            <h1>Chats with Matches</h1>
-            <p>Le chat con i match che hai fatto</p>
-
-            <div class="feed-friends-list">
-                {% for user in matched_users %}
-                    <div class="feed-friend">
-                        <img src="https://i.pravatar.cc/50?u=user3" alt="User Profile Picture" class="feed-profile-pic">
-                        <span class="feed-username">{{ user.username }}</span><br>
-                        <a href="{% url 'chatroom' user.username %}" class="feed-start-chat-button">Chat</a>
+<div class="feed-layout">
+    
+    {# Left Sidebar for Chat List #}
+    <div class="chat-list-sidebar">
+        <h2>Chats with Matches</h2>
+        <div class="search-bar">
+            <input type="text" placeholder="Search chat with your Matches">
+        </div>
+        <div class="chats">
+            {% for user in matched_users %}
+                <div class="chat-item" onclick="enterChat('{{ user.username }}')">
+                    <div class="chat-avatar">
+                        <img class="chat-avatar" src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo"> 
                     </div>
-                {% endfor %}
-            </div>
 
-            <br>
-            <br>
-            
-            <div class="feed-filters">
-                <h1>Filters</h1>
-            </div>
+                    <div class="chat-info">
+                        <div class="chat-name">{{ user.username }}</div>
+                    </div>
+                    <div class="chat-timestamp">02:01 TODO</div>
+                    {# <a href="{% url 'chatroom' user.username %}" class="feed-start-chat-button">Chat</a> #}
+                </div>
+            {% endfor %}
+        </div>
+        
+        <br>
+        <br>
+        
+        <div class="feed-filters">
+            <h1>Filters</h1>
         </div>
     </div>
+    
 
     <div class="feed-feed-container">
 
@@ -47,6 +54,7 @@
                 <div class="feed-post-image">
                     <img src="https://picsum.photos/600/400?random=1" alt="Post Image">
                 </div>
+
                 <div class="feed-post-actions">
                     <form action="{% url 'feed' %}" method="POST">
                         {% csrf_token %}
@@ -92,4 +100,9 @@
 {% endblock %}
 
 {% block script %}
+<script type="text/javascript">
+    function enterChat(username) {
+        window.location.href = `/chat/${username}`;
+    }
+</script>
 {% endblock %}

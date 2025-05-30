@@ -1,33 +1,32 @@
 {% extends 'base_feed_chat.html' %}
 {% load static %}
-{% block title %} | Chat with {{ chat_user }}{% endblock %}
+{% block title %} | Chat with {{ chat_user.username }}{% endblock %}
 {% block style %}
     <link rel="stylesheet" href="{% static 'css/chat/chat.css' %}"/>
 {% endblock %}
 {% block content %}
 
 {# Main container for the overall chat application layout #}
-<div class="whatsapp-layout">
-
+<div class="chat-layout">
+    
     {# Left Sidebar for Chat List #}
     <div class="chat-list-sidebar">
+        <h2>Chats with Matches</h2>
         <div class="search-bar">
-            <input type="text" placeholder="Search or start new chat">
+            <input type="text" placeholder="Search chat with your Matches">
         </div>
         <div class="chats">
-            {# This section will be populated dynamically or from your backend #}
-            {# Example chat item - you'll loop through your actual chat rooms #}
             {% for user in matched_users %}
-                <div class="chat-item active">
+                <div class="chat-item" onclick="enterChat('{{ user.username }}')">
                     <div class="chat-avatar">
-                        <img src="https://i.pravatar.cc/50?u=user3" alt="User Profile Picture" class="feed-profile-pic">
+                        <img class="chat-avatar" src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo"> 
                     </div>
 
                     <div class="chat-info">
                         <div class="chat-name">{{ user.username }}</div>
                     </div>
                     <div class="chat-timestamp">02:01 TODO</div>
-                    <a href="{% url 'chatroom' user.username %}" class="feed-start-chat-button">Chat</a>
+                    {# <a href="{% url 'chatroom' user.username %}" class="feed-start-chat-button">Chat</a> #}
                 </div>
             {% endfor %}
         </div>
@@ -39,18 +38,14 @@
         <div class="chat-header-main">
             <div class="chat-header-info">
                 <div class="chat-avatar-main">
-                    <img src="https://i.pravatar.cc/50?u=user3" alt="User Profile Picture">
+                    <img class="chat-avatar" src="{% if chat_user.profile_picture %}{{ chat_user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo">
                 </div>
                 <div class="chat-details">
-                    <h3>{{ chat_user }}</h3>
-                    <p>typing...</p> {# You might want to update this dynamically via WebSocket #}
+                    <h3>{{ chat_user.username }}</h3>
+                    {% if chat_user.online %}
+                        <p>online</p>
+                    {% endif %}
                 </div>
-            </div>
-            <div class="chat-header-icons">
-                {# Example icons - replace with actual SVG/font icons #}
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <i class="fa-solid fa-paperclip"></i>
-                <i class="fa-solid fa-ellipsis-vertical"></i>
             </div>
         </div>
 
@@ -75,7 +70,6 @@
 
         {# Input where to write messages - fixed at bottom #}
         <form id="chat_form" class="message-input-form">
-            <i class="fa-regular fa-face-smile emoji-icon"></i> {# Emoji icon #}
             <input type="text" name="message" placeholder="Type a message..." autocomplete="off">
             <button type="submit" class="send-button">
                 {# SVG icon for send (paper airplane) #}
@@ -84,17 +78,20 @@
                     <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                 </svg>
             </button>
-            <i class="fa-solid fa-microphone mic-icon"></i> {# Microphone icon #}
         </form>
 
     </div> {# End main-chat-area #}
 
-</div> {# End whatsapp-layout #}
+</div> {# End chat-layout #}
 
 {% endblock %}
 
 {% block script %}
 <script type="text/javascript">
+    function enterChat(username) {
+        window.location.href = `/chat/${username}`;
+    }
+
     // Existing JavaScript remains the same for handling messages
     function formatTime(timeString) {
         const date = new Date(timeString);

@@ -16,7 +16,7 @@ main {
     max-height: 95vh;
 }
 
-.whatsapp-layout {
+.chat-layout {
     display: flex;
     flex-grow: 1; 
     width: 100%; 
@@ -35,7 +35,7 @@ main {
         height: 100vh; 
     }
 
-    .whatsapp-layout {
+    .chat-layout {
         width: 95%; 
         height: 90vh; 
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
@@ -133,7 +133,7 @@ main {
 }
 
 .chat-item:hover {
-    background-color: #f5f5f5;
+    background-color: #ff8cb2;
 }
 
 .chat-item.active {
@@ -143,7 +143,7 @@ main {
 .chat-avatar {
     width: 50px;
     height: 50px;
-    background-color: #ccc; 
+
     border-radius: 50%;
     margin-right: 15px;
     flex-shrink: 0; 
@@ -157,14 +157,6 @@ main {
     font-weight: bold;
     color: #111b21;
     font-size: 1.05em;
-}
-
-.chat-last-message {
-    color: #667781;
-    font-size: 0.9em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .chat-timestamp {
@@ -234,13 +226,6 @@ main {
     font-size: 0.9em;
 }
 
-.chat-header-icons {
-    display: flex;
-    gap: 25px;
-    color: #51585c;
-    font-size: 1.2em;
-}
-
 .chat-header-icons i {
     cursor: pointer;
 }
@@ -287,7 +272,7 @@ main {
 }
 
 .my-message .message-bubble {
-    background-color: #dcf8c6; 
+    background-color: #ff8cb2; 
     color: #111b21;
     border-top-right-radius: 0; 
 }
@@ -297,7 +282,7 @@ main {
     position: absolute;
     top: 0;
     right: -10px; 
-    border-top: 10px solid #dcf8c6;
+    border-top: 10px solid #ff8cb2;
     border-right: 10px solid transparent;
     border-bottom: 10px solid transparent;
     border-left: 10px solid transparent;
@@ -377,7 +362,7 @@ main {
 }
 
 .message-input-form .send-button:hover {
-    color: #00a884; 
+    color: #ff4081;
 }
 
 .send-icon {
@@ -385,17 +370,6 @@ main {
     height: 24px;
     fill: #667781; 
     stroke: #667781; 
-}
-
-.emoji-icon, .mic-icon {
-    font-size: 1.3em;
-    color: #667781;
-    cursor: pointer;
-    padding: 5px;
-}
-
-.emoji-icon:hover, .mic-icon:hover {
-    color: #00a884;
 }
 
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css");

@@ -59,8 +59,3 @@ document.querySelectorAll('.word.fancy').forEach((element) => {
 
     setInterval(() => hackedText(element), 4000); // Ogni 4 secondi glitcha
 });
-
-/*
-Con questa funzione prendiamo l'elemento con id passato come parametro e lo dividiamo in lettere, creando un nuovo elemento span per ogni lettera.
-Poi, aggiungiamo ogni lettera all'elemento padre, in modo che ogni lettera possa essere animata separatamente.
-*/
