@@ -5,3 +5,7 @@ def home_view(request):
 	if request.user.is_authenticated:
 		return redirect("feed")
 	return render(request, "main/home.html", {})
+
+
+def about_view(request):
+	return render(request, "main/about.html", {})

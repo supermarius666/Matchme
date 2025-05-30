@@ -10,9 +10,9 @@ body {
 }
 
 .content_get_started h1 {
-    font-size: 3em; /* Molto più grande */
+    font-size: 3em; 
     font-weight: bold;
-    color: #fff; /* o il colore che preferisci */
+    color: #fff; 
     margin-bottom: 30px;
 }
 
@@ -20,10 +20,10 @@ body {
     background-color: #ff4081;
     color: #fff;
     border: none;
-    padding: 16px 36px; /* Più spazio: pulsante più grande */
+    padding: 16px 36px; 
     border-radius: 30px;
     cursor: pointer;
-    font-size: 1.5em; /* Testo più grande */
+    font-size: 1.5em; 
     transition: background-color 0.3s ease;
 
     text-decoration: none;
@@ -34,7 +34,6 @@ body {
 .btn_start:hover {
     background-color: #e03570;
 }
-
 
 .page-container {
 	max-width: 1200px;
@@ -50,7 +49,6 @@ body {
 	gap: 2em;
 }
 
-/* LEFT: Chat stack */
 .left {
 	flex: 1;
 	display: grid;
@@ -113,7 +111,6 @@ body {
 	will-change: transform;
 }
 
-/* Quando la card è "away", togli la rotazione */
 .left .card.away {
 	transform: rotate(0deg) !important;
 }
@@ -132,7 +129,6 @@ body {
 	object-fit: cover;
 }
 
-/* Message layout */
 .user-header {
 	display: flex;
 	align-items: center;
@@ -178,7 +174,6 @@ body {
 	border-bottom-left-radius: 0;
 }
 
-/* Delays for message animations */
 .message:nth-child(2) {
 	animation-delay: 0.3s;
 }
@@ -206,7 +201,6 @@ body {
 	transform: none !important;
 }
 
-/* RIGHT: Textual stacked cards */
 .right {
 	flex: 1;
 	position: sticky;
@@ -288,7 +282,6 @@ body {
 	line-height: 1.3;
 }
 
-/* get_started */
 .hero-section {
 	background-image: url("/static/img/get_started.jpg");
 	background-size: cover;
@@ -301,7 +294,6 @@ body {
 	text-align: center;
 	overflow: hidden;
 }
-
 
 .overlay {
 	position: absolute;
@@ -341,7 +333,6 @@ body {
 	background-color: #e03250;
 }
 
-/* download section */
 .download-section {
 	text-align: center;
 	margin: 4rem 0;
@@ -355,29 +346,28 @@ body {
 	display: flex;
 	justify-content: center;
 	gap: 2rem;
-	/* Spaziatura tra i pulsanti */
+
 }
 
 .download-button {
 	width: 150px;
-	/* Imposta una larghezza fissa per i pulsanti */
+
 }
 
 .download-button img {
 	width: 100%;
-	/* Assicura che l'immagine occupi tutta la larghezza del pulsante */
+
 	border-radius: 10px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	transition: transform 0.3s ease;
-	/* Aggiunge una transizione per l'hover */
+
 }
 
 .download-button img:hover {
 	transform: scale(1.05);
-	/* Effetto di ingrandimento al passaggio del mouse */
+
 }
 
-/* marquee */
 body::-webkit-scrollbar {
     display: none;
 }
@@ -391,8 +381,6 @@ section {
 .gallery {
     height: 300vh;
   }
-
-
 
 .mimg {
     width: 100%;
@@ -410,7 +398,6 @@ section {
     &:nth-of-type(7) {background-image: url("/static/img/7.jpeg");}
     &:nth-of-type(8) {background-image: url("/static/img/8.jpeg");}
     &:nth-of-type(9) {background-image: url("/static/img/9.jpeg");}
-
 
     &:before {
         content: '';
@@ -444,8 +431,6 @@ section {
     color: #FF4081;
     white-space: nowrap;
 }
-
-/* dowloand */
 
 .download-section {
   display: flex;
@@ -506,7 +491,10 @@ section {
   margin-top: 10px;
 }
 
-/* 📱 Mobile: <= 600px */
+li::marker {
+    content: "";
+}
+
 @media (max-width: 600px) {
   .download-content h1 {
     font-size: 1.8rem;
@@ -526,7 +514,6 @@ section {
   }
 }
 
-/* 🧾 Tablet: 601px - 900px */
 @media (min-width: 601px) and (max-width: 900px) {
   .download-content h1 {
     font-size: 2.2rem;
@@ -537,7 +524,6 @@ section {
   }
 }
 
-/* 🖥️ Desktop: > 900px */
 @media (min-width: 901px) {
   .download-content h1 {
     font-size: 2.5rem;
@@ -548,7 +534,6 @@ section {
   }
 }
 
-/* 📱 Mobile & Tablet - Stack vertical layout */
 @media (max-width: 900px) {
   .page-container {
     flex-direction: column;

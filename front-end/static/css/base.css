@@ -11,20 +11,25 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    padding-top: 60px;
+    padding-top: 60px; 
 
-    gap: 40px;
+    gap: 40px; 
 }
 
 main {
     flex-grow: 1;
+
 }
 
 .navbar {
     background-color: #fff;
+
     color: #333;
+
     padding: 10px 0;
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
     position: fixed;
     width: 100%;
     top: 0;
@@ -40,10 +45,12 @@ main {
     align-items: center;
     padding: 0 20px;
     flex-wrap: wrap;
+
 }
 
 .navbar-brand a {
     color: #ff4081;
+
     text-decoration: none;
     font-size: 1.8em;
     font-weight: bold;
@@ -52,12 +59,17 @@ main {
 .navbar-nav {
     list-style: none;
     display: flex;
+
     margin: 0;
     padding: 0;
     flex-grow: 1;
+
     justify-content: center;
+
     transition: max-height 0.3s ease-in-out;
+
     overflow: hidden;
+
 }
 
 .navbar-nav li {
@@ -73,10 +85,13 @@ main {
 
 .navbar-nav a:hover {
     color: #ff4081;
+
 }
 
 .navbar-actions {
+
     display: flex;
+
     align-items: center;
 }
 
@@ -101,10 +116,13 @@ main {
 
 .hamburger {
     display: none;
+
     font-size: 1.6em;
+
     cursor: pointer;
     color: #333;
     margin-left: 20px;
+
 }
 
 .footer {
@@ -205,48 +223,65 @@ main {
 
 @media (max-width: 768px) {
     .navbar .container {
+
         justify-content: space-between;
+
     }
 
     .navbar-brand {
         flex-basis: auto;
+
         margin-right: auto;
+
     }
 
     .navbar-actions {
+
         flex-basis: auto;
+
         order: 2;
+
     }
 
     .hamburger {
         display: block;
+
         order: 3;
+
     }
 
     .navbar-nav {
+
         max-height: 0;
+
         flex-direction: column;
         width: 100%;
+
         text-align: center;
         margin-top: 10px;
         flex-basis: 100%;
+
     }
 
     .navbar-nav.active {
         max-height: 200px;
+
     }
 
     .navbar-nav li {
         margin: 10px 0;
+
     }
 
     .navbar-brand,
     .navbar-actions,
     .hamburger {
         order: initial;
+
     }
 
     .navbar-nav.active {
         order: 4;
+
     }
 }

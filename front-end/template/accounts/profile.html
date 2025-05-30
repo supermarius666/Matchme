@@ -2,14 +2,16 @@
 {% load static %}
 {% block title %} | Home{% endblock %}
 {% block style %}
-    <link rel="stylesheet" href="{% static 'css/accounts/profile.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'css/accounts/profile.css' %}">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
 {% endblock %}
 {% block content %}
 
  <div class="page-wrapper"> 
-    <div class="left-sidebar-new">
+    <div class="left-sidebar-new"> {# Nuova sidebar a sinistra che unisce navigazione e header-actions #}
+      
+        {# Spostati qui dalla precedente top-header #}
         <div class="sidebar-header-actions"> 
             <i class="fas fa-bell"></i> 
             <i class="fas fa-envelope"></i> 
@@ -20,7 +22,9 @@
     </div> 
 
     <div class="main-content-area"> 
-        <header class="top-header" style="display: none;">
+        {# La top-header è stata quasi svuotata, o potrebbe essere rimossa se non serve più a nulla #}
+        <header class="top-header" style="display: none;"> {# La nascondo, o puoi rimuoverla del tuttof #}
+            {# Contenuto precedente della top-header (search-bar e header-actions) rimosso/spostato #}
         </header> 
 
         <div class="profile-main-section"> 
@@ -162,11 +166,16 @@
             </div> 
         </div> 
         
+        {# La sidebar destra è stata tolta dalle tue istruzioni, ma era presente nel tuo CSS #}
+        {# Se vuoi mantenere la sidebar destra, dovrai reinserirla qui o in un'altra parte del layout #}
+        {# Per ora, la lascio fuori, in base alla tua richiesta implicita di riorganizzare solo la sinistra #}
     </div> 
 </div>
+
+
 
 {% endblock %}
 
 {% block script %}
-    <script src="{% static 'js/accounts/profile.js' %}"></script>
+  <script src="{% static 'js/accounts/profile.js' %}"></script>
 {% endblock %}

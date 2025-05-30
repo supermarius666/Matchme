@@ -24,7 +24,7 @@
 			<ul class="navbar-nav">
 				<li><a href="#">Home</a></li>
 				<li><a href="#">Contact</a></li>
-				<li><a href="#">About Us</a></li>
+				<li><a href="{% url 'about' %}">About Us</a></li>
 			</ul>
 			<div class="navbar-actions">
 				{% if request.user.is_authenticated %}

@@ -57,29 +57,35 @@ def logout_view(request):
 @login_required
 def preferences_view(request):
     if request.method == 'POST':
-        selected_prefs = request.POST.getlist('interested_in')
+        # Ottieni le preferenze selezionate dal form
+        selected_prefs = request.POST.getlist('interested_in')  # getlist per raccogliere tutte le checkbox selezionate
         
+        # campo bio 
         bio = request.POST.get('bio', '').strip()[:255]
 
+        # Trova o crea l'oggetto UserPreferences associato all'utente
         preferences, created = UserPreferences.objects.get_or_create(user=request.user)
 
-        all_pref = UserPreferences._meta.get_fields()
+        # Salva le preferenze nell'oggetto UserPreferences
+        all_pref = UserPreferences._meta.get_fields()        
         interests = [field.name for field in all_pref]
         
         for interest in interests:
             
             if interest in selected_prefs:
+                # lo metto true
                 setattr(preferences, interest, True)
     
         preferences.save()
 
+        # Salva o crea UserProfile
         profile = UserProfile.objects.get(username=request.user.username)
         profile.bio = bio
         profile.save()
 
-        return redirect('upload_photo')
+        return redirect('upload_photo')  # Reindirizza alla pagina del profilo (o dove preferisci)
 
-    return render(request, 'accounts/preferences.html')
+    return render(request, 'accounts/preferences.html')  # Il template con il form per le preferenze
 
 @login_required
 def update_bio(request):
@@ -88,7 +94,8 @@ def update_bio(request):
         profile, _ = UserProfile.objects.get_or_create(user=request.user)
         profile.bio = bio
         profile.save()
-    return redirect('profile')
+    return redirect('profile')  # Sostituisci con il nome corretto della tua view del profilo
+
 
 @login_required
 def upload_photo(request):
@@ -98,17 +105,21 @@ def upload_photo(request):
             user_profile = request.user
             user_profile.profile_picture = profile_pic
             user_profile.save()
-            return redirect('home')
+            return redirect('home')  # Reindirizza a una pagina del profilo dell'utente o dove preferisci
     
     return render(request, 'accounts/upload_photo.html')
 
-def profile(request):
+
+
+def profile(request): 
     user_profile = UserProfile.objects.get(username = request.user.username)
- 
+  
     user_preferences = UserPreferences.objects.get(user=request.user)
     return render(request, 'accounts/profile.html', {
-        'user_profile': user_profile,
+        'user_profile': user_profile, 
         'user_preferences': user_preferences,
-        'user': request.user,
-        'is_owner': True
+        'user': request.user,         # Passa anche user se non l'hai già fatto
+        'is_owner': True              # Perché sei nel profilo dell'utente loggato
     })
+
+

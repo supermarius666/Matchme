@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} | About Us{% endblock %}
+{% block style %}
+	<link rel="stylesheet" href="{% static 'css/main/about.css' %}">
+{% endblock %}
+{% block content %}
+<div class="center-wrapper">
+<div id="text">
+    <div class="line">
+        <p id="line_w1" class="word fancy">CODE</p>
+        <p id="line_w2" class="word fancy">LOVE</p>
+    </div>
+    <div class="line">
+        <p id="line_w3" class="word fancy">3</p>
+        <p id="line_w4" class="word fancy">DEVS</p>
+    </div>
+    <div class="line">
+        <p id="line_w5" class="word fancy">ONE</p>
+        <p id="line_w6" class="word fancy">VISION</p>
+    </div>
+</div>
+
+<div class="profile-container">
+    <div class="profile-card">
+        <img src="{% static 'img/valerio.jpeg' %}" alt="Valerio" class="profile-pic">
+        <h2>Valerio</h2>
+        <p>Dark Souls Enjoyer && Metallo Pesante.</p>
+        <p>Dark Souls Enjoyer && Metallo Pesante.</p>
+        <p>Dark Souls Enjoyer && Metallo Pesante.</p>
+        <p>Dark Souls Enjoyer && Metallo Pesante.</p>
+        <p>Dark Souls Enjoyer && Metallo Pesante.</p>
+        <p>Dark Souls Enjoyer && Metallo Pesante.</p>
+    </div>
+
+    <div class="profile-card">
+        <img src="{% static 'img/marius.jpeg' %}" alt="Marius" class="profile-pic">
+        <h2>Marius</h2>
+        <p>Ha invetato l'acqua calda && crede che il mondo abbia la forma della romania.</p>
+        <p>Ha invetato l'acqua calda && crede che il mondo abbia la forma della romania.</p>
+        <p>Ha invetato l'acqua calda && crede che il mondo abbia la forma della romania.</p>
+        <p>Ha invetato l'acqua calda && crede che il mondo abbia la forma della romania.</p>
+        <p>Ha invetato l'acqua calda && crede che il mondo abbia la forma della romania.</p>
+        <p>Ha invetato l'acqua calda && crede che il mondo abbia la forma della romania.</p>
+    </div>
+
+    <div class="profile-card">
+        <img src="{% static 'img/francesco.jpeg' %}" alt="Francesco" class="profile-pic">
+        <h2>Francesco</h2>
+        <p>Full-stack raccogli carciofi && AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA (for real).</p>
+        <p>Dark Souls Enjoyer && Metallo Pesante.</p>
+        <p>Dark Souls Enjoyer && Metallo Pesante.</p>
+        <p>Dark Souls Enjoyer && Metallo Pesante.</p>
+        <p>Dark Souls Enjoyer && Metallo Pesante.</p>
+        <p>Dark Souls Enjoyer && Metallo Pesante.</p>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+  <script src="{% static 'js/main/about.js' %}"></script>
+{% endblock %}

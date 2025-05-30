@@ -1,0 +1,167 @@
+:root {  
+    --pink_char: rgb(181, 44, 108);
+    --black_char: rgb(0, 0, 0);
+  }
+  
+  @keyframes float {
+    from, to {
+      transform: translateY(-0%);
+    }
+  
+    50% {    
+      transform: translateY(-3%);
+    }
+  }
+  
+  @keyframes background-pan {
+    from {
+      background-position: 1000% center;
+    }
+    
+    to {
+      background-position: 0% center;
+    }
+  }
+  
+  body {
+    background-color: rgb(0, 0, 0);
+    margin: 0rem;
+    font-family: "Rubik", sans-serif;
+    overflow-x: hidden;
+  }
+
+  .center-wrapper {
+    display: grid;
+    place-items: center;
+    padding: 4rem 1rem;
+    display: grid;
+}
+  .line {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  
+  .word {
+    color: rgb(253, 212, 241);
+    font-size: clamp(2rem, 8vw, 10rem);
+    font-family: "Rubik", sans-serif;
+    margin: 0rem;
+    text-transform: uppercase;
+    transition: opacity 250ms ease;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  #text:has(.fancy:hover) .word:not(.fancy:hover) {
+    opacity: 0.2;
+  }
+  
+  .fancy span {
+    display: inline-block;
+  }
+  
+  .fancy > .outer {
+    transition: transform 30ms ease;
+  }
+  
+  .fancy:hover > .outer {
+    transition-duration: 80ms;
+  }
+  
+  .fancy:hover > .outer > .inner {
+    animation: float 5s ease infinite;
+  }
+  
+  .fancy:hover > .outer > .inner > .letter {
+    background: linear-gradient(
+      to right,
+      var(--black_char),
+      var(--pink_char),
+      var(--black_char)
+    );
+    background-size: 1000%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: background-pan 5s linear infinite;
+  }
+  
+  .fancy:hover > .outer:nth-child(1) {
+    transform: translate(-80%, 60%) rotate(8deg);
+  }
+  
+  .fancy:hover > .outer:nth-child(2) {
+    transform: translate(-40%, 20%) rotate(4deg);
+  }
+  
+  .fancy:hover > .outer:nth-child(3) {
+    transform: translate(-10%, 60%) rotate(-6deg);
+  }
+  
+  .fancy:hover > .outer:nth-child(4) {
+    transform: translate(0%, 8%) rotate(-8deg);
+  }
+  
+  .fancy:hover > .outer:nth-child(5) {
+    transform: translate(0%, -20%) rotate(5deg);
+  }
+  
+  .fancy:hover > .outer:nth-child(6) {
+    transform: translate(0%, 20%) rotate(-3deg);
+  }
+
+  .profile-container {
+    margin-top: 5rem;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    padding: 2rem;
+}
+
+.profile-card {
+    background-color: #1c1c1e;
+    border-radius: 1.5rem;
+    padding: 2rem 1.5rem;
+    width: 300px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(255, 105, 180, 0.5); /* Glow rosa */
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 3px solid var(--pink_char);
+    transition: box-shadow 0.3s ease;
+}
+
+.profile-pic:hover {
+    box-shadow: 0 0 20px var(--pink_char), 0 0 40px var(--pink_char);
+}
+
+.profile-card h2 {
+    margin: 0.5rem 0;
+    font-size: 1.5rem;
+}
+
+.profile-card p {
+    font-size: 1rem;
+    opacity: 0.8;
+    word-break: break-word; 
+    max-width: 90%;
+}
