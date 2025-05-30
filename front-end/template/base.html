@@ -70,53 +70,11 @@
 		{% block content %}
 		{% endblock %}
 	</main>
-	<footer class="footer">
-		<!-- <canvas id="hearts-canvas"></canvas> -->
-		<div class="footer-container">
-			<!-- Logo e descrizione -->
-			<div class="footer-section">
-				<h2 class="footer-title">MatchMe</h2>
-				<p class="footer-text">Connetti cuori, trova la tua metà.</p>
-			</div>
-
-			<!-- Navigazione -->
-			<div class="footer-section">
-				<h3 class="footer-heading">Pagine</h3>
-				<ul>
-					<li><a href="#">Home</a></li>
-					<li><a href="#">Chi siamo</a></li>
-					<li><a href="#">Funzionalità</a></li>
-					<li><a href="#">Contatti</a></li>
-				</ul>
-			</div>
-
-			<!-- Lavora con noi -->
-			<div class="footer-section">
-				<h3 class="footer-heading">Lavora con noi</h3>
-				<ul>
-					<li><a href="#">Posizioni aperte</a></li>
-					<li><a href="#">Stage & Tirocini</a></li>
-					<li><a href="#">Collabora</a></li>
-				</ul>
-			</div>
-
-			<!-- Social -->
-			<div class="footer-section">
-				<h3 class="footer-heading">Seguici</h3>
-				<ul class="social-links">
-					<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-					<li><a href="#"><i class="fab fa-instagram"></i></a></li>
-					<li><a href="#"><i class="fab fa-twitter"></i></a></li>
-					<li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-				</ul>
-			</div>
-		</div>
-
-		<div class="footer-bottom">
-			© 2025 MatchMe. Tutti i diritti riservati.
-		</div>
-	</footer>
 	
+	{% block footer %}
+	{% endblock %}
+	
+	<!-- Scripts -->
 	<script type="text/javascript">
 		document.addEventListener('DOMContentLoaded', function() {
 		const userAvatarToggle = document.getElementById('userAvatarToggle');

@@ -1,4 +1,4 @@
-{% extends 'base_feed_chat.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block title %} | Feed{% endblock %}
 {% block style %}
@@ -97,6 +97,9 @@
             {% endif %}
         {% endfor %}
 </div>
+{% endblock %}
+
+{% block footer %}
 {% endblock %}
 
 {% block script %}
