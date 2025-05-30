@@ -33,12 +33,18 @@
                     <img class="profile-picture" src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo"> 
                     <div class="profile-info"> 
                         <h1>{{ user.first_name }} {{ user.last_name }}{% if user_profile.age %}, {{ user_profile.age }}{% endif %}</h1> 
-                        <p class="location"> 
-                            <i class="fas fa-map-marker-alt"></i> 
+                        <p class="location" id="geolocation"> 
+                            <i class="fas fa-map-marker-alt"></i>
+
+                            <!--
+                            magari facciamo decidere allo user se impostarla lui (quindi info va nel DB)
+                            oppure se vuole lasciare accedere alla posizione e le coord le prendiamo da li
+                            -->
+                            <!-- se user HA autorizzato il sito a chiamare la geolocalizzazione viene aggiunta dal js a questo paragrafo -->
+
+                            <!-- se user NON HA autorizzato il sito a chiamare la geolocalizzazione il js non si attiva e si renderizza questo: -->
                             {% if user_profile.location %} 
                                 {{ user_profile.location }} 
-                            {% else %} 
-                                Non specificato 
                             {% endif %} 
                         </p> 
                     </div> 
@@ -181,5 +187,6 @@
 {% endblock %}
 
 {% block script %}
-  <script src="{% static 'js/accounts/profile.js' %}"></script>
+    <script src="{% static 'js/accounts/profile.js' %}"></script>
+    <script src="{% static 'js/accounts/geolocation.js' %}"></script>
 {% endblock %}

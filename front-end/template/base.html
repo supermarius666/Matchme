@@ -22,7 +22,7 @@
 				<a href="{% url 'home' %}">MatchMe</a>
 			</div>
 			<ul class="navbar-nav">
-				<li><a href="#">Home</a></li>
+				<li><a href="{% url 'home' %}">Home</a></li>
 				<li><a href="#">Contact</a></li>
 				<li><a href="{% url 'about' %}">About Us</a></li>
 			</ul>
@@ -43,13 +43,13 @@
 										<button type="submit">Logout</button>
 									</form>
 								</li>
+								<li><a href="{% url 'feed' %}">Feed</a></li>
+								<li><a href="#">Settings</a></li>
 							</ul>
 						</div>
 					</div>
 
-
-
-
+					{# TODO: da togliere #}
 					<form method="POST" action="{% url 'logout' %}">
 						{% csrf_token %}
 						<button type="submit" class="btn-login">Logout</button>

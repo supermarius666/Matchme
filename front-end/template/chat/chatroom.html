@@ -5,10 +5,7 @@
     <link rel="stylesheet" href="{% static 'css/chat/chat.css' %}"/>
 {% endblock %}
 {% block content %}
-
-
 <div class="chat-layout">
-
 
     <div class="chat-list-sidebar">
         <h2>Chats with Matches</h2>
@@ -32,9 +29,7 @@
         </div>
     </div>
 
-
     <div class="main-chat-area">
-
         <div class="chat-header-main">
             <div class="chat-header-info">
                 <div class="chat-avatar-main">
@@ -49,7 +44,6 @@
             </div>
         </div>
 
-
         <div id="messages" class="messages-container">
             {% for message in messages %}
                 <div class="message-container {% if message.user_sender.username == request.user.username %}my-message{% else %}other-message{% endif %}">
@@ -59,18 +53,16 @@
                             <div class="message-username">{{ message.user_sender.username }}</div>
                         {% endif %}
                         <div class="message-text">{{ message.message_payload }}</div>
-
                         <div class="message-timestamp">{{ message.time_stamp|date:"H:i" }}</div> {# Format time as HH:MM #}
                     </div>
                 </div>
             {% endfor %}
         </div>
 
-
+     
         <form id="chat_form" class="message-input-form">
             <input type="text" name="message" placeholder="Type a message..." autocomplete="off">
             <button type="submit" class="send-button">
-
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="send-icon">
                     <line x1="22" y1="2" x2="11" y2="13"></line>
                     <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
@@ -78,9 +70,10 @@
             </button>
         </form>
 
-    </div>
+    </div> 
 
 </div> 
+
 {% endblock %}
 
 {% block footer %}
@@ -92,6 +85,7 @@
         window.location.href = `/chat/${username}`;
     }
 
+    // Existing JavaScript remains the same for handling messages
     function formatTime(timeString) {
         const date = new Date(timeString);
         const hours = date.getHours().toString().padStart(2, '0');
@@ -144,6 +138,7 @@
         form.reset()
     })
 
+    // Scroll to the bottom of the messages when the page loads
     window.onload = function() {
         const messagesContainer = document.getElementById("messages");
         messagesContainer.scrollTop = messagesContainer.scrollHeight;

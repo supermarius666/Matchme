@@ -593,3 +593,29 @@ li::marker {
     z-index: auto;
   }
 }
+
+.prova h1 {
+    font-size: 14rem;
+    font-family: sans-serif;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    margin: 0;
+    color: #FF4081;
+    white-space: nowrap;
+}
+
+.prova h3 {
+    font-size: 4rem;
+    font-family: sans-serif;
+    position: absolute;
+    left: 50%;
+    top: 70%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    margin: 0;
+    color: #363636;
+    white-space: nowrap;
+}

@@ -1,8 +1,19 @@
-.main-content-wrapper {
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #dadbd3; 
+    min-height: 100vh; 
+    overflow: hidden; 
+}
+
+main {
     display: flex; 
-
-    height: 100%; 
-
+    flex-grow: 1; 
+    width: 100%; 
+    height: 100vh; 
+    justify-content: flex-start; 
+    align-items: stretch; 
+    max-height: 95vh;
 }
 
 .feed-layout {
@@ -17,7 +28,22 @@
     overflow: hidden; 
 }
 
-.chat-list-sidebar {
+@media (min-width: 768px) {
+    main {
+        justify-content: center; 
+        align-items: center; 
+        height: 100vh; 
+    }
+
+    .feed-layout {
+        width: 95%; 
+        height: 90vh; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        border-radius: 5px; 
+    }
+}
+
+.feed-left-sidebar {
 
     width: 30%; 
     min-width: 280px; 
@@ -25,14 +51,74 @@
     background-color: #ffffff;
     border-right: 1px solid #e0e0e0;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
     flex-shrink: 0; 
+    overflow-y: auto; 
+
+    height: 100vh;
+    top: 0; 
+    position: sticky; 
 }
+.chat-list-sidebar {
+    flex-grow: 1; 
+    overflow-y: auto; 
+
+    height: 50%; 
+    box-sizing: border-box; 
+}
+
+.feed-filters-sidebar {
+    flex-grow: 1; 
+    overflow-y: auto; 
+    height: 50%; 
+    box-sizing: border-box; 
+    border-top: 1px solid #ccc; 
+}
+
+@media (max-width: 767px) {
+    .chat-list-sidebar {
+        display: none; 
+        width: 100%; 
+        min-width: unset; 
+        max-width: unset; 
+        border-right: none;
+        position: absolute; 
+        left: 0;
+        top: 0;
+        z-index: 200; 
+    }
+
+    .chat-list-sidebar.active {
+        display: flex; 
+    }
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #f0f2f5;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.sidebar-icons {
+    display: flex;
+    gap: 20px;
+    color: #51585c;
+    font-size: 1.2em;
+}
+
+.sidebar-icons i {
+    cursor: pointer;
+}
+
 .search-bar {
     padding: 10px 15px;
     background-color: #f6f6f6;
     border-bottom: 1px solid #e0e0e0;
 }
+
 .search-bar input {
     width: 100%;
     padding: 8px 10px;
@@ -43,10 +129,12 @@
     background-color: #fff;
     box-sizing: border-box; 
 }
+
 .chats {
     flex-grow: 1; 
     overflow-y: auto; 
 }
+
 .chat-item {
     display: flex;
     align-items: center;
@@ -55,12 +143,15 @@
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
+
 .chat-item:hover {
     background-color: #ff8cb2;
 }
+
 .chat-item.active {
     background-color: #e9e9e9;
 }
+
 .chat-avatar {
     width: 50px;
     height: 50px;
@@ -69,60 +160,46 @@
     margin-right: 15px;
     flex-shrink: 0; 
 }
+
 .chat-info {
     flex-grow: 1;
 }
+
 .chat-name {
     font-weight: bold;
     color: #111b21;
     font-size: 1.05em;
 }
+
 .chat-timestamp {
     font-size: 0.8em;
     color: #667781;
     margin-left: auto; 
 }
 
-.feed-left-sidebar {
-    width: 280px;
-    border-right: 1px solid #dbdbdb;
-    top: 60px;
-    height: calc(100vh - 60px);
-    overflow-y: auto;
-
-    position: sticky; 
-
-    height: auto; 
-    top: 60px; 
-    left: 0; 
-    overflow-y: auto; 
-}
-
-.feed-sidebar-content h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    font-weight: 600;
-}
-
-.feed-sidebar-content p {
-    font-size: 14px;
-    color: #8e8e8e;
-    margin-bottom: 25px;
-    line-height: 1.4;
+.feed-main-container {
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+    background-size: contain; 
+    background-repeat: repeat;
+    background-color: #e5ddd5; 
 }
 
 .feed-feed-container {
-    flex-grow: 1; 
-    overflow-y: auto; 
-    padding: 20px;
-    background-color: #fafafa; 
-    margin-left: -30px; 
+    flex-grow: 1;
+    padding: 20px 80px; 
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    gap: 8px; 
+    scroll-behavior: smooth; 
+}
 
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+@media (max-width: 767px) {
+    .feed-feed-container {
+        padding: 10px 20px; 
+    }
 }
 
 .feed-post {
