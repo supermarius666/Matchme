@@ -41,33 +41,36 @@
             display: block;
             margin-bottom: 5px;
             color: #555;
-            text-align: center; 
+            text-align: center; /* Centra la label sopra l'immagine */
         }
 
+        /* Stili per l'area circolare dell'immagine */
         .profile-pic-container {
-            width: 150px; 
+            width: 150px; /* Dimensione del cerchio */
             height: 150px;
-            border-radius: 50%; 
-            overflow: hidden; 
-            margin: 0 auto 20px auto; 
-            background-color: #ccc; 
-            cursor: pointer; 
-            position: relative; 
-            display: flex; 
+            border-radius: 50%; /* Rende l'area circolare */
+            overflow: hidden; /* Nasconde le parti dell'immagine che escono dal cerchio */
+            margin: 0 auto 20px auto; /* Centra il contenitore e aggiunge margine sotto */
+            background-color: #ccc; /* Colore di sfondo di fallback */
+            cursor: pointer; /* Indica che è cliccabile */
+            position: relative; /* Per posizionare l'input file */
+            display: flex; /* Centra l'immagine */
             justify-content: center;
             align-items: center;
         }
 
         .profile-pic-container img {
-            display: block; 
-            width: 100%; 
+            display: block; /* Rimuove spazio extra sotto l'immagine */
+            width: 100%; /* Fa in modo che l'immagine copra il contenitore */
             height: 100%;
-            object-fit: cover; 
+            object-fit: cover; /* Assicura che l'immagine copra il cerchio senza distorsioni */
         }
 
+        /* Nasconde l'input file originale */
         .form-group input[type="file"] {
             display: none;
         }
+
 
         button {
             background-color: #5cb85c;
@@ -84,10 +87,11 @@
             background-color: #4cae4c;
         }
 
+        /* Media query per schermi più piccoli */
         @media (max-width: 480px) {
             .card {
                 width: 90%;
-                padding: 20px; 
+                padding: 20px; /* Riduci il padding su schermi piccoli */
             }
             .profile-pic-container {
                  width: 120px;
@@ -102,12 +106,12 @@
             <h2>Carica Foto Profilo</h2>
             <form id="upload-photo-form" method="post" action="{% url 'feed' %}" enctype="multipart/form-data">
                 {% csrf_token %}
-
+                
                 <div class="form-group">
                     <label>Clicca sul cerchio per caricare la foto:</label>
                     <div class="profile-pic-container" id="profile-pic-container">
                         <!-- <img id="profile-pic" src="{% static 'img/default.jpg' %}" alt="Avatar di default"> -->
-
+                         
                         <img id="profile-pic" 
                         src="{{ user.profile_picture.url|default_if_none:'/media/profile_pics/default_profile_pic.png' }}" 
                         alt="Avatar di default">
@@ -126,37 +130,44 @@
         const profilePicContainer = document.getElementById('profile-pic-container');
         const profilePic = document.getElementById('profile-pic');
         const imageUpload = document.getElementById('image-upload');
-        const defaultAvatarSrc = profilePic.src; 
+        const defaultAvatarSrc = profilePic.src; // Salva il percorso dell'immagine di default
 
+        // Funzione per gestire il click sul contenitore dell'immagine
         profilePicContainer.addEventListener('click', () => {
-            imageUpload.click(); 
+            imageUpload.click(); // Attiva il click sull'input file nascosto
         });
 
+        // Funzione per gestire il cambio dell'input file
         imageUpload.addEventListener('change', (event) => {
-            const file = event.target.files[0]; 
+            const file = event.target.files[0]; // Ottiene il file selezionato
 
             if (file) {
-
+                // Controlla se è un'immagine (opzionale, ma consigliato)
                 if (file.type.startsWith('image/')) {
                     const reader = new FileReader();
 
                     reader.onload = (e) => {
-
+                        // Visualizza l'immagine selezionata nel cerchio
                         profilePic.src = e.target.result;
                     };
 
+                    // Legge il file come Data URL (per la visualizzazione)
                     reader.readAsDataURL(file);
                 } else {
                     alert('Per favore, seleziona un file immagine.');
-
-                    imageUpload.value = ''; 
-                    profilePic.src = defaultAvatarSrc; 
+                    // Resetta l'input file e l'immagine visualizzata se il file non è un'immagine
+                    imageUpload.value = ''; // Pulisce l'input file
+                    profilePic.src = defaultAvatarSrc; // Ripristina l'immagine di default
                 }
             } else {
-
+                // Se l'utente annulla la selezione del file, ripristina l'immagine di default
                  profilePic.src = defaultAvatarSrc;
             }
         });
+
+        // Quando il form viene inviato, l'input file nascosto conterrà il file selezionato (se c'è)
+        // Se non è stato selezionato nessun file, l'input file sarà vuoto e Django gestirà
+        // l'assenza del file in base alla definizione del tuo form e model.
 
     </script>
 </body>
