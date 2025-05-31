@@ -1,3 +1,1464 @@
+/* General Layout and Body Styling - (Mantenuto in gran parte come il tuo) */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+}
+
+.page-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    background-color: #f0f2f5;
+}
+
+/* Nuova Sidebar a Sinistra (Mantenuta in gran parte come il tuo) */
+.left-sidebar-new {
+    width: 250px;
+    background-color: #fff;
+    padding: 20px 0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid #e4e6eb;
+}
+
+.left-sidebar-new .logo {
+    font-size: 28px;
+    font-weight: 700;
+    color: #FF5A5F;
+    margin-bottom: 30px;
+    padding: 0 20px;
+}
+
+.left-sidebar-new .nav-links {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.left-sidebar-new .nav-links li {
+    margin-bottom: 10px;
+}
+
+.left-sidebar-new .nav-links li a,
+.left-sidebar-new .nav-links li .nav-logout-btn {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: #65676b;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+.left-sidebar-new .nav-links li a i,
+.left-sidebar-new .nav-links li .nav-logout-btn i {
+    margin-right: 15px;
+    font-size: 18px;
+    color: #8a8d91;
+}
+
+.left-sidebar-new .nav-links li a span {
+    background-color: #FFEDEE;
+    color: #FF5A5F;
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-left: auto;
+    font-weight: 600;
+}
+
+.left-sidebar-new .nav-links li.active a,
+.left-sidebar-new .nav-links li a:hover,
+.left-sidebar-new .nav-links li .nav-logout-btn:hover {
+    background-color: #FFEDEE;
+    color: #FF5A5F;
+}
+
+.left-sidebar-new .nav-links li.active a i,
+.left-sidebar-new .nav-links li a:hover i,
+.left-sidebar-new .nav-links li .nav-logout-btn:hover i {
+    color: #FF5A5F;
+}
+
+.left-sidebar-new .sidebar-header-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    border-top: 1px solid #e4e6eb;
+    border-bottom: 1px solid #e4e6eb;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.left-sidebar-new .sidebar-header-actions i {
+    font-size: 20px;
+    color: #65676b;
+    cursor: pointer;
+}
+
+.left-sidebar-new .sidebar-header-actions .header-profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.left-sidebar-new .sidebar-header-actions span {
+    font-weight: 500;
+    color: #050505;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.left-sidebar-new .sidebar-header-actions span i {
+    font-size: 14px;
+    margin-left: 5px;
+    color: #65676b;
+}
+
+/* Main Content Area */
+.main-content-area {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Top Header - Nascondo o rimuovo completamente se non serve più */
+.top-header {
+    display: none;
+}
+
+/* --------------- NUOVI STILI PER IL PROFILO --------------- */
+
+/* Container principale del profilo */
+.profile-page-container {
+    width: 100%; /* Occupa tutta la larghezza disponibile */
+    background-color: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Ombra più morbida */
+    border-radius: 15px; /* Bordi arrotondati per l'intero blocco */
+    overflow: hidden; /* Importante per far rispettare il border-radius alla cover */
+    margin-bottom: 20px; /* Spazio sotto il container principale */
+}
+
+/* Card Styling (reusable for sections) */
+.card {
+    background-color: #ffffff;
+    border-radius: 12px; /* Bordi più arrotondati */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); /* Ombra più leggera per le card interne */
+    padding: 25px; /* Padding generoso */
+    margin-bottom: 20px; /* Spazio tra le card */
+}
+
+/* Sezione Foto Cover */
+.cover-photo-section {
+    position: relative;
+    width: 100%;
+    height: 280px; /* Altezza fissa per la cover */
+    background-color: #e0e5ec; /* Sfondo di default */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cover-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Assicura che l'immagine copra l'area */
+    display: block;
+}
+
+.cover-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right top, #a29bfe, #6c5ce7); /* Gradiente per placeholder */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.cover-placeholder::before {
+    content: "Aggiungi una foto di copertina";
+}
+
+.cover-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Overlay scuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.cover-photo-section:hover .cover-overlay {
+    opacity: 1;
+}
+
+.edit-cover-btn {
+    background-color: rgba(255, 255, 255, 0.2); /* Bianco semi-trasparente */
+    border: 2px solid white;
+    border-radius: 50%;
+    color: white;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.5em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.edit-cover-btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+}
+
+/* Sezione Header del Profilo (Avatar, Nome, Azioni) */
+.profile-header-section {
+    display: flex;
+    flex-direction: column; /* Stack vertically */
+    align-items: center; /* Centra gli elementi orizzontalmente */
+    margin-top: -80px; /* Tira su l'avatar nella foto cover */
+    padding: 0 30px 20px; /* Padding sotto la sezione avatar */
+    position: relative; /* Per posizionamento dell'overlay dell'avatar */
+    z-index: 10; /* Assicura che sia sopra altri elementi */
+}
+
+.profile-avatar-container {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid white; /* Bordo bianco intorno all'avatar */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); /* Ombra più forte per l'avatar */
+    position: relative;
+    background-color: #f8f8f8; /* Sfondo se l'immagine non è caricata */
+    transition: all 0.3s ease;
+}
+
+.profile-avatar-container:hover {
+    transform: scale(1.05); /* Lieve ingrandimento all'hover */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.profile-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.avatar-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 50%;
+}
+
+.profile-avatar-container:hover .avatar-overlay {
+    opacity: 1;
+}
+
+.edit-avatar-btn {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid white;
+    border-radius: 50%;
+    color: white;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.edit-avatar-btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+}
+
+.profile-info-and-actions {
+    text-align: center;
+    margin-top: 20px; /* Spazio tra avatar e nome */
+}
+
+.profile-name {
+    font-size: 2.5em; /* Nome più grande */
+    color: #2c3e50; /* Colore scuro per il nome */
+    margin: 0 0 10px 0; /* Rimuovi margin-bottom predefinito del tuo h1 */
+    font-weight: 700;
+}
+
+.profile-info-and-actions .location { /* Targeting più specifico per la posizione */
+    font-size: 1.1em;
+    color: #65676b;
+    margin-bottom: 20px; /* Spazio sotto la posizione */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centra anche l'icona e il testo */
+    gap: 8px; /* Spazio tra icona e testo */
+}
+
+.profile-info-and-actions .location i {
+    font-size: 1.2em;
+    color: #8a8d91;
+    margin-right: 0; /* Rimuovi il margine a destra dell'icona se usi gap */
+}
+
+.profile-actions { /* Modificato per i nuovi stili dei bottoni */
+    display: flex;
+    gap: 15px; /* Spazio tra i bottoni */
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* Stili Bottoni Generali (Aggiornati per coerenza con il nuovo look) */
+.btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px; /* Bordi meno arrotondati rispetto ai tuoi 20px */
+    font-size: 1.05em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background: linear-gradient(to right,#ff4081,#e47298); /* Gradiente dal tuo colore principale */
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(to left,#ff4081,#e47298);
+}
+
+.btn-secondary {
+    background-color: #ecf0f1; /* Grigio chiaro */
+    color: #34495e; /* Testo più scuro */
+    border: 1px solid #bdc3c7;
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    background-color: #dbe2e8;
+}
+
+/* Sezione Contenuto del Profilo */
+.profile-content-section {
+    padding: 0 30px 30px; /* Padding interno al main container */
+}
+.btn-edit-bio { /* Stile specifico per il bottone di modifica biografia */
+    background-color: #f8f8f8;
+    color: #34495e;
+    border: 1px solid #dcdcdc;
+    padding: 8px 15px;
+    font-size: 0.9em;
+    border-radius: 6px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-edit-bio:hover {
+    background-color: #e9e9e9;
+    transform: translateY(-1px);
+}
+
+/* Aggiungi uno stile per il bottone Salva quando è attivo */
+.btn-save-bio {
+    background-color: #FF5A5F; /* Un colore più distintivo per "Salva" */
+    color: white;
+    border: 1px solid #FF5A5F;
+    padding: 8px 15px;
+    font-size: 0.9em;
+    border-radius: 6px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-save-bio:hover {
+    background-color: #e04a4f;
+    transform: translateY(-1px);
+}
+
+/* Sezione Contenuto del Profilo */
+.profile-content-section {
+    padding: 0 30px 30px; /* Padding interno al main container */
+}
+
+/* Sezione Biografia (Nuova posizione) */
+.bio-section h3 {
+    margin-top: 0;
+    color: #34495e;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.bio-section #bio-textarea { /* Stili per la textarea della biografia */
+    width: 100%;
+    height: 120px; /* Altezza adeguata */
+    resize: vertical;
+    font-size: 16px;
+    padding: 15px;
+    border: 1px solid #dadde1;
+    border-radius: 8px;
+    color: #333;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.bio-section #bio-textarea:focus {
+    border-color: #FF5A5F;
+    background-color: #fff;
+}
+
+.bio-section #bio-textarea[readonly] {
+    background-color: #f0f2f5;
+    cursor: default;
+    border-color: transparent;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); /* Leggera ombra interna per campo non modificabile */
+}
+
+/* Griglia Dettagli (Interessi, Hobbies, Stile di Vita) */
+.profile-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Griglia responsiva */
+    gap: 20px; /* Spazio tra gli item della griglia */
+    margin-top: 20px;
+}
+
+.detail-item {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px; /* Altezza consistente */
+}
+
+.detail-item h4 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: #34495e;
+    font-size: 1.1em;
+}
+
+.detail-item p {
+    font-size: 1.8em; /* Valore più grande */
+    font-weight: 700;
+    color: #FF5A5F; /* Colore del tuo tema */
+    margin: 0;
+}
+
+.detail-item [class^="icon-"] { /* Stili per le icone */
+    font-size: 2.5em;
+    color: #FE8C8C; /* Colore più chiaro per le icone */
+    margin-bottom: 5px;
+}
+
+/* Stili Tab (Adattati al nuovo look) */
+.profile-tabs {
+    margin-top: 20px;
+    padding: 0; /* Rimuovo padding dalla card padre, lo mettiamo nel contenuto della tab */
+    border-bottom-left-radius: 15px; /* Arrotonda gli angoli inferiori delle tab */
+    border-bottom-right-radius: 15px;
+}
+
+.profile-tabs .tab-buttons {
+    display: flex;
+    border-bottom: 2px solid #eee;
+    margin-bottom: 0; /* Nessun margine qui, il contenuto ha il suo padding */
+    overflow-x: auto; /* Scroll orizzontale su schermi piccoli */
+    -webkit-overflow-scrolling: touch;
+    padding: 0 25px; /* Padding per allinearsi al contenuto delle card */
+    background-color: #fcfcfc; /* Sfondo leggermente diverso per la barra delle tab */
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.profile-tabs .tab-button {
+    background-color: transparent;
+    border: none;
+    padding: 15px 20px;
+    cursor: pointer;
+    font-size: 1.05em;
+    font-weight: 600;
+    color: #777;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.profile-tabs .tab-button:hover {
+    color: #555;
+    border-bottom-color: #ddd;
+}
+
+.profile-tabs .tab-button.active {
+    color: #FF5A5F; /* Colore attivo del tuo tema */
+    border-bottom-color: #FF5A5F;
+}
+
+.profile-tabs .tab-content-wrapper {
+    padding: 25px; /* Padding per il contenuto delle tab */
+    min-height: 300px;
+}
+
+.profile-tabs .tab-content {
+    display: none;
+}
+
+.profile-tabs .tab-content.active {
+    display: block;
+}
+
+.tab-content h2 {
+    font-size: 22px; /* Titolo leggermente più grande */
+    color: #050505;
+    margin-top: 0;
+    margin-bottom: 20px; /* Spazio maggiore sotto il titolo */
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* User Stats Grid (Mantenuto in gran parte come il tuo, ma ri-targettizzato) */
+.tab-content .stats-grid { /* Target specifico per le stats dentro le tab */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 10px 0;
+}
+
+.tab-content .stat-item-detailed {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.tab-content .stat-item-detailed i {
+    font-size: 30px;
+    color: #FF5A5F;
+    margin-bottom: 10px;
+}
+
+.tab-content .stat-item-detailed p {
+    margin: 0;
+    font-size: 15px;
+    color: #65676b;
+}
+
+.tab-content .stat-item-detailed strong {
+    display: block;
+    font-size: 20px;
+    color: #050505;
+    margin-top: 5px;
+}
+
+/* Create Post Area (Mantenuto in gran parte come il tuo) */
+.tab-content .create-post-area {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    border: 1px solid #e4e6eb;
+}
+
+.tab-content .create-post-area textarea {
+    width: 100%;
+    border: none;
+    resize: none;
+    padding: 10px 0;
+    font-size: 16px;
+    margin-bottom: 10px;
+    outline: none;
+    background-color: transparent;
+}
+
+.tab-content .create-post-area .options {
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+    border-top: 1px solid #f0f2f5;
+    padding-top: 10px;
+}
+
+.tab-content .create-post-area .options button {
+    background: none;
+    border: none;
+    color: #65676b;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    display: flex;
+    align-items: center;
+}
+
+.tab-content .create-post-area .options button i {
+    margin-right: 8px;
+    color: #FF5A5F;
+}
+
+.tab-content .create-post-area .options button:hover {
+    background-color: #f2f2f2;
+    color: #FF5A5F;
+}
+
+.tab-content .create-post-area .options button:hover i {
+    color: #FF5A5F;
+}
+
+/* User Posts List (Mantenuto in gran parte come il tuo) */
+.tab-content .posts-list {
+    margin-top: 20px;
+}
+
+.tab-content .user-post {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.tab-content .user-post .post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.tab-content .user-post .post-header img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.tab-content .user-post .post-header h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #050505;
+    font-weight: 600;
+}
+
+.tab-content .user-post .post-header .post-date {
+    font-size: 13px;
+    color: #8a8d91;
+}
+
+.tab-content .user-post .post-content {
+    font-size: 15px;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.tab-content .user-post .post-image {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.tab-content .user-post .post-actions {
+    display: flex;
+    gap: 15px;
+    border-top: 1px solid #f0f2f5;
+    padding-top: 15px;
+}
+
+.tab-content .user-post .post-actions button {
+    background: none;
+    border: none;
+    color: #65676b;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    display: flex;
+    align-items: center;
+}
+
+.tab-content .user-post .post-actions button i {
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+.tab-content .user-post .post-actions button:hover {
+    background-color: #f2f2f2;
+    color: #FF5A5F;
+}
+
+.tab-content .user-post .post-actions button:hover i {
+    color: #FF5A5F;
+}
+
+/* Photo Gallery Grid (Mantenuto in gran parte come il tuo) */
+.tab-content .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.tab-content .photo-item {
+    background-color: #e4e6eb;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.tab-content .photo-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.tab-content .photo-item img:hover {
+    transform: scale(1.05);
+}
+
+.tab-content .no-content-message {
+    text-align: center;
+    color: #8a8d91;
+    padding: 30px;
+    font-style: italic;
+    font-size: 16px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+/* Right Sidebar (Mantenuta come la tua, ma con commento) */
+/*
+.right-sidebar {
+    flex: 1;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 0 20px 0;
+}
+
+.upgrade-card,
+.people-suggestions-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.upgrade-card {
+    text-align: center;
+}
+
+.upgrade-card .trophy-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
+}
+
+.upgrade-card h3 {
+    font-size: 20px;
+    color: #050505;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.upgrade-card p {
+    font-size: 14px;
+    color: #65676b;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.upgrade-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+    text-align: left;
+}
+
+.upgrade-card ul li {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #65676b;
+    margin-bottom: 10px;
+}
+
+.upgrade-card ul li i {
+    color: #28a745;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.upgrade-card .btn-upgrade {
+    background-color: #FF5A5F;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    width: 100%;
+}
+
+.upgrade-card .btn-upgrade:hover {
+    background-color: #E04B50;
+}
+
+.people-suggestions-card h2 {
+    font-size: 18px;
+    color: #050505;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 600;
+    border-bottom: 1px solid #f0f2f5;
+    padding-bottom: 15px;
+}
+
+.suggestion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.suggestion-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f8f9fa;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.suggestion-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.suggestion-item .suggestion-info {
+    flex-grow: 1;
+}
+
+.suggestion-item .suggestion-info h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #050505;
+    font-weight: 600;
+}
+
+.suggestion-item .suggestion-info p {
+    margin: 0;
+    font-size: 13px;
+    color: #65676b;
+}
+
+.suggestion-item .btn-like-suggestion {
+    background: none;
+    border: 1px solid #FF5A5F;
+    color: #FF5A5F;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.suggestion-item .btn-like-suggestion:hover {
+    background-color: #FF5A5F;
+    color: #fff;
+}
+*/
+
+/* Responsive adjustments (aggiornati per la nuova sidebar e profilo) */
+@media (max-width: 1024px) {
+    .left-sidebar-new {
+        width: 60px; /* Collassa sidebar */
+        padding: 20px 0;
+    }
+
+    .left-sidebar-new .logo {
+        font-size: 0; /* Nascondi testo */
+        width: 40px; /* Mantieni spazio logo */
+        height: 40px; /* Mantieni spazio logo */
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
+
+    .left-sidebar-new .logo::before {
+        content: 'MM'; /* O un'icona logo, e.g., '❤' */
+        font-size: 20px;
+        color: #FF5A5F;
+        display: block;
+        text-align: center;
+        line-height: 40px;
+        font-weight: 700;
+    }
+
+    .left-sidebar-new .nav-links li a,
+    .left-sidebar-new .nav-links li .nav-logout-btn {
+        padding: 12px 0;
+        justify-content: center; /* Centra le icone */
+    }
+
+    .left-sidebar-new .nav-links li a i,
+    .left-sidebar-new .nav-links li .nav-logout-btn i {
+        margin-right: 0; /* Nessun margine */
+    }
+
+    .left-sidebar-new .nav-links li a span {
+        display: none; /* Nascondi testo per nav collassata */
+    }
+
+    .left-sidebar-new .sidebar-header-actions {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px 0; /* Ridotto padding */
+    }
+
+    .left-sidebar-new .sidebar-header-actions span {
+        display: none; /* Nascondi il nome utente */
+    }
+
+    .left-sidebar-new .sidebar-header-actions .header-profile-pic {
+        width: 36px; /* Adatta dimensione */
+        height: 36px;
+    }
+
+
+    /* .right-sidebar { display: none; } */ /* Commentato per il momento */
+
+    .profile-main-section {
+        flex-direction: column; /* Impila la card del profilo */
+    }
+
+    .profile-page-container { /* Aggiornato per il nuovo container principale */
+        border-radius: 10px;
+        margin: 0; /* Rimuovi margini laterali per riempire lo spazio */
+    }
+
+    .profile-header-section {
+        margin-top: -60px; /* Regola la sovrapposizione su schermi più piccoli */
+        padding: 0 15px 15px;
+    }
+
+    .profile-avatar-container {
+        width: 120px;
+        height: 120px;
+        border-width: 4px;
+    }
+
+    .profile-name {
+        font-size: 2em;
+    }
+
+    .profile-info-and-actions .location {
+        font-size: 1em;
+    }
+
+    .profile-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 8px;
+    }
+
+    .profile-actions button {
+        width: 100%;
+    }
+
+    .profile-details-grid { /* Usato per i tuoi "Interessi", "Hobbies" */
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .detail-item { /* Per i tuoi "Interessi", "Hobbies" */
+        flex: 1 1 30%;
+        min-width: 150px;
+    }
+
+    .profile-tabs .tab-buttons {
+        flex-wrap: wrap; /* Permetti ai bottoni di andare a capo */
+        justify-content: center;
+        gap: 5px;
+        padding: 0 15px; /* Adatta padding per mobile */
+    }
+
+    .profile-tabs .tab-button {
+        font-size: 14px;
+        padding: 10px 15px;
+    }
+
+    .profile-content-section {
+        padding: 0 15px 15px;
+    }
+
+    .tab-content .create-post-area .options {
+        justify-content: center;
+    }
+
+    .tab-content .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adatta le colonne delle stats */
+    }
+}
+
+@media (max-width: 768px) {
+    .page-wrapper {
+        flex-direction: column;
+        margin: 0;
+    }
+
+    .left-sidebar-new {
+        width: 100%;
+        height: auto;
+        padding: 10px 0;
+        box-shadow: none;
+        border-right: none;
+        border-bottom: 1px solid #e4e6eb;
+        flex-direction: row; /* Navigazione orizzontale per mobile */
+        justify-content: space-around; /* Distribuisci gli elementi */
+        flex-wrap: wrap; /* Permetti il wrapping se troppi elementi */
+    }
+
+    .left-sidebar-new .logo,
+    .left-sidebar-new .logo::before {
+        display: none; /* Nascondi il logo completamente */
+    }
+
+    .left-sidebar-new .nav-links {
+        display: flex;
+        flex-grow: 1;
+        justify-content: space-around;
+        padding: 0 10px;
+        margin-bottom: 0; /* Rimuovi margin-bottom */
+    }
+
+    .left-sidebar-new .nav-links li {
+        margin: 0;
+    }
+
+    .left-sidebar-new .nav-links li a,
+    .left-sidebar-new .nav-links li .nav-logout-btn {
+        font-size: 14px;
+        padding: 8px 10px;
+        flex-direction: column; /* Icona e testo impilati */
+        gap: 5px;
+        text-align: center;
+    }
+
+    .left-sidebar-new .nav-links li a i,
+    .left-sidebar-new .nav-links li .nav-logout-btn i {
+        margin-right: 0;
+        font-size: 16px;
+    }
+
+    .left-sidebar-new .nav-links li .nav-logout-btn {
+        display: flex;
+    }
+
+    .left-sidebar-new .sidebar-header-actions {
+        width: auto; /* Lascia che il contenuto decida la larghezza */
+        padding: 10px 0; /* Ridotto padding */
+        border-top: none; /* Rimuovi bordi in mobile per fluidità */
+        border-bottom: none;
+        flex-direction: row; /* Allinea orizzontalmente in mobile */
+        justify-content: center; /* Centra gli elementi */
+        flex-grow: 1; /* Permetti di occupare spazio orizzontale */
+    }
+
+    .left-sidebar-new .sidebar-header-actions i {
+        font-size: 18px; /* Adatta la dimensione delle icone */
+    }
+
+    .left-sidebar-new .sidebar-header-actions .header-profile-pic {
+        width: 32px; /* Riduci dimensione immagine profilo */
+        height: 32px;
+    }
+
+    .main-content-area {
+        padding: 10px;
+    }
+
+    .profile-page-container {body {
+
+    background-image: url("/static/img/panna_doodles.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    font-family: sans-serif;
+}
+
+body::-webkit-scrollbar{
+    display: none;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 60px);
+  padding-bottom: 5px;
+}
+
+.card_pref {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 900px;
+    justify-content: center;
+    align-items: center;
+}
+
+.card_pref h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label.title {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.preference-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.preference-options label {
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: #eee;
+    color: #333;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.preference-options label.selected {
+    background-color: #ff4081;
+    border-color: #ff4081;
+    color: white;
+}
+
+.preference-options input[type="checkbox"] {
+    display: none;
+}
+
+textarea {
+    width: 100%;
+    height: 80px;
+    font-size: 14px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    resize: none;
+    font-family: inherit;
+}
+
+.char-counter {
+    font-size: 12px;
+    text-align: right;
+    color: #666;
+    margin-top: 4px;
+}
+
+button {
+    background-color: #ff4081;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #e73370;
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+    margin: 15px 0;
+}
+
+.bio-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;           
+}
+
+.bio-wrapper textarea {
+    width: 95%;
+    max-width: 100%;
+    text-align: left;
+}
+
+.bio-wrapper .char-counter {
+    width: 80%;
+    max-width: 500px;
+    text-align: right;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.account-card {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 450px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.account-card h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"],
+.form-group input[type="date"],
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+button {
+    background-color: #ff4081;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #e03570;
+}
+
+.toggle-link {
+    color: #e03570;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.toggle-link:hover {
+    text-decoration: underline;
+}
+
+#registration-card {
+    display: none;
+}
+
+@media (max-width: 480px) {
+    .account-card {
+        width: 90%;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .form-row .form-group {
+        margin-bottom: 15px;
+    }
+}
+
+.input-icon {
+    position: relative;
+
+}
+
+.input-icon i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    font-size: 16px;
+    pointer-events: none;
+
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"],
+.form-group input[type="date"],
+.form-group select {
+    width: 100%;
+    padding: 10px;
+
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+
+}
+
+.input-icon input[type="text"] {
+    padding-left: 35px;
+
+}
+
+.password-toggle {
+    position: relative;
+
+}
+
+.password-toggle i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #aaa;
+}
+
+.password-toggle .fa-eye,
+.password-toggle .fa-eye-slash {
+
+    pointer-events: auto;
+    right: 10px;
+
+    left: auto;
+
+}
+
+.form-group.input-icon.password-toggle input[type="password"] {
+    padding-left: 35px;
+
+    padding-right: 35px;
+
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f0f2f5;
@@ -1143,6 +2604,218 @@ body {
             background-color: #f9fafb; 
         }
 
+        .tab-buttons {
+            display: flex;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 1rem;
+        }
+        .tab-button {
+            padding: 0.75rem 1rem;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            font-weight: 500;
+            color: #6b7280;
+            transition: color 0.2s ease, border-bottom 0.2s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .tab-button.active {
+            color: #2563eb;
+            border-bottom-color: #2563eb;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+.error-message {
+    color: #d9534f;
+    background-color: #f2dede;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+        border-radius: 0; /* Full width su schermi molto piccoli */
+    }
+
+    .cover-photo-section {
+        height: 180px; /* Riduci altezza cover su mobile */
+    }
+
+    .profile-header-section {
+        margin-top: -50px; /* Regola ancora la sovrapposizione */
+    }
+
+    .profile-avatar-container {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-name {
+        font-size: 1.8em;
+    }
+
+    .profile-content-section {
+        padding: 0 15px 15px;
+    }
+
+    .profile-details-grid {
+        grid-template-columns: 1fr; /* Una colonna su schermi molto piccoli */
+    }
+
+    .detail-item {
+        min-width: unset; /* Rimuovi min-width */
+    }
+
+    .tab-content .stats-grid {
+        grid-template-columns: 1fr; /* Una colonna per le stats */
+    }
+
+    .tab-content .photo-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Foto più piccole in galleria */
+    }
+}
+
+/* ################################################### */
+
+        /* Your custom styles based on your original HTML structure */
+        .bio-section {
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            background-color: #fff;
+            margin-bottom: 1.5rem; /* Added margin for spacing */
+        }
+
+        .card {
+            /* Add your specific styles for card here if any */
+        }
+
+        #bio-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            outline: none;
+            resize: vertical;
+            min-height: 100px;
+            color: #374151;
+        }
+
+        #bio-textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        }
+
+        .btn-edit-bio {
+            font-weight: 700;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            color: #fff;
+        }
+
+        /* Styles for the "Modifica" state */
+        .btn-edit-bio.bg-blue-600 {
+            background-color: #2563eb;
+        }
+        .btn-edit-bio.bg-blue-600:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Styles for the "Salva" state */
+        .btn-edit-bio.bg-green-600 {
+            background-color: #16a34a;
+        }
+        .btn-edit-bio.bg-green-600:hover {
+            background-color: #15803d;
+        }
+
+        /* Styles for image overlays (new) */
+        .cover-photo-section, .profile-avatar-container {
+            position: relative;
+            overflow: hidden; /* Ensure overlay stays within bounds */
+        }
+
+        .cover-overlay, .avatar-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cover-photo-section:hover .cover-overlay,
+        .profile-avatar-container:hover .avatar-overlay {
+            opacity: 1; /* Show on hover */
+        }
+
+        .cover-overlay.active, .avatar-overlay.active {
+            opacity: 1; /* Always visible when active (edit mode) */
+        }
+
+        .edit-cover-btn, .edit-avatar-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem; /* Larger icon */
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Utility class for hiding elements */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Styles for the new main action buttons */
+        .profile-actions .btn {
+            margin-right: 10px; /* Spacing between buttons */
+        }
+        .profile-actions .btn-primary {
+            background-color: #2563eb; /* Blue */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+        }
+        .profile-actions .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+        .profile-actions .btn-secondary {
+            background-color: #6b7280; /* Gray */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+        }
+        .profile-actions .btn-secondary:hover {
+            background-color: #4b5563;
+        }
+
+        /* Specific styles for public view elements */
+        #public-bio-text {
+            white-space: pre-wrap; /* Preserves line breaks */
+            color: #374151;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb; /* Lighter border for read-only */
+            border-radius: 0.375rem;
+            background-color: #f9fafb; /* Slightly different background */
+        }
+
+        /* General tab styling (if not already in profile.css) */
         .tab-buttons {
             display: flex;
             border-bottom: 1px solid #e5e7eb;
