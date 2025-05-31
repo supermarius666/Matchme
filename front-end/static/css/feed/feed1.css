@@ -1,0 +1,262 @@
+.main-content-wrapper {
+    display: flex;
+    height: 100%;
+}
+
+.feed-layout {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+    max-width: 1400px;
+    height: 100%;
+    background-color: #f0f2f5;
+    box-shadow: none;
+    border-radius: 0;
+    overflow: hidden;
+}
+
+.feed-left-sidebar {
+    width: 30%;
+    min-width: 280px;
+    max-width: 400px;
+    background-color: #ffffff;
+    border-right: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow-y: auto;
+    height: 100vh;
+    top: 0;
+    position: sticky;
+}
+
+.chat-list-sidebar {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+    height: 50%;
+    box-sizing: border-box;
+}
+
+.feed-filters-sidebar {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+    height: 50%;
+    box-sizing: border-box;
+    border-top: 1px solid #ccc;
+}
+
+.search-bar {
+    padding: 10px 15px;
+    background-color: #f6f6f6;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 0.9em;
+    outline: none;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.chats {
+    flex-grow: 1;
+    overflow-y: auto;
+    height: 50%;
+}
+
+.chat-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 1px solid #f2f2f2;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.chat-item:hover {
+    background-color: #ff8cb2;
+}
+
+.chat-item.active {
+    background-color: #e9e9e9;
+}
+
+.chat-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.chat-info {
+    flex-grow: 1;
+}
+
+.chat-name {
+    font-weight: bold;
+    color: #111b21;
+    font-size: 1.05em;
+}
+
+.chat-timestamp {
+    font-size: 0.8em;
+    color: #667781;
+    margin-left: auto;
+}
+
+.feed-sidebar-content h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.feed-sidebar-content p {
+    font-size: 14px;
+    color: #8e8e8e;
+    margin-bottom: 25px;
+    line-height: 1.4;
+}
+
+.feed-feed-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #fafafa;
+    margin-left: -30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.feed-post {
+    background-color: #ffffff;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.feed-post-header {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+}
+
+.feed-profile-pic {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 12px;
+    border: 1px solid #dbdbdb;
+}
+
+.feed-username {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.feed-post-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-top: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.feed-post-actions {
+    padding: 8px 16px;
+    display: flex;
+    gap: 16px;
+}
+
+.feed-action-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 0;
+    color: #262626;
+}
+
+.feed-action-button i {
+    font-size: 20px;
+}
+
+.feed-action-button:hover {
+    color: #8e8e8e;
+}
+
+.feed-like-button.feed-liked i {
+    color: red;
+    font-weight: 900;
+}
+
+@media (max-width: 768px) {
+    .feed-left-sidebar {
+        width: 70px;
+        padding: 20px 10px;
+         height: calc(100% - 60px);
+         top: 60px;
+         left: 0;
+    }
+
+    .feed-left-sidebar h1,
+    .feed-left-sidebar .feed-sidebar-content p,
+
+    .feed-feed-container {
+        margin-left: 70px;
+        padding: 15px;
+    }
+
+    .feed-post {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .feed-left-sidebar {
+        display: none;
+    }
+
+    .feed-feed-container {
+        margin-left: 0;
+        padding: 10px;
+    }
+
+    .feed-post-header {
+        padding: 10px 12px;
+    }
+    .feed-profile-pic {
+        width: 28px;
+        height: 28px;
+        margin-right: 10px;
+    }
+    .feed-username {
+        font-size: 13px;
+    }
+    .feed-post-actions {
+        padding: 6px 12px;
+        gap: 12px;
+    }
+    .feed-action-button i {
+        font-size: 18px;
+    }
+    .feed-action-button {
+        font-size: 13px;
+    }
+}

@@ -9,5 +9,6 @@ urlpatterns = [
 	path("accounts/", include("apps.accounts.urls")),
     path("feed/", include("apps.feed.urls")),
     path("chat/", include("apps.chat.urls")),
+
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) serve per poter salvare le foto profilo nel db, aggiunge anche i media come static 

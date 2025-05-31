@@ -1,20 +1,22 @@
 body {
-
     background-image: url("/static/img/doodles_dark.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-
     font-family: sans-serif;
 }
 
+body::-webkit-scrollbar{
+    display: none;
+}
+
 main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 60px);
-  padding-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 60px);
+    padding-bottom: 5px;
 }
 
 .card_pref {
@@ -118,7 +120,7 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    width: 100%;           
+    width: 100%;
 }
 
 .bio-wrapper textarea {
@@ -206,7 +208,7 @@ button:hover {
 }
 
 .toggle-link {
-    color: #337ab7;
+    color: #e03570;
     text-decoration: none;
     cursor: pointer;
     font-size: 14px;
@@ -237,7 +239,6 @@ button:hover {
 
 .input-icon {
     position: relative;
-
 }
 
 .input-icon i {
@@ -248,7 +249,6 @@ button:hover {
     color: #aaa;
     font-size: 16px;
     pointer-events: none;
-
 }
 
 .form-group input[type="text"],
@@ -258,21 +258,17 @@ button:hover {
 .form-group select {
     width: 100%;
     padding: 10px;
-
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
-
 }
 
 .input-icon input[type="text"] {
     padding-left: 35px;
-
 }
 
 .password-toggle {
     position: relative;
-
 }
 
 .password-toggle i {
@@ -285,19 +281,14 @@ button:hover {
 
 .password-toggle .fa-eye,
 .password-toggle .fa-eye-slash {
-
     pointer-events: auto;
     right: 10px;
-
     left: auto;
-
 }
 
 .form-group.input-icon.password-toggle input[type="password"] {
     padding-left: 35px;
-
     padding-right: 35px;
-
 }
 
 .error-message {

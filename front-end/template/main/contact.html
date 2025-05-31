@@ -10,29 +10,22 @@
   <form id="contactForm" method="post">
     {% csrf_token %}
     <h2>Contattaci</h2>
-
     <label for="id_nome">Name</label>
     <input type="text" id="id_nome" name="nome" value="{{ form.nome.value|default:'' }}" required placeholder="John" />
-
     <label for="id_email">Email</label>
     <input type="email" id="id_email" name="email" value="{{ form.email.value|default:'' }}" required placeholder="john@test.com" />
-
     <label for="id_msg">Message</label>
     <textarea id="id_msg" name="msg" rows="4" required placeholder="I couldn't find my question in FAQ">{{ form.msg.value|default:'' }}</textarea>
-
     <div class="button-group">
       <button type="submit">Submit</button>
       <button type="reset">Reset</button>
     </div>
   </form>
 </div>
-
 {% endblock %}
-
 {% block footer %}
 {% include "footer.html" %}
 {% endblock %}
-
 {% block script %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>

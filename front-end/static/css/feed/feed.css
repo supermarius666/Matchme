@@ -1,95 +1,94 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #dadbd3; 
-    min-height: 100vh; 
-    overflow: hidden; 
+    background-color: #dadbd3;
+    min-height: 100vh;
+    overflow: hidden;
 }
 
 main {
-    display: flex; 
-    flex-grow: 1; 
-    width: 100%; 
-    height: 100vh; 
-    justify-content: flex-start; 
-    align-items: stretch; 
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+    height: 100vh;
+    justify-content: flex-start;
+    align-items: stretch;
     max-height: 95vh;
 }
 
 .feed-layout {
     display: flex;
-    flex-grow: 1; 
-    width: 100%; 
-    max-width: 1400px; 
-    height: 100%; 
-    background-color: #f0f2f5; 
-    box-shadow: none; 
-    border-radius: 0; 
-    overflow: hidden; 
+    flex-grow: 1;
+    width: 100%;
+    max-width: 1400px;
+    height: 100%;
+    background-color: #f0f2f5;
+    box-shadow: none;
+    border-radius: 0;
+    overflow: hidden;
 }
 
 @media (min-width: 768px) {
     main {
-        justify-content: center; 
-        align-items: center; 
-        height: 100vh; 
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
     }
 
     .feed-layout {
-        width: 95%; 
-        height: 90vh; 
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-        border-radius: 5px; 
+        width: 95%;
+        height: 90vh;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
     }
 }
 
 .feed-left-sidebar {
-
-    width: 30%; 
-    min-width: 280px; 
-    max-width: 400px; 
+    width: 30%;
+    min-width: 280px;
+    max-width: 400px;
     background-color: #ffffff;
     border-right: 1px solid #e0e0e0;
     display: flex;
-    flex-direction: column; 
-    flex-shrink: 0; 
-    overflow-y: auto; 
-
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow-y: auto;
+    
     height: 100vh;
-    top: 0; 
-    position: sticky; 
+    top: 0;
+    position: sticky;
 }
 .chat-list-sidebar {
-    flex-grow: 1; 
-    overflow-y: auto; 
-
-    height: 50%; 
-    box-sizing: border-box; 
+    flex-grow: 1;
+    overflow-y: auto;
+    
+    height: 50%;
+    box-sizing: border-box;
 }
 
 .feed-filters-sidebar {
-    flex-grow: 1; 
-    overflow-y: auto; 
-    height: 50%; 
-    box-sizing: border-box; 
-    border-top: 1px solid #ccc; 
+    flex-grow: 1;
+    overflow-y: auto;
+    height: 50%;
+    box-sizing: border-box;
+    border-top: 1px solid #ccc;
 }
 
 @media (max-width: 767px) {
     .chat-list-sidebar {
-        display: none; 
-        width: 100%; 
-        min-width: unset; 
-        max-width: unset; 
+        display: none;
+        width: 100%;
+        min-width: unset;
+        max-width: unset;
         border-right: none;
-        position: absolute; 
+        position: absolute;
         left: 0;
         top: 0;
-        z-index: 200; 
+        z-index: 200;
     }
 
     .chat-list-sidebar.active {
-        display: flex; 
+        display: flex;
     }
 }
 
@@ -127,12 +126,12 @@ main {
     font-size: 0.9em;
     outline: none;
     background-color: #fff;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
 .chats {
-    flex-grow: 1; 
-    overflow-y: auto; 
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
 .chat-item {
@@ -155,10 +154,9 @@ main {
 .chat-avatar {
     width: 50px;
     height: 50px;
-
     border-radius: 50%;
     margin-right: 15px;
-    flex-shrink: 0; 
+    flex-shrink: 0;
 }
 
 .chat-info {
@@ -174,31 +172,31 @@ main {
 .chat-timestamp {
     font-size: 0.8em;
     color: #667781;
-    margin-left: auto; 
+    margin-left: auto;
 }
 
 .feed-main-container {
-    flex-grow: 1; 
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    background-size: contain; 
+    background-size: contain;
     background-repeat: repeat;
-    background-color: #e5ddd5; 
+    background-color: #e5ddd5;
 }
 
 .feed-feed-container {
     flex-grow: 1;
-    padding: 20px 80px; 
+    padding: 20px 80px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 8px; 
-    scroll-behavior: smooth; 
+    gap: 8px;
+    scroll-behavior: smooth;
 }
 
 @media (max-width: 767px) {
     .feed-feed-container {
-        padding: 10px 20px; 
+        padding: 10px 20px;
     }
 }
 
@@ -274,17 +272,16 @@ main {
     .feed-left-sidebar {
         width: 70px;
         padding: 20px 10px;
-
          height: calc(100% - 60px);
          top: 60px;
-         left: 0; 
+         left: 0;
     }
 
     .feed-left-sidebar h1,
     .feed-left-sidebar .feed-sidebar-content p,
 
     .feed-feed-container {
-        margin-left: 70px; 
+        margin-left: 70px;
         padding: 15px;
     }
 
@@ -294,14 +291,13 @@ main {
 }
 
 @media (max-width: 480px) {
-
     .feed-left-sidebar {
         display: none;
     }
 
     .feed-feed-container {
-        margin-left: 0; 
-        padding: 10px; 
+        margin-left: 0;
+        padding: 10px;
     }
 
     .feed-post-header {
