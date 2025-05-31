@@ -23,8 +23,9 @@ const explode = (element) => {
     });
 };
 
+// Effetto Hacked Text globale
 const hackedText = (element) => {
-    if (element.matches(':hover')) return;
+    if (element.matches(':hover')) return; // Se il mouse è sopra, non glitchare
 
     const originalText = element.getAttribute('data-original');
     if (!originalText) return;
@@ -34,7 +35,7 @@ const hackedText = (element) => {
 
     const interval = setInterval(() => {
         if (element.matches(':hover')) {
-            clearInterval(interval);
+            clearInterval(interval); // Se il mouse entra, stop glitch
             return;
         }
 
@@ -50,10 +51,16 @@ const hackedText = (element) => {
     }, 300);
 };
 
+// Attivazione su tutti gli elementi
 document.querySelectorAll('.word.fancy').forEach((element) => {
-    element.setAttribute('data-original', element.innerText);
+    element.setAttribute('data-original', element.innerText); // Salva testo originale
 
     element.addEventListener('mouseenter', () => explode(element));
 
-    setInterval(() => hackedText(element), 4000);
+    setInterval(() => hackedText(element), 4000); // Ogni 4 secondi glitcha
 });
+
+/*
+Con questa funzione prendiamo l'elemento con id passato come parametro e lo dividiamo in lettere, creando un nuovo elemento span per ogni lettera.
+Poi, aggiungiamo ogni lettera all'elemento padre, in modo che ogni lettera possa essere animata separatamente.
+*/

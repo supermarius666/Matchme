@@ -1,50 +1,71 @@
+/* === Feed Page CSS (Modificato per funzionare con CSS esistente) === */
+
+/*
+   La regola body dal file esistente gestisce già il sticky footer con flexbox
+   e il padding-top per la navbar fissa.
+   Mantieniamo le proprietà di stile (font, colori, sfondo) da questo nuovo file,
+   ma assicuriamoci di NON sovrascrivere la struttura flexbox o il padding-top
+   se l'altro file li ha già impostati correttamente.
+   In questo scenario, il file esistente DEVE essere caricato PRIMA.
+   Questa regola nel file nuovo aggiunge/sovrascrive colori, font, etc. ma presuppone
+   che display: flex, flex-direction: column, min-height: 100vh e padding-top: 60px
+   siano già impostati dal file precedente o vengano mantenuti qui per sicurezza.
+*/
+
+/* Main content wrapper: Questo dovrebbe andare all'interno del <main> del tuo HTML.
+   Il <main> ha flex-grow: 1 nel tuo file esistente, spingendo il footer.
+   Questo wrapper gestisce il layout interno del feed (sidebar + contenuto). */
 .main-content-wrapper {
-    display: flex;
-    height: 100%;
+    display: flex; /* Keeps sidebar and main feed side-by-side */
+    /* flex-grow: 1; /* Rimosso o commentato: non efficace se 'main' è display: block */
+    height: 100%; /* Assicura che il wrapper riempia l'altezza dell'elemento 'main' */
+    /* overflow: hidden; - Puoi aggiungerlo qui se vuoi che solo il contenuto interno scrolli,
+       ma feed-feed-container ha già overflow-y: auto; */
 }
 
 .feed-layout {
     display: flex;
-    flex-grow: 1;
-    width: 100%;
-    max-width: 1400px;
-    height: 100%;
-    background-color: #f0f2f5;
-    box-shadow: none;
-    border-radius: 0;
-    overflow: hidden;
+    flex-grow: 1; /* Allow it to take up available width */
+    width: 100%; /* Take full width on smaller screens */
+    max-width: 1400px; /* Max width for desktop */
+    height: 100%; /* Take full height of its parent (main) */
+    background-color: #f0f2f5; /* Background for the chat interface */
+    box-shadow: none; /* Remove box-shadow by default to stick to edges */
+    border-radius: 0; /* Remove border-radius for full page attachment */
+    overflow: hidden; /* Hide overflow for internal scrolling */
 }
 
 .feed-left-sidebar {
-    width: 30%;
-    min-width: 280px;
-    max-width: 400px;
+    /* Modifiche qui: */
+    width: 30%; /* Riduci la larghezza a una percentuale più piccola */
+    min-width: 280px; /* Mantieni un min-width per leggibilità, puoi regolarlo */
+    max-width: 400px; /* Aggiungi un max-width per evitare che diventi troppo grande su schermi enormi */
     background-color: #ffffff;
     border-right: 1px solid #e0e0e0;
     display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
-    overflow-y: auto;
+    flex-direction: column; /* Stack its children vertically */
+    flex-shrink: 0; /* Prevent sidebar from shrinking */
+    overflow-y: auto; /* Make the sidebar content scrollable if it overflows */
+    
     height: 100vh;
-    top: 0;
-    position: sticky;
+    top: 0; /* Stick to the top of the viewport */
+    position: sticky; /* Make the sidebar sticky */
 }
-
 .chat-list-sidebar {
-    flex-grow: 1;
-    overflow-y: auto;
+    flex-grow: 1; /* Allows this to take up available space */
+    overflow-y: auto; /* Scroll if chat list overflows */
     padding: 20px;
-    height: 50%;
-    box-sizing: border-box;
+    height: 50%; /* Explicitly set height to 50% for initial distribution */
+    box-sizing: border-box; /* Include padding in the height calculation */
 }
 
 .feed-filters-sidebar {
-    flex-grow: 1;
-    overflow-y: auto;
+    flex-grow: 1; /* Allows this to take up available space */
+    overflow-y: auto; /* Scroll if filters overflow */
     padding: 20px;
-    height: 50%;
-    box-sizing: border-box;
-    border-top: 1px solid #ccc;
+    height: 50%; /* Explicitly set height to 50% for initial distribution */
+    box-sizing: border-box; /* Include padding in the height calculation */
+    border-top: 1px solid #ccc; /* Optional: Separator between chat and filters */
 }
 
 .search-bar {
@@ -52,7 +73,6 @@
     background-color: #f6f6f6;
     border-bottom: 1px solid #e0e0e0;
 }
-
 .search-bar input {
     width: 100%;
     padding: 8px 10px;
@@ -61,15 +81,13 @@
     font-size: 0.9em;
     outline: none;
     background-color: #fff;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Include padding in width */
 }
-
 .chats {
-    flex-grow: 1;
-    overflow-y: auto;
+    flex-grow: 1; /* Allows chats to take up remaining space */
+    overflow-y: auto; /* Enable scrolling for chat list */
     height: 50%;
 }
-
 .chat-item {
     display: flex;
     align-items: center;
@@ -78,38 +96,34 @@
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
-
 .chat-item:hover {
     background-color: #ff8cb2;
 }
-
 .chat-item.active {
     background-color: #e9e9e9;
 }
-
 .chat-avatar {
     width: 50px;
     height: 50px;
+    /*background-color: #ccc; /* Placeholder */
     border-radius: 50%;
     margin-right: 15px;
-    flex-shrink: 0;
+    flex-shrink: 0; /* Prevent shrinking */
 }
-
 .chat-info {
     flex-grow: 1;
 }
-
 .chat-name {
     font-weight: bold;
     color: #111b21;
     font-size: 1.05em;
 }
-
 .chat-timestamp {
     font-size: 0.8em;
     color: #667781;
-    margin-left: auto;
+    margin-left: auto; /* Pushes timestamp to the right */
 }
+
 
 .feed-sidebar-content h1 {
     font-size: 24px;
@@ -124,20 +138,23 @@
     line-height: 1.4;
 }
 
+/* Right Feed Container (Main Content Area) */
 .feed-feed-container {
-    flex-grow: 1;
-    overflow-y: auto;
+    flex-grow: 1; /* Takes the remaining width */
+    overflow-y: auto; /* Makes the feed scrollable */
     padding: 20px;
-    background-color: #fafafa;
-    margin-left: -30px;
+    background-color: #fafafa; /* Mantenuto per questa sezione specifica */
+    margin-left: -30px; /* Offset by sidebar width */
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* Center posts horizontally */
 
+    /* For Webkit-based browsers (Chrome, Safari, newer Edge, Opera) */
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
 
+/* Individual Post Styling */
 .feed-post {
     background-color: #ffffff;
     border: 1px solid #dbdbdb;
@@ -206,20 +223,25 @@
     font-weight: 900;
 }
 
+/* SERVE QUESTA ROBA QUA SOTTO???? */
+/* === Responsive Styles (Dal nuovo file + compatibilità) === */
+
+/* Responsive adjustments per il layout del feed */
 @media (max-width: 768px) {
     .feed-left-sidebar {
         width: 70px;
         padding: 20px 10px;
+        /* Mantenuti height e top per compensare la navbar */
          height: calc(100% - 60px);
          top: 60px;
-         left: 0;
+         left: 0; /* Assicurati che rimanga a sinistra */
     }
 
     .feed-left-sidebar h1,
     .feed-left-sidebar .feed-sidebar-content p,
 
     .feed-feed-container {
-        margin-left: 70px;
+        margin-left: 70px; /* Offset ridotto come la sidebar */
         padding: 15px;
     }
 
@@ -229,15 +251,18 @@
 }
 
 @media (max-width: 480px) {
+    /* Nascondi completamente la sidebar su schermi molto piccoli */
     .feed-left-sidebar {
         display: none;
     }
 
+    /* Il contenuto del feed occupa tutta la larghezza disponibile */
     .feed-feed-container {
-        margin-left: 0;
-        padding: 10px;
+        margin-left: 0; /* Rimuovi l'offset */
+        padding: 10px; /* Riduci ulteriormente il padding */
     }
 
+    /* Adattamenti minori per i post */
     .feed-post-header {
         padding: 10px 12px;
     }

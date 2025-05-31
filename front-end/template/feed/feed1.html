@@ -3,12 +3,14 @@
 {% block title %} | Feed{% endblock %}
 {% block style %}
 	<link rel="stylesheet" href="{% static 'css/feed/feed.css' %}"/>
+    {# <link rel="stylesheet" href="{% static 'css/chat/chat.css' %}"/> #}
 {% endblock %}
 {% block content %}
 
 
 <div class="feed-layout">
 
+    {# Left Sidebar for Chat List #}
     <div class="chat-list-sidebar">
         <h2>Chats with Matches</h2>
         <div class="search-bar">
@@ -25,9 +27,13 @@
                         <div class="chat-name">{{ user.username }}</div>
                     </div>
                     <div class="chat-timestamp">02:01 TODO</div>
+                    {# <a href="{% url 'chatroom' user.username %}" class="feed-start-chat-button">Chat</a> #}
                 </div>
             {% endfor %}
         </div>
+        
+        <br>
+        <br>
         
         <div class="feed-filters">
             <h1>Filters</h1>
@@ -38,6 +44,7 @@
     <div class="feed-feed-container">
 
         
+        <!-- come prima cosa visualizziamo i pending_users -->
         {% for user in pending_users_arrived %}
             <div class="feed-post">
                 <div class="feed-post-header">
@@ -63,6 +70,7 @@
             </div>
         {% endfor %}
 
+        <!-- poi visualizziamo tutti gli altri utenti -->
         {% for user in users %}
             {% if user not in pending_users_arrived and user not in matched_users and user not in pending_users_sent and user != request.user %}
                 <div class="feed-post">

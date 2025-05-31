@@ -45,7 +45,12 @@
             {% for user in pending_users_arrived %}
                 <div class="feed-post">
                     <div class="feed-post-header">
-                        <img src="https://i.pravatar.cc/50?u=user1" alt="User Profile Picture" class="feed-profile-pic">
+                        
+                        <a href="#">
+                        
+                            <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="User Profile Picture" class="feed-profile-pic">
+
+                        </a>
                         <button class="feed-username">{{ user.username }}</button>
                     </div>
                     <div class="feed-post-image">
@@ -72,7 +77,10 @@
                 {% if user not in pending_users_arrived and user not in matched_users and user not in pending_users_sent and user != request.user %}
                     <div class="feed-post">
                         <div class="feed-post-header">
-                            <img src="https://i.pravatar.cc/50?u=user1" alt="User Profile Picture" class="feed-profile-pic">
+                             
+                            <a href="#">
+                                <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="User Profile Picture" class="feed-profile-pic">
+                             </a>
                             <button class="feed-username">{{ user.username }}</button>
                         </div>
                         <div class="feed-post-image">

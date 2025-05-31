@@ -5,6 +5,9 @@ from django.contrib import messages
 from .models import UserProfile, UserPreferences
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+import json
+
 
 def auth_view(request):
     if request.method == 'POST':
@@ -57,44 +60,51 @@ def logout_view(request):
 @login_required
 def preferences_view(request):
     if request.method == 'POST':
-        # Ottieni le preferenze selezionate dal form
-        selected_prefs = request.POST.getlist('interested_in')  # getlist per raccogliere tutte le checkbox selezionate
+        selected_prefs = request.POST.getlist('interested_in')
         
-        # campo bio 
         bio = request.POST.get('bio', '').strip()[:255]
 
-        # Trova o crea l'oggetto UserPreferences associato all'utente
         preferences, created = UserPreferences.objects.get_or_create(user=request.user)
 
-        # Salva le preferenze nell'oggetto UserPreferences
-        all_pref = UserPreferences._meta.get_fields()        
+        all_pref = UserPreferences._meta.get_fields()
         interests = [field.name for field in all_pref]
         
         for interest in interests:
             
             if interest in selected_prefs:
-                # lo metto true
                 setattr(preferences, interest, True)
     
         preferences.save()
 
-        # Salva o crea UserProfile
         profile = UserProfile.objects.get(username=request.user.username)
         profile.bio = bio
         profile.save()
 
-        return redirect('upload_photo')  # Reindirizza alla pagina del profilo (o dove preferisci)
+        return redirect('upload_photo')
 
-    return render(request, 'accounts/preferences.html')  # Il template con il form per le preferenze
+    return render(request, 'accounts/preferences.html')
 
 @login_required
 def update_bio(request):
     if request.method == 'POST':
-        bio = request.POST.get('bio', '').strip()[:255]
-        profile, _ = UserProfile.objects.get_or_create(user=request.user)
-        profile.bio = bio
-        profile.save()
-    return redirect('profile')  # Sostituisci con il nome corretto della tua view del profilo
+        try:
+            data = json.loads(request.body)
+            bio = data.get('bio', '').strip()
+
+            max_length = 255
+            if len(bio) > max_length:
+                return JsonResponse({'success': False, 'message': f'La biografia non può superare i {max_length} caratteri.'}, status=400)
+
+            request.user.biography = bio
+            request.user.save()
+
+            return JsonResponse({'success': True, 'message': 'Biografia aggiornata con successo!'})
+        except json.JSONDecodeError:
+            return JsonResponse({'success': False, 'message': 'Richiesta JSON non valida.'}, status=400)
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': f'Errore del server: {str(e)}'}, status=500)
+    else:
+        return JsonResponse({'success': False, 'message': 'Metodo non permesso.'}, status=405)
 
 
 @login_required
@@ -105,21 +115,19 @@ def upload_photo(request):
             user_profile = request.user
             user_profile.profile_picture = profile_pic
             user_profile.save()
-            return redirect('home')  # Reindirizza a una pagina del profilo dell'utente o dove preferisci
+            return redirect('home')
     
     return render(request, 'accounts/upload_photo.html')
 
 
 
-def profile(request): 
+def profile(request):
     user_profile = UserProfile.objects.get(username = request.user.username)
-  
+    
     user_preferences = UserPreferences.objects.get(user=request.user)
     return render(request, 'accounts/profile.html', {
-        'user_profile': user_profile, 
+        'user_profile': user_profile,
         'user_preferences': user_preferences,
-        'user': request.user,         # Passa anche user se non l'hai già fatto
-        'is_owner': True              # Perché sei nel profilo dell'utente loggato
+        'user': request.user,
+        'is_owner': True
     })
-
-

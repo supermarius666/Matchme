@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     animateBubble(bubble);
 
+    // Toggle question/answer
     bubble.addEventListener("click", () => {
       const idx = parseInt(bubble.dataset.index);
       const isQ = bubble.dataset.state === "question";

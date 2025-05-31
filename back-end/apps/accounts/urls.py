@@ -9,4 +9,5 @@ urlpatterns = [
     path("preferences/", views.preferences_view, name="preferences"),
     path("upload_photo/", views.upload_photo, name="upload_photo"),
     path("profile/", views.profile, name="profile"),
+	path('update_bio/', views.update_bio, name='update_bio'),
 ]  

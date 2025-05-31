@@ -43,7 +43,6 @@ document.querySelectorAll('.left .card').forEach(card => {
 	const randomDeg = (Math.random() * 12) - 4;
 	card.style.setProperty('--rotation', `${randomDeg}deg`);
 });
-
 gsap.registerPlugin(ScrollTrigger)
     gsap.to("body", {
         backgroundColor: "black",

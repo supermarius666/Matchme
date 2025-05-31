@@ -111,6 +111,7 @@
   .fancy:hover > .outer:nth-child(6) {
     transform: translate(0%, 20%) rotate(-3deg);
   }
+/**/
 
   .profile-container {
     margin-top: 5rem;
@@ -137,7 +138,7 @@
 
 .profile-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 12px 24px rgba(255, 105, 180, 0.5);
+    box-shadow: 0 12px 24px rgba(255, 105, 180, 0.5); /* Glow rosa */
 }
 
 .profile-pic {
@@ -162,6 +163,6 @@
 .profile-card p {
     font-size: 1rem;
     opacity: 0.8;
-    word-break: break-word;
+    word-break: break-word; /* forza a capo se il testo è troppo lungo */
     max-width: 90%;
 }

@@ -1,9 +1,11 @@
 body {
+    /* background-image: url("/static/img/login_wall.jpg"); */
     background-image: url("/static/img/doodles_dark.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    /* Fa sì che l'immagine rimanga fissa durante lo scroll */
     font-family: sans-serif;
 }
 
@@ -11,13 +13,17 @@ body::-webkit-scrollbar{
     display: none;
 }
 
+/* preferences */
+
 main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - 60px);
-    padding-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 60px);
+  padding-bottom: 5px;
 }
+
+
 
 .card_pref {
     background-color: #fff;
@@ -120,7 +126,7 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    width: 100%;
+    width: 100%;           
 }
 
 .bio-wrapper textarea {
@@ -134,6 +140,8 @@ button:hover {
     max-width: 500px;
     text-align: right;
 }
+
+
 
 .form-container {
     display: flex;
@@ -237,8 +245,12 @@ button:hover {
     }
 }
 
+
+/* nuovo stile */
 .input-icon {
     position: relative;
+    /* Aggiungi overflow: hidden se noti problemi di testo che fuoriesce */
+    /* overflow: hidden; */
 }
 
 .input-icon i {
@@ -249,6 +261,7 @@ button:hover {
     color: #aaa;
     font-size: 16px;
     pointer-events: none;
+    /* L'icona non deve essere cliccabile */
 }
 
 .form-group input[type="text"],
@@ -258,17 +271,26 @@ button:hover {
 .form-group select {
     width: 100%;
     padding: 10px;
+    /* Padding di default */
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
+    /* Rimuovi padding-left: 35px; da qui se era presente */
 }
 
+
+/* Applica padding-left solo agli input all'interno di .input-icon */
 .input-icon input[type="text"] {
     padding-left: 35px;
+    /* Aumenta il padding a sinistra per fare spazio all'icona */
+    /* Assicurati che questo sia specifico per gli input con icona */
 }
+
 
 .password-toggle {
     position: relative;
+    /* Questa classe dovrebbe essere combinata con input-icon se vuoi entrambe le icone */
+    /* Se la classe input-icon è già presente sul div, questi stili si applicano */
 }
 
 .password-toggle i {
@@ -279,17 +301,25 @@ button:hover {
     color: #aaa;
 }
 
+/* Per l'icona "occhio" a destra */
 .password-toggle .fa-eye,
 .password-toggle .fa-eye-slash {
+    /* Includi anche l'icona "occhio barrato" se la usi */
     pointer-events: auto;
     right: 10px;
+    /* Posiziona a destra */
     left: auto;
+    /* Annulla qualsiasi left: impostato da input-icon i */
 }
 
+/* Per l'input della password con entrambe le icone */
 .form-group.input-icon.password-toggle input[type="password"] {
     padding-left: 35px;
+    /* Spazio per l'icona a sinistra (lucchetto) */
     padding-right: 35px;
+    /* Spazio per l'icona a destra (occhio) */
 }
+
 
 .error-message {
     color: #d9534f;
