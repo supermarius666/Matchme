@@ -83,7 +83,7 @@ def preferences_view(request):
     
         preferences.save()
 
-        # Salva o crea UserProfile
+        # Salva UserProfile
         profile = UserProfile.objects.get(username=request.user.username)
         profile.bio = bio
         profile.save()

@@ -142,6 +142,9 @@ class UserPreferences(models.Model):
     cultura = models.BooleanField(default=False)
     minimalismo = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f"{self.user.username} preferences"
+
 
 class UserStats(models.Model):
     user = models.OneToOneField(
@@ -180,4 +183,4 @@ class UserStats(models.Model):
     )
 
     def __str__(self):
-        return f"{self.user} has match rate: {self.match_rate}" 
+        return f"{self.user.username} stats"

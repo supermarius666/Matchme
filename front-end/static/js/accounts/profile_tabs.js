@@ -39,15 +39,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.querySelectorAll('.profile-tabs').forEach(tabSection => {
-        if (tabSection.offsetParent !== null) {
+
+        if (tabSection.offsetParent !== null) { 
             const initialActiveButton = tabSection.querySelector('.tab-button.active');
             if (initialActiveButton) {
+
                 const targetTabId = initialActiveButton.dataset.tab;
                 const targetContent = tabSection.querySelector(`#${targetTabId}`);
                 if (targetContent) {
                     targetContent.classList.add('active');
                 }
             } else {
+
                 const firstButton = tabSection.querySelector('.tab-button');
                 if (firstButton) {
                     firstButton.classList.add('active');

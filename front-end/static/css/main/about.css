@@ -2,27 +2,27 @@
     --pink_char: rgb(181, 44, 108);
     --black_char: rgb(0, 0, 0);
   }
-  
+
   @keyframes float {
     from, to {
       transform: translateY(-0%);
     }
-  
+
     50% {    
       transform: translateY(-3%);
     }
   }
-  
+
   @keyframes background-pan {
     from {
       background-position: 1000% center;
     }
-    
+
     to {
       background-position: 0% center;
     }
   }
-  
+
   body {
     background-color: rgb(0, 0, 0);
     margin: 0rem;
@@ -41,7 +41,7 @@
     justify-content: space-between;
     gap: 2rem;
   }
-  
+
   .word {
     color: rgb(253, 212, 241);
     font-size: clamp(2rem, 8vw, 10rem);
@@ -50,31 +50,31 @@
     text-transform: uppercase;
     transition: opacity 250ms ease;
   }
-  
+
   a {
     text-decoration: none;
   }
-  
+
   #text:has(.fancy:hover) .word:not(.fancy:hover) {
     opacity: 0.2;
   }
-  
+
   .fancy span {
     display: inline-block;
   }
-  
+
   .fancy > .outer {
     transition: transform 30ms ease;
   }
-  
+
   .fancy:hover > .outer {
     transition-duration: 80ms;
   }
-  
+
   .fancy:hover > .outer > .inner {
     animation: float 5s ease infinite;
   }
-  
+
   .fancy:hover > .outer > .inner > .letter {
     background: linear-gradient(
       to right,
@@ -87,31 +87,30 @@
     -webkit-text-fill-color: transparent;
     animation: background-pan 5s linear infinite;
   }
-  
+
   .fancy:hover > .outer:nth-child(1) {
     transform: translate(-80%, 60%) rotate(8deg);
   }
-  
+
   .fancy:hover > .outer:nth-child(2) {
     transform: translate(-40%, 20%) rotate(4deg);
   }
-  
+
   .fancy:hover > .outer:nth-child(3) {
     transform: translate(-10%, 60%) rotate(-6deg);
   }
-  
+
   .fancy:hover > .outer:nth-child(4) {
     transform: translate(0%, 8%) rotate(-8deg);
   }
-  
+
   .fancy:hover > .outer:nth-child(5) {
     transform: translate(0%, -20%) rotate(5deg);
   }
-  
+
   .fancy:hover > .outer:nth-child(6) {
     transform: translate(0%, 20%) rotate(-3deg);
   }
-/**/
 
   .profile-container {
     margin-top: 5rem;
@@ -138,7 +137,7 @@
 
 .profile-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 12px 24px rgba(255, 105, 180, 0.5); /* Glow rosa */
+    box-shadow: 0 12px 24px rgba(255, 105, 180, 0.5); 
 }
 
 .profile-pic {
@@ -163,6 +162,6 @@
 .profile-card p {
     font-size: 1rem;
     opacity: 0.8;
-    word-break: break-word; /* forza a capo se il testo è troppo lungo */
+    word-break: break-word; 
     max-width: 90%;
 }
