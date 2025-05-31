@@ -5,36 +5,57 @@
 	<link rel="stylesheet" href="{% static 'css/main/home.css' %}">
 {% endblock %}
 {% block content %}
+
+<!-- prova per aggiungere un'immagine di sfondo in cima alla home -->
+<!-- <img src="static/img/prova_sfondo.jpg" alt="prova sfondo"> -->
+
+<!-- prova per aggiungere scritte in cima alla home -->
 <div class="prova">
   <h1>MatchMe</h1>
   <h3>de depeforza de descrizione bla bla bla</h3>
 </div>
+
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<!-- marquee -->
 <div class="gallery-container">
+  
 <div class="gallery">
-<section>
-<div class="line"></div>
-<div class="line"></div>
-<div class="line"></div>
-</section>
-<section>
-<div class="mimg"></div>
-<div class="mimg"></div>
-<div class="mimg"></div>
-<div class="mimg"></div>
-<div class="mimg"></div>
-<div class="mimg"></div>
-<div class="mimg"></div>
-<div class="mimg"></div>
-<div class="mimg"></div>
-</section>
-<section></section>
+    <!--
+    <h1>MATCHME</h1>
+    <h1>MATCHME</h1>
+    <h1>MATCHME</h1>
+    -->
+
+    <section>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </section>
+
+    <section>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+        <div class="mimg"></div>
+    </section>
+
+  <section></section>
 </div>
 </div>
+
 <br><br><br><br><br><br><br><br><br><br><br>
 <div class="wavy-word">Chatta con i tuoi match e altro ancora!</div>
+
+
 <div class="page-container">
   <div class="stack-area">
+    
     <!-- LEFT STACK -->
     <div class="left">
       <ul id="cards-left">
@@ -50,11 +71,13 @@
             <div class="message other">Tutto bene!</div>
           </div>
         </li>
+
         <li class="card floating-card">
-          <div class="card-body image-card"></div>
+          <div class="card-body image-card">
             <img src="https://media.istockphoto.com/id/1412157363/it/foto/giovane-coppia-felice-rilassata-a-casa-sul-letto.jpg?s=2048x2048&w=is&k=20&c=CO0mHnzbqeAX9EfrciSFrocCJ9G1kEZNigQH5s372os=" class="full-image" alt="Uploaded Image">
           </div>
         </li>
+
         <li class="card floating-card">
           <div class="card-body">
             <!-- Chat content -->
@@ -68,11 +91,13 @@
             <div class="message other">Sì, molto.</div>
           </div>
         </li>
+
         <li class="card floating-card">
           <div class="card-body image-card">
             <img src="https://danieletorella.com/wp-content/uploads/2016/03/Foto-romantiche-07.jpg" class="full-image" alt="Second Image">
           </div>
         </li>
+
         <li class="card floating-card">
           <div class="card-body">
             <!-- Chat content -->
@@ -82,12 +107,13 @@
             </div>
             <div class="message user">Che fai domani?</div>
             <div class="message other">Nulla, perché?</div>
-            <div class="message user">Si studia matemetica?</div>
+            <div class="message user">Si scopa?</div>
             <div class="message other">Mi sa proprio di sì!!!</div>
           </div>
         </li>
       </ul>
     </div>
+
     <!-- RIGHT STACK -->
     <div class="right">
       <ul id="cards-right">
@@ -112,7 +138,7 @@
           <div class="content">Eccoci alla quinta!</div>
         </li>
         <li class="rcard floating-card">
-          <div class="sub">miao</div>
+          <div class="sub">SUCA</div>
           <div class="content">Per le conversazioni più che originali</div>
         </li>
         <li class="rcard floating-card">
@@ -121,38 +147,53 @@
         </li>
       </ul>
     </div>
+
   </div>
 </div>
+
+
+
+
 <section class="hero-section">
     <div class="overlay"></div>
     <div class="content_get_started">
+      <!-- <h1>Trova chi fa per te con MatchMe</h1> -->
        <h1>Trova il tuo match ora</h1>
-        <a href="{% url 'authenticate' %}" class="btn_start">Crea il tuo profilo</a>
+        <a href="{% url 'accounts:authenticate' %}" class="btn_start">Crea il tuo profilo</a>
     </div>
 </section>
+
 <section class="download-section">
   <div class="download-content">
     <h1>Download MatchMe and start chatting instantly!</h1>
     <p>Find compatible people near you — anytime, anywhere.</p>
+
     <div class="download-buttons">
+      <!-- Pulsante Apple App Store -->
     <a href="https://apps.apple.com" target="_blank" class="download-button">
       <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" 
            alt="Apple App Store" height="50">
     </a>
+
+    <!-- Pulsante Google Play Store -->
     <a href="https://play.google.com/" target="_blank" class="download-button">
       <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" 
            alt="Google Play Store" height="50">
     </a>
     </div>
+
      <div class="rating">
       ⭐⭐⭐⭐⭐ Rated 4.8 on App Store · 10,000+ downloads
     </div>
   </div>
 </section>
+
 {% endblock %}
+
 {% block footer %}
 {% include "footer.html" %}
 {% endblock %}
+
 {% block script %}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"></script>
   <script src="{% static 'js/main/home.js' %}"></script>

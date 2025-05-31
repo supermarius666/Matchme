@@ -10,7 +10,7 @@
 
 <div class="card_pref">
   <h2>Preferenze Utente</h2>
-  <form method="post" action="{% url 'preferences' %}">
+  <form method="post" action="{% url 'accounts:preferences' %}">
     {% csrf_token %}
 
     <div class="form-group">

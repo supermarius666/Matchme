@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} | Profilo di {{ user.first_name }}{% endblock %}
+{% block title %} | Profilo di {{ user_profile.first_name }}{% endblock %}
 {% block style %}
     <link rel="stylesheet" href="{% static 'css/accounts/profile.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
@@ -25,43 +25,62 @@
                     {% else %}
                         <div class="cover-placeholder"></div>
                     {% endif %}
-                    <div class="cover-overlay">
-                        <button class="edit-cover-btn" aria-label="Modifica foto di copertina" title="Modifica foto di copertina">
-                            <i class="fas fa-camera"></i>
-                        </button>
-                    </div>
-                    <input type="file" id="cover-upload" name="cover_picture" accept="image/*" style="display: none;">
+                    {% if is_owner %} {# Mostra il pulsante modifica solo se sei il proprietario #}
+                        <div class="cover-overlay">
+                            <button class="edit-cover-btn" aria-label="Modifica foto di copertina" title="Modifica foto di copertina">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                        </div>
+                        <input type="file" id="cover-upload" name="cover_picture" accept="image/*" style="display: none;">
+                    {% endif %}
                 </div>
 
                 {# SEZIONE AVATAR, NOME E AZIONI PRINCIPALI #}
                 <div class="profile-header-section">
                     <div class="profile-avatar-container">
                         <img src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo" class="profile-avatar">
-                        <div class="avatar-overlay">
-                            <button class="edit-avatar-btn" aria-label="Modifica foto profilo" title="Modifica foto profilo">
-                                <i class="fas fa-camera"></i>
-                            </button>
-                        </div>
-                        <input type="file" id="avatar-upload" name="profile_picture" accept="image/*" style="display: none;">
+                        {% if is_owner %} {# Mostra il pulsante modifica solo se sei il proprietario #}
+                            <div class="avatar-overlay">
+                                <button class="edit-avatar-btn" aria-label="Modifica foto profilo" title="Modifica foto profilo">
+                                    <i class="fas fa-camera"></i>
+                                </button>
+                            </div>
+                            <input type="file" id="avatar-upload" name="profile_picture" accept="image/*" style="display: none;">
+                        {% endif %}
                     </div>
 
                     <div class="profile-info-and-actions">
-                        <h1 class="profile-name">{{ user.first_name }} {{ user.last_name }}{% if user_profile.age %}, {{ user_profile.age }}{% endif %}</h1>
+                        <h1 class="profile-name">{{ user_profile.first_name }} {{ user_profile.last_name }}{% if user_profile.age %}, {{ user_profile.age }}{% endif %}</h1>
                         <p class="location" id="geolocation">
                             <i class="fas fa-map-marker-alt"></i>
                             {% if user_profile.location %}
                                 {{ user_profile.location }}
                             {% endif %}
                         </p>
-                        <div class="profile-actions">
-                            <button id="edit-profile-btn" class="btn btn-primary">Modifica Profilo</button>
-                            <button id="public-preview-btn" class="btn btn-secondary">Anteprima Pubblica</button>
-                        </div>
+                        {% if is_owner %} {# Mostra i pulsanti modifica e anteprima solo se sei il proprietario #}
+                            <div class="profile-actions">
+                                <button id="edit-profile-btn" class="btn btn-primary">Modifica Profilo</button>
+                                <button id="public-preview-btn" class="btn btn-secondary">Anteprima Pubblica</button>
+                            </div>
+                        {% else %} {# Altrimenti mostra i pulsanti di interazione per gli altri utenti #}
+                            <div class="profile-actions">
+                                {# Qui puoi aggiungere pulsanti come "Metti Like", "Messaggia", ecc. #}
+                                <button class="btn btn-primary">Mi Piace</button>
+                                <button class="btn btn-secondary">Messaggia</button>
+                            </div>
+                        {% endif %}
                     </div>
-                </div>
+                </div> {# Chiusura di .profile-header-section #}
 
-                {# MY PROFILE VIEW - Default active for the logged-in user #}
-                <div id="my-profile-view" class="profile-content-section">
+                {# NUOVA POSIZIONE PER IL MESSAGGIO DI STATO #}
+                {% if is_owner %}
+                    <div id="status-message-box" class="hidden p-3 mb-4 rounded-lg text-sm text-center font-medium"></div>
+                {% endif %}
+
+                {# Contenuto del profilo basato su chi lo sta visualizzando #}
+                {# Imposta la visibilità iniziale con hidden class, il JS la gestirà #}
+                <div id="my-profile-view" class="profile-content-section {% if not is_owner %}hidden{% endif %}">
+                    {# MY PROFILE VIEW - Default active for the logged-in user #}
                     {# BIOGRAFIA - Editable for my profile view #}
                     <div class="bio-section card">
                         <h3 class="text-2xl font-semibold mb-4 text-gray-800">Biography</h3>
@@ -74,21 +93,26 @@
                             <button
                                 id="edit-bio-btn"
                                 class="btn-edit-bio bg-blue-600"
-                                data-save-url="/accounts/update_bio/"
+                                data-save-url="{% url 'accounts:update_bio' %}" {# Usa il namespace corretto #}
                             >
                                 Modifica
                             </button>
                             <div id="char-count" style="font-size: 0.8em; color: #666; text-align: right; margin-top: 5px;">0/255</div>
                         </div>
-                        <div id="message-box" class="mt-4 p-3 rounded-md text-sm hidden"></div>
+                        {# IL VECCHIO message-box è stato spostato sopra e rinominato status-message-box #}
+                        {# <div id="message-box" class="mt-4 p-3 rounded-md text-sm hidden"></div> #} 
                     </div>
 
-                    {# INTERESSI, HOBBIES, STILE DI VITA #}
+                    {# INTERESSI, HOBBIES, STILE DI VITA (Visibili sia per il proprietario che per gli altri) #}
                     <div class="profile-details-grid">
                         <div class="detail-item card">
                             <i class="fas fa-star icon-interest"></i>
                             <h4>Interessi:</h4>
-                            <p>{{ user_profile.interests_count|default:"0" }}</p>
+                            {% if user_preferences %}
+                                <p>{{ user_preferences.get_active_interests_count|default:"0" }}</p> 
+                            {% else %}
+                                <p>N/A</p>
+                            {% endif %}
                         </div>
                         <div class="detail-item card">
                             <i class="fas fa-pizza-slice icon-hobby"></i>
@@ -111,36 +135,36 @@
                         </div>
                         <div class="tab-content-wrapper">
                             <div id="user-stats" class="tab-content active">
-                                <h2>Le Mie Statistiche</h2>
-                                {% if user_profile.user_stats %} {# Changed from dating_stats to user_stats based on your models.py #}
+                                <h2>Le Tue Statistiche</h2>
+                                {% if user_stats %}
                                     <div class="stats-grid">
                                         <div class="stat-item-detailed">
                                             <i class="fas fa-heart-pulse"></i>
-                                            <p><strong>Match Totali:</strong> {{ user_profile.user_stats.match_counter|default:"0" }}</p>
+                                            <p><strong>Match Totali:</strong> {{ user_stats.match_counter|default:"0" }}</p>
                                         </div>
                                         <div class="stat-item-detailed">
                                             <i class="fas fa-thumbs-up"></i>
-                                            <p><strong>Like Inviati:</strong> {{ user_profile.user_stats.like_sent_counter|default:"0" }}</p>
+                                            <p><strong>Like Inviati:</strong> {{ user_stats.like_sent_counter|default:"0" }}</p>
                                         </div>
                                         <div class="stat-item-detailed">
                                             <i class="fas fa-arrow-right-arrow-left"></i>
-                                            <p><strong>Like Ricevuti:</strong> {{ user_profile.user_stats.like_recv_counter|default:"0" }}</p>
+                                            <p><strong>Like Ricevuti:</strong> {{ user_stats.like_recv_counter|default:"0" }}</p>
                                         </div>
                                         <div class="stat-item-detailed">
                                             <i class="fas fa-comment-dots"></i>
-                                            <p><strong>Dislike Inviati:</strong> {{ user_profile.user_stats.dislike_sent_counter|default:"0" }}</p>
+                                            <p><strong>Dislike Inviati:</strong> {{ user_stats.dislike_sent_counter|default:"0" }}</p>
                                         </div>
                                         <div class="stat-item-detailed">
                                             <i class="fas fa-percent"></i>
-                                            {% if user_profile.user_stats.like_sent_counter > 0 %}
-                                                <p><strong>Tasso di Match:</strong> {{ user_profile.user_stats.match_rate|floatformat:2 }}%</p>
+                                            {% if user_stats.like_sent_counter > 0 %}
+                                                <p><strong>Tasso di Match:</strong> {{ user_stats.match_rate|floatformat:2 }}%</p>
                                             {% else %}
                                                 <p><strong>Tasso di Match:</strong> N/D</p>
                                             {% endif %}
                                         </div>
                                         <div class="stat-item-detailed">
                                             <i class="fas fa-calendar-alt"></i>
-                                            <p><strong>Iscritto dal:</strong> {{ user_profile.user_stats.registration_day|date:"d/m/Y" }}</p>
+                                            <p><strong>Iscritto dal:</strong> {{ user_stats.registration_day|date:"d/m/Y" }}</p>
                                         </div>
                                     </div>
                                 {% else %}
@@ -151,19 +175,19 @@
                             <div id="user-posts" class="tab-content">
                                 <h2>I Miei Post</h2>
                                 <div class="create-post-area">
-                                    <textarea placeholder="Cosa ti passa per la mente, {{ user.first_name }}?"></textarea>
+                                    <textarea placeholder="Cosa ti passa per la mente, {{ user_profile.first_name }}?"></textarea>
                                     <div class="options">
                                         <button><i class="fas fa-camera"></i> Foto/Video</button>
                                         <button><i class="fas fa-smile"></i> Umore/Attività</button>
                                     </div>
                                 </div>
                                 <div class="posts-list">
-                                    {% for post in user_profile.user_posts %}
+                                    {% for post in user_profile.post_set.all %}
                                     <div class="user-post">
                                         <div class="post-header">
                                             <img src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo">
                                             <div>
-                                                <h4>{{ user.first_name }} {{ user.last_name }}</h4>
+                                                <h4>{{ user_profile.first_name }} {{ user_profile.last_name }}</h4>
                                                 <span class="post-date">{{ post.date|date:"d M H:i" }}</span>
                                             </div>
                                         </div>
@@ -185,7 +209,7 @@
                             <div id="photo-gallery" class="tab-content">
                                 <h2>Galleria Foto</h2>
                                 <div class="photo-grid">
-                                    {% for photo in user_profile.gallery_photos %}
+                                    {% for photo in user_profile.gallery_photos.all %}
                                     <div class="photo-item">
                                         <img src="{{ photo.image.url }}" alt="Foto Galleria">
                                     </div>
@@ -198,8 +222,8 @@
                     </div>
                 </div>
 
-                {# PUBLIC PREVIEW VIEW - Initially hidden #}
-                <div id="public-preview-view" class="profile-content-section hidden">
+                {# PUBLIC PREVIEW VIEW - Always visible for others, hidden by default for owner #}
+                <div id="public-preview-view" class="profile-content-section {% if is_owner %}hidden{% endif %}"> 
                     {# BIOGRAFIA - Read-only for public view #}
                     <div class="bio-section card">
                         <h3 class="text-2xl font-semibold mb-4 text-gray-800">Biography</h3>
@@ -211,7 +235,11 @@
                         <div class="detail-item card">
                             <i class="fas fa-star icon-interest"></i>
                             <h4>Interessi:</h4>
-                            <p>{{ user_profile.interests_count|default:"0" }}</p>
+                            {% if user_preferences %}
+                                <p>{{ user_preferences.get_active_interests_count|default:"0" }}</p>
+                            {% else %}
+                                <p>N/A</p>
+                            {% endif %}
                         </div>
                         <div class="detail-item card">
                             <i class="fas fa-pizza-slice icon-hobby"></i>
@@ -225,9 +253,10 @@
                         </div>
                     </div>
 
-                    {# TAB - Public Preview View (no stats tab) #}
+                    {# TAB - Public Preview View (no stats tab, but posts and photos) #}
                     <div class="profile-tabs card">
                         <div class="tab-buttons">
+                            {# Le tab per i profili pubblici sono solo "Post Utente" e "Galleria Foto" #}
                             <button class="tab-button active" data-tab="public-user-posts">Post Utente</button>
                             <button class="tab-button" data-tab="public-photo-gallery">Galleria Foto</button>
                         </div>
@@ -235,12 +264,12 @@
                             <div id="public-user-posts" class="tab-content active">
                                 <h2>Post Recenti</h2>
                                 <div class="posts-list">
-                                    {% for post in user_profile.user_posts %}
+                                    {% for post in user_profile.post_set.all %}
                                     <div class="user-post">
                                         <div class="post-header">
                                             <img src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo">
                                             <div>
-                                                <h4>{{ user.first_name }} {{ user.last_name }}</h4>
+                                                <h4>{{ user_profile.first_name }} {{ user_profile.last_name }}</h4>
                                                 <span class="post-date">{{ post.date|date:"d M H:i" }}</span>
                                             </div>
                                         </div>
@@ -262,7 +291,7 @@
                             <div id="public-photo-gallery" class="tab-content">
                                 <h2>Galleria Pubblica</h2>
                                 <div class="photo-grid">
-                                    {% for photo in user_profile.gallery_photos %}
+                                    {% for photo in user_profile.gallery_photos.all %}
                                     <div class="photo-item">
                                         <img src="{{ photo.image.url }}" alt="Foto Galleria">
                                     </div>
@@ -274,7 +303,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -287,6 +315,13 @@
 {% endblock %}
 
 {% block script %}
-    <script src="{% static 'js/accounts/profile.js' %}"></script>
+    {# Questo script gestisce la logica di base delle schede e deve essere sempre caricato #}
+    <script src="{% static 'js/accounts/profile_tabs.js' %}"></script> 
+    {# Questo script contiene la logica di modifica del profilo e viene caricato solo per il proprietario #}
+    {% if is_owner %}
+        {# Aggiungi un div per passare l'URL di upload al JavaScript #}
+        <div id="profile-data-container" data-upload-url="{% url 'accounts:upload_photo' %}" style="display: none;"></div>
+        <script src="{% static 'js/accounts/profile.js' %}"></script>
+    {% endif %}
     <script src="{% static 'js/accounts/geolocation.js' %}"></script>
 {% endblock %}

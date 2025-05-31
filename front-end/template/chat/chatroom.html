@@ -6,8 +6,10 @@
 {% endblock %}
 {% block content %}
 
+{# Main container for the overall chat application layout #}
 <div class="chat-layout">
 
+    {# Left Sidebar for Chat List #}
     <div class="chat-list-sidebar">
         <h2>Chats with Matches</h2>
         <div class="search-bar">
@@ -24,12 +26,15 @@
                         <div class="chat-name">{{ user.username }}</div>
                     </div>
                     <div class="chat-timestamp">02:01 TODO</div>
+                    {# <a href="{% url 'chatroom' user.username %}" class="feed-start-chat-button">Chat</a> #}
                 </div>
             {% endfor %}
         </div>
     </div>
 
+    {# Main Chat Area #}
     <div class="main-chat-area">
+        {# Chat Header #}
         <div class="chat-header-main">
             <div class="chat-header-info">
                 <div class="chat-avatar-main">
@@ -44,23 +49,30 @@
             </div>
         </div>
 
+        {# Message container - will scroll #}
         <div id="messages" class="messages-container">
             {% for message in messages %}
+                {# Message container: Aligns the bubble left or right #}
                 <div class="message-container {% if message.user_sender.username == request.user.username %}my-message{% else %}other-message{% endif %}">
+                    {# The message bubble itself #}
                     <div class="message-bubble">
-                        {% if message.user_sender.username != request.user.username and room.is_group %}
+                        {# Show username only for other users in group chats #}
+                        {% if message.user_sender.username != request.user.username and room.is_group %} {# Assuming room has an is_group attribute #}
                             <div class="message-username">{{ message.user_sender.username }}</div>
                         {% endif %}
                         <div class="message-text">{{ message.message_payload }}</div>
-                        <div class="message-timestamp">{{ message.time_stamp|date:"H:i" }}</div>
+                        {# Timestamp inside the bubble, aligned right #}
+                        <div class="message-timestamp">{{ message.time_stamp|date:"H:i" }}</div> {# Format time as HH:MM #}
                     </div>
                 </div>
             {% endfor %}
         </div>
 
+        {# Input where to write messages - fixed at bottom #}
         <form id="chat_form" class="message-input-form">
             <input type="text" name="message" placeholder="Type a message..." autocomplete="off">
             <button type="submit" class="send-button">
+                {# SVG icon for send (paper airplane) #}
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="send-icon">
                     <line x1="22" y1="2" x2="11" y2="13"></line>
                     <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
@@ -68,9 +80,9 @@
             </button>
         </form>
 
-    </div>
+    </div> {# End main-chat-area #}
 
-</div>
+</div> {# End chat-layout #}
 
 {% endblock %}
 
@@ -83,6 +95,7 @@
         window.location.href = `/chat/${username}`;
     }
 
+    // Existing JavaScript remains the same for handling messages
     function formatTime(timeString) {
         const date = new Date(timeString);
         const hours = date.getHours().toString().padStart(2, '0');
@@ -108,11 +121,11 @@
             let messageClass = (data.username === username) ? "my-message" : "other-message";
 
             let html = `<div class="message-container ${messageClass}">
-                                <div class="message-bubble">
-                                    <div class="message-text">${data.message}</div>
-                                    <div class="message-timestamp">${formatedTime}</div>
-                                </div>
-                            </div>`;
+                            <div class="message-bubble">
+                                <div class="message-text">${data.message}</div>
+                                <div class="message-timestamp">${formatedTime}</div>
+                            </div>
+                        </div>`;
 
             messages.insertAdjacentHTML("beforeend", html);
 
@@ -135,6 +148,7 @@
         form.reset()
     })
 
+    // Scroll to the bottom of the messages when the page loads
     window.onload = function() {
         const messagesContainer = document.getElementById("messages");
         messagesContainer.scrollTop = messagesContainer.scrollHeight;

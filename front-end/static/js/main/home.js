@@ -40,10 +40,12 @@ window.addEventListener("scroll", () => {
 });
 
 document.querySelectorAll('.left .card').forEach(card => {
-	const randomDeg = (Math.random() * 12) - 4;
+	const randomDeg = (Math.random() * 12) - 4; // Rotazione tra -4 e 8 gradi
 	card.style.setProperty('--rotation', `${randomDeg}deg`);
 });
-gsap.registerPlugin(ScrollTrigger)
+
+/* marquee */
+ gsap.registerPlugin(ScrollTrigger)
     gsap.to("body", {
         backgroundColor: "black",
         scrollTrigger: {
