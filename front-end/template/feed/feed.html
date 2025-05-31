@@ -38,25 +38,52 @@
         </div>
     </div>
     
+    <div class="feed-feed-container">
+        <!-- come prima cosa visualizziamo i pending_users -->
+        {% for user in pending_users_arrived %}
+            <div class="feed-post">
+                <div class="feed-post-header">
+                    
+                    <a href="#">
+                    
+                        <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="User Profile Picture" class="feed-profile-pic">
 
-    <div class="feed-main-container">
-        <div class="feed-feed-container">
-            <!-- come prima cosa visualizziamo i pending_users -->
-            {% for user in pending_users_arrived %}
+                    </a>
+                    <button class="feed-username">{{ user.username }}</button>
+                </div>
+                <div class="feed-post-image">
+                    <img src="https://picsum.photos/600/400?random=1" alt="Post Image">
+                </div>
+
+                <div class="feed-post-actions">
+                    <form action="{% url 'feed' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="liked_username" value="{{ user.username }}">
+                        <button type="submit" class="feed-action-button feed-like-button"><i class="far fa-heart"></i>Like</button>
+                    </form>
+                    <form action="{% url 'feed' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="disliked_username" value="{{ user.username }}">
+                        <button type="submit" class="feed-action-button feed-dislike-button"><i class="far fa-thumbs-down"></i>Dont Like</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+
+        <!-- poi visualizziamo tutti gli altri utenti -->
+        {% for user in users %}
+            {% if user not in pending_users_arrived and user not in matched_users and user not in pending_users_sent and user != request.user %}
                 <div class="feed-post">
                     <div class="feed-post-header">
-                        
-                        <a href="#">
-                        
+                            
+                        <a href="{% url 'accounts:profile' user.username %}">
                             <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="User Profile Picture" class="feed-profile-pic">
-
-                        </a>
+                            </a>
                         <button class="feed-username">{{ user.username }}</button>
                     </div>
                     <div class="feed-post-image">
                         <img src="https://picsum.photos/600/400?random=1" alt="Post Image">
                     </div>
-
                     <div class="feed-post-actions">
                         <form action="{% url 'feed' %}" method="POST">
                             {% csrf_token %}
@@ -70,38 +97,8 @@
                         </form>
                     </div>
                 </div>
-            {% endfor %}
-
-            <!-- poi visualizziamo tutti gli altri utenti -->
-            {% for user in users %}
-                {% if user not in pending_users_arrived and user not in matched_users and user not in pending_users_sent and user != request.user %}
-                    <div class="feed-post">
-                        <div class="feed-post-header">
-                             
-                            <a href="{% url 'accounts:profile' user.username %}">
-                                <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="User Profile Picture" class="feed-profile-pic">
-                             </a>
-                            <button class="feed-username">{{ user.username }}</button>
-                        </div>
-                        <div class="feed-post-image">
-                            <img src="https://picsum.photos/600/400?random=1" alt="Post Image">
-                        </div>
-                        <div class="feed-post-actions">
-                            <form action="{% url 'feed' %}" method="POST">
-                                {% csrf_token %}
-                                <input type="hidden" name="liked_username" value="{{ user.username }}">
-                                <button type="submit" class="feed-action-button feed-like-button"><i class="far fa-heart"></i>Like</button>
-                            </form>
-                            <form action="{% url 'feed' %}" method="POST">
-                                {% csrf_token %}
-                                <input type="hidden" name="disliked_username" value="{{ user.username }}">
-                                <button type="submit" class="feed-action-button feed-dislike-button"><i class="far fa-thumbs-down"></i>Dont Like</button>
-                            </form>
-                        </div>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
+            {% endif %}
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

@@ -20,7 +20,7 @@ main {
     display: flex;
     flex-grow: 1; 
     width: 100%; 
-    max-width: 1400px; 
+    max-width: none;  
     height: 100%; 
     background-color: #f0f2f5; 
     box-shadow: none; 
@@ -169,7 +169,7 @@ main {
     flex-grow: 1; 
     display: flex;
     flex-direction: column;
-    background-image: url("/static/img/doodles_dark.png"); 
+    background-image: url("/static/img/panna_doodles.png"); 
     background-size: contain; 
     background-repeat: repeat;
     background-color: #e5ddd5; 
@@ -208,10 +208,13 @@ main {
 .chat-avatar-main {
     width: 45px;
     height: 45px;
-    background-color: #bbb; 
     border-radius: 50%;
     margin-right: 15px;
     flex-shrink: 0;
+}
+
+.chat-avatar-main:hover {
+    border-color: var(--primary-color, #ff4081); 
 }
 
 .chat-header-info h3 {
@@ -264,6 +267,9 @@ main {
     font-size: 0.95em;
     word-wrap: break-word; 
     box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+
+    min-height: 15px; 
+    min-width: 90px;
 }
 
 @media (max-width: 767px) {

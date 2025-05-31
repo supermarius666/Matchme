@@ -182,7 +182,7 @@ def upload_photo(request):
             'message': 'Metodo non permesso.'
         }, status=405) # Method Not Allowed
 
-
+# chiamata quando guardi il tuo profilo
 def profile(request): 
     user_profile = UserProfile.objects.get(username = request.user.username)
   
@@ -194,9 +194,7 @@ def profile(request):
         'is_owner': True              # Perché sei nel profilo dell'utente loggato
     })
 
-
-
-
+# chiamata quando guardi il profilo di un altro
 def profile_view(request, username): 
     # PASSO 1: Recupera il UserProfile basandoti sull'username passato nell'URL
     # MyCustomUser è il tuo modello UserProfile, quindi username è un campo diretto

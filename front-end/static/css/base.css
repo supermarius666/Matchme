@@ -305,7 +305,7 @@ main {
 }
 
 .user-avatar:hover {
-    border-color: var(--primary-color, #007bff); 
+    border-color: var(--primary-color, #ff4081); 
 }
 
 .user-avatar-img {

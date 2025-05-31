@@ -38,7 +38,9 @@
         <div class="chat-header-main">
             <div class="chat-header-info">
                 <div class="chat-avatar-main">
-                    <img class="chat-avatar" src="{% if chat_user.profile_picture %}{{ chat_user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo">
+                    <a href="{% url 'accounts:profile' chat_user.username %}">
+                        <img class="chat-avatar" src="{% if chat_user.profile_picture %}{{ chat_user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo">
+                    </a>
                 </div>
                 <div class="chat-details">
                     <h3>{{ chat_user.username }}</h3>
