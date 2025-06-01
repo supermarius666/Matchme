@@ -1,5 +1,6 @@
 console.log("profile.js loaded and executing (for owner).");
 
+// --- DOM Elements ---
 const myProfileView = document.getElementById('my-profile-view');
 const publicPreviewView = document.getElementById('public-preview-view');
 
@@ -27,6 +28,7 @@ let uploadUrl = '';
 let currentView = 'myProfile';
 let isEditingMode = false;
 
+// --- Utility Functions ---
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -76,6 +78,7 @@ function updateCharCount() {
     }
 }
 
+// --- View Toggle Logic ---
 function toggleView(viewName) {
     currentView = viewName;
 
@@ -130,6 +133,7 @@ function toggleEditMode(enable) {
     }
 }
 
+// --- DOM Ready ---
 document.addEventListener('DOMContentLoaded', function () {
     uploadUrl = profileDataContainer?.dataset.uploadUrl || '';
     if (!uploadUrl) {
@@ -254,6 +258,7 @@ document.addEventListener('DOMContentLoaded', function () {
     avatarUploadInput?.addEventListener('change', handleImageUpload);
     coverUploadInput?.addEventListener('change', handleImageUpload);
 
+    // Setup iniziale
     updateCharCount();
     toggleView('myProfile');
     avatarOverlay?.classList.remove('active');

@@ -2,13 +2,16 @@
 {% load static %}
 {% block title %} | Feed{% endblock %}
 {% block style %}
-    <link rel="stylesheet" href="{% static 'css/feed/feed.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/feed/feed.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/feed/filters.css' %}"/>
+    {# <link rel="stylesheet" href="{% static 'css/chat/chat.css' %}"/> #}
 {% endblock %}
 
 {% block content %}
 <div class="feed-layout">
 
     <div class="feed-left-sidebar">
+        {# Left Sidebar for Chat List #}
         <div class="chat-list-sidebar">
             <h2>Chats with Matches</h2>
             <div class="search-bar">
@@ -25,17 +28,59 @@
                             <div class="chat-name">{{ user.username }}</div>
                         </div>
                         <div class="chat-timestamp">02:01 TODO</div>
+                        {# <a href="{% url 'chatroom' user.username %}" class="feed-start-chat-button">Chat</a> #}
                     </div>
                 {% endfor %}
             </div>
-        </div> 
+        </div>   
             
         <div class="feed-filters-sidebar">
-            <h1>Filters</h1>
+            <div>
+                <h2>Gender</h2>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="preference" value="optionA" class="checkbox-input">
+                        <span class="checkbox-text">Male</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="preference" value="optionB" class="checkbox-input">
+                        <span class="checkbox-text">Female</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="preference" value="optionC" class="checkbox-input">
+                        <span class="checkbox-text">Other</span>
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <h2>Age Interval</h2>
+                <div class="range-slider-container">
+                    <div id="filledRangeTrack" style="left: 0%; width: 100%;"></div>
+                    <input type="range" id="rangeInputMin" min="0" max="100" value="25">
+                    <input type="range" id="rangeInputMax" min="0" max="100" value="75">
+                </div>
+
+                <div class="slider-value-display">
+                    <span id="subRangeMinDisplay">25</span>
+                    <span id="subRangeMaxDisplay">75</span>
+                </div>
+            </div>
+
+            <div>
+                <h2>Max Distance [km]</h2>
+                <input type="range" id="normalSlider" min="0" max="100" value="75">
+                <div class="slider-value-display">
+                    <span>0</span>
+                    <span id="normalSliderValue">75</span>
+                    <span>100</span>
+                </div>
+            </div>
         </div>
     </div>
     
     <div class="feed-feed-container">
+        <!-- come prima cosa visualizziamo i pending_users -->
         {% for user in pending_users_arrived %}
             <div class="feed-post">
                 <div class="feed-post-header">
@@ -66,6 +111,7 @@
             </div>
         {% endfor %}
 
+        <!-- poi visualizziamo tutti gli altri utenti -->
         {% for user in users %}
             {% if user not in pending_users_arrived and user not in matched_users and user not in pending_users_sent and user != request.user %}
                 <div class="feed-post">
@@ -77,6 +123,7 @@
                         <button class="feed-username">{{ user.username }}</button>
                     </div>
                     <div class="feed-post-image">
+                        {# Display caption if available #}
                     {% with latest_post=user.post_set.first %}
                         {% if latest_post and latest_post.text %}
                             <div class="feed-post-caption">
@@ -85,15 +132,16 @@
                         {% endif %}
                     {% endwith %}
 
-                    {% with latest_post=user.post_set.first %}
+                    {# Check if the user has any posts and use the first one's pic #}
+                    {% with latest_post=user.post_set.first %} {# Use post_set.first to access related posts #}
                         {% if latest_post and latest_post.post_pic %}
-                            <img src="{{ latest_post.post_pic.url }}" alt="Post Image">
+                            <img src="{{ latest_post.post_pic.url }}" alt="Post Image">
                         {% else %}
                             <img src="https://picsum.photos/600/400?random=1" alt="Post Image">
                         {% endif %}
                     {% endwith %}
                     </div>
-                    
+                   
                     <div class="feed-post-actions">
                         <form action="{% url 'feed' %}" method="POST">
                             {% csrf_token %}
@@ -123,47 +171,7 @@
     }
 </script>
 
-<script>
-    const searchInput = document.getElementById("search-bar")
-    const chatsDiv = document.getElementById("chats")
+<script src="{% static 'js/feed/searchbar.js' %}"></script>
+<script src="{% static 'js/feed/filters.js' %}"></script>
 
-    searchInput.addEventListener("input", function() {
-        const url = `/feed/search_chat/?q=${encodeURIComponent(searchInput.value)}`;
-
-        fetch(url, {
-            method: 'GET'
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            displayOutput(data.searched_users)
-        })
-    })
-
-    function displayOutput(users) {
-        chatsDiv.innerHTML = ""
-
-        if (users.length > 0) {
-            users.forEach(username => {
-                chatsDiv.innerHTML += `
-                    <div class="chat-item" onclick="enterChat('${username}')">
-                        <div class="chat-avatar">
-                            <img class="chat-avatar" src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo"> 
-                        </div>
-
-                        <div class="chat-info">
-                            <div class="chat-name">${username}</div>
-                        </div>
-                        <div class="chat-timestamp">02:01 TODO</div>
-                    </div>
-                `
-            })
-        }
-    }
-
-</script>
 {% endblock %}

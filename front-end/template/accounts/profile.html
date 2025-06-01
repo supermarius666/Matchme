@@ -18,14 +18,15 @@
         <div class="profile-main-section">
             <div class="profile-page-container">
 
+                {# SEZIONE FOTO COVER #}
                 <div class="cover-photo-section">
                     {% if user_profile.cover_picture %}
                         <img src="{{ user_profile.cover_picture.url }}" alt="Cover Photo" class="cover-image">
                     {% else %}
                         <div class="cover-placeholder"></div>
                     {% endif %}
-                    {% if is_owner %}
-                        <div class="cover-overlay edit-mode-item">
+                    {% if is_owner %} {# Mostra il pulsante modifica solo se sei il proprietario #}
+                        <div class="cover-overlay edit-mode-item"> {# Aggiungi questa classe #}
                             <button class="edit-cover-btn" aria-label="Modifica foto di copertina" title="Modifica foto di copertina">
                                 <i class="fas fa-camera"></i>
                             </button>
@@ -34,11 +35,12 @@
                     {% endif %}
                 </div>
 
+                {# SEZIONE AVATAR, NOME E AZIONI PRINCIPALI #}
                 <div class="profile-header-section">
                     <div class="profile-avatar-container">
                         <img src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo" class="profile-avatar">
-                        {% if is_owner %}
-                            <div class="avatar-overlay edit-mode-item">
+                        {% if is_owner %} {# Mostra il pulsante modifica solo se sei il proprietario #}
+                            <div class="avatar-overlay edit-mode-item"> {# Aggiungi questa classe #}
                                 <button class="edit-avatar-btn" aria-label="Modifica foto profilo" title="Modifica foto profilo">
                                     <i class="fas fa-camera"></i>
                                 </button>
@@ -47,6 +49,7 @@
                         {% endif %}
                     </div>
 
+                        {# NUOVA POSIZIONE PER IL MESSAGGIO DI STATO #}
                         {% if is_owner %}
                             <div id="status-message-box" class="hidden p-3 mb-4 rounded-lg text-sm text-center font-medium"></div>
                         {% endif %}
@@ -59,22 +62,27 @@
                                 {{ user_profile.location }}
                             {% endif %}
                         </p>
-                        {% if is_owner %}
+                        {% if is_owner %} {# Mostra i pulsanti modifica e anteprima solo se sei il proprietario #}
                             <div class="profile-actions">
                                 <button id="edit-profile-btn" class="btn btn-primary">Modifica Profilo</button>
                                 <button id="public-preview-btn" class="btn btn-secondary">Anteprima Pubblica</button>
                             </div>
-                        {% else %}
+                        {% else %} {# Altrimenti mostra i pulsanti di interazione per gli altri utenti #}
                             <div class="profile-actions">
+                                {# Qui puoi aggiungere pulsanti come "Metti Like", "Messaggia", ecc. #}
                                 <button class="btn btn-primary">Mi Piace</button>
                                 <button class="btn btn-secondary">Messaggia</button>
                             </div>
                         {% endif %}
-                    </div>
-                </div>
+                    </div> {# Chiusura di .profile-info-and-actions #}
+                </div> {# Chiusura di .profile-header-section #}
 
 
+                {# Contenuto del profilo basato su chi lo sta visualizzando #}
+                {# Imposta la visibilità iniziale con hidden class, il JS la gestirà #}
                 <div id="my-profile-view" class="profile-content-section {% if not is_owner %}hidden{% endif %}">
+                    {# MY PROFILE VIEW - Default active for the logged-in user #}
+                    {# BIOGRAFIA - Editable for my profile view #}
                     <div class="bio-section card">
                         <h3 class="text-2xl font-semibold mb-4 text-gray-800">Biography</h3>
                         <textarea
@@ -87,14 +95,17 @@
                             <button
                                 id="edit-bio-btn"
                                 class="btn-edit-bio bg-blue-600"
-                                data-save-url="{% url 'accounts:update_bio' %}"
+                                data-save-url="{% url 'accounts:update_bio' %}" {# Usa il namespace corretto #}
                             >
                                 Modifica
                             </button>
                             <div id="char-count" style="font-size: 0.8em; color: #666; text-align: right; margin-top: 5px;">0/255</div>
                         </div>
+                        {# IL VECCHIO message-box è stato spostato sopra e rinominato status-message-box #}
+                        {# <div id="message-box" class="mt-4 p-3 rounded-md text-sm hidden"></div> #}
                     </div>
 
+                    {# INTERESSI #}
                     <div class="profile-details-grid">
                         <div class="detail-item card">
                             <i class="fas fa-star icon-interest"></i>
@@ -106,6 +117,7 @@
                                             <span class="preference-tag">{{ field.label }}</span>
                                         {% endif %}
                                     {% endfor %}
+                                    {# Questo messaggio appare se non ci sono interessi selezionati #}
                                     {% if not user_preferences.get_interest_fields %}
                                         <p>Nessun interesse selezionato.</p>
                                     {% endif %}
@@ -116,6 +128,7 @@
                         </div>
                     </div>
 
+                    {# TAB - My Profile View #}
                     <div class="profile-tabs card">
                         <div class="tab-buttons">
                             <button class="tab-button active" data-tab="user-stats">Statistiche Utente</button>
@@ -214,12 +227,15 @@
                     </div>
                 </div>
 
+                {# PUBLIC PREVIEW VIEW - Always visible for others, hidden by default for owner #}
                 <div id="public-preview-view" class="profile-content-section {% if is_owner %}hidden{% endif %}">
+                    {# BIOGRAFIA - Read-only for public view #}
                     <div class="bio-section card">
                         <h3 class="text-2xl font-semibold mb-4 text-gray-800">Biography</h3>
                         <p id="public-bio-text" class="w-full p-3 border border-gray-200 rounded-md bg-gray-50 text-gray-700 min-h-[100px]">{{ user_profile.biography|default:"Nessuna biografia disponibile." }}</p>
                     </div>
 
+                    {# INTERESSI #}
                     <div class="profile-details-grid">
                         <div class="detail-item card">
                             <i class="fas fa-star icon-interest"></i>
@@ -241,8 +257,10 @@
                         </div>
                     </div>
 
+                    {# TAB - Public Preview View (no stats tab, but posts and photos) #}
                     <div class="profile-tabs card">
                         <div class="tab-buttons">
+                            {# Le tab per i profili pubblici sono solo "Post Utente" e "Galleria Foto" #}
                             <button class="tab-button active" data-tab="public-user-posts">Post Utente</button>
                             <button class="tab-button" data-tab="public-photo-gallery">Galleria Foto</button>
                         </div>
@@ -301,8 +319,11 @@
 {% endblock %}
 
 {% block script %}
+    {# Questo script gestisce la logica di base delle schede e deve essere sempre caricato #}
     <script src="{% static 'js/accounts/profile_tabs.js' %}"></script>
+    {# Questo script contiene la logica di modifica del profilo e viene caricato solo per il proprietario #}
     {% if is_owner %}
+        {# Aggiungi un div per passare l'URL di upload al JavaScript #}
         <div id="profile-data-container" data-upload-url="{% url 'accounts:upload_photo' %}" style="display: none;"></div>
         <script src="{% static 'js/accounts/profile.js' %}"></script>
     {% endif %}

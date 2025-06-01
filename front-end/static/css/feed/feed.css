@@ -43,19 +43,18 @@ main {
     }
 }
 
-
 .feed-left-sidebar {
-    
+
     width: 30%; 
-    min-width: 280px; 
-    max-width: 400px; 
+    min-width: 400px; 
+    max-width: 500px; 
     background-color: #ffffff;
     border-right: 1px solid #e0e0e0;
     display: flex;
     flex-direction: column; 
     flex-shrink: 0; 
     overflow-y: auto; 
-    
+
     height: 100vh;
     top: 0; 
     position: sticky; 
@@ -63,7 +62,7 @@ main {
 .chat-list-sidebar {
     flex-grow: 1; 
     overflow-y: auto; 
-    
+
     height: 50%; 
     box-sizing: border-box; 
 }
@@ -75,7 +74,6 @@ main {
     box-sizing: border-box; 
     border-top: 1px solid #ccc; 
 }
-
 
 @media (max-width: 767px) {
     .chat-list-sidebar {
@@ -90,7 +88,6 @@ main {
         z-index: 200; 
     }
 
-    
     .chat-list-sidebar.active {
         display: flex; 
     }
@@ -104,8 +101,6 @@ main {
     background-color: #f0f2f5;
     border-bottom: 1px solid #e0e0e0;
 }
-
-
 
 .sidebar-icons {
     display: flex;
@@ -160,7 +155,7 @@ main {
 .chat-avatar {
     width: 50px;
     height: 50px;
-    
+
     border-radius: 50%;
     margin-right: 15px;
     flex-shrink: 0; 
@@ -182,7 +177,6 @@ main {
     margin-left: auto; 
 }
 
-
 .feed-feed-container {
     flex-grow: 1;
     padding: 20px 80px; 
@@ -199,7 +193,6 @@ main {
         padding: 10px 20px; 
     }
 }
-
 
 .feed-post {
     background-color: #ffffff;
@@ -232,7 +225,6 @@ main {
     background: white;
 }
 
-
 .feed-post-image img {
     width: 100%;
     display: flex;
@@ -249,12 +241,10 @@ main {
     padding-left: 12px;
     font-size: 0.95em;
     color: #262626;
-    
-    
+
     line-height: 1.5;
     border-radius: 0 0 8px 8px; 
 }
-
 
 .feed-post-actions {
     padding: 8px 16px;
@@ -287,14 +277,11 @@ main {
     font-weight: 900;
 }
 
-
-
-
 @media (max-width: 768px) {
     .feed-left-sidebar {
         width: 70px;
         padding: 20px 10px;
-        
+
          height: calc(100% - 60px);
          top: 60px;
          left: 0; 
@@ -314,18 +301,16 @@ main {
 }
 
 @media (max-width: 480px) {
-    
+
     .feed-left-sidebar {
         display: none;
     }
 
-    
     .feed-feed-container {
         margin-left: 0; 
         padding: 10px; 
     }
 
-    
     .feed-post-header {
         padding: 10px 12px;
     }
@@ -348,7 +333,6 @@ main {
         font-size: 13px;
     }
 }
-
 
 *::-webkit-scrollbar{
     display: none;
