@@ -2,15 +2,13 @@
 {% load static %}
 {% block title %} | Feed{% endblock %}
 {% block style %}
-	<link rel="stylesheet" href="{% static 'css/feed/feed.css' %}"/>
-    {# <link rel="stylesheet" href="{% static 'css/chat/chat.css' %}"/> #}
+    <link rel="stylesheet" href="{% static 'css/feed/feed.css' %}"/>
 {% endblock %}
 
 {% block content %}
 <div class="feed-layout">
 
     <div class="feed-left-sidebar">
-        {# Left Sidebar for Chat List #}
         <div class="chat-list-sidebar">
             <h2>Chats with Matches</h2>
             <div class="search-bar">
@@ -27,11 +25,10 @@
                             <div class="chat-name">{{ user.username }}</div>
                         </div>
                         <div class="chat-timestamp">02:01 TODO</div>
-                        {# <a href="{% url 'chatroom' user.username %}" class="feed-start-chat-button">Chat</a> #}
                     </div>
                 {% endfor %}
             </div>
-        </div>   
+        </div> 
             
         <div class="feed-filters-sidebar">
             <h1>Filters</h1>
@@ -39,7 +36,6 @@
     </div>
     
     <div class="feed-feed-container">
-        <!-- come prima cosa visualizziamo i pending_users -->
         {% for user in pending_users_arrived %}
             <div class="feed-post">
                 <div class="feed-post-header">
@@ -70,7 +66,6 @@
             </div>
         {% endfor %}
 
-        <!-- poi visualizziamo tutti gli altri utenti -->
         {% for user in users %}
             {% if user not in pending_users_arrived and user not in matched_users and user not in pending_users_sent and user != request.user %}
                 <div class="feed-post">
@@ -82,8 +77,23 @@
                         <button class="feed-username">{{ user.username }}</button>
                     </div>
                     <div class="feed-post-image">
-                        <img src="https://picsum.photos/600/400?random=1" alt="Post Image">
+                    {% with latest_post=user.post_set.first %}
+                        {% if latest_post and latest_post.text %}
+                            <div class="feed-post-caption">
+                                <p> {{ latest_post.text }}</p>
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+
+                    {% with latest_post=user.post_set.first %}
+                        {% if latest_post and latest_post.post_pic %}
+                            <img src="{{ latest_post.post_pic.url }}" alt="Post Image">
+                        {% else %}
+                            <img src="https://picsum.photos/600/400?random=1" alt="Post Image">
+                        {% endif %}
+                    {% endwith %}
                     </div>
+                    
                     <div class="feed-post-actions">
                         <form action="{% url 'feed' %}" method="POST">
                             {% csrf_token %}
@@ -118,14 +128,8 @@
     const chatsDiv = document.getElementById("chats")
 
     searchInput.addEventListener("input", function() {
-        // url che passa il parametro senza encoding per i query parameter
-        //const url = `/feed/search_chat/${searchInput.value}`;
-
-        // url che passa il parametro come query parameter (richiesta AJAX)
-        // viene inviato il contenuto dell'input
         const url = `/feed/search_chat/?q=${encodeURIComponent(searchInput.value)}`;
 
-        // fa request GET all'url
         fetch(url, {
             method: 'GET'
         })
@@ -140,7 +144,6 @@
         })
     })
 
-    // aggiunge users al div delle chat
     function displayOutput(users) {
         chatsDiv.innerHTML = ""
 
@@ -156,31 +159,10 @@
                             <div class="chat-name">${username}</div>
                         </div>
                         <div class="chat-timestamp">02:01 TODO</div>
-                        {# <a href="{% url 'chatroom' user.username %}" class="feed-start-chat-button">Chat</a> #}
                     </div>
                 `
             })
         }
-        // inutile mi sa tanto li prende anche sopra
-        /*
-        else {
-            chatsDiv.innerHTML = `
-                {% for user in matched_users %}
-                    <div class="chat-item" onclick="enterChat('{{ user.username }}')">
-                        <div class="chat-avatar">
-                            <img class="chat-avatar" src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo"> 
-                        </div>
-
-                        <div class="chat-info">
-                            <div class="chat-name">{{ user.username }}</div>
-                        </div>
-                        <div class="chat-timestamp">02:01 TODO</div>
-                        {# <a href="{% url 'chatroom' user.username %}" class="feed-start-chat-button">Chat</a> #}
-                    </div>
-                {% endfor %}
-            `
-        }
-        */
     }
 
 </script>

@@ -25,7 +25,7 @@
                         <div class="cover-placeholder"></div>
                     {% endif %}
                     {% if is_owner %}
-                        <div class="cover-overlay">
+                        <div class="cover-overlay edit-mode-item">
                             <button class="edit-cover-btn" aria-label="Modifica foto di copertina" title="Modifica foto di copertina">
                                 <i class="fas fa-camera"></i>
                             </button>
@@ -38,7 +38,7 @@
                     <div class="profile-avatar-container">
                         <img src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo" class="profile-avatar">
                         {% if is_owner %}
-                            <div class="avatar-overlay">
+                            <div class="avatar-overlay edit-mode-item">
                                 <button class="edit-avatar-btn" aria-label="Modifica foto profilo" title="Modifica foto profilo">
                                     <i class="fas fa-camera"></i>
                                 </button>
@@ -46,6 +46,10 @@
                             <input type="file" id="avatar-upload" name="profile_picture" accept="image/*" style="display: none;">
                         {% endif %}
                     </div>
+
+                        {% if is_owner %}
+                            <div id="status-message-box" class="hidden p-3 mb-4 rounded-lg text-sm text-center font-medium"></div>
+                        {% endif %}
 
                     <div class="profile-info-and-actions">
                         <h1 class="profile-name">{{ user_profile.first_name }} {{ user_profile.last_name }}{% if user_profile.age %}, {{ user_profile.age }}{% endif %}</h1>
@@ -69,9 +73,6 @@
                     </div>
                 </div>
 
-                {% if is_owner %}
-                    <div id="status-message-box" class="hidden p-3 mb-4 rounded-lg text-sm text-center font-medium"></div>
-                {% endif %}
 
                 <div id="my-profile-view" class="profile-content-section {% if not is_owner %}hidden{% endif %}">
                     <div class="bio-section card">
@@ -79,6 +80,7 @@
                         <textarea
                             id="bio-textarea"
                             maxlength="255"
+                            style="resize: none;"
                             readonly
                         >{{ user_profile.biography|default:"Scrivi qualcosa di te per far conoscere la tua personalità unica!" }}</textarea>
                         <div class="flex justify-between items-center mt-4">
@@ -98,20 +100,19 @@
                             <i class="fas fa-star icon-interest"></i>
                             <h4>Interessi:</h4>
                             {% if user_preferences %}
-                                <p>{{ user_preferences.get_active_interests_count|default:"0" }}</p>
+                                <div class="preferences-list">
+                                    {% for field in user_preferences.get_interest_fields %}
+                                        {% if field.value %}
+                                            <span class="preference-tag">{{ field.label }}</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if not user_preferences.get_interest_fields %}
+                                        <p>Nessun interesse selezionato.</p>
+                                    {% endif %}
+                                </div>
                             {% else %}
                                 <p>N/A</p>
                             {% endif %}
-                        </div>
-                        <div class="detail-item card">
-                            <i class="fas fa-pizza-slice icon-hobby"></i>
-                            <h4>Hobbies:</h4>
-                            <p>{{ user_profile.hobbies_count|default:"0" }}</p>
-                        </div>
-                        <div class="detail-item card">
-                            <i class="fas fa-wine-glass icon-lifestyle"></i>
-                            <h4>Stile di Vita:</h4>
-                            <p>{{ user_profile.lifestyle_info|default:"N/A" }}</p>
                         </div>
                     </div>
 
@@ -179,12 +180,12 @@
                                             <img src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo">
                                             <div>
                                                 <h4>{{ user_profile.first_name }} {{ user_profile.last_name }}</h4>
-                                                <span class="post-date">{{ post.date|date:"d M H:i" }}</span>
+                                                <span class="post-date">{{ post.time_stamp|date:"d M H:i" }}</span>
                                             </div>
                                         </div>
-                                        <p class="post-content">{{ post.content }}</p>
-                                        {% if post.image %}
-                                        <img src="{{ post.image.url }}" alt="Post Image" class="post-image">
+                                        <p class="post-content">{{ post.text }}</p>
+                                        {% if post.post_pic %}
+                                        <img src="{{ post.post_pic.url }}" alt="Post Image" class="post-image">
                                         {% endif %}
                                         <div class="post-actions">
                                             <button><i class="fas fa-heart"></i> Mi Piace</button>
@@ -224,20 +225,19 @@
                             <i class="fas fa-star icon-interest"></i>
                             <h4>Interessi:</h4>
                             {% if user_preferences %}
-                                <p>{{ user_preferences.get_active_interests_count|default:"0" }}</p>
+                                <div class="preferences-list">
+                                    {% for field in user_preferences.get_interest_fields %}
+                                        {% if field.value %}
+                                            <span class="preference-tag">{{ field.label }}</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if not user_preferences.get_interest_fields %}
+                                        <p>Nessun interesse selezionato.</p>
+                                    {% endif %}
+                                </div>
                             {% else %}
                                 <p>N/A</p>
                             {% endif %}
-                        </div>
-                        <div class="detail-item card">
-                            <i class="fas fa-pizza-slice icon-hobby"></i>
-                            <h4>Hobbies:</h4>
-                            <p>{{ user_profile.hobbies_count|default:"0" }}</p>
-                        </div>
-                        <div class="detail-item card">
-                            <i class="fas fa-wine-glass icon-lifestyle"></i>
-                            <h4>Stile di Vita:</h4>
-                            <p>{{ user_profile.lifestyle_info|default:"N/A" }}</p>
                         </div>
                     </div>
 
@@ -259,9 +259,9 @@
                                                 <span class="post-date">{{ post.date|date:"d M H:i" }}</span>
                                             </div>
                                         </div>
-                                        <p class="post-content">{{ post.content }}</p>
-                                        {% if post.image %}
-                                        <img src="{{ post.image.url }}" alt="Post Image" class="post-image">
+                                        <p class="post-content">{{ post.text }}</p>
+                                        {% if post.post_pic %}
+                                        <img src="{{ post.post_pic.url }}" alt="Post Image" class="post-image">
                                         {% endif %}
                                         <div class="post-actions">
                                             <button><i class="fas fa-heart"></i> Mi Piace</button>

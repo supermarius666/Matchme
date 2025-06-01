@@ -142,6 +142,18 @@ class UserPreferences(models.Model):
     cultura = models.BooleanField(default=False)
     minimalismo = models.BooleanField(default=False)
 
+
+    def get_active_preferences(self):
+        active_prefs = []
+        for field in self._meta.fields:
+            if isinstance(field, models.BooleanField):
+                value = getattr(self, field.name)
+                if value:
+                    # Converti il nome campo in un formato leggibile
+                    active_prefs.append(field.name.replace('_', ' ').capitalize())
+        return active_prefs
+
+
     def __str__(self):
         return f"{self.user.username} preferences"
 

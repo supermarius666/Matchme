@@ -1,15 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
+    console.log("profile_tabs.js loaded and executing.");
+
     function switchTab(clickedButton) {
         if (!clickedButton) return;
 
         const tabContainer = clickedButton.closest('.profile-tabs');
         if (!tabContainer) {
+            console.warn("No .profile-tabs container found for the clicked button.", clickedButton);
             return;
         }
 
         const tabButtons = tabContainer.querySelectorAll('.tab-button');
         const tabContents = tabContainer.querySelectorAll('.tab-content');
         const targetTabId = clickedButton.dataset.tab;
+
+        console.log("Switching tab to:", targetTabId);
 
         tabButtons.forEach(button => button.classList.remove('active'));
         tabContents.forEach(content => content.classList.remove('active'));

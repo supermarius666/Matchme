@@ -5,7 +5,6 @@ from .models import UserProfile, UserPreferences, UserStats
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 import json
-import traceback
 
 
 def auth_view(request):
@@ -50,31 +49,28 @@ def auth_view(request):
 
     return render(request, 'accounts/login_register.html')
 
-
 @login_required
 def logout_view(request):
     if request.method == "POST":
         logout(request)
     return redirect("home")
 
-
 @login_required
 def preferences_view(request):
     if request.method == 'POST':
         selected_prefs = request.POST.getlist('interested_in')
-        
+
         bio = request.POST.get('bio', '').strip()[:255]
 
         preferences, created = UserPreferences.objects.get_or_create(user=request.user)
 
-        all_pref = UserPreferences._meta.get_fields()        
+        all_pref = UserPreferences._meta.get_fields()
         interests = [field.name for field in all_pref]
-        
+
         for interest in interests:
-            
             if interest in selected_prefs:
                 setattr(preferences, interest, True)
-    
+
         preferences.save()
 
         profile = UserProfile.objects.get(username=request.user.username)
@@ -84,7 +80,6 @@ def preferences_view(request):
         return redirect('accounts:upload_photo_reg')
 
     return render(request, 'accounts/preferences.html')
-
 
 @login_required
 def update_bio(request):
@@ -118,8 +113,9 @@ def upload_photo_reg(request):
             user_profile.profile_picture = profile_pic
             user_profile.save()
             return redirect('home')
-    
+
     return render(request, 'accounts/upload_photo.html')
+
 
 
 @login_required
@@ -137,7 +133,7 @@ def upload_photo(request):
                     'message': 'Foto profilo caricata con successo!',
                     'profile_picture_url': user_profile.profile_picture.url
                 })
-            
+
             elif 'cover_picture' in request.FILES:
                 file = request.FILES['cover_picture']
                 user_profile.cover_picture = file
@@ -147,7 +143,7 @@ def upload_photo(request):
                     'message': 'Foto di copertina caricata con successo!',
                     'cover_picture_url': user_profile.cover_picture.url
                 })
-            
+
             else:
                 return JsonResponse({
                     'success': False,
@@ -155,6 +151,7 @@ def upload_photo(request):
                 }, status=400)
 
         except Exception as e:
+            import traceback
             traceback.print_exc()
             return JsonResponse({
                 'success': False,
@@ -165,7 +162,6 @@ def upload_photo(request):
             'success': False,
             'message': 'Metodo non permesso.'
         }, status=405)
-
 
 def profile(request):
     user_profile = UserProfile.objects.get(username=request.user.username)
@@ -184,10 +180,9 @@ def profile(request):
         'is_owner': True
     })
 
-
 def profile_view(request, username):
     viewed_user = get_object_or_404(UserProfile, username=username)
-    
+
     viewed_user_preferences = None
     try:
         viewed_user_preferences = UserPreferences.objects.get(user=viewed_user)

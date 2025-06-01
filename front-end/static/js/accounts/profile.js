@@ -1,4 +1,4 @@
-// static/js/accounts/profile.js
+console.log("profile.js loaded and executing (for owner).");
 
 const myProfileView = document.getElementById('my-profile-view');
 const publicPreviewView = document.getElementById('public-preview-view');
@@ -44,11 +44,13 @@ function getCookie(name) {
 
 function showMessage(message, type) {
     if (!messageBox) {
+        console.error("MessageBox element (status-message-box) not found. Message:", message, type);
         alert(message);
         return;
     }
     messageBox.textContent = message;
-    messageBox.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800', 'bg-blue-100', 'text-blue-800');
+    messageBox.className = '';
+    messageBox.classList.add('status-message-box');
 
     if (type === 'success') {
         messageBox.classList.add('bg-green-100', 'text-green-800');
@@ -57,9 +59,9 @@ function showMessage(message, type) {
     } else if (type === 'info') {
         messageBox.classList.add('bg-blue-100', 'text-blue-800');
     }
-    messageBox.classList.remove('hidden');
 
-    if (type === 'success' || type === 'info') {
+    messageBox.classList.remove('hidden');
+    if (type !== 'error') {
         setTimeout(() => {
             messageBox.classList.add('hidden');
         }, 3000);
@@ -78,48 +80,35 @@ function toggleView(viewName) {
     currentView = viewName;
 
     if (viewName === 'myProfile') {
-        if (myProfileView) myProfileView.classList.remove('hidden');
-        if (publicPreviewView) publicPreviewView.classList.add('hidden');
-        if (editProfileBtn) editProfileBtn.classList.remove('hidden');
-        if (publicPreviewBtn) publicPreviewBtn.textContent = 'Anteprima Pubblica';
+        myProfileView?.classList.remove('hidden');
+        publicPreviewView?.classList.add('hidden');
+        editProfileBtn?.classList.remove('hidden');
+        publicPreviewBtn.textContent = 'Anteprima Pubblica';
 
         const myProfileStatsTab = document.querySelector('#my-profile-view .tab-buttons .tab-button[data-tab="user-stats"]');
-        if (myProfileStatsTab) {
-            myProfileStatsTab.click();
-        }
+        myProfileStatsTab?.click();
+    } else {
+        myProfileView?.classList.add('hidden');
+        publicPreviewView?.classList.remove('hidden');
+        editProfileBtn?.classList.add('hidden');
+        publicPreviewBtn.textContent = 'Torna al Mio Profilo';
 
-    } else if (viewName === 'publicPreview') {
-        if (myProfileView) myProfileView.classList.add('hidden');
-        if (publicPreviewView) publicPreviewView.classList.remove('hidden');
-        if (editProfileBtn) editProfileBtn.classList.add('hidden');
-        if (publicPreviewBtn) publicPreviewBtn.textContent = 'Torna al Mio Profilo';
-
-        if (isEditingMode) {
-            toggleEditMode(false);
-        }
+        if (isEditingMode) toggleEditMode(false);
 
         if (publicBioText && bioTextarea) {
             publicBioText.textContent = bioTextarea.value;
         }
 
         const publicPostsTab = document.querySelector('#public-preview-view .tab-buttons .tab-button[data-tab="public-user-posts"]');
-        if (publicPostsTab) {
-            publicPostsTab.click();
-        }
+        publicPostsTab?.click();
     }
 }
 
 function toggleEditMode(enable) {
     isEditingMode = enable;
 
-    if (avatarOverlay) {
-        if (isEditingMode) avatarOverlay.classList.add('active');
-        else avatarOverlay.classList.remove('active');
-    }
-    if (coverOverlay) {
-        if (isEditingMode) coverOverlay.classList.add('active');
-        else coverOverlay.classList.remove('active');
-    }
+    avatarOverlay?.classList.toggle('active', isEditingMode);
+    coverOverlay?.classList.toggle('active', isEditingMode);
 
     if (bioTextarea) {
         if (isEditingMode) {
@@ -136,211 +125,137 @@ function toggleEditMode(enable) {
 
     if (editBioBtn) {
         editBioBtn.textContent = isEditingMode ? 'Salva' : 'Modifica';
-        if (isEditingMode) {
-            editBioBtn.classList.remove('bg-blue-600');
-            editBioBtn.classList.add('bg-green-600');
-        } else {
-            editBioBtn.classList.remove('bg-green-600');
-            editBioBtn.classList.add('bg-blue-600');
-        }
+        editBioBtn.classList.toggle('bg-blue-600', !isEditingMode);
+        editBioBtn.classList.toggle('bg-green-600', isEditingMode);
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    if (profileDataContainer) {
-        uploadUrl = profileDataContainer.dataset.uploadUrl;
-        if (!uploadUrl) {
-            showMessage("Errore: l'URL di upload delle foto non è stato trovato nell'elemento profile-data-container. Contatta il supporto.", "error");
+document.addEventListener('DOMContentLoaded', function () {
+    uploadUrl = profileDataContainer?.dataset.uploadUrl || '';
+    if (!uploadUrl) {
+        showMessage("Impossibile caricare le foto: URL di upload mancante.", "error");
+    }
+
+    editProfileBtn?.addEventListener('click', () => {
+        toggleEditMode(!isEditingMode);
+        if (!isEditingMode) toggleView('myProfile');
+        showMessage(isEditingMode ? 'Modalità modifica attivata. Clicca sulle aree per modificare.' : 'Modalità modifica disattivata.', 'info');
+    });
+
+    publicPreviewBtn?.addEventListener('click', () => {
+        toggleView(currentView === 'myProfile' ? 'publicPreview' : 'myProfile');
+    });
+
+    bioTextarea?.addEventListener('input', updateCharCount);
+
+    editBioBtn?.addEventListener('click', async () => {
+        if (editBioBtn.textContent.trim() === 'Modifica') {
+            bioTextarea.removeAttribute('readonly');
+            bioTextarea.focus();
+            editBioBtn.textContent = 'Salva';
+            editBioBtn.classList.replace('bg-blue-600', 'bg-green-600');
+            messageBox?.classList.add('hidden');
+        } else {
+            const newBio = bioTextarea.value.trim();
+            const saveUrl = editBioBtn.dataset.saveUrl;
+
+            if (!saveUrl) {
+                showMessage('URL di salvataggio biografia non definito.', 'error');
+                return;
+            }
+
+            if (newBio.length > bioTextarea.maxLength) {
+                showMessage(`La biografia supera il limite di ${bioTextarea.maxLength} caratteri.`, 'error');
+                return;
+            }
+
+            editBioBtn.textContent = 'Salvataggio...';
+            editBioBtn.disabled = true;
+
+            try {
+                const response = await fetch(saveUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    body: JSON.stringify({ bio: newBio })
+                });
+
+                if (!response.ok) throw new Error((await response.json()).message || 'Errore nel salvataggio.');
+
+                const data = await response.json();
+
+                bioTextarea.setAttribute('readonly', true);
+                editBioBtn.textContent = 'Modifica';
+                editBioBtn.classList.replace('bg-green-600', 'bg-blue-600');
+                showMessage(data.message, 'success');
+                publicBioText.textContent = newBio;
+            } catch (error) {
+                showMessage(error.message || 'Errore durante il salvataggio.', 'error');
+            } finally {
+                editBioBtn.disabled = false;
+                if (editBioBtn.textContent === 'Salvataggio...') {
+                    editBioBtn.textContent = 'Salva';
+                }
+            }
         }
-    } else {
-        showMessage("Errore configurazione profilo. Impossibile caricare immagini.", "error");
-    }
+    });
 
-    if (editProfileBtn) {
-        editProfileBtn.addEventListener('click', () => {
-            if (isEditingMode) {
-                toggleEditMode(false);
-                showMessage('Modalità modifica disattivata.', 'info');
-            } else {
-                toggleEditMode(true);
-                toggleView('myProfile');
-                showMessage('Modalità modifica attivata. Clicca sulle aree per modificare.', 'info');
-            }
-        });
-    }
+    editAvatarBtn?.addEventListener('click', () => {
+        if (isEditingMode) avatarUploadInput?.click();
+        else showMessage('Attiva la modalità di modifica per caricare le immagini.', 'info');
+    });
 
-    if (publicPreviewBtn) {
-        publicPreviewBtn.addEventListener('click', () => {
-            if (currentView === 'myProfile') {
-                toggleView('publicPreview');
-            } else {
-                toggleView('myProfile');
-            }
-        });
-    }
-
-    if (bioTextarea) {
-        bioTextarea.addEventListener('input', updateCharCount);
-    }
-
-    if (editBioBtn) {
-        editBioBtn.addEventListener('click', async () => {
-            if (editBioBtn.textContent.trim() === 'Modifica') {
-                bioTextarea.removeAttribute('readonly');
-                bioTextarea.focus();
-                editBioBtn.textContent = 'Salva';
-                editBioBtn.classList.remove('bg-blue-600');
-                editBioBtn.classList.add('bg-green-600');
-                if (messageBox) messageBox.classList.add('hidden');
-            } else {
-                const newBio = bioTextarea.value.trim();
-                const saveUrl = editBioBtn.dataset.saveUrl;
-
-                if (!saveUrl) {
-                    showMessage('URL di salvataggio biografia non definito.', 'error');
-                    return;
-                }
-
-                if (newBio.length > bioTextarea.maxLength) {
-                    showMessage(`La biografia supera il limite di ${bioTextarea.maxLength} caratteri.`, 'error');
-                    return;
-                }
-
-                editBioBtn.textContent = 'Salvataggio...';
-                editBioBtn.disabled = true;
-                if (messageBox) messageBox.classList.add('hidden');
-
-                try {
-                    const response = await fetch(saveUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': getCookie('csrftoken')
-                        },
-                        body: JSON.stringify({ bio: newBio })
-                    });
-
-                    if (!response.ok) {
-                        const errorData = await response.json();
-                        throw new Error(errorData.message || 'Si è verificato un errore durante il salvataggio.');
-                    }
-
-                    const data = await response.json();
-
-                    bioTextarea.setAttribute('readonly', true);
-                    editBioBtn.textContent = 'Modifica';
-                    editBioBtn.classList.remove('bg-green-600');
-                    editBioBtn.classList.add('bg-blue-600');
-                    showMessage(data.message, 'success');
-                    if (publicBioText) {
-                        publicBioText.textContent = newBio;
-                    }
-                } catch (error) {
-                    showMessage(error.message || 'Errore di rete o del server durante il salvataggio della biografia.', 'error');
-                } finally {
-                    editBioBtn.disabled = false;
-                    if (editBioBtn.textContent === 'Salvataggio...') {
-                        editBioBtn.textContent = 'Salva';
-                    }
-                }
-            }
-        });
-    }
-
-    if (editAvatarBtn) {
-        editAvatarBtn.addEventListener('click', () => {
-            if (isEditingMode && avatarUploadInput) {
-                avatarUploadInput.click();
-            } else {
-                showMessage('Attiva la modalità di modifica per caricare le immagini.', 'info');
-            }
-        });
-    }
-
-    if (editCoverBtn) {
-        editCoverBtn.addEventListener('click', () => {
-            if (isEditingMode && coverUploadInput) {
-                coverUploadInput.click();
-            } else {
-                showMessage('Attiva la modalità di modifica per caricare le immagini.', 'info');
-            }
-        });
-    }
+    editCoverBtn?.addEventListener('click', () => {
+        if (isEditingMode) coverUploadInput?.click();
+        else showMessage('Attiva la modalità di modifica per caricare le immagini.', 'info');
+    });
 
     async function handleImageUpload(event) {
         const fileInput = event.target;
         const file = fileInput.files[0];
-        if (!file) {
-            showMessage('Nessun file selezionato per il caricamento.', 'error');
-            return;
-        }
+        if (!file) return showMessage('Nessun file selezionato.', 'error');
+        if (!uploadUrl) return showMessage('URL di upload mancante.', 'error');
 
-        if (!uploadUrl) {
-            showMessage("Impossibile caricare l'immagine: URL di upload non disponibile.", "error");
-            return;
-        }
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            if (fileInput.id === 'avatar-upload') {
+                document.querySelectorAll('.profile-avatar').forEach(img => img.src = e.target.result);
+            } else if (fileInput.id === 'cover-upload') {
+                document.querySelectorAll('.cover-image').forEach(img => img.src = e.target.result);
+            }
+        };
+        reader.readAsDataURL(file);
 
         const formData = new FormData();
         formData.append(fileInput.name, file);
         formData.append('csrfmiddlewaretoken', getCookie('csrftoken'));
 
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            if (fileInput.id === 'avatar-upload') {
-                document.querySelector('.profile-avatar').src = e.target.result;
-                const publicAvatar = document.querySelector('#public-preview-view .profile-avatar');
-                if (publicAvatar) publicAvatar.src = e.target.result;
-            } else if (fileInput.id === 'cover-upload') {
-                document.querySelector('.cover-image').src = e.target.result;
-                const publicCover = document.querySelector('#public-preview-view .cover-image');
-                if (publicCover) publicCover.src = e.target.result;
-            }
-        };
-        reader.readAsDataURL(file);
-
-        showMessage('Caricamento dell\'immagine in corso...', 'info');
+        showMessage('Caricamento in corso...', 'info');
 
         try {
-            const response = await fetch(uploadUrl, {
-                method: 'POST',
-                body: formData,
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Errore del server durante il caricamento dell\'immagine.');
-            }
-
+            const response = await fetch(uploadUrl, { method: 'POST', body: formData });
             const data = await response.json();
+            if (!response.ok) throw new Error(data.message);
 
-            if (data.success) {
-                showMessage(data.message, 'success');
-                if (fileInput.id === 'avatar-upload' && data.profile_picture_url) {
-                    document.querySelector('.profile-avatar').src = data.profile_picture_url;
-                    const publicAvatar = document.querySelector('#public-preview-view .profile-avatar');
-                    if (publicAvatar) publicAvatar.src = data.profile_picture_url;
-                } else if (fileInput.id === 'cover-upload' && data.cover_picture_url) {
-                    document.querySelector('.cover-image').src = data.cover_picture_url;
-                    const publicCover = document.querySelector('#public-preview-view .cover-image');
-                    if (publicCover) publicCover.src = data.cover_picture_url;
-                }
-            } else {
-                showMessage(data.message || 'Errore durante il caricamento dell\'immagine.', 'error');
+            if (fileInput.id === 'avatar-upload' && data.profile_picture_url) {
+                document.querySelectorAll('.profile-avatar').forEach(img => img.src = data.profile_picture_url);
+            } else if (fileInput.id === 'cover-upload' && data.cover_picture_url) {
+                document.querySelectorAll('.cover-image').forEach(img => img.src = data.cover_picture_url);
             }
+
+            showMessage(data.message || 'Immagine aggiornata.', 'success');
         } catch (error) {
-            showMessage(error.message || 'Errore di rete o del server durante il caricamento dell\'immagine.', 'error');
+            showMessage(error.message || 'Errore durante il caricamento.', 'error');
         }
     }
 
-    if (avatarUploadInput) {
-        avatarUploadInput.addEventListener('change', handleImageUpload);
-    }
-    if (coverUploadInput) {
-        coverUploadInput.addEventListener('change', handleImageUpload);
-    }
+    avatarUploadInput?.addEventListener('change', handleImageUpload);
+    coverUploadInput?.addEventListener('change', handleImageUpload);
 
     updateCharCount();
     toggleView('myProfile');
-    if (avatarOverlay) avatarOverlay.classList.remove('active');
-    if (coverOverlay) coverOverlay.classList.remove('active');
+    avatarOverlay?.classList.remove('active');
+    coverOverlay?.classList.remove('active');
 });
