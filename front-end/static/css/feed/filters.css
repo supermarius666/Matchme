@@ -32,7 +32,7 @@ h2 {
     display: inline-block;
     width: 1.25rem; 
     height: 1.25rem; 
-    border: 2px solid #6366f1; 
+    border: 2px solid #ff4081; 
     border-radius: 0.25rem; 
     position: relative;
     cursor: pointer;
@@ -40,8 +40,8 @@ h2 {
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 .checkbox-input:checked {
-    background-color: #4f46e5; 
-    border-color: #4f46e5;
+    background-color: #e0336d; 
+    border-color: #ff4081;
 }
 .checkbox-input:checked::before {
     content: '✔'; 
@@ -59,7 +59,7 @@ h2 {
 .checkbox-text { 
     margin-left: 0.75rem; 
     font-size: 1.125rem; 
-    color: #374151; 
+    color: #333; 
 }
 
 .range-slider-container {
@@ -74,7 +74,7 @@ h2 {
 #filledRangeTrack {
     position: absolute;
     height: 100%; 
-    background-color: #6366f1; 
+    background-color: #ff4081; 
     border-radius: 9999px; 
 }
 
@@ -95,7 +95,7 @@ input[type="range"]::-webkit-slider-thumb {
     appearance: none;
     width: 20px;
     height: 20px;
-    background: #4f46e5; 
+    background: #ff4081; 
     cursor: pointer;
     border-radius: 9999px;
     margin-top: -6px;
@@ -104,7 +104,7 @@ input[type="range"]::-webkit-slider-thumb {
 input[type="range"]::-moz-range-thumb {
     width: 20px;
     height: 20px;
-    background: #4f46e5; 
+    background: #ff4081; 
     cursor: pointer;
     border-radius: 9999px;
 }
@@ -121,12 +121,12 @@ input[type="range"]::-moz-range-thumb:active {
 
 #rangeInputMin::-webkit-slider-thumb,
 #rangeInputMax::-webkit-slider-thumb {
-    background: #4f46e5; 
+    background: #ff4081; 
     pointer-events: all; 
 }
 #rangeInputMin::-moz-range-thumb,
 #rangeInputMax::-moz-range-thumb {
-    background: #4f46e5; 
+    background: #ff4081; 
     pointer-events: all; 
 }
 
@@ -134,12 +134,11 @@ input[type="range"]::-moz-range-thumb:active {
     display: flex;
     justify-content: space-between;
     font-size: 0.875rem; 
-    color: #4b5563; 
+    color: #333; 
     margin-top: 0.5rem; 
 }
 
 #normalSlider {
-    background: #d1d5db; 
     height: 0.5rem; 
     border-radius: 0.5rem; 
     opacity: 1; 

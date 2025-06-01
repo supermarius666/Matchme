@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} | Events{% endblock %}
+{% block style %}
+	<link rel="stylesheet" href="{% static 'css/events/events.css' %}">
+    <link rel="stylesheet" href="{% static 'css/events/places.css' %}">
+{% endblock %}
+{% block content %}
+<h1>{{ name }}</h1>
+<img src="https://picsum.photos/600/400?random=1" alt="Placeholder Image" class="card-image">
+<p>Si estende in gran parte sul quartiere Pinciano e in piccola parte sul rione Campo Marzio, divisi dalle Mura aureliane</p>
+
+<br><br>
+<p>Il nucleo della tenuta era già di proprietà dei Borghese nel 1580, sul sito del quale è stata identificata anche la posizione dei giardini di Lucullo (o horti luculliani).
+
+Il possedimento fu ampliato con una serie di acquisti e acquisizioni dal cardinale Scipione Borghese, nipote di papa Paolo V e futuro patrono di Gianlorenzo Bernini, con l'intento di crearvi una "villa di delizie" e il più vasto giardino costruito a Roma dall'antichità. Nel 1606 la realizzazione degli edifici fu affidata dal cardinale agli architetti Flaminio Ponzio e, dopo la morte del predecessore, a Giovanni Vasanzio (Jan van Santen); gli architetti furono affiancati dal giardiniere Domenico Savini da Montelpulciano e dall'intervento anche di altri artisti, quali Pietro e Gianlorenzo Bernini. La villa fu completata nel 1633.
+
+Nel 1766 lavori di trasformazione furono intrapresi dal principe Marcantonio IV Borghese (1730-1809), nel "Casino nobile" (ora sede della Galleria Borghese) e nel "Casino dei giuochi d'acqua" (attuale "Aranciera" e sede del Museo Carlo Bilotti), e soprattutto nel parco, con la sistemazione del "Giardino del lago", ad opera degli architetti Antonio Asprucci ed il figlio Mario. Tutto il giardino venne ornato di fontane e piccole fabbriche che permettevano di godere di scorci prospettici suggestivi.
+
+Agli inizi del XIX secolo la villa venne ulteriormente ampliata da Camillo Borghese con l'acquisto di terreni verso porta del Popolo e porta Pinciana, che furono integrati alla villa con l'intervento dell'architetto Luigi Canina. Nel corso del secolo gran parte del precedente giardino all'italiana fu trasformato in giardino di paesaggio di gusto inglese. Durante tutto il secolo i giardini furono aperti per il passeggio festivo e vi erano ospitate feste popolari con canti e balli.
+
+Il complesso - caso unico tra le grandi ville patrizie della città, i cui parchi furono tutti assoggettati a lottizzazione, e anche le ville raramente salvate - fu acquistato dallo Stato italiano nel 1901 e ceduto al comune di Roma nel 1903 per essere stabilmente aperto al pubblico, proprio mentre iniziava la lottizzazione della confinante Villa Ludovisi sui cui terreni stava sorgendo l'omonimo quartiere. La villa fu acquistata per 3 milioni di lire dell'epoca (equivalenti a circa 10 milioni di euro attuali), e denominata ufficialmente "Villa comunale Umberto I già Borghese". I romani non smisero mai di chiamarla villa Borghese.
+</p>
+
+<br>
+
+<div id="map">
+</div>
+
+<br>
+
+<a href="https://www.sovraintendenzaroma.it/i_luoghi/ville_e_parchi_storici/ville_dei_nobili/villa_borghese">Sito Ufficiale</a><br>
+<a href="https://it.wikipedia.org/wiki/Villa_Borghese">wikipedia</a><br>
+<a href="https://www.google.it/maps/preview">google maps</a>
+
+
+
+{% endblock %}
+
+{% block footer %}
+{% include "footer.html" %}
+{% endblock %}
+
+{% block script %}
+<script>
+    let lat = 41.9138822
+    let lon = 12.4828069
+
+    const lat1 = lat - 0.0014
+    const lat2 = lat + 0.0014
+    const lon1 = lon - 0.0016
+    const lon2 = lon + 0.0016
+
+    const markup = `
+        <iframe width="425" height="350" src="https://www.openstreetmap.org/export/embed.html?bbox=${lon1}%2C${lat1}%2C${lon2}%2C${lat2}&amp;layer=mapnik" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/?#map=19/${lat}/${lon}">Visualizza mappa ingrandita</a></small>
+    `
+    document.getElementById("map").innerHTML = markup
+</script>
+{% endblock %}

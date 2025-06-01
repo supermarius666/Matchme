@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} | Events{% endblock %}
+{% block style %}
+	<link rel="stylesheet" href="{% static 'css/events/events.css' %}">
+    <link rel="stylesheet" href="{% static 'css/events/places.css' %}">
+{% endblock %}
+{% block content %}
+<div class="event-container">
+    <h1>Featured Events</h1>
+    <div class="slider-container">
+        <div class="slider">
+            <img src="https://picsum.photos/600/400?random=1" alt="Image 1">
+            <img src="https://picsum.photos/600/400?random=1" alt="Image 2">
+            <img src="https://picsum.photos/600/400?random=1" alt="Image 3">
+            <img src="https://picsum.photos/600/400?random=1" alt="Image 4">
+        </div>
+
+        <div class="slider-nav">
+            <button class="prev-btn">&lt;</button>
+            <button class="next-btn">&gt;</button>
+        </div>
+
+        <div class="dots-container">
+            <span class="dot active" data-slide="0"></span>
+            <span class="dot" data-slide="1"></span>
+            <span class="dot" data-slide="2"></span>
+            <span class="dot" data-slide="3"></span>
+        </div>
+    </div>
+</div>
+
+<div class="places-container">
+    <h1>Places to meet IRL</h1>
+    <div class="grid-container">
+        <div class="card" onclick="gotoPlace('Villa Borghese')"> {# '{{ place.name }}' #}
+            <h3 class="card-title">Villa Borghese</h3>
+            <img src="https://picsum.photos/600/400?random=2" alt="Placeholder Image" class="card-image">
+            <p class="card-text">short description blablablblblablablalblablablalbalbalbla</p>
+        </div>
+
+        <div class="card" onclick="gotoPlace('Villa Borghese')"> {# '{{ place.name }}' #}
+            <h3 class="card-title">Giardino degli aranci</h3>
+            <img src="https://picsum.photos/600/400?random=3" alt="Placeholder Image" class="card-image">
+            <p class="card-text">short description blablablblblablablalblablablalbalbalbla</p>
+        </div>
+        <div class="card" onclick="gotoPlace('Villa Borghese')"> {# '{{ place.name }}' #}
+            <h3 class="card-title">Villa bo</h3>
+            <img src="https://picsum.photos/600/400?random=4" alt="Placeholder Image" class="card-image">
+            <p class="card-text">short description blablablblblablablalblablablalbalbalbla</p>
+        </div>
+        <div class="card" onclick="gotoPlace('Villa Borghese')"> {# '{{ place.name }}' #}
+            <h3 class="card-title">Villa bo</h3>
+            <img src="https://picsum.photos/600/400?random=5" alt="Placeholder Image" class="card-image">
+            <p class="card-text">short description blablablblblablablalblablablalbalbalbla</p>
+        </div>
+        <div class="card" onclick="gotoPlace('Villa Borghese')"> {# '{{ place.name }}' #}
+            <h3 class="card-title">Villa bo</h3>
+            <img src="https://picsum.photos/600/400?random=6" alt="Placeholder Image" class="card-image">
+            <p class="card-text">short description blablablblblablablalblablablalbalbalbla</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% include "footer.html" %}
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js/events/imageSlider.js' %}"></script>
+<script type="text/javascript">
+    function gotoPlace(placeName) {
+        window.location.href = `/events/${placeName}`;
+    }
+</script>
+{% endblock %}

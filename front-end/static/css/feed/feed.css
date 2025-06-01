@@ -63,7 +63,7 @@ main {
     flex-grow: 1; 
     overflow-y: auto; 
 
-    height: 50%; 
+    height: 30%; 
     box-sizing: border-box; 
 }
 

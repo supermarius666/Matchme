@@ -1,0 +1,68 @@
+.slider-container {
+    position: relative;
+    width: 80%; 
+    max-width: 900px;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slider img {
+    width: 100%;
+    height: auto;
+    display: block;
+    flex-shrink: 0; 
+}
+
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.slider-nav button {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1.5em;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.slider-nav button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.dots-container {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background-color: #fff;
+}

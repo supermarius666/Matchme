@@ -15,6 +15,22 @@ function fetchData() {
     console.log('Selected Checkboxes: ', selectedOptions);
     console.log('slidebar1 range: ', rangeInputMin.value, " ", rangeInputMax.value);
     console.log('slidebar2 value: ', normalSlider.value);
+
+    const url = `/feed/search_chat/?q=${encodeURIComponent(searchInput.value)}`;
+
+    // fa request GET all'url
+    fetch(url, {
+        method: 'GET'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        displayOutput(data.searched_users)
+    })
 }
 
 /**
@@ -71,14 +87,26 @@ checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', logSelectedCheckboxes);
 });
 
+function updateSlidebarRangeDisplay() {
+    normalSliderValue.textContent = normalSlider.value;
+
+    let minOverall = 0;
+    let maxOverall = 100;
+
+    // Calculate percentages for the filled track
+    const totalRange = maxOverall - minOverall;
+    const leftPercentage = ((normalSlider.value - minOverall) / totalRange) * 100;
+
+    // mette rosa la parte a sinistra del pallino nella slidebar (la sua larghezza è dinamica)
+    normalSlider.style.background = `linear-gradient(to right, #ff4081 ${leftPercentage}%, #d1d5db 30%, #d1d5db 100%)`
+
+    fetchData()
+}
+
 /**
  * Event listener for the normal slider to update its displayed value.
  */
-normalSlider.addEventListener('input', () => {
-    normalSliderValue.textContent = normalSlider.value;
-
-    fetchData()
-});
+normalSlider.addEventListener('input', updateSlidebarRangeDisplay)
 
 // Event listeners for the dual-thumb slider inputs
 rangeInputMin.addEventListener('input', updateSubRangeDisplay);
@@ -88,5 +116,6 @@ rangeInputMax.addEventListener('input', updateSubRangeDisplay);
 document.addEventListener('DOMContentLoaded', () => {
     updateSubRangeDisplay(); // Set initial state for adjustable slider
     normalSliderValue.textContent = normalSlider.value; // Set initial state for normal slider
+    updateSlidebarRangeDisplay();
     logSelectedCheckboxes();
 });

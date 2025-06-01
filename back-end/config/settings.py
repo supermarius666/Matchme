@@ -37,6 +37,7 @@ INSTALLED_APPS = [
 	'apps.feed.apps.FeedConfig',
 	'apps.accounts.apps.AccountsConfig',
 	'apps.chat.apps.ChatConfig',
+    'apps.events.apps.EventsConfig',
 
     'channels',
 
