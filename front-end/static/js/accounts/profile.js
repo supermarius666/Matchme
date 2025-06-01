@@ -1,6 +1,5 @@
-console.log("profile.js loaded and executing (for owner).");
+// static/js/accounts/profile.js
 
-// --- DOM Elements ---
 const myProfileView = document.getElementById('my-profile-view');
 const publicPreviewView = document.getElementById('public-preview-view');
 
@@ -8,12 +7,11 @@ const editProfileBtn = document.getElementById('edit-profile-btn');
 const publicPreviewBtn = document.getElementById('public-preview-btn');
 
 const bioTextarea = document.getElementById('bio-textarea');
-const publicBioText = document.getElementById('public-bio-text'); // For public view bio
+const publicBioText = document.getElementById('public-bio-text');
 const editBioBtn = document.getElementById('edit-bio-btn');
 const charCount = document.getElementById('char-count');
 
-// Modificato per puntare al nuovo elemento per i messaggi di stato
-const messageBox = document.getElementById('status-message-box'); 
+const messageBox = document.getElementById('status-message-box');
 
 const editAvatarBtn = document.querySelector('.edit-avatar-btn');
 const avatarUploadInput = document.getElementById('avatar-upload');
@@ -23,15 +21,12 @@ const coverUploadInput = document.getElementById('cover-upload');
 const avatarOverlay = document.querySelector('.profile-avatar-container .avatar-overlay');
 const coverOverlay = document.querySelector('.cover-photo-section .cover-overlay');
 
-// Elemento aggiunto per passare l'URL di upload da Django
 const profileDataContainer = document.getElementById('profile-data-container');
-let uploadUrl = ''; // Verrà popolato da profileDataContainer.dataset.uploadUrl
+let uploadUrl = '';
 
-// --- State Variables ---
 let currentView = 'myProfile';
-let isEditingMode = false; 
+let isEditingMode = false;
 
-// --- Utility Functions ---
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -48,14 +43,13 @@ function getCookie(name) {
 }
 
 function showMessage(message, type) {
-    if (!messageBox) { 
-        console.error("MessageBox element (status-message-box) not found. Message:", message, type);
+    if (!messageBox) {
         alert(message);
         return;
     }
     messageBox.textContent = message;
     messageBox.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800', 'bg-blue-100', 'text-blue-800');
-    
+
     if (type === 'success') {
         messageBox.classList.add('bg-green-100', 'text-green-800');
     } else if (type === 'error') {
@@ -65,7 +59,6 @@ function showMessage(message, type) {
     }
     messageBox.classList.remove('hidden');
 
-    // Nasconde il messaggio dopo 3 secondi per successo e info
     if (type === 'success' || type === 'info') {
         setTimeout(() => {
             messageBox.classList.add('hidden');
@@ -74,25 +67,22 @@ function showMessage(message, type) {
 }
 
 function updateCharCount() {
-    if (bioTextarea && charCount) { 
+    if (bioTextarea && charCount) {
         const currentLength = bioTextarea.value.length;
         const maxLength = bioTextarea.maxLength;
         charCount.textContent = `${currentLength}/${maxLength}`;
     }
 }
 
-// --- View Toggling Logic (Specific to owner) ---
 function toggleView(viewName) {
     currentView = viewName;
-    console.log("Toggling view to:", viewName);
 
     if (viewName === 'myProfile') {
         if (myProfileView) myProfileView.classList.remove('hidden');
         if (publicPreviewView) publicPreviewView.classList.add('hidden');
-        if (editProfileBtn) editProfileBtn.classList.remove('hidden'); 
+        if (editProfileBtn) editProfileBtn.classList.remove('hidden');
         if (publicPreviewBtn) publicPreviewBtn.textContent = 'Anteprima Pubblica';
-        
-        // Trigger the correct tab for "myProfile" view (from profile_tabs.js)
+
         const myProfileStatsTab = document.querySelector('#my-profile-view .tab-buttons .tab-button[data-tab="user-stats"]');
         if (myProfileStatsTab) {
             myProfileStatsTab.click();
@@ -101,19 +91,17 @@ function toggleView(viewName) {
     } else if (viewName === 'publicPreview') {
         if (myProfileView) myProfileView.classList.add('hidden');
         if (publicPreviewView) publicPreviewView.classList.remove('hidden');
-        if (editProfileBtn) editProfileBtn.classList.add('hidden'); 
+        if (editProfileBtn) editProfileBtn.classList.add('hidden');
         if (publicPreviewBtn) publicPreviewBtn.textContent = 'Torna al Mio Profilo';
-        
-        // Quando si va in anteprima pubblica, la modalità di modifica deve essere disattivata.
+
         if (isEditingMode) {
             toggleEditMode(false);
         }
-        
+
         if (publicBioText && bioTextarea) {
             publicBioText.textContent = bioTextarea.value;
         }
 
-        // Trigger the correct tab for "publicPreview" view (from profile_tabs.js)
         const publicPostsTab = document.querySelector('#public-preview-view .tab-buttons .tab-button[data-tab="public-user-posts"]');
         if (publicPostsTab) {
             publicPostsTab.click();
@@ -123,7 +111,6 @@ function toggleView(viewName) {
 
 function toggleEditMode(enable) {
     isEditingMode = enable;
-    console.log("Toggling edit mode to:", isEditingMode); 
 
     if (avatarOverlay) {
         if (isEditingMode) avatarOverlay.classList.add('active');
@@ -159,40 +146,31 @@ function toggleEditMode(enable) {
     }
 }
 
-// --- Event Listeners ---
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Recupera l'URL di upload dal DOM
     if (profileDataContainer) {
         uploadUrl = profileDataContainer.dataset.uploadUrl;
         if (!uploadUrl) {
-            console.error("Errore: l'URL di upload delle foto non è stato trovato nell'elemento profile-data-container.");
-            showMessage("Impossibile caricare le foto: URL di upload mancante. Contatta il supporto.", "error");
+            showMessage("Errore: l'URL di upload delle foto non è stato trovato nell'elemento profile-data-container. Contatta il supporto.", "error");
         }
     } else {
-        console.error("Errore: L'elemento '#profile-data-container' non è stato trovato. Impossibile ottenere l'URL di upload.");
         showMessage("Errore configurazione profilo. Impossibile caricare immagini.", "error");
     }
 
-    // Main Profile / Public Preview buttons
     if (editProfileBtn) {
         editProfileBtn.addEventListener('click', () => {
-            console.log("Edit Profile / Save Changes button clicked. isEditingMode before:", isEditingMode);
-            if (isEditingMode) { 
-                toggleEditMode(false); 
+            if (isEditingMode) {
+                toggleEditMode(false);
                 showMessage('Modalità modifica disattivata.', 'info');
-            } else { 
-                toggleEditMode(true); 
-                toggleView('myProfile'); // Assicurati di essere nella vista "Il Mio Profilo"
+            } else {
+                toggleEditMode(true);
+                toggleView('myProfile');
                 showMessage('Modalità modifica attivata. Clicca sulle aree per modificare.', 'info');
             }
-            console.log("isEditingMode after click:", isEditingMode);
         });
     }
 
     if (publicPreviewBtn) {
         publicPreviewBtn.addEventListener('click', () => {
-            console.log("Public Preview / Back to My Profile button clicked. Current view:", currentView);
             if (currentView === 'myProfile') {
                 toggleView('publicPreview');
             } else {
@@ -201,24 +179,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Bio editing
     if (bioTextarea) {
         bioTextarea.addEventListener('input', updateCharCount);
     }
 
     if (editBioBtn) {
         editBioBtn.addEventListener('click', async () => {
-            console.log('Bio Edit/Save button clicked!');
             if (editBioBtn.textContent.trim() === 'Modifica') {
                 bioTextarea.removeAttribute('readonly');
                 bioTextarea.focus();
                 editBioBtn.textContent = 'Salva';
                 editBioBtn.classList.remove('bg-blue-600');
                 editBioBtn.classList.add('bg-green-600');
-                if (messageBox) messageBox.classList.add('hidden'); 
+                if (messageBox) messageBox.classList.add('hidden');
             } else {
                 const newBio = bioTextarea.value.trim();
-                const saveUrl = editBioBtn.dataset.saveUrl; 
+                const saveUrl = editBioBtn.dataset.saveUrl;
 
                 if (!saveUrl) {
                     showMessage('URL di salvataggio biografia non definito.', 'error');
@@ -260,7 +236,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         publicBioText.textContent = newBio;
                     }
                 } catch (error) {
-                    console.error('Fetch error for bio:', error);
                     showMessage(error.message || 'Errore di rete o del server durante il salvataggio della biografia.', 'error');
                 } finally {
                     editBioBtn.disabled = false;
@@ -272,13 +247,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Image upload triggers
     if (editAvatarBtn) {
         editAvatarBtn.addEventListener('click', () => {
-            console.log("Avatar edit button clicked. isEditingMode:", isEditingMode);
             if (isEditingMode && avatarUploadInput) {
                 avatarUploadInput.click();
-            } else { 
+            } else {
                 showMessage('Attiva la modalità di modifica per caricare le immagini.', 'info');
             }
         });
@@ -286,7 +259,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (editCoverBtn) {
         editCoverBtn.addEventListener('click', () => {
-            console.log("Cover edit button clicked. isEditingMode:", isEditingMode);
             if (isEditingMode && coverUploadInput) {
                 coverUploadInput.click();
             } else {
@@ -295,7 +267,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Handle file selection and AJAX upload
     async function handleImageUpload(event) {
         const fileInput = event.target;
         const file = fileInput.files[0];
@@ -304,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        if (!uploadUrl) { // Controllo aggiuntivo per l'URL di upload
+        if (!uploadUrl) {
             showMessage("Impossibile caricare l'immagine: URL di upload non disponibile.", "error");
             return;
         }
@@ -313,7 +284,6 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append(fileInput.name, file);
         formData.append('csrfmiddlewaretoken', getCookie('csrftoken'));
 
-        // Anteprima immediata dell'immagine selezionata
         const reader = new FileReader();
         reader.onload = (e) => {
             if (fileInput.id === 'avatar-upload') {
@@ -345,7 +315,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (data.success) {
                 showMessage(data.message, 'success');
-                // Aggiorna l'immagine con l'URL definitivo dal server (se diverso dall'anteprima)
                 if (fileInput.id === 'avatar-upload' && data.profile_picture_url) {
                     document.querySelector('.profile-avatar').src = data.profile_picture_url;
                     const publicAvatar = document.querySelector('#public-preview-view .profile-avatar');
@@ -359,7 +328,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 showMessage(data.message || 'Errore durante il caricamento dell\'immagine.', 'error');
             }
         } catch (error) {
-            console.error('Upload error:', error);
             showMessage(error.message || 'Errore di rete o del server durante il caricamento dell\'immagine.', 'error');
         }
     }
@@ -371,10 +339,8 @@ document.addEventListener('DOMContentLoaded', function() {
         coverUploadInput.addEventListener('change', handleImageUpload);
     }
 
-    // --- Initial Setup on Page Load (Only for owner) ---
     updateCharCount();
-    toggleView('myProfile'); 
-    // Assicurati che gli overlay siano nascosti inizialmente
+    toggleView('myProfile');
     if (avatarOverlay) avatarOverlay.classList.remove('active');
     if (coverOverlay) coverOverlay.classList.remove('active');
 });
