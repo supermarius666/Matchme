@@ -28,6 +28,10 @@ class ChatConsumer(WebsocketConsumer):
         username = text_data_json["username"]
         message_payload = text_data_json["message"]
 
+        # non fa inviare i messaggi vuoti
+        if (message_payload == "" or message_payload.strip() == ""):
+            return
+    
         print("User: ", username, ", Message: ", message_payload)
 
         room_name = self.scope["url_route"]["kwargs"]["room_name"]

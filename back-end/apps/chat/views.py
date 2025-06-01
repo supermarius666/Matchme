@@ -38,3 +38,4 @@ def chatroom_view(request, username):
 
     context = {"room": room, "chat_user": chat_user, "messages": messages, "matched_users": matched_users}
     return render(request, "chat/chatroom.html", context)
+

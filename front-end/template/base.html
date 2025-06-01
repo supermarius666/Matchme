@@ -37,14 +37,14 @@
 						<div class="dropdown-menu" id="userDropdownMenu">
 							<ul>
 								<li><a href="/accounts/profile">Profile</a></li>
+								<li><a href="#">Settings</a></li>
+								<li><a href="{% url 'feed' %}">Feed</a></li>
 								<li>
 									<form method="POST" action="{% url 'accounts:logout' %}">
 										{% csrf_token %}
 										<button type="submit">Logout</button>
 									</form>
 								</li>
-								<li><a href="{% url 'feed' %}">Feed</a></li>
-								<li><a href="#">Settings</a></li>
 							</ul>
 						</div>
 					</div>
