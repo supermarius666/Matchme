@@ -2,61 +2,81 @@
 {% load static %}
 {% block title %} | About Us{% endblock %}
 {% block style %}
-	<link rel="stylesheet" href="{% static 'css/main/about.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main/about.css' %}">
 {% endblock %}
 {% block content %}
-<div class="center-wrapper">
-<div id="text">
-    <div class="line">
-        <p id="line_w1" class="word fancy">CODE</p>
-        <p id="line_w2" class="word fancy">LOVE</p>
-    </div>
-    <div class="line">
-        <p id="line_w3" class="word fancy">3</p>
-        <p id="line_w4" class="word fancy">DEVS</p>
-    </div>
-    <div class="line">
-        <p id="line_w5" class="word fancy">ONE</p>
-        <p id="line_w6" class="word fancy">VISION</p>
-    </div>
-</div>
 
-<div class="profile-container">
-    <div class="profile-card">
-        <img src="{% static 'img/valerio.jpeg' %}" alt="Valerio" class="profile-pic">
-        <h2>Valerio</h2>
-        <p>Dark Souls Enjoyer && Metallo Pesante.</p>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-    </div>
+    <section class="about-hero">
+        <div class="hero-content">
+            <h1>Welcome to Matchme: Find Your Perfect Match</h1>
+            <p>Our mission is to connect hearts and build meaningful relationships. Discover who we are and what makes us different.</p>
+            <a href="#our-story" class="btn-primary">Our Story</a>
+        </div>
+    </section>
 
-    <div class="profile-card">
-        <img src="{% static 'img/marius.jpeg' %}" alt="Marius" class="profile-pic">
-        <h2>Marius</h2>
-        <p> Sono Marius!</p>
-        <p>Le persone mi conoscono come Warius. Mi piacciono i calcolatori e odio le macchine.</p>
-        <p>Non mi piace Roma, ma devo viverci.</p>
-        <p>Linux enjoyer and C average user.</p>
-        <p>Ho invetato l'acqua calda e credo che il mondo abbia la forma della romania.</p>
-    </div>
+    <section id="our-story" class="about-section">
+        <div class="container">
+            <div class="section-text">
+                <h2>Our Story</h2>
+                <p>Matchme was born from a simple, yet powerful idea: to create a place where people can truly **find love**, not just a date. In today's digital world, it's easy to feel lost among thousands of profiles. We wanted to build a platform that focuses on **authenticity, compatibility, and deep connections**.</p>
+                <p>We started this journey with the goal of overcoming the superficiality of online dating, focusing on what truly matters: **common interests, shared values, and mutual understanding**. Since our launch, thousands of people have met and built lasting relationships thanks to Matchme.</p>
+            </div>
+            <div class="section-image">
+                <img src="{% static 'img/about_1.jpg' %}" alt="Two smiling people holding hands" loading="lazy">
+            </div>
+        </div>
+    </section>
 
-    <div class="profile-card">
-        <img src="{% static 'img/francesco.jpeg' %}" alt="Francesco" class="profile-pic">
-        <h2>Francesco</h2>
-        <p>Provengo da montagne ferme al 3G, ma vivo nelle cache della CPU</p>
-        <p>I use Uwuntu btw</p>
-        <p>Spent most of my lifetime inside GDB</p>
-        <p>Wannabe Security Researcher</p>
-        <p>Uso il binario come unico sistema matematico</p>
-        <p>Traspongo qualsiasi codice in Assembly a mente</p>
-    </div>
-</div>
-</div>
+    <section class="about-section highlight-section "> {# Class reverse-columns for image on left, text on right #}
+        <div class="container reverse-columns">
+            <div class="section-image">
+                <img src="{% static 'img/about_2.jpg' %}" alt="People interacting and laughing" loading="lazy">
+            </div>
+            <div class="section-text">
+                <h2>Our Mission</h2>
+                <p>Matchme's mission is twofold:</p>
+                <ul>
+                    <li>**Facilitate authentic connections:** We go beyond photos, encouraging users to express their personality and interests.</li>
+                    <li>**Ensure a safe and respectful environment:** The safety of our users is our top priority. We implement strict security and moderation measures to ensure a positive experience for everyone.</li>
+                    <li>**Offer an intuitive and personalized user experience:** We use advanced algorithms to suggest truly compatible matches, based on what matters to you.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
 
-{% endblock %}
+    <section class="about-section">
+        <div class="container">
+            <div class="section-text">
+                <h2>What Makes Us Different</h2>
+                <p>In a crowded landscape of dating apps, Matchme stands out for:</p>
+                <ul>
+                    <li>**Intelligent Compatibility Algorithm:** Our system is not just based on what you like, but on who you are.</li>
+                    <li>**Focus on Quality, not Quantity:** We prefer a few meaningful matches over many generic profiles.</li>
+                    <li>**Verified Community:** We foster an environment where trust and mutual respect are fundamental.</li>
+                    <li>**Dedicated Support:** We are here to assist you every step of your journey.</li>
+                </ul>
+            </div>
+            <div class="section-image">
+                <img src="{% static 'img/about_3.jpg' %}" alt="Icons representing security, quality, and support" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section highlight-section"> {# New section for groups/events #}
+        <div class="container">
+            <div class="section-image">
+                <img src="{% static 'img/about_4.jpeg' %}" alt="Group of friends attending an event" loading="lazy">
+            </div>
+            <div class="section-text">
+                <h2>New Friends and Events!</h2>
+                <p>Matchme is not just for finding your soulmate. We believe that building **meaningful relationships** also means expanding your social circle. That's why our platform helps you connect with people who share your interests to form **friend groups**.</p>
+                <p>We also organize **exclusive events** that you can attend! From themed nights to outdoor activities, you'll always find something interesting to socialize, have fun, and maybe meet that special someone in a more relaxed and authentic setting.</p>
+                <a href="{% url 'events' %}" class="btn-primary">Discover Upcoming Events</a>
+            </div>
+        </div>
+    </section>
+
+    {% endblock %}
 
 {% block footer %}
 {% include "footer.html" %}
