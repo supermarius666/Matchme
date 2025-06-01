@@ -2,3 +2,5 @@ __pycache__
 db.sqlite3
 *.pyc
 staticfiles_collected
+front-end/media/*
+front-end/static/img/*
