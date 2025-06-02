@@ -3,99 +3,147 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
-	<title>MatchMe{% block title %}{% endblock %}</title>
-	{% block style %}
-	{% endblock %}
-	<link rel="stylesheet" href="{% static 'css/base.css' %}">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-	<script src="https://unpkg.com/lenis@1.3.3/dist/lenis.min.js"></script> 
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+    <title>MatchMe{% block title %}{% endblock %}</title>
+    {% block style %}
+    {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lenis@1.3.3/dist/lenis.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
 </head>
 
 <body>
-	<nav class="navbar">
-		<div class="container">
-			<div class="navbar-brand">
-				<a href="{% url 'home' %}">MatchMe</a>
-			</div>
-			<ul class="navbar-nav">
-				<li><a href="{% url 'home' %}">Home</a></li>
-				<li><a href="{% url 'contact' %}">Contact</a></li>
-				<li><a href="{% url 'about' %}">About Us</a></li>
-				<li><a href="{% url 'events' %}">Events</a></li>
-			</ul>
-			<div class="navbar-actions">
-				{% if request.user.is_authenticated %}
+    <nav class="navbar">
+        <div class="container">
 
-					<div class="user-menu-container">
-						<div class="user-avatar" id="userAvatarToggle">
-							<img class="user-avatar-img" src="{% if request.user.profile_picture %}{{ request.user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" 
-							alt="Foto Profilo"> 
-						</div>
-						<div class="dropdown-menu" id="userDropdownMenu">
-							<ul>
-								<li><a href="/accounts/profile/{{ request.user.username }}">Profile</a></li>
-								<li><a href="#">Settings</a></li>
-								<li><a href="{% url 'feed' %}">Feed</a></li>
-								<li>
-									<form method="POST" action="{% url 'accounts:logout' %}">
-										{% csrf_token %}
-										<button type="submit">Logout</button>
-									</form>
-								</li>
-							</ul>
-						</div>
-					</div>
+            <div class="navbar-brand">
+                <a href="{% url 'home' %}">MatchMe</a>
+            </div>
 
-				{% else %}
-					<div class="navbar-actions">
-						<a href="{% url 'accounts:authenticate' %}" class="btn-login">Login</a>
-					</div>
-				{% endif %}
+            <ul class="navbar-nav" style="margin-top: 0px;" id="navbarNav">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'events' %}">Events</a></li>
+                <li class="navbar-actions-mobile"> 
+                    {% if request.user.is_authenticated %}
+                        <div class="user-menu-container">
+                            <div class="user-avatar" id="userAvatarToggleMobile">
+                                <img class="user-avatar-img" src="{% if request.user.profile_picture %}{{ request.user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" 
+                                alt="Foto Profilo"> 
+                            </div>
+                            <div class="dropdown-menu" id="userDropdownMenuMobile">
+                                <ul>
+                                    <li><a href="/accounts/profile/{{ request.user.username }}">Profile</a></li>
+                                    <li><a href="#">Settings</a></li>
+                                    <li><a href="{% url 'feed' %}">Feed</a></li>
+                                    <li>
+                                        <form method="POST" action="{% url 'accounts:logout' %}">
+                                            {% csrf_token %}
+                                            <button type="submit">Logout</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'accounts:authenticate' %}" class="btn-login">Login</a>
+                    {% endif %}
+                </li>
+            </ul>
+            
+            <div class="navbar-actions-desktop" id="navbarActionsDesktop">
+                {% if request.user.is_authenticated %}
+                    <div class="user-menu-container">
+                        <div class="user-avatar" id="userAvatarToggleDesktop">
+                            <img class="user-avatar-img" src="{% if request.user.profile_picture %}{{ request.user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" 
+                            alt="Foto Profilo"> 
+                        </div>
+                        <div class="dropdown-menu" id="userDropdownMenuDesktop">
+                            <ul>
+                                <li><a href="/accounts/profile/{{ request.user.username }}">Profile</a></li>
+                                <li><a href="#">Settings</a></li>
+                                <li><a href="{% url 'feed' %}">Feed</a></li>
+                                <li>
+                                    <form method="POST" action="{% url 'accounts:logout' %}">
+                                        {% csrf_token %}
+                                        <button type="submit">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                {% else %}
+                    <a href="{% url 'accounts:authenticate' %}" class="btn-login">Login</a>
+                {% endif %}
+            </div>
 
-			</div>
-			<div class="hamburger" id="hamburger">
-				<i class="fas fa-bars"></i>
-			</div>
-		</div>
-	</nav>
-	<main>
-		{% block content %}
-		{% endblock %}
-	</main>
-	
-	{% block footer %}
-	{% endblock %}
-	
-	<!-- Scripts -->
-	<script type="text/javascript">
-		document.addEventListener('DOMContentLoaded', function() {
-		const userAvatarToggle = document.getElementById('userAvatarToggle');
-		const userDropdownMenu = document.getElementById('userDropdownMenu');
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    
+    {% block footer %}
+    {% endblock %}
+    
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const userAvatarToggleDesktop = document.getElementById('userAvatarToggleDesktop');
+            const userDropdownMenuDesktop = document.getElementById('userDropdownMenuDesktop');
 
-		if (userAvatarToggle && userDropdownMenu) {
-			userAvatarToggle.addEventListener('click', function(event) {
-				event.stopPropagation(); // Evita che il click si propaghi al document
-				userDropdownMenu.classList.toggle('show');
-			});
+            if (userAvatarToggleDesktop && userDropdownMenuDesktop) {
+                userAvatarToggleDesktop.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    userDropdownMenuDesktop.classList.toggle('show');
+                });
 
-			// Chiudi il menu se si clicca fuori da esso
-			document.addEventListener('click', function(event) {
-				if (!userDropdownMenu.contains(event.target) && !userAvatarToggle.contains(event.target)) {
-					if (userDropdownMenu.classList.contains('show')) {
-						userDropdownMenu.classList.remove('show');
-						}
-					}
-				});
-			}
-		});
-	</script>
-	{% block script %}
-	{% endblock %}
+                document.addEventListener('click', function(event) {
+                    if (!userDropdownMenuDesktop.contains(event.target) && !userAvatarToggleDesktop.contains(event.target)) {
+                        if (userDropdownMenuDesktop.classList.contains('show')) {
+                            userDropdownMenuDesktop.classList.remove('show');
+                        }
+                    }
+                });
+            }
+
+            const userAvatarToggleMobile = document.getElementById('userAvatarToggleMobile');
+            const userDropdownMenuMobile = document.getElementById('userDropdownMenuMobile');
+
+            if (userAvatarToggleMobile && userDropdownMenuMobile) {
+                userAvatarToggleMobile.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    userDropdownMenuMobile.classList.toggle('show');
+                });
+
+                document.addEventListener('click', function(event) {
+                    if (!userDropdownMenuMobile.contains(event.target) && !userAvatarToggleMobile.contains(event.target)) {
+                        if (userDropdownMenuMobile.classList.contains('show')) {
+                            userDropdownMenuMobile.classList.remove('show');
+                        }
+                    }
+                });
+            }
+
+            const hamburger = document.getElementById('hamburger');
+            const navbarNav = document.getElementById('navbarNav');
+            const navbarActionsDesktop = document.getElementById('navbarActionsDesktop');
+
+            hamburger.addEventListener('click', function() {
+                navbarNav.classList.toggle('active');
+            });
+        });
+    </script>	
+    {% block script %}
+    {% endblock %}
 </body>
 
 </html>

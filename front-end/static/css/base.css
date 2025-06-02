@@ -37,7 +37,6 @@ main {
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
-    flex-wrap: wrap;
 }
 
 .navbar-brand a {
@@ -54,8 +53,6 @@ main {
     padding: 0;
     flex-grow: 1;
     justify-content: center;
-    transition: max-height 0.3s ease-in-out;
-    overflow: hidden;
 }
 
 .navbar-nav li {
@@ -73,12 +70,12 @@ main {
     color: #ff4081;
 }
 
-.navbar-actions {
+.navbar-actions-desktop {
     display: flex;
     align-items: center;
 }
 
-.navbar-actions .btn-login {
+.navbar-actions-desktop .btn-login {
     background-color: #ff4081;
     color: #fff;
     border: none;
@@ -92,8 +89,12 @@ main {
     text-align: center;
 }
 
-.navbar-actions .btn-login:hover {
+.navbar-actions-desktop .btn-login:hover {
     background-color: #e03570;
+}
+
+.navbar-actions-mobile {
+    display: none;
 }
 
 .hamburger {
@@ -202,49 +203,96 @@ main {
 
 @media (max-width: 768px) {
     .navbar .container {
+        flex-wrap: nowrap;
         justify-content: space-between;
     }
 
     .navbar-brand {
-        flex-basis: auto;
         margin-right: auto;
-    }
-
-    .navbar-actions {
-        flex-basis: auto;
-        order: 2;
-    }
-
-    .hamburger {
-        display: block;
-        order: 3;
     }
 
     .navbar-nav {
         max-height: 0;
+        overflow: hidden;
         flex-direction: column;
         width: 100%;
         text-align: center;
         margin-top: 10px;
-        flex-basis: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding-bottom: 0;
+        transition: max-height 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;
+        z-index: 999;
     }
 
     .navbar-nav.active {
-        max-height: 200px;
+        max-height: 500px;
+        padding-bottom: 20px;
     }
 
     .navbar-nav li {
         margin: 10px 0;
+        padding: 5px 0;
     }
 
-    .navbar-brand,
-    .navbar-actions,
+    .navbar-nav a {
+        padding: 8px 15px;
+    }
+
     .hamburger {
-        order: initial;
+        display: block;
     }
 
-    .navbar-nav.active {
-        order: 4;
+    .navbar-actions-desktop {
+        display: none;
+    }
+
+    .navbar-actions-mobile {
+        display: block;
+        margin-top: 15px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar-actions-mobile .btn-login {
+        background-color: #ff4081;
+        color: #fff;
+        border: none;
+        padding: 8px 18px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.95em;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .navbar-actions-mobile .btn-login:hover {
+        background-color: #e03570;
+    }
+
+    .navbar-actions-mobile .user-menu-container {
+        display: block;
+        margin: 0 auto;
+        width: fit-content;
+    }
+
+    .navbar-actions-mobile .user-avatar {
+        margin: 0 auto;
+    }
+
+    .dropdown-menu {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%) translateY(-10px);
+    }
+    .dropdown-menu.show {
+        transform: translateX(-50%) translateY(0);
     }
 }
 
@@ -347,4 +395,47 @@ main {
 .dropdown-menu button[type="submit"]:hover {
     background-color: #f0f0f0;
     color: var(--primary-color, #ff4081);
+}
+
+@media (max-width: 768px) {
+    .navbar-actions-mobile .dropdown-menu {
+        position: static; 
+        transform: none; 
+        margin-top: 10px;
+        width: 90%; 
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .navbar-actions-mobile .dropdown-menu ul {
+        padding: 0;
+    }
+
+    .navbar-actions-mobile .dropdown-menu li {
+        border-bottom: 1px solid #eee;
+    }
+
+    .navbar-actions-mobile .dropdown-menu li:last-child {
+        border-bottom: none;
+    }
+
+    .navbar-actions-mobile .dropdown-menu.show {
+        display: block;
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-actions-mobile .dropdown-menu {
+        transition: max-height 0.4s ease;
+        overflow: hidden;
+        max-height: 0;
+    }
+
+    .navbar-actions-mobile .dropdown-menu.show {
+        max-height: 500px; 
+    }
 }
