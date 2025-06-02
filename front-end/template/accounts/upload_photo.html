@@ -13,7 +13,7 @@
     <h2>Carica Foto Profilo</h2>
     <p>Clicca sul cerchio per caricare la foto:</p>
 
-    <form id="upload-photo-form" method="post" action="{% url 'feed' %}" enctype="multipart/form-data">
+    <form id="upload-photo-form" method="post" action="{% url 'accounts:upload_photo_reg' %}" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="profile-pic-container" id="profile-pic-container">
         <img id="profile-pic"

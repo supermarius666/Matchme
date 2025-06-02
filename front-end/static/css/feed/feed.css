@@ -44,9 +44,7 @@ main {
 }
 
 .feed-left-sidebar {
-    width: 30%;
-    min-width: 400px;
-    max-width: 500px;
+    width: 25%;
     background-color: #ffffff;
     border-right: 1px solid #e0e0e0;
     display: flex;
@@ -71,6 +69,8 @@ main {
     height: 50%;
     box-sizing: border-box;
     border-top: 1px solid #ccc;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 
 @media (max-width: 767px) {

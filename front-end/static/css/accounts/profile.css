@@ -29,7 +29,7 @@ body {
 .left-sidebar-new .logo {
     font-size: 28px;
     font-weight: 700;
-    color: #FF5A5F;
+    color: #ff4081;
     margin-bottom: 30px;
     padding: 0 20px;
 }
@@ -70,7 +70,7 @@ body {
 
 .left-sidebar-new .nav-links li a span {
     background-color: #FFEDEE;
-    color: #FF5A5F;
+    color: #ff4081;
     font-size: 12px;
     padding: 2px 8px;
     border-radius: 12px;
@@ -82,13 +82,13 @@ body {
 .left-sidebar-new .nav-links li a:hover,
 .left-sidebar-new .nav-links li .nav-logout-btn:hover {
     background-color: #FFEDEE;
-    color: #FF5A5F;
+    color: #ff4081;
 }
 
 .left-sidebar-new .nav-links li.active a i,
 .left-sidebar-new .nav-links li a:hover i,
 .left-sidebar-new .nav-links li .nav-logout-btn:hover i {
-    color: #FF5A5F;
+    color: #ff4081;
 }
 
 .left-sidebar-new .sidebar-header-actions {
@@ -400,9 +400,9 @@ body {
 }
 
 .btn-save-bio {
-    background-color: #FF5A5F;
+    background-color: #ff4081;
     color: white;
-    border: 1px solid #FF5A5F;
+    border: 1px solid #ff4081;
     padding: 8px 15px;
     font-size: 0.9em;
     border-radius: 6px;
@@ -444,7 +444,7 @@ body {
 }
 
 .bio-section #bio-textarea:focus {
-    border-color: #FF5A5F;
+    border-color: #ff4081;
     background-color: #fff;
 }
 
@@ -481,7 +481,7 @@ body {
 .detail-item p {
     font-size: 1.8em;
     font-weight: 700;
-    color: #FF5A5F;
+    color: #ff4081;
     margin: 0;
 }
 
@@ -529,8 +529,8 @@ body {
 }
 
 .profile-tabs .tab-button.active {
-    color: #FF5A5F;
-    border-bottom-color: #FF5A5F;
+    color: #ff4081;
+    border-bottom-color: #ff4081;
 }
 
 .profile-tabs .tab-content-wrapper {
@@ -574,7 +574,7 @@ body {
 
 .tab-content .stat-item-detailed i {
     font-size: 30px;
-    color: #FF5A5F;
+    color: #ff4081;
     margin-bottom: 10px;
 }
 
@@ -634,16 +634,16 @@ body {
 
 .tab-content .create-post-area .options button i {
     margin-right: 8px;
-    color: #FF5A5F;
+    color: #ff4081;
 }
 
 .tab-content .create-post-area .options button:hover {
     background-color: #f2f2f2;
-    color: #FF5A5F;
+    color: #ff4081;
 }
 
 .tab-content .create-post-area .options button:hover i {
-    color: #FF5A5F;
+    color: #ff4081;
 }
 
 .tab-content .posts-list {
@@ -727,11 +727,11 @@ body {
 
 .tab-content .user-post .post-actions button:hover {
     background-color: #f2f2f2;
-    color: #FF5A5F;
+    color: #ff4081;
 }
 
 .tab-content .user-post .post-actions button:hover i {
-    color: #FF5A5F;
+    color: #ff4081;
 }
 
 .tab-content .photo-grid {
@@ -788,7 +788,7 @@ body {
     .left-sidebar-new .logo::before {
         content: 'MM';
         font-size: 20px;
-        color: #FF5A5F;
+        color: #ff4081;
         display: block;
         text-align: center;
         line-height: 40px;

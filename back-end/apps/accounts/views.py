@@ -9,6 +9,8 @@ import json
 from django.core.mail import send_mail
 from django.conf import settings
 
+from django.views.decorators.csrf import csrf_exempt
+
 def auth_view(request):
     if request.method == 'POST':
         action = request.POST.get('action_type')
@@ -73,7 +75,7 @@ def preferences_view(request):
         selected_prefs = request.POST.getlist('interested_in')
         
         bio = request.POST.get('bio', '').strip()[:255]
-
+      
         preferences, created = UserPreferences.objects.get_or_create(user=request.user)
 
         all_pref = UserPreferences._meta.get_fields()        
@@ -87,35 +89,99 @@ def preferences_view(request):
         preferences.save()
 
         profile = UserProfile.objects.get(username=request.user.username)
-        profile.bio = bio
+        profile.biography = bio
         profile.save()
 
         return redirect('accounts:upload_photo_reg')
 
     return render(request, 'accounts/preferences.html')
 
-@login_required
-def update_bio(request):
+def update_bio(request, data):
+    try: 
+        #bio = request.POST.get('bio', '').strip()[:255]
+        bio = data["bio"]
+
+        max_length = 255
+        if len(bio) > max_length:
+            response = {"success": False, "message": "bio non aggiornata"}
+            return response
+            #return JsonResponse({'success': False, 'message': f'La biografia non può superare i {max_length} caratteri.'}, status=400)
+
+        request.user.biography = bio
+        print(f"questa è la bio da js: {bio}")
+        print(f"questa è la biography da js: {request.user.biography}")
+
+        request.user.save()
+
+        print("assegnata bio: ", bio)
+        response = {"success": True, "message": "bio aggiornata"}
+        return response
+    
+    except Exception as e:
+        response = {"success": False, "message": "bio non aggiornata"}
+        return response
+
+    #     return JsonResponse({'success': True, 'message': 'Biografia aggiornata con successo!'})
+    # except json.JSONDecodeError:
+    #     return JsonResponse({'success': False, 'message': 'Richiesta JSON non valida.'}, status=400)
+    # except Exception as e:
+    #     return JsonResponse({'success': False, 'message': f'Errore del server: {str(e)}'}, status=500)
+
+
+def update_photo(request, data):
+    try:
+        user_profile = request.user
+
+        print("chiamata a update_photo:")
+        print("Conenuto foto: ", request.FILES.get("profile_picture"))
+        print("Conenuto foto: ", request.FILES.get("photo"))
+        if 'photo' in request.FILES:
+            file = request.FILES['photo']
+            user_profile.profile_picture = file
+            user_profile.save()
+
+            print("assegnata foto", file)
+
+            response = {"success": True, "message": "photo aggiornata"}
+            return response
+        
+        # elif 'cover_picture' in request.FILES:
+        #     file = request.FILES['cover_picture']
+        #     user_profile.cover_picture = file
+        #     user_profile.save()
+        #     return JsonResponse({
+        #         'success': True,
+        #         'message': 'Foto di copertina caricata con successo!',
+        #         'cover_picture_url': user_profile.cover_picture.url
+        #     })
+        
+        # else:
+        #     return JsonResponse({
+        #         'success': False,
+        #         'message': 'Nessun file immagine valido trovato nella richiesta.'
+        #     }, status=400)
+
+    except Exception as e:
+        response = {"success": True, "message": "photo aggiornata"}
+        return response
+
+        # return JsonResponse({
+        #     'success': False,
+        #     'message': f'Errore del server durante il caricamento: {str(e)}'
+        # }, status=500)
+
+#@login_required
+@csrf_exempt
+def update_profile_view(request):
     if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            bio = data.get('bio', '').strip()
+        data = json.loads(request.body)
 
-            max_length = 255
-            if len(bio) > max_length:
-                return JsonResponse({'success': False, 'message': f'La biografia non può superare i {max_length} caratteri.'}, status=400)
+        bio_response = update_bio(request, data)
+        photo_response = update_photo(request, data)
 
-            request.user.biography = bio
-            request.user.save()
-
-            return JsonResponse({'success': True, 'message': 'Biografia aggiornata con successo!'})
-        except json.JSONDecodeError:
-            return JsonResponse({'success': False, 'message': 'Richiesta JSON non valida.'}, status=400)
-        except Exception as e:
-            return JsonResponse({'success': False, 'message': f'Errore del server: {str(e)}'}, status=500)
+        return JsonResponse({'success': True, 'message': 'Aggiornato tutto con successo'})
     else:
         return JsonResponse({'success': False, 'message': 'Metodo non permesso.'}, status=405)
-
 
 @login_required
 def upload_photo_reg(request):
@@ -128,8 +194,6 @@ def upload_photo_reg(request):
             return redirect('home')
     
     return render(request, 'accounts/upload_photo.html')
-
-
 
 @login_required
 def upload_photo(request):
@@ -175,24 +239,6 @@ def upload_photo(request):
             'success': False,
             'message': 'Metodo non permesso.'
         }, status=405)
-
-@login_required
-def profile(request):
-    user_profile = UserProfile.objects.get(username=request.user.username)
-    user_preferences = UserPreferences.objects.get(user=request.user)
-
-    try:
-        user_stats = UserStats.objects.get(user=request.user)
-    except UserStats.DoesNotExist:
-        user_stats = None
-
-    return render(request, 'accounts/profile.html', {
-        'user_profile': user_profile,
-        'user_preferences': user_preferences,
-        'user_stats': user_stats,
-        'user': request.user,
-        'is_owner': True
-    })
 
 @login_required
 def profile_view(request, username):

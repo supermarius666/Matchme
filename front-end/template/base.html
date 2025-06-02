@@ -38,7 +38,7 @@
 						</div>
 						<div class="dropdown-menu" id="userDropdownMenu">
 							<ul>
-								<li><a href="/accounts/profile">Profile</a></li>
+								<li><a href="/accounts/profile/{{ request.user.username }}">Profile</a></li>
 								<li><a href="#">Settings</a></li>
 								<li><a href="{% url 'feed' %}">Feed</a></li>
 								<li>

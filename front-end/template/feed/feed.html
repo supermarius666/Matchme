@@ -22,47 +22,30 @@
             
         <div class="feed-filters-sidebar">
             <div>
-                <h2>Gender</h2>
-                <div class="checkbox-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="preference" value="optionA" class="checkbox-input">
-                        <span class="checkbox-text">Male</span>
-                    </label>
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="preference" value="optionB" class="checkbox-input">
-                        <span class="checkbox-text">Female</span>
-                    </label>
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="preference" value="optionC" class="checkbox-input">
-                        <span class="checkbox-text">Other</span>
-                    </label>
-                </div>
-            </div>
-
-            <div>
-                <h2>Age Interval</h2>
+                <h2 style="padding-top: 20px; margin-bottom: 15px;">Age Interval</h2>
                 <div class="range-slider-container">
                     <div id="filledRangeTrack" style="left: 0%; width: 100%;"></div>
-                    <input type="range" id="rangeInputMin" min="0" max="100" value="25">
-                    <input type="range" id="rangeInputMax" min="0" max="100" value="75">
+                    <input type="range" id="rangeInputMin" min="18" max="99" value="18">
+                    <input type="range" id="rangeInputMax" min="18" max="99" value="99">
                 </div>
 
                 <div class="slider-value-display">
-                    <span id="subRangeMinDisplay">25</span>
-                    <span id="subRangeMaxDisplay">75</span>
+                    <span id="subRangeMinDisplay">18</span>
+                    <span id="subRangeMaxDisplay">99</span>
                 </div>
             </div>
 
             <div>
-                <h2>Max Distance [km]</h2>
-                <input type="range" id="normalSlider" min="0" max="100" value="75">
+                <h2 style="padding-top: 20px; margin-bottom: 10px;">Max Distance [km]</h2>
+                <input type="range" id="normalSlider" min="0" max="100" value="5">
                 <div class="slider-value-display">
                     <span>0</span>
-                    <span id="normalSliderValue">75</span>
+                    <span id="normalSliderValue">5</span>
                     <span>100</span>
                 </div>
             </div>
         </div>
+        
     </div>
     
     <div class="feed-feed-container">

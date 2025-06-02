@@ -91,17 +91,8 @@
                             maxlength="255"
                             style="resize: none;"
                             readonly
-                        >{{ user_profile.biography|default:"Scrivi qualcosa di te per far conoscere la tua personalità unica!" }}</textarea>
-                        <div class="flex justify-between items-center mt-4">
-                            <button
-                                id="edit-bio-btn"
-                                class="btn-edit-bio bg-blue-600"
-                                data-save-url="{% url 'accounts:update_bio' %}" {# Usa il namespace corretto #}
-                            >
-                                Modifica
-                            </button>
-                            <div id="char-count" style="font-size: 0.8em; color: #666; text-align: right; margin-top: 5px;">0/255</div>
-                        </div>
+                        >{{ user_profile.biography|default:"Scrivi qualcosa di te per far conoscere la tua personalità unica!" }}
+                        </textarea>
                     </div>
 
                     {# INTERESSI #}
@@ -315,7 +306,7 @@
 {% block script %}
     <script src="{% static 'js/accounts/profile_tabs.js' %}"></script>
     {% if is_owner %}
-        <div id="profile-data-container" data-upload-url="{% url 'accounts:upload_photo' %}" style="display: none;"></div>
+        <div id="profile-data-container" data-upload-url="{% url 'accounts:update_profile' %}" style="display: none;"></div>
         <script src="{% static 'js/accounts/profile.js' %}"></script>
     {% endif %}
 {% endblock %}

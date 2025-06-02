@@ -94,7 +94,7 @@ function displayFeed(data) {
         feedContainer.innerHTML += `
             <div class="feed-post">
                 <div class="feed-post-header">
-                    <a href="#">
+                    <a href="/accounts/profile/${user[0]}">
                         <img src="${user[1]}" alt="User Profile Picture" class="feed-profile-pic">
                     </a>
                     <button class="feed-username">${user[0]}</button>
@@ -122,7 +122,7 @@ function displayFeed(data) {
             feedContainer.innerHTML += `
                 <div class="feed-post">
                     <div class="feed-post-header">
-                        <a href="#">
+                        <a href="/accounts/profile/${user[0]}">
                             <img src="${user[1]}" alt="User Profile Picture" class="feed-profile-pic">
                         </a>
                         <button class="feed-username">${user[0]}</button>
@@ -146,8 +146,8 @@ function displayFeed(data) {
 }
 
 function updateSubRangeDisplay() {
-    let minOverall = 0;
-    let maxOverall = 100;
+    let minOverall = 18;
+    let maxOverall = 99;
     let currentMin = parseInt(rangeInputMin.value);
     let currentMax = parseInt(rangeInputMax.value);
 
@@ -174,6 +174,8 @@ function updateSubRangeDisplay() {
     fetchData()
 }
 
+
+
 function logSelectedCheckboxes() {
     selectedOptions = [];
     checkboxes.forEach(checkbox => {
@@ -199,7 +201,7 @@ function updateSlidebarRangeDisplay() {
     const totalRange = maxOverall - minOverall;
     const leftPercentage = ((normalSlider.value - minOverall) / totalRange) * 100;
 
-    normalSlider.style.background = `linear-gradient(to right, #ff4081 ${leftPercentage}%, #d1d5db 30%, #d1d5db 100%)`
+    normalSlider.style.background = `linear-gradient(to right, #ff4081 ${leftPercentage}%, #d1d5db 0%, #d1d5db 100%)`
 
     fetchData()
 }
