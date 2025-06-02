@@ -45,8 +45,7 @@ body {
     margin-top: 20px;
 }
 
-.btn-primary,
-.btn-secondary {
+.btn-primary, .btn-secondary {
     display: inline-block;
     padding: 14px 30px;
     border-radius: 50px;
@@ -322,63 +321,49 @@ body {
         padding: 90px 20px;
         min-height: 400px;
     }
-
     .hero-content h1 {
         font-size: 3em;
     }
-
     .hero-content p {
         font-size: 1.1em;
     }
-
     .about-section .container {
         gap: 40px;
     }
-
     .about-section .section-text h2 {
         font-size: 2.5em;
     }
-
     .about-section .section-text p {
         font-size: 1em;
     }
-
     .about-section .section-text ul li {
         font-size: 1em;
     }
-
     .developers-section h2 {
         font-size: 2.5em;
         margin-bottom: 50px;
     }
-
     .developer-grid {
         gap: 30px;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
-
     .developer-card {
         padding: 25px;
     }
-
     .developer-card img {
         width: 140px;
         height: 140px;
         margin-bottom: 20px;
     }
-
     .developer-card h3 {
         font-size: 1.6em;
     }
-
     .developer-card .role {
         font-size: 1em;
     }
-
     .developer-card p {
         font-size: 0.95em;
     }
-
     .call-to-action h2 {
         font-size: 2.5em;
     }
@@ -389,96 +374,75 @@ body {
         padding: 80px 15px;
         min-height: 350px;
     }
-
     .hero-content h1 {
         font-size: 2.5em;
     }
-
     .hero-content p {
         font-size: 1em;
     }
-
     .about-section .container {
         flex-direction: column;
         gap: 30px;
         text-align: center;
     }
-
     .about-section.reverse-columns .container {
         flex-direction: column;
     }
-
     .about-section .section-text h2 {
         font-size: 2.2em;
         text-align: center;
     }
-
     .about-section .section-text h2::after {
         left: 50%;
         transform: translateX(-50%);
     }
-
     .about-section.reverse-columns .section-text h2::after {
         left: 50%;
         right: auto;
         transform: translateX(-50%);
     }
-
     .about-section .section-text ul {
         text-align: left;
     }
-
     .about-section .section-text ul li {
         padding-left: 25px;
         font-size: 0.95em;
     }
-
     .about-section .section-text ul li::before {
         font-size: 1.2em;
     }
-
     .developers-section h2 {
         font-size: 2em;
         margin-bottom: 40px;
     }
-
     .developer-grid {
         grid-template-columns: 1fr;
         padding: 0 15px;
     }
-
     .developer-card {
         padding: 20px;
     }
-
     .developer-card img {
         width: 120px;
         height: 120px;
         margin-bottom: 15px;
     }
-
     .developer-card h3 {
         font-size: 1.4em;
     }
-
     .developer-card .role {
         font-size: 0.9em;
     }
-
     .developer-card p {
         font-size: 0.9em;
     }
-
     .call-to-action h2 {
         font-size: 2em;
     }
-
     .call-to-action p {
         font-size: 1em;
     }
-
-    .btn-primary,
-    .btn-secondary {
+    .btn-primary, .btn-secondary {
         padding: 12px 25px;
         font-size: 1em;
         display: block;
@@ -490,11 +454,9 @@ body {
     .hero-content h1 {
         font-size: 2em;
     }
-
     .about-section .section-text h2 {
         font-size: 1.8em;
     }
-
     .developer-card h3 {
         font-size: 1.2em;
     }

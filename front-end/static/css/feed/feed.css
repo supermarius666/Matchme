@@ -287,10 +287,7 @@ main {
     }
 
     .feed-left-sidebar h1,
-    .feed-left-sidebar .feed-sidebar-content p {
-        display: none;
-    }
-
+    .feed-left-sidebar .feed-sidebar-content p,
     .feed-feed-container {
         margin-left: 70px;
         padding: 15px;
@@ -341,4 +338,8 @@ main {
 
 *::-webkit-scrollbar {
     display: none;
+}
+
+* {
+    scrollbar-width: none;
 }

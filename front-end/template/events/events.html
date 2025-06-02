@@ -15,13 +15,13 @@
         </div>
     </section>
 
-    <section id="upcoming-events-section" class="upcoming-events-section"> {# ID e classe rinominati per chiarezza #}
+    <section id="upcoming-events-section" class="upcoming-events-section"> 
         <div class="container">
             <h2>Upcoming Events</h2>
 
             {% if upcoming_events %}
                 <div class="slider-container">
-                    <div class="events-slider"> {# Il contenitore che scorrerà #}
+                    <div class="events-slider"> 
                         {% for event in upcoming_events %}
                             <div class="event-card">
                                 <img src="{{ event.image.url }}" alt="{{ event.title }}" class="event-card-image">
@@ -49,11 +49,10 @@
                 <p class="no-events-message">No upcoming events at the moment. Check back soon!</p>
             {% endif %}
 
-            {# Ho rimosso i demo events per pulizia, assumendo dati da backend #}
-            {# Se necessario, puoi reintrodurli per il testing locale #}
+            
 
             <div class="view-all-events">
-                <a href="#" class="btn-secondary">View All Events &rarr;</a> {# Mantiene il link per una pagina di tutti gli eventi #}
+                <a href="#" class="btn-secondary">View All Events &rarr;</a> 
             </div>
         </div>
     </section>

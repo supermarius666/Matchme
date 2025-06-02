@@ -356,14 +356,14 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(to right, #ff4081, #e47298);
+    background: linear-gradient(to right,#ff4081,#e47298);
     color: white;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-    background: linear-gradient(to left, #ff4081, #e47298);
+    background: linear-gradient(to left,#ff4081,#e47298);
 }
 
 .btn-secondary {
@@ -452,7 +452,7 @@ body {
     background-color: #f0f2f5;
     cursor: default;
     border-color: transparent;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .profile-details-grid {
@@ -1070,14 +1070,12 @@ body {
     background-color: #15803d;
 }
 
-.cover-photo-section,
-.profile-avatar-container {
+.cover-photo-section, .profile-avatar-container {
     position: relative;
     overflow: hidden;
 }
 
-.cover-overlay,
-.avatar-overlay {
+.cover-overlay, .avatar-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -1097,13 +1095,11 @@ body {
     opacity: 1;
 }
 
-.cover-overlay.active,
-.avatar-overlay.active {
+.cover-overlay.active, .avatar-overlay.active {
     opacity: 1;
 }
 
-.edit-cover-btn,
-.edit-avatar-btn {
+.edit-cover-btn, .edit-avatar-btn {
     background: none;
     border: none;
     color: white;

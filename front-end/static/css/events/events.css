@@ -13,9 +13,7 @@ body {
     padding: 20px;
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
     font-family: 'Montserrat', sans-serif;
     color: #2c3e50;
     margin-bottom: 0.8em;
@@ -41,8 +39,7 @@ h2::after {
     border-radius: 2px;
 }
 
-.btn-primary,
-.btn-secondary {
+.btn-primary, .btn-secondary {
     display: inline-block;
     padding: 12px 28px;
     border-radius: 30px;
@@ -199,8 +196,7 @@ h2::after {
     color: #333;
 }
 
-.event-card-date,
-.event-card-location {
+.event-card-date, .event-card-location {
     font-size: 0.95em;
     color: #666;
     margin-bottom: 5px;
@@ -402,34 +398,26 @@ h2::after {
         min-height: 400px;
         padding: 90px 20px;
     }
-
     .hero-content h1 {
         font-size: 3em;
     }
-
     .hero-content p {
         font-size: 1.1em;
     }
-
     h2 {
         font-size: 2.2em;
         margin-bottom: 40px;
     }
-
     .event-card {
         flex: 0 0 calc(50% - 20px);
     }
-
     .places-section .grid-container {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 25px;
     }
-
-    .event-card-title,
-    .places-section .card-title {
+    .event-card-title, .places-section .card-title {
         font-size: 1.4em;
     }
-
     .call-to-action h2 {
         font-size: 2.5em;
     }
@@ -440,70 +428,51 @@ h2::after {
         min-height: 350px;
         padding: 70px 15px;
     }
-
     .hero-content h1 {
         font-size: 2.5em;
     }
-
     .hero-content p {
         font-size: 1em;
     }
-
     h2 {
         font-size: 1.8em;
         margin-bottom: 30px;
     }
-
     .event-card {
         flex: 0 0 calc(100% - 20px);
     }
-
     .places-section .grid-container {
         grid-template-columns: 1fr;
         gap: 20px;
     }
-
-    .btn-primary,
-    .btn-secondary {
+    .btn-primary, .btn-secondary {
         padding: 10px 20px;
         font-size: 1em;
     }
-
     .btn-secondary {
         margin-left: 0;
         margin-top: 15px;
     }
-
-    .event-card-image,
-    .places-section .card-image {
+    .event-card-image, .places-section .card-image {
         height: 180px;
     }
-
-    .event-card-content,
-    .places-section .card-content {
+    .event-card-content, .places-section .card-content {
         padding: 20px;
     }
-
-    .event-card-title,
-    .places-section .card-title {
+    .event-card-title, .places-section .card-title {
         font-size: 1.3em;
     }
-
-    .event-card-description,
-    .places-section .card-text {
+    .event-card-description, .places-section .card-text {
         font-size: 0.9em;
     }
-
     .slider-nav button {
         width: 35px;
         height: 35px;
         font-size: 1.5em;
     }
-
     .call-to-action h2 {
         font-size: 2em;
     }
-
     .call-to-action p {
         font-size: 1em;
     }
@@ -513,11 +482,9 @@ h2::after {
     .hero-content h1 {
         font-size: 2em;
     }
-
     .slider-container {
         padding: 0 10px;
     }
-
     .slider-nav {
         padding: 0;
     }

@@ -81,7 +81,8 @@
                 </div> {# Chiusura di .profile-header-section #}
 
 
-                
+                {# Contenuto del profilo basato su chi lo sta visualizzando #}
+                {# Imposta la visibilità iniziale con hidden class, il JS la gestirà #}
                 <div id="my-profile-view" class="profile-content-section {% if not is_owner %}hidden{% endif %}">
                     {# MY PROFILE VIEW - Default active for the logged-in user #}
                     {# BIOGRAFIA - Editable for my profile view #}

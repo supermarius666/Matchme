@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Funzionalità Fisarmonica FAQ
     const faqItems = document.querySelectorAll('.faq-item');
 
     faqItems.forEach(item => {
@@ -10,32 +9,27 @@ document.addEventListener('DOMContentLoaded', function() {
         header.addEventListener('click', () => {
             const wasActive = item.classList.contains('active');
 
-            // Chiudi tutte le altre FAQ aperte
             faqItems.forEach(otherItem => {
                 if (otherItem.classList.contains('active')) {
                     const otherAnswer = otherItem.querySelector('.faq-answer');
                     const otherIcon = otherItem.querySelector('.faq-header i');
 
                     otherItem.classList.remove('active');
-                    otherAnswer.style.maxHeight = 0; // Chiudi l'altezza
-                    otherIcon.classList.remove('fa-minus'); // Torna all'icona 'plus'
+                    otherAnswer.style.maxHeight = 0;
+                    otherIcon.classList.remove('fa-minus');
                     otherIcon.classList.add('fa-plus');
                 }
             });
 
-            // Se la FAQ cliccata NON era attiva, aprila
             if (!wasActive) {
-                item.classList.add('active'); // Aggiungi la classe 'active'
-                answer.style.maxHeight = answer.scrollHeight + 'px'; // Imposta l'altezza
+                item.classList.add('active');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
                 icon.classList.remove('fa-plus');
-                icon.classList.add('fa-minus'); // Cambia icona
+                icon.classList.add('fa-minus');
             }
-            // Se era attiva (wasActive è true), il ciclo forEach sopra l'ha già chiusa.
-            // Non serve altro qui.
         });
     });
 
-    // Funzionalità di Generazione e Trascinamento Bolle
     const bubbleContainer = document.getElementById('bubbleContainer');
     const bubbleTexts = [
         "Amore", "Passione", "Felicità", "Incontri", "Connessione",
@@ -68,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const maxAttempts = 1000;
         let attempts = 0;
+        let x, y;
         do {
             const padding = 10;
             const containerWidth = bubbleContainer.clientWidth;

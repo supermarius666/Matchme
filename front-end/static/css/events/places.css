@@ -22,13 +22,13 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow: inset 0 -10px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 -10px 15px rgba(0,0,0,0.2);
 }
 
 .events-hero h1 {
     font-size: 4em;
     margin-bottom: 10px;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
     letter-spacing: -2px;
 }
 
@@ -36,11 +36,10 @@ body {
     font-size: 1.4em;
     max-width: 800px;
     margin: 0 auto;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
 }
 
-.btn-primary,
-.btn-secondary {
+.btn-primary, .btn-secondary {
     display: inline-block;
     padding: 14px 30px;
     border-radius: 50px;
@@ -270,7 +269,7 @@ section h2::after {
     color: #FF4D4D;
     text-decoration: none;
     font-weight: 600;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.2s ease;
     align-self: flex-start;
 }
 
@@ -323,13 +322,13 @@ section h2::after {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: inset 0 -10px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 -10px 15px rgba(0,0,0,0.2);
 }
 
 .place-hero h1 {
     font-size: 4em;
     margin-bottom: 10px;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
     letter-spacing: -2px;
 }
 
@@ -337,7 +336,7 @@ section h2::after {
     font-size: 1.4em;
     max-width: 800px;
     margin: 0 auto;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
 }
 
 .place-content-section {
@@ -476,20 +475,16 @@ section h2::after {
     .place-hero h1 {
         font-size: 3em;
     }
-
     .place-tagline {
         font-size: 1.2em;
     }
-
     .place-content-grid {
         grid-template-columns: 1fr;
     }
-
     .place-image-wrapper {
         position: static;
         top: auto;
     }
-
     .place-main-image {
         max-height: 350px;
     }
@@ -500,24 +495,18 @@ section h2::after {
         padding: 80px 15px;
         min-height: 300px;
     }
-
     .place-hero h1 {
         font-size: 2.5em;
     }
-
     .place-tagline {
         font-size: 1em;
     }
-
-    .place-description p,
-    .place-description .intro-paragraph {
+    .place-description p, .place-description .intro-paragraph {
         font-size: 0.95em;
     }
-
     .modern-map-container iframe {
         height: 350px;
     }
-
     .link-list li a {
         font-size: 1em;
     }
@@ -527,15 +516,12 @@ section h2::after {
     .place-hero h1 {
         font-size: 2em;
     }
-
     .place-main-image {
         max-height: 250px;
     }
-
     .modern-map-container iframe {
         height: 280px;
     }
-
     .place-image-wrapper {
         padding: 5px;
     }

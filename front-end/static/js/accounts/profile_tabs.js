@@ -1,12 +1,9 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     console.log("profile_tabs.js loaded and executing.");
 
-    // Function to handle tab switching
     function switchTab(clickedButton) {
         if (!clickedButton) return;
 
-       
         const tabContainer = clickedButton.closest('.profile-tabs');
         if (!tabContainer) {
             console.warn("No .profile-tabs container found for the clicked button.", clickedButton);
@@ -32,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
- 
     document.querySelectorAll('.profile-tabs .tab-buttons').forEach(tabButtonsContainer => {
         tabButtonsContainer.addEventListener('click', (event) => {
             const clickedButton = event.target.closest('.tab-button');
@@ -42,10 +38,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    
     document.querySelectorAll('.profile-tabs').forEach(tabSection => {
-       
-        if (tabSection.offsetParent !== null) { 
+        if (tabSection.offsetParent !== null) {
             const initialActiveButton = tabSection.querySelector('.tab-button.active');
             if (initialActiveButton) {
                 const targetTabId = initialActiveButton.dataset.tab;
@@ -65,5 +59,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-
 });

@@ -11,7 +11,7 @@
 {% block content %}
 
 <div class="card_pref">
-    <h2>Aggiorna le tue preferenze</h2> {# Titolo leggermente cambiato #}
+    <h2>Aggiorna le tue preferenze</h2> 
     <form method="post" action="{% url 'accounts:preferences' %}">
         {% csrf_token %}
 

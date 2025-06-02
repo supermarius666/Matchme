@@ -394,7 +394,6 @@ main {
     border-bottom: 1px solid #e0e0e0;
     z-index: 100;
     flex-shrink: 0;
-    border: none;
 }
 
 .chat-avatar-main:hover {
@@ -448,7 +447,7 @@ main {
     display: flex;
     align-items: center;
     margin-left: -21px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
 }
 
 .chat-avatar-main {
