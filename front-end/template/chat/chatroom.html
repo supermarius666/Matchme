@@ -1,10 +1,94 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %} | Chat with {{ chat_user.username }}{% endblock %}
+
 {% block style %}
-    <link rel="stylesheet" href="{% static 'css/chat/chat.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/chat/chat.css' %}"/>
+<style>
+    body.dark-mode {
+        background-color: #1e1e1e;
+        color: #f1f1f1;
+    }
+
+    .dark-mode .chat-layout {
+        background-color: #121212;
+    }
+
+    .dark-mode .chat-list-sidebar {
+        background-color: #1a1a1a;
+        color: #e0e0e0;
+    }
+
+    .dark-mode .main-chat-area {
+        background-color: #1e1e1e;
+        border-color: #ff4081;
+    }
+
+    .dark-mode .chat-header-main {
+        background-color: #2a2a2a !important;
+        color: #fff;
+        border-color: #ff4081; 
+    }
+
+    .dark-mode .message-bubble {
+        background-color: #333;
+        color: #fff;
+    }
+
+    .dark-mode input[type="text"] {
+        background-color: #2c2c2c;
+        color: #fff;
+        border: 1px solid #444;
+    }
+
+    .dark-mode .send-button {
+        background-color: #444;
+        color: #fff;
+    }
+
+    .dark-mode-button {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: #fff;
+        color: #000;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+        z-index: 1000;
+    }
+
+    body.dark-mode .dark-mode-button {
+        background: #333;
+        color: #fff;
+    }
+    .dark-mode .message-bubble {
+        background-color: #333;
+        color: #fff;
+    }
+
+    .dark-mode .chat-name {
+        color: #ccc;
+    }
+
+    .dark-mode .chat-timestamp {
+        color: #aaa;
+    }
+
+    .dark-mode .dark-mode-button {
+        background-color: white;
+        color: black;
+    }
+
+    .dark-mode .chat-item{
+        border-color: #ff4081;    
+    }
+</style>
 {% endblock %}
+
 {% block content %}
+<button id="dark-mode-toggle" class="dark-mode-button">🌙 Dark Mode</button>
 
 <div class="chat-layout">
 
@@ -49,7 +133,6 @@
                             <div class="message-username">{{ message.user_sender.username }}</div>
                         {% endif %}
                         <div class="message-text">{{ message.message_payload }}</div>
-                        
                         <div class="message-timestamp">{{ message.time_stamp|date:"H:i" }}</div>
                     </div>
                 </div>
@@ -59,18 +142,14 @@
         <form id="chat_form" class="message-input-form">
             <input type="text" name="message" placeholder="Type a message..." autocomplete="off">
             <button type="submit" id="send-button" class="send-button">
-                {# SVG icon for send (paper airplane) #}
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="send-icon">
                     <line x1="22" y1="2" x2="11" y2="13"></line>
                     <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                 </svg>
             </button>
         </form>
-
     </div>
-
 </div>
-
 {% endblock %}
 
 {% block footer %}
@@ -82,7 +161,6 @@
         window.location.href = `/chat/${username}`;
     }
 
-    // Existing JavaScript remains the same for handling messages
     function formatTime(timeString) {
         const date = new Date(timeString);
         const hours = date.getHours().toString().padStart(2, '0');
@@ -90,58 +168,75 @@
         return `${hours}:${minutes}`;
     }
 
-    roomName = "{{ room.name }}"
-    username = "{{ request.user.username }}"
+    const roomName = "{{ room.name }}";
+    const username = "{{ request.user.username }}";
+    const chatSocket = new WebSocket(`ws://${window.location.host}/ws/${roomName}/`);
 
-    let url = `ws://${window.location.host}/ws/${roomName}/`
-
-    const chatSocket = new WebSocket(url)
-
-    chatSocket.onmessage = function(event){
-        let data = JSON.parse(event.data)
-        console.log("Data: ", data)
-
-        let formatedTime = formatTime(data.time_stamp)
+    chatSocket.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        const formattedTime = formatTime(data.time_stamp);
         if (data.type === "chat") {
-            let messages = document.getElementById("messages");
+            const messages = document.getElementById("messages");
+            const messageClass = (data.username === username) ? "my-message" : "other-message";
 
-            let messageClass = (data.username === username) ? "my-message" : "other-message";
-
-            let html = `<div class="message-container ${messageClass}">
-                            <div class="message-bubble">
-                                <div class="message-text">${data.message}</div>
-                                <div class="message-timestamp">${formatedTime}</div>
-                            </div>
-                        </div>`;
-
+            const html = `
+                <div class="message-container ${messageClass}">
+                    <div class="message-bubble">
+                        <div class="message-text">${data.message}</div>
+                        <div class="message-timestamp">${formattedTime}</div>
+                    </div>
+                </div>`;
+            
             messages.insertAdjacentHTML("beforeend", html);
-
             messages.scrollTop = messages.scrollHeight;
         }
-    }
-
-    let form = document.getElementById("chat_form")
-
-    form.addEventListener("submit", (event)=> {
-        event.preventDefault()
-
-        let message = event.target.message.value
-
-        chatSocket.send(JSON.stringify({
-            "username":username,
-            "message":message
-        }))
-
-        form.reset()
-    })
-
-    // Scroll to the bottom of the messages when the page loads
-    window.onload = function() {
-        const messagesContainer = document.getElementById("messages");
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
     };
 
+    const form = document.getElementById("chat_form");
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const message = event.target.message.value;
+        chatSocket.send(JSON.stringify({
+            "username": username,
+            "message": message
+        }));
+        form.reset();
+    });
+
+    // Dark mode toggle logic
+    window.addEventListener("DOMContentLoaded", function () {
+        const toggleBtn = document.getElementById("dark-mode-toggle");
+        const messagesContainer = document.getElementById("messages");
+        const body = document.body;
+
+        function updateDarkModeUI() {
+            if (body.classList.contains("dark-mode")) {
+                toggleBtn.textContent = "☀️ Light Mode";
+            } else {
+                toggleBtn.textContent = "🌙 Dark Mode";
+            }
+        }
+
+        // Apply saved dark mode preference
+        if (localStorage.getItem("darkMode") === "true") {
+            body.classList.add("dark-mode");
+        }
+        updateDarkModeUI();
+
+        toggleBtn.addEventListener("click", () => {
+            body.classList.toggle("dark-mode");
+            const darkMode = body.classList.contains("dark-mode");
+            localStorage.setItem("darkMode", darkMode);
+            updateDarkModeUI();
+        });
+
+        // Scroll messages to bottom
+        if (messagesContainer) {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+    });
 </script>
+
 
 <script src="{% static 'js/feed/searchbar.js' %}"></script>
 {% endblock %}

@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} | Feed{% endblock %}
+{% block style %}
+	<link rel="stylesheet" href="{% static 'css/feed/feed.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/feed/filters.css' %}"/>
+    {# <link rel="stylesheet" href="{% static 'css/chat/chat.css' %}"/> #}
+{% endblock %}
+
+{% block content %}
+<div class="feed-layout">
+
+    <div class="feed-left-sidebar">
+        {# Left Sidebar for Chat List #}
+        <div class="chat-list-sidebar">
+            <div class="search-bar">
+                <input type="text" id="search-bar" placeholder="Search chat with your Matches">
+            </div>
+            <div class="chats" id="chats">
+            </div>
+        </div>   
+            
+        <div class="feed-filters-sidebar">
+            <div>
+                <h2>Gender</h2>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="preference" value="optionA" class="checkbox-input">
+                        <span class="checkbox-text">Male</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="preference" value="optionB" class="checkbox-input">
+                        <span class="checkbox-text">Female</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="preference" value="optionC" class="checkbox-input">
+                        <span class="checkbox-text">Other</span>
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <h2>Age Interval</h2>
+                <div class="range-slider-container">
+                    <div id="filledRangeTrack" style="left: 0%; width: 100%;"></div>
+                    <input type="range" id="rangeInputMin" min="0" max="100" value="25">
+                    <input type="range" id="rangeInputMax" min="0" max="100" value="75">
+                </div>
+
+                <div class="slider-value-display">
+                    <span id="subRangeMinDisplay">25</span>
+                    <span id="subRangeMaxDisplay">75</span>
+                </div>
+            </div>
+
+            <div>
+                <h2>Max Distance [km]</h2>
+                <input type="range" id="normalSlider" min="0" max="100" value="75">
+                <div class="slider-value-display">
+                    <span>0</span>
+                    <span id="normalSliderValue">75</span>
+                    <span>100</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="feed-feed-container">
+        <!-- come prima cosa visualizziamo i pending_users -->
+        {% for user in pending_users_arrived %}
+            <div class="feed-post">
+                <div class="feed-post-header">
+                    
+                    <a href="#">
+                    
+                        <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="User Profile Picture" class="feed-profile-pic">
+
+                    </a>
+                    <button class="feed-username">{{ user.username }}</button>
+                </div>
+                <div class="feed-post-image">
+                    <img src="https://picsum.photos/600/400?random=1" alt="Post Image">
+                </div>
+
+                <div class="feed-post-actions">
+                    <form action="{% url 'feed' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="liked_username" value="{{ user.username }}">
+                        <button type="submit" class="feed-action-button feed-like-button"><i class="far fa-heart"></i>Like</button>
+                    </form>
+                    <form action="{% url 'feed' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="disliked_username" value="{{ user.username }}">
+                        <button type="submit" class="feed-action-button feed-dislike-button"><i class="far fa-thumbs-down"></i>Dont Like</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+
+        <!-- poi visualizziamo tutti gli altri utenti -->
+        {% for user in users %}
+            {% if user not in pending_users_arrived and user not in matched_users and user not in pending_users_sent and user != request.user %}
+                <div class="feed-post">
+                    <div class="feed-post-header">
+                            
+                        <a href="{% url 'accounts:profile' user.username %}">
+                            <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="User Profile Picture" class="feed-profile-pic">
+                            </a>
+                        <button class="feed-username">{{ user.username }}</button>
+                    </div>
+                    <div class="feed-post-image">
+                        {# Display caption if available #}
+                    {% with latest_post=user.post_set.first %}
+                        {% if latest_post and latest_post.text %}
+                            <div class="feed-post-caption">
+                                <p> {{ latest_post.text }}</p>
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+
+                    {# Check if the user has any posts and use the first one's pic #}
+                    {% with latest_post=user.post_set.first %} {# Use post_set.first to access related posts #}
+                        {% if latest_post and latest_post.post_pic %}
+                            <img src="{{ latest_post.post_pic.url }}" alt="Post Image">
+                        {% else %}
+                            <img src="https://picsum.photos/600/400?random=1" alt="Post Image">
+                        {% endif %}
+                    {% endwith %}
+                    </div>
+                   
+                    <div class="feed-post-actions">
+                        <form action="{% url 'feed' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="liked_username" value="{{ user.username }}">
+                            <button type="submit" class="feed-action-button feed-like-button"><i class="far fa-heart"></i>Like</button>
+                        </form>
+                        <form action="{% url 'feed' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="disliked_username" value="{{ user.username }}">
+                            <button type="submit" class="feed-action-button feed-dislike-button"><i class="far fa-thumbs-down"></i>Dont Like</button>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    function enterChat(username) {
+        window.location.href = `/chat/${username}`;
+    }
+</script>
+
+<script src="{% static 'js/feed/searchbar.js' %}"></script>
+<script src="{% static 'js/feed/filters.js' %}"></script>
+
+{% endblock %}

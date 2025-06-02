@@ -15,13 +15,13 @@
         </div>
     </section>
 
-    <section id="upcoming-events-section" class="upcoming-events-section"> 
+    <section id="upcoming-events-section" class="upcoming-events-section"> {# ID e classe rinominati per chiarezza #}
         <div class="container">
             <h2>Upcoming Events</h2>
 
             {% if upcoming_events %}
                 <div class="slider-container">
-                    <div class="events-slider"> 
+                    <div class="events-slider"> {# Il contenitore che scorrerà #}
                         {% for event in upcoming_events %}
                             <div class="event-card">
                                 <img src="{{ event.image.url }}" alt="{{ event.title }}" class="event-card-image">
@@ -42,17 +42,16 @@
                     </div>
 
                     <div class="dots-container">
+                        {# I dots verranno generati dinamicamente dal JavaScript #}
                     </div>
                 </div>
             {% else %}
                 <p class="no-events-message">No upcoming events at the moment. Check back soon!</p>
             {% endif %}
 
-            
+            {# Ho rimosso i demo events per pulizia, assumendo dati da backend #}
+            {# Se necessario, puoi reintrodurli per il testing locale #}
 
-            <div class="view-all-events">
-                <a href="#" class="btn-secondary">View All Events &rarr;</a> 
-            </div>
         </div>
     </section>
 
@@ -60,13 +59,14 @@
         <div class="container">
             <h2>Explore Great Places to Meet IRL</h2>
             <div class="grid-container">
+                {# Qui mantieni le tue card statiche o le fai ciclare su un'altra variabile 'places' #}
                 <div class="card" onclick="gotoPlace('villa-borghese')">
                     <img src="https://picsum.photos/600/400?random=5" alt="Villa Borghese" class="card-image">
                     <div class="card-content">
                         <h3 class="card-title">Villa Borghese</h3>
                         <p class="card-text">A stunning public park in Rome with gardens, museums, and historical buildings. Perfect for a relaxed first date or a group picnic.</p>
                         <p class="card-events-info">Upcoming events here: **Evening Gala (June 15th)**</p>
-                        <a href="/events/places/villa-borghese" class="card-link">Learn More &rarr;</a>
+                        <a href="/events/villa-borghese" class="card-link">Learn More &rarr;</a>
                     </div>
                 </div>
 
@@ -76,7 +76,7 @@
                         <h3 class="card-title">Giardino degli Aranci</h3>
                         <p class="card-text">Also known as Parco Savello, this charming orange garden offers panoramic views of Rome. Ideal for a romantic sunset stroll.</p>
                         <p class="card-events-info">Often hosts sunset gatherings.</p>
-                        <a href="/events/places/giardino-degli-aranci" class="card-link">Learn More &rarr;</a>
+                        <a href="/events/giardino-degli-aranci" class="card-link">Learn More &rarr;</a>
                     </div>
                 </div>
 
@@ -86,7 +86,7 @@
                         <h3 class="card-title">Piazza di Santa Maria in Trastevere</h3>
                         <p class="card-text">The heart of Trastevere, bustling with life, street artists, and charming cafes. Great for a lively first meeting or group night out.</p>
                         <p class="card-events-info">Upcoming events here: **Pasta Making Class (June 16th)**</p>
-                        <a href="/events/places/trastevere-square" class="card-link">Learn More &rarr;</a>
+                        <a href="/events/trastevere-square" class="card-link">Learn More &rarr;</a>
                     </div>
                 </div>
 
@@ -96,7 +96,7 @@
                         <h3 class="card-title">Testaccio Market</h3>
                         <p class="card-text">A vibrant food market offering authentic Roman street food and local delights. A fantastic casual spot for foodies to connect.</p>
                         <p class="card-events-info">Regular food tasting meetups.</p>
-                        <a href="/events/places/testaccio-market" class="card-link">Learn More &rarr;</a>
+                        <a href="/events/testaccio-market" class="card-link">Learn More &rarr;</a>
                     </div>
                 </div>
 
@@ -106,7 +106,7 @@
                         <h3 class="card-title">Villa Ada</h3>
                         <p class="card-text">Rome's second-largest park, known for its vast green spaces, lake, and summer concerts. Ideal for outdoor enthusiasts.</p>
                         <p class="card-events-info">Hosts summer concerts and festivals.</p>
-                        <a href="/events/places/villa-ada" class="card-link">Learn More &rarr;</a>
+                        <a href="/events/villa-ada" class="card-link">Learn More &rarr;</a>
                     </div>
                 </div>
 
@@ -116,12 +116,9 @@
                         <h3 class="card-title">Quartiere Coppedè</h3>
                         <p class="card-text">A hidden gem with unique Art Nouveau and Baroque architecture. Perfect for a quirky, memorabile date or photo walk.</p>
                         <p class="card-events-info">Upcoming events here: **Coppedè Photo Walk (June 22nd)**</p>
-                        <a href="/events/places/coppede-quarter" class="card-link">Learn More &rarr;</a>
+                        <a href="/events/coppede-quarter" class="card-link">Learn More &rarr;</a>
                     </div>
                 </div>
-            </div>
-            <div class="view-all-places">
-                <a href="#" class="btn-secondary">View All Places &rarr;</a>
             </div>
         </div>
     </section>
@@ -130,7 +127,6 @@
         <div class="container">
             <h2>Ready to Join the Fun?</h2>
             <p>Don't miss out on amazing events and opportunities to meet new people!</p>
-            <a href="#" class="btn-primary">Sign Up for Free!</a>
             <a href="{% url 'contact' %}" class="btn-secondary">Contact Us</a>
         </div>
     </section>
