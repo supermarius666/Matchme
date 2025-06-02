@@ -10,7 +10,6 @@ import json # Import json module
 from django.shortcuts import render, get_object_or_404
 
 
-
 def auth_view(request):
     if request.method == 'POST':
         action = request.POST.get('action_type')
@@ -34,6 +33,7 @@ def auth_view(request):
             password = request.POST.get('password1_r')
             conferma_password = request.POST.get('password2_r')
             sesso = request.POST.get('sesso')
+            citta = request.POST.get('citta')
 
             if password != conferma_password:
                 messages.error(request, 'Le password non corrispondono.')
@@ -46,7 +46,8 @@ def auth_view(request):
                     password=password,
                     first_name=nome,
                     last_name=cognome,
-                    gender=sesso
+                    gender=sesso,
+                    city=citta
                 )
                 login(request, user)
                 return redirect('accounts:preferences')

@@ -1,5 +1,8 @@
 // NOTA: dal alcuni broswer si può settare la posizione
 
+const regCityInput = document.getElementById("reg-city")
+const regCityParagraph = document.getElementById("reg-city-paragraph")
+
 if (!navigator.geolocation) {
     throw new Error("No geolocation avaiable")
 }
@@ -30,11 +33,12 @@ function success(pos) {
         .then(response => response.json())
         .then(data => {
             const city = data.address.city || data.address.town || data.address.village || "Città non trovata";
-            document.getElementById("geolocation").innerHTML = ` <i class="fas fa-map-marker-alt"></i> <strong>${city}</strong>`;
+            regCityInput.value = `${city}`;
+            regCityParagraph.innerHTML = ` <i class="fas fa-map-marker-alt"></i>${city}`;
         })
         .catch(error => {
             console.error("Errore nel reverse geocoding:", error);
-            document.getElementById("geolocation").innerHTML = `<em>Errore nel recupero della città</em>`;
+            regCityInput.innerHTML = `<em>Errore nel recupero della città</em>`;
         });
 
     console.log("Posizione:", pos);
@@ -67,8 +71,12 @@ const options = {
 // salva coordinate in un oggetto "pos" che passa alla funzione success()
 // se la richiesta all'API non va a buon fine chiama error()
 // viene chiamata quando si carica la pagina
-    navigator.geolocation.getCurrentPosition(success, error, options)
+   
 
 // fa stessa cosa ma viene chiamata ogni volta che lo user cambia posizione
 //const id = navigator.geolocation.watchPosition(success, error, options)
+
+function getPosition() {
+    navigator.geolocation.getCurrentPosition(success, error, options)
+}
 

@@ -58,11 +58,21 @@
                 </div>
             </div>
 
-            <div class="form-group input-icon">
-                <label for="reg-data-nascita">Data di Nascita:</label>
-                <i class="fa fa-calendar-alt"></i>
-                <input type="date" id="reg-data-nascita" name="data_nascita" required>
+            <div class="form-row">
+                <div class="form-group input-icon">
+                    <label for="reg-data-nascita">Data di Nascita:</label>
+                    <i class="fa fa-calendar-alt"></i>
+                    <input type="date" id="reg-data-nascita" name="data_nascita" required>
+                </div>
+                <div class="form-group input-icon">
+                    <label for="reg-data-nascita">Dove vivi:</label>
+                    <button class="geo-button" onclick="getPosition()"><i class="fas fa-map-marker-alt"></i></button>
+                    {# deve diventare un input per il form #}
+                    <p style="display: inline-block;" id="reg-city-paragraph"></p>
+                    <input type="hidden" id="reg-city" name="citta" readonly>
+                </div>
             </div>
+            
 
             <div class="form-group">
                 <label for="reg-sesso">Sesso:</label>
@@ -114,4 +124,5 @@
 
 {% block script %}
 <script src="{% static 'js/accounts/accounts.js' %}"></script>
+<script src="{% static 'js/accounts/geolocation.js' %}"></script>
 {% endblock %}
