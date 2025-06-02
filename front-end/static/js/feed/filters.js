@@ -9,34 +9,156 @@ const normalSliderValue = document.getElementById('normalSliderValue');
 
 const checkboxes = document.querySelectorAll('.checkbox-input');
 
+// Per modificare il feed
+const feedContainer = document.querySelector('.feed-feed-container');
+//"feed-post"  "feed-post-header"
+
+
 let selectedOptions = [];
 
+function myInclude(listOfLists, targetList) {
+  const targetListString = JSON.stringify(targetList);
+  return listOfLists.some(innerList => JSON.stringify(innerList) === targetListString);
+}
+
 function fetchData() {
-    console.log('Selected Checkboxes: ', selectedOptions);
-    console.log('slidebar1 range: ', rangeInputMin.value, " ", rangeInputMax.value);
-    console.log('slidebar2 value: ', normalSlider.value);
+    //console.log('Selected Checkboxes: ', selectedOptions);
+    //console.log('slidebar1 range: ', rangeInputMin.value, " ", rangeInputMax.value);
+    //console.log('slidebar2 value: ', normalSlider.value);
 
-    const url = `/feed/search_chat/?q=${encodeURIComponent(searchInput.value)}`;
+    const url = `/feed/feed_action/`;
 
-    // fa request GET all'url
+    const payload = {
+        type: "feed",
+        genderSelected: selectedOptions,
+        ageMin: rangeInputMin.value,
+        ageMax: rangeInputMax.value,
+        distanceMax: normalSlider.value
+    };
+
+    console.log("PER FARE RICHIESTA");
+    // fa request POST all'url
     fetch(url, {
-        method: 'GET'
+        method: 'POST',
+        // TODO vedi se headers serve
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
     })
     .then(response => {
+        console.log("FATTA RICHIESTA");
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json();
     })
     .then(data => {
-        displayOutput(data.searched_users)
+        console.log(data)
+
+        displayFeed(data)
     })
 }
 
-/**
- * Updates the visual representation of the filled range and the displayed values
- * for the dual-thumb slider.
- */
+function sendLike(user) {
+    const url = `/feed/feed_action/`;
+
+    const payload = {
+        type: "like",
+        likedUser: user
+    };
+
+    console.log("PER FARE RICHIESTA");
+    // fa request POST all'url
+    fetch(url, {
+        method: 'POST',
+        // TODO vedi se headers serve
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+    .then(response => {
+        console.log("FATTA RICHIESTA");
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data)
+
+        displayFeed(data)
+    })
+}
+
+function sendDislike(user) {}
+
+function displayFeed(data) {
+    const logged_user = data.logged_user
+    const selected_users = data.selected_users
+    const pending_users_arrived = data.pending_users_arrived
+    const pending_users_sent = data.pending_users_sent
+    const matched_users = data.matched_users
+
+    feedContainer.innerHTML = ""
+
+    pending_users_arrived.forEach(user => {
+        feedContainer.innerHTML += `
+            <div class="feed-post">
+                <div class="feed-post-header">
+                    <a href="#">
+                        <img src="${user[1]}" alt="User Profile Picture" class="feed-profile-pic">
+                    </a>
+                    <button class="feed-username">${user[0]}</button>
+                </div>
+
+                <div class="feed-post-image">
+                    <img src="https://picsum.photos/600/400?random=1" alt="Post Image">
+                </div>
+                
+                <div class="feed-post-actions">
+                    <button type="button" onclick="sendLike('${user[0]}')" class="feed-action-button feed-like-button"><i class="far fa-heart"></i>Like</button>
+                    <button type="button" onclick="sendDislike('${user[0]}')" class="feed-action-button feed-dislike-button"><i class="far fa-thumbs-down"></i>Dont Like</button>
+                </div>
+                
+            </div>
+        `
+    })
+
+    selected_users.forEach(user => {
+        console.log("matched users", matched_users)
+        console.log("user", user)
+        if (!myInclude(pending_users_arrived, user) && !myInclude(matched_users, user) &&
+            !myInclude(pending_users_sent, user) && user[0] !== logged_user) {
+            
+
+            feedContainer.innerHTML += `
+                <div class="feed-post">
+                    <div class="feed-post-header">
+                        <a href="#">
+                            <img src="${user[1]}" alt="User Profile Picture" class="feed-profile-pic">
+                        </a>
+                        <button class="feed-username">${user[0]}</button>
+                    </div>
+
+                    <div class="feed-post-image">
+                        <img src="https://picsum.photos/600/400?random=1" alt="Post Image">
+                    </div>
+                    
+                    <div class="feed-post-actions">
+                        <button type="button" onclick="sendLike('${user[0]}')" class="feed-action-button feed-like-button"><i class="far fa-heart"></i>Like</button>
+                        <button type="button" onclick="sendDislike('${user[0]}')" class="feed-action-button feed-dislike-button"><i class="far fa-thumbs-down"></i>Dont Like</button>
+                    </div>
+                    
+                </div>
+            `
+        }
+    })
+
+    fetchSearchOutput()    
+}
+
 function updateSubRangeDisplay() {
     // Overall min and max are now fixed to 0 and 100
     let minOverall = 0;

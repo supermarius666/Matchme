@@ -1,11 +1,18 @@
 from django.db import models
 from apps.accounts.models import UserProfile
+#from apps.feed.models import Match
 
 # NOTA: avendo Match una primary key su ChatRoom, nella chatroom si può accedere a due user
 # con una query nel database
 class ChatRoom(models.Model):
     #id = models.AutoField(
     #    primary_key=True
+    #)
+
+    #room = models.ForeignKey(
+    #    Match,
+    #    on_delete=models.CASCADE,
+    #    null=True
     #)
 
     name = models.CharField(

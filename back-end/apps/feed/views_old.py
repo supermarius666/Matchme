@@ -5,9 +5,6 @@ from apps.chat.models import ChatRoom, Message
 from apps.accounts.models import UserProfile, UserPreferences
 from django.db.models import Q
 
-import json
-from django.views.decorators.csrf import csrf_exempt
-
 from django.http import JsonResponse
 import re
 from datetime import datetime, timedelta
@@ -15,9 +12,6 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 
 MAX_USERS = 10
-
-def get_user_info(user):
-    return [user.username, user.profile_picture.url]
 
 def get_pending_users_arrived(logged_user):
     # select tutti i match in arrivo al logged_user
@@ -29,7 +23,7 @@ def get_pending_users_arrived(logged_user):
     # lista degli user che hanno mandato richiesta di match al logged_user
     pending_users = []
     for match in pending_matches:
-        pending_users.append(get_user_info(match.user_sending))
+        pending_users.append(match.user_sending)
     
     return pending_users
 
@@ -43,7 +37,7 @@ def get_pending_users_sent(logged_user):
     # lista degli user che hanno mandato richiesta di match al logged_user
     pending_users = []
     for match in pending_matches:
-        pending_users.append(get_user_info(match.user_receiving))
+        pending_users.append(match.user_receiving)
     
     return pending_users
 
@@ -56,9 +50,9 @@ def get_matched_users(logged_user):
     matched_users = []
     for match in completed_matches:
         if match.user_sending == logged_user:
-            matched_users.append(get_user_info(match.user_receiving))
+            matched_users.append(match.user_receiving)
         else:
-            matched_users.append(get_user_info(match.user_sending))
+            matched_users.append(match.user_sending)
         
     return matched_users
 
@@ -133,7 +127,7 @@ def get_users_algorithm(logged_user, all_users, max_users):
         score = elem[1]
 
         if score > 0:
-            best_users_list.append(get_user_info(user))
+            best_users_list.append(user)
 
         counter += 1
         if counter > max_users:
@@ -142,9 +136,10 @@ def get_users_algorithm(logged_user, all_users, max_users):
     #print(f"BEST USERS {best_users_list}")
     return best_users_list
 
-def generate_feed(request):
+@login_required
+def feed_view(request):
     logged_user = request.user
-
+    
     # lista di tutti gli user
     all_users = UserProfile.objects.all()
 
@@ -154,104 +149,77 @@ def generate_feed(request):
     # lista degli user che hanno mandato richiesta di match al logged_user 
     pending_users_arrived = get_pending_users_arrived(logged_user)
 
-    # lista degli user a cui logged_user ha mandato richiesta di match 
+    #lista degli user a cui logged_user ha mandato richiesta di match 
     pending_users_sent = get_pending_users_sent(logged_user)
 
     # lista degli user con cui si ha un match
+    matched_users = get_matched_users(logged_user)
+
+    if request.method == "POST": # sta venendo messo like
+        liked_user_username = request.POST.get("liked_username")
+        disliked_user_username =  request.POST.get("disliked_username")
+        print(liked_user_username, disliked_user_username)
+
+        if liked_user_username:
+            liked_user = UserProfile.objects.get(username=liked_user_username)
+            print(liked_user)
+
+            # se il liked_user ti aveva già messo like si completa il match
+            if liked_user in pending_users_arrived:
+                match = Match.objects.get(
+                    user_sending=liked_user,
+                    user_receiving=logged_user,
+                    status="PENDING"
+                )
+                
+                room = ChatRoom.objects.create(
+                    name=f"{liked_user.username}-{logged_user.username}-ROOM",
+                    user1=liked_user,
+                    user2=logged_user
+                )
+
+                match.status = "MATCHED"
+                match.room = room
+
+                match.save()
+            # altrimenti si crea una nuova entry tipo Match con status "PENDING" (sempre se non è già stata creata)
+            elif liked_user not in pending_users_sent and liked_user not in matched_users:
+                match = Match.objects.create(
+                        user_sending=logged_user,
+                        user_receiving=liked_user,
+                        status="PENDING"
+                    )
+        elif disliked_user_username:
+            disliked_user = UserProfile.objects.get(username=disliked_user_username)
+            print(disliked_user)
+    
+    # aggiorna lista per evitare duplicati 
+    pending_users_arrived = get_pending_users_arrived(logged_user)
+
+    # aggiorna lista degli user a cui logged_user ha mandato richiesta di match 
+    pending_users_sent = get_pending_users_sent(logged_user)
+
+    # aggiorna lista degli user con cui si ha un match
     matched_users = get_matched_users(logged_user)
 
     print_actions_in_server_log(selected_users, logged_user, pending_users_arrived, pending_users_sent, matched_users)
 
-    return JsonResponse(
-        {
-            "logged_user": logged_user.username,
-            "selected_users": selected_users,
-            "pending_users_arrived": pending_users_arrived,
-            "pending_users_sent": pending_users_sent,
-            "matched_users": matched_users
-        })
+    # passo al file HTML la lista dei pending_users e dei matched_users
+    context = {
+        "users": selected_users,
+        "matched_users": matched_users,
+        "pending_users_arrived": pending_users_arrived,
+        "pending_users_sent": pending_users_sent
+    }
+    return render(request, "feed/feed.html", context) # NON MI PIACE CHE RICARICA SEMPRE LA PAGINA ANCHE QUANDO SI METTE SOLO LIKE A UNO
+                                                        # --> mi sa che tocca farla in Javascript cosi non si deve ricaricare la pagina
 
-def update_matches_to_db(request, data):
-    logged_user = request.user
-
-    liked_user_username = data.get("likedUser")
-
-    # lista degli user che hanno mandato richiesta di match al logged_user 
-    pending_users_arrived = get_pending_users_arrived(logged_user)
-
-    # lista degli user a cui logged_user ha mandato richiesta di match 
-    pending_users_sent = get_pending_users_sent(logged_user)
-
-    # lista degli user con cui si ha un match
-    matched_users = get_matched_users(logged_user)
-
-    if liked_user_username:
-        liked_user = UserProfile.objects.get(username=liked_user_username)
-        liked_user_info = get_user_info(liked_user)
-        print(liked_user)
-
-        # se il liked_user ti aveva già messo like si completa il match
-        if liked_user_info in pending_users_arrived:
-            match = Match.objects.get(
-                user_sending=liked_user,
-                user_receiving=logged_user,
-                status="PENDING"
-            )
-            
-            room = ChatRoom.objects.create(
-                name=f"{liked_user.username}-{logged_user.username}-ROOM",
-                user1=liked_user,
-                user2=logged_user
-            )
-
-            match.status = "MATCHED"
-            match.room = room
-
-            match.save()
-        # altrimenti si crea una nuova entry tipo Match con status "PENDING" (sempre se non è già stata creata)
-        elif liked_user not in pending_users_sent and liked_user not in matched_users:
-            match = Match.objects.create(
-                    user_sending=logged_user,
-                    user_receiving=liked_user,
-                    status="PENDING"
-                )
-
-@csrf_exempt
-def feed_actions_view(request):
-    logged_user = request.user
-
-    if request.method == "POST": # sta venendo messo like
-        data = json.loads(request.body)
-        type = data.get("type")
-
-        if type == "feed":
-            genderSelected = data.get("genderSelected", [])
-            ageMin = data.get("ageMin")
-            ageMax = data.get("ageMax")
-            distanceMax = data.get("distanceMax")
-
-            print(f"Gender Selected: {genderSelected} \nAge Range: [{ageMin}-{ageMax}] \n Max Distance: {distanceMax}")
-
-            feed_response = generate_feed(request)
-            #print(f"feed responsee::: {feed_response}")
-        elif type == "like":
-            update_matches_to_db(request, data)
-            feed_response = generate_feed(request)
-        return feed_response
-
-    return None
-
-@login_required
-def feed_view(request):
-    context = {}
-    return render(request, "feed/feed.html", context)
-
-def get_last_message_timestamp(logged_username, username):
+def get_last_message_timestamp(logged_user, user):
     room = ChatRoom.objects.get(
-        Q(user1=UserProfile.objects.get(username=logged_username),
-          user2=UserProfile.objects.get(username=username)) | 
-        Q(user1=UserProfile.objects.get(username=username), 
-          user2=UserProfile.objects.get(username=logged_username))
+        Q(user1=UserProfile.objects.get(username=logged_user.username),
+          user2=UserProfile.objects.get(username=user.username)) | 
+        Q(user1=UserProfile.objects.get(username=user.username), 
+          user2=UserProfile.objects.get(username=logged_user.username))
     )
 
     messages = Message.objects.filter(room=room).order_by("-time_stamp")[::-1]
@@ -282,10 +250,9 @@ def get_searched_users(logged_user, regex):
     search_output = []
 
     for user in matched_users:
-        if re.match(pattern, user[0]):
-            last_message_timestamp = get_last_message_timestamp(logged_user.username, user[0])
-            user.append(last_message_timestamp)
-            search_output.append(user)
+        if re.match(pattern, user.username):
+            last_message_timestamp = get_last_message_timestamp(logged_user, user)
+            search_output.append([user.username, user.profile_picture.url, last_message_timestamp])
     return search_output
 
 def search_chat_view(request):
