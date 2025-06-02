@@ -1,12 +1,15 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Match
-from apps.chat.models import ChatRoom
+from apps.chat.models import ChatRoom, Message
 from apps.accounts.models import UserProfile, UserPreferences
 from django.db.models import Q
 
 from django.http import JsonResponse
 import re
+from datetime import datetime, timedelta
+
+from django.utils import timezone
 
 MAX_USERS = 10
 
@@ -211,14 +214,45 @@ def feed_view(request):
     return render(request, "feed/feed.html", context) # NON MI PIACE CHE RICARICA SEMPRE LA PAGINA ANCHE QUANDO SI METTE SOLO LIKE A UNO
                                                         # --> mi sa che tocca farla in Javascript cosi non si deve ricaricare la pagina
 
+def get_last_message_timestamp(logged_user, user):
+    room = ChatRoom.objects.get(
+        Q(user1=UserProfile.objects.get(username=logged_user.username),
+          user2=UserProfile.objects.get(username=user.username)) | 
+        Q(user1=UserProfile.objects.get(username=user.username), 
+          user2=UserProfile.objects.get(username=logged_user.username))
+    )
+
+    messages = Message.objects.filter(room=room).order_by("-time_stamp")[::-1]
+    if messages:
+        last_message = messages[-1]
+        last_message_time_tokens = str(last_message.time_stamp).split(" ")
+
+        now = timezone.now()
+        if last_message.time_stamp + timedelta(days=1) >= now:
+            last_message_time = last_message_time_tokens[-1] # hour:minute
+            last_message_timestamp = str(int(last_message_time.split(":")[0]) + 2) + ":" + last_message_time.split(":")[1]
+        else:
+            last_message_time = last_message_time_tokens[0] # year-month-day
+            last_message_timestamp = str(last_message_time)
+        
+    else:
+        last_message_timestamp = ""
+
+    return last_message_timestamp
+
 def get_searched_users(logged_user, regex):
     matched_users = get_matched_users(logged_user)
-    pattern = fr"^{regex}"
+    if regex == "":
+        pattern = fr".*"
+    else:
+        pattern = fr"^{regex}"
+
     search_output = []
 
     for user in matched_users:
         if re.match(pattern, user.username):
-            search_output.append(user.username)
+            last_message_timestamp = get_last_message_timestamp(logged_user, user)
+            search_output.append([user.username, user.profile_picture.url, last_message_timestamp])
     return search_output
 
 def search_chat_view(request):

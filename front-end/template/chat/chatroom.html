@@ -12,22 +12,9 @@
     {# Left Sidebar for Chat List #}
     <div class="chat-list-sidebar">
         <div class="search-bar">
-            <input type="text" placeholder="Search chat with your Matches">
+            <input type="text" id="search-bar" placeholder="Search chat with your Matches">
         </div>
-        <div class="chats">
-            {% for user in matched_users %}
-                <div class="chat-item" onclick="enterChat('{{ user.username }}')">
-                    <div class="chat-avatar">
-                        <img class="chat-avatar" src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo"> 
-                    </div>
-
-                    <div class="chat-info">
-                        <div class="chat-name">{{ user.username }}</div>
-                    </div>
-                    <div class="chat-timestamp">02:01 TODO</div>
-                    {# <a href="{% url 'chatroom' user.username %}" class="feed-start-chat-button">Chat</a> #}
-                </div>
-            {% endfor %}
+        <div class="chats" id="chats">
         </div>
     </div>
 
@@ -73,7 +60,7 @@
 
         <form id="chat_form" class="message-input-form">
             <input type="text" name="message" placeholder="Type a message..." autocomplete="off">
-            <button type="submit" class="send-button">
+            <button type="submit" id="send-button" class="send-button">
                 {# SVG icon for send (paper airplane) #}
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="send-icon">
                     <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -157,4 +144,6 @@
     };
 
 </script>
+
+<script src="{% static 'js/feed/searchbar.js' %}"></script>
 {% endblock %}

@@ -28,7 +28,7 @@ def chatroom_view(request, username):
     )
 
     # prende ultimi 10 messaggi ("-time_stamp") e poi inverte la lista per stamparli in ordine cronologico
-    messages = Message.objects.filter(room=room).order_by("-time_stamp")[0:10]
+    messages = Message.objects.filter(room=room).order_by("-time_stamp")[0:30]
     messages = list(messages)[::-1]
 
     # lista degli user con cui si ha un match

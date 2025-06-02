@@ -184,6 +184,7 @@ def upload_photo(request):
         }, status=405) # Method Not Allowed
 
 # chiamata quando guardi il tuo profilo
+@login_required
 def profile(request):
     user_profile = UserProfile.objects.get(username=request.user.username)
     user_preferences = UserPreferences.objects.get(user=request.user)
@@ -203,6 +204,7 @@ def profile(request):
     })
 
 # chiamata quando guardi il profilo di un altro
+@login_required
 def profile_view(request, username): 
     # PASSO 1: Recupera il UserProfile basandoti sull'username passato nell'URL
     # MyCustomUser è il tuo modello UserProfile, quindi username è un campo diretto

@@ -11,24 +11,28 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    padding-top: 60px; 
+    padding-top: 60px; /* Mantieni il padding per la navbar fissa */
 
+    /* Aggiungi gap per creare spazio tra main e footer */
+    /* gap: 40px; Aggiunge 40px di spazio tra main e footer --> da vedere se tenere cosi o meno*/  
 }
 
 main {
     flex-grow: 1;
-
+    /* Aggiungi padding-bottom per creare spazio sopra il footer */
+    /* padding-bottom: 5px; Puoi regolare questo valore a piacere (es. 20px, 50px, ecc.) */
 }
 
+/* Navbar Styling */
 .navbar {
     background-color: #fff;
-
+    /* White background */
     color: #333;
-
+    /* Dark grey text */
     padding: 10px 0;
-
+    /* Reduced padding slightly */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
+    /* Subtle shadow */
     position: fixed;
     width: 100%;
     top: 0;
@@ -44,12 +48,12 @@ main {
     align-items: center;
     padding: 0 20px;
     flex-wrap: wrap;
-
+    /* Allow items to wrap on smaller screens */
 }
 
 .navbar-brand a {
     color: #ff4081;
-
+    /* Accent color, like a pink */
     text-decoration: none;
     font-size: 1.8em;
     font-weight: bold;
@@ -58,17 +62,17 @@ main {
 .navbar-nav {
     list-style: none;
     display: flex;
-
+    /* Flex display for desktop */
     margin: 0;
     padding: 0;
     flex-grow: 1;
-
+    /* Allow nav links to take available space */
     justify-content: center;
-
+    /* Center links on larger screens */
     transition: max-height 0.3s ease-in-out;
-
+    /* Smooth transition for mobile menu */
     overflow: hidden;
-
+    /* Hide overflow during transition */
 }
 
 .navbar-nav li {
@@ -84,13 +88,13 @@ main {
 
 .navbar-nav a:hover {
     color: #ff4081;
-
+    /* Highlight on hover */
 }
 
 .navbar-actions {
-
+    /* These styles apply to the login button wrapper */
     display: flex;
-
+    /* Use flex to align button if needed */
     align-items: center;
 }
 
@@ -115,14 +119,17 @@ main {
 
 .hamburger {
     display: none;
-
+    /* Hidden by default on larger screens */
     font-size: 1.6em;
-
+    /* Slightly larger icon */
     cursor: pointer;
     color: #333;
     margin-left: 20px;
-
+    /* Add space between login button and hamburger */
 }
+
+
+/* footer */
 
 .footer {
     background-color: #1a1a1a;
@@ -184,6 +191,7 @@ main {
     color: #ff80ab;
 }
 
+/* Social icons */
 .social-links {
     display: flex;
     gap: 15px;
@@ -208,6 +216,7 @@ main {
     margin-top: 30px;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
     .footer-container {
         flex-direction: column;
@@ -220,120 +229,149 @@ main {
     }
 }
 
+
+
+
+/* Responsive Styles (for smaller screens) */
 @media (max-width: 768px) {
     .navbar .container {
-
+        /* Flex-wrap is already set, no need to repeat */
         justify-content: space-between;
-
+        /* Ensure space between brand and actions/hamburger */
     }
 
     .navbar-brand {
         flex-basis: auto;
-
+        /* Let content determine width */
         margin-right: auto;
-
+        /* Push brand to the left */
     }
 
     .navbar-actions {
-
+        /* Keep login button on the right */
         flex-basis: auto;
-
+        /* Let content determine width */
         order: 2;
-
+        /* Place actions to the right of brand */
     }
 
     .hamburger {
         display: block;
-
+        /* Show hamburger on small screens */
         order: 3;
-
+        /* Place hamburger after actions on the top row */
     }
 
     .navbar-nav {
-
+        /* Hide nav links by default in a collapsible way */
         max-height: 0;
-
+        /* Start with 0 height */
         flex-direction: column;
         width: 100%;
-
+        /* Full width when displayed */
         text-align: center;
         margin-top: 10px;
         flex-basis: 100%;
-
+        /* Take full width in the wrapped layout */
     }
 
     .navbar-nav.active {
         max-height: 200px;
-
+        /* Or a value large enough to contain all links */
+        /* Ensure display is block or flex if needed for inner layout,
+           but max-height handles visibility for collapsing */
     }
 
     .navbar-nav li {
         margin: 10px 0;
-
+        /* Add vertical spacing */
     }
 
+    /* Adjust the order of elements when the menu is active */
+    /* This might not be strictly necessary depending on layout,
+       but can help ensure the menu appears below the top row */
     .navbar-brand,
     .navbar-actions,
     .hamburger {
         order: initial;
-
+        /* Reset order for the top row */
     }
 
     .navbar-nav.active {
         order: 4;
-
+        /* Place the active menu below the top row */
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Stili per il contenitore del menu utente */
 .user-menu-container {
-    position: relative; 
-    display: inline-block; 
+    position: relative; /* Importante per posizionare il dropdown rispetto a questo contenitore */
+    display: inline-block; /* Permette al contenitore di adattarsi al contenuto */
 }
 
+/* Stili per l'avatar cliccabile */
 .user-avatar {
     cursor: pointer;
-    border-radius: 50%; 
-    overflow: hidden; 
-    width: 60px; 
-    height: 60px; 
-    display: flex; 
+    border-radius: 50%; /* Rende l'avatar rotondo */
+    overflow: hidden; /* Nasconde ciò che esce dai bordi rotondi */
+    width: 60px; /* Dimensione desiderata */
+    height: 60px; /* Dimensione desiderata */
+    display: flex; /* Centra l'immagine */
     align-items: center;
     justify-content: center;
-    border: 2px solid transparent; 
+    border: 2px solid transparent; /* Bordo invisibile per effetto hover */
     transition: border-color 0.3s ease;
 }
 
 .user-avatar:hover {
-    border-color: var(--primary-color, #ff4081); 
+    border-color: var(--primary-color, #ff4081); /* Colore del bordo all'hover */
 }
 
 .user-avatar-img {
     width: 100%;
     height: 100%;
-    object-fit: cover; 
+    object-fit: cover; /* Assicura che l'immagine copra bene l'area */
 }
 
+/* Stili per il menu a tendina */
 .dropdown-menu {
-    display: none; 
+    display: none; /* Inizialmente nascosto */
     position: absolute;
-    top: calc(100% + 10px); 
-    right: 0; 
-    background-color: #fff; 
-    border: 1px solid #ddd; 
+    top: calc(100% + 10px); /* Posiziona sotto l'avatar con un piccolo margine */
+    right: 0; /* Allinea il menu a destra dell'avatar */
+    background-color: #fff; /* Sfondo bianco */
+    border: 1px solid #ddd; /* Bordo leggero */
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
-    min-width: 160px; 
-    z-index: 1000; 
-    padding: 10px 0; 
-    opacity: 0; 
-    transform: translateY(-10px); 
-    transition: opacity 0.3s ease, transform 0.3s ease; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Ombra leggera */
+    min-width: 160px; /* Larghezza minima */
+    z-index: 1000; /* Assicura che sia sopra gli altri elementi */
+    padding: 10px 0; /* Spaziatura interna */
+    opacity: 0; /* Inizialmente trasparente per l'animazione */
+    transform: translateY(-10px); /* Inizialmente leggermente sopra */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Animazione fluida */
 }
 
+/* Stato visibile del menu a tendina */
 .dropdown-menu.show {
-    display: block; 
-    opacity: 1; 
-    transform: translateY(0); 
+    display: block; /* Rende visibile */
+    opacity: 1; /* Completamente opaco */
+    transform: translateY(0); /* Torna alla posizione normale */
 }
 
 .dropdown-menu ul {
@@ -343,34 +381,35 @@ main {
 }
 
 .dropdown-menu li {
-    padding: 0; 
+    padding: 0; /* Rimuove padding di default dalla lista */
 }
 
 .dropdown-menu a,
 .dropdown-menu button {
     display: block;
-    width: 100%; 
+    width: 100%; /* Rende l'intera area cliccabile */
     padding: 10px 20px;
     color: #333;
     text-decoration: none;
-    white-space: nowrap; 
-    background: none; 
-    border: none; 
-    text-align: left; 
+    white-space: nowrap; /* Previene il ritorno a capo del testo */
+    background: none; /* Rimuove lo sfondo del bottone */
+    border: none; /* Rimuove il bordo del bottone */
+    text-align: left; /* Allinea il testo a sinistra */
     cursor: pointer;
-    font-size: 1rem; 
-    font-family: inherit; 
+    font-size: 1rem; /* Dimensione del font */
+    font-family: inherit; /* Usa il font del genitore */
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .dropdown-menu a:hover,
 .dropdown-menu button:hover {
-    background-color: #f0f0f0; 
-    color: var(--primary-color, #ff4081); 
+    background-color: #f0f0f0; /* Sfondo all'hover */
+    color: var(--primary-color, #ff4081); /* Colore del testo all'hover */
 }
 
+/* Assicurati che il pulsante di logout abbia lo stesso stile degli altri link */
 .dropdown-menu button[type="submit"] {
-
+    /* sovrascrivi eventuali stili di default del browser */
     padding: 10px 20px;
     font-family: inherit;
     font-size: 1rem;

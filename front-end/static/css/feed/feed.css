@@ -37,7 +37,7 @@ main {
 
     .feed-layout {
         width: 95%; 
-        height: 90vh; 
+        height: 93vh; 
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
         border-radius: 5px; 
     }
@@ -114,9 +114,14 @@ main {
 }
 
 .search-bar {
-    padding: 10px 15px;
+    padding-top: 25px;
+    padding-bottom: 12px;
+    padding-left: 20px;
+    padding-right: 20px;
     background-color: #f6f6f6;
     border-bottom: 1px solid #e0e0e0;
+    position: sticky;
+    top: 0;
 }
 
 .search-bar input {
