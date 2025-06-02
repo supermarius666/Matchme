@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>404 – Love Not Found</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: #ffe6e6;
+      font-family: 'Roboto', sans-serif;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 4rem;
+      color: #ff4d6d;
+      margin-bottom: 0.5rem;
+    }
+
+    h1 span {
+      display: inline-block;
+      transition: transform 0.2s;
+      cursor: default;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    button {
+      background-color: #ff4d6d;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e8435e;
+    }
+
+    .heart {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center center;
+      background-size: contain;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="title">
+    <span>4</span><span>0</span><span>4</span><span> – </span>
+    <span>L</span><span>o</span><span>v</span><span>e</span><span> </span>
+    <span>N</span><span>o</span><span>t</span><span> </span>
+    <span>F</span><span>o</span><span>u</span><span>n</span><span>d</span>
+  </h1>
+  <p>Looks like your match is still out there...</p>
+  <button onclick="window.location.href='/'">Back to Home</button>
+
+  <div class="heart" style="left: 20%; top: 90%;"></div>
+  <div class="heart" style="left: 50%; top: 95%;"></div>
+  <div class="heart" style="left: 80%; top: 92%;"></div>
+  <div class="heart" style="left: 35%; top: 98%;"></div>
+  <div class="heart" style="left: 65%; top: 96%;"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script>
+    const hearts = document.querySelectorAll(".heart");
+
+    hearts.forEach((heart, index) => {
+      const duration = 5 + Math.random() * 3;
+      const delay = Math.random() * 2;
+
+      gsap.to(heart, {
+        y: -window.innerHeight - 100,
+        x: "+=" + (Math.random() * 100 - 50),
+        duration: duration,
+        delay: delay,
+        repeat: -1,
+        ease: "power1.inOut",
+        onRepeat: () => {
+          gsap.set(heart, {
+            y: 0,
+            x: 0,
+            left: Math.random() * window.innerWidth + "px",
+            top: "100%",
+          });
+        }
+      });
+    });
+
+    const letters = document.querySelectorAll("#title span");
+    letters.forEach(letter => {
+      letter.addEventListener("mouseenter", () => {
+        gsap.to(letter, {
+          y: -20,
+          duration: 0.3,
+          ease: "power1.out",
+          onComplete: () => {
+            gsap.to(letter, {
+              y: 0,
+              duration: 0.3,
+              ease: "bounce.out"
+            });
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

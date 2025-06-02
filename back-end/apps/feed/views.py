@@ -149,6 +149,9 @@ def feed_view(request):
     #lista degli user a cui logged_user ha mandato richiesta di match 
     pending_users_sent = get_pending_users_sent(logged_user)
 
+    # lista degli user con cui si ha un match
+    matched_users = get_matched_users(logged_user)
+
     if request.method == "POST": # sta venendo messo like
         liked_user_username = request.POST.get("liked_username")
         disliked_user_username =  request.POST.get("disliked_username")
@@ -177,7 +180,7 @@ def feed_view(request):
 
                 match.save()
             # altrimenti si crea una nuova entry tipo Match con status "PENDING" (sempre se non è già stata creata)
-            elif liked_user not in pending_users_sent:
+            elif liked_user not in pending_users_sent and liked_user not in matched_users:
                 match = Match.objects.create(
                         user_sending=logged_user,
                         user_receiving=liked_user,
@@ -193,7 +196,7 @@ def feed_view(request):
     # aggiorna lista degli user a cui logged_user ha mandato richiesta di match 
     pending_users_sent = get_pending_users_sent(logged_user)
 
-    # lista degli user con cui si ha un match
+    # aggiorna lista degli user con cui si ha un match
     matched_users = get_matched_users(logged_user)
 
     print_actions_in_server_log(selected_users, logged_user, pending_users_arrived, pending_users_sent, matched_users)

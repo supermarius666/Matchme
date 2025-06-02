@@ -11,7 +11,6 @@
 
     {# Left Sidebar for Chat List #}
     <div class="chat-list-sidebar">
-        <h2>Chats with Matches</h2>
         <div class="search-bar">
             <input type="text" placeholder="Search chat with your Matches">
         </div>
@@ -32,9 +31,7 @@
         </div>
     </div>
 
-    {# Main Chat Area #}
     <div class="main-chat-area">
-        {# Chat Header #}
         <div class="chat-header-main" style="
             {% if chat_user.cover_picture %}
             background-image: url('{{ chat_user.cover_picture.url }}');
@@ -59,26 +56,21 @@
             </div>
         </div>
 
-        {# Message container - will scroll #}
         <div id="messages" class="messages-container">
             {% for message in messages %}
-                {# Message container: Aligns the bubble left or right #}
                 <div class="message-container {% if message.user_sender.username == request.user.username %}my-message{% else %}other-message{% endif %}">
-                    {# The message bubble itself #}
                     <div class="message-bubble">
-                        {# Show username only for other users in group chats #}
-                        {% if message.user_sender.username != request.user.username and room.is_group %} {# Assuming room has an is_group attribute #}
+                        {% if message.user_sender.username != request.user.username and room.is_group %}
                             <div class="message-username">{{ message.user_sender.username }}</div>
                         {% endif %}
                         <div class="message-text">{{ message.message_payload }}</div>
-                        {# Timestamp inside the bubble, aligned right #}
-                        <div class="message-timestamp">{{ message.time_stamp|date:"H:i" }}</div> {# Format time as HH:MM #}
+                        
+                        <div class="message-timestamp">{{ message.time_stamp|date:"H:i" }}</div>
                     </div>
                 </div>
             {% endfor %}
         </div>
 
-        {# Input where to write messages - fixed at bottom #}
         <form id="chat_form" class="message-input-form">
             <input type="text" name="message" placeholder="Type a message..." autocomplete="off">
             <button type="submit" class="send-button">
@@ -90,9 +82,9 @@
             </button>
         </form>
 
-    </div> {# End main-chat-area #}
+    </div>
 
-</div> {# End chat-layout #}
+</div>
 
 {% endblock %}
 

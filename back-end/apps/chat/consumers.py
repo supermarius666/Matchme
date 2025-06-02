@@ -5,6 +5,9 @@ from .models import ChatRoom, Message
 from apps.accounts.models import UserProfile
 from django.utils import timezone
 
+# difesa per attacchi
+from django.utils.html import escape
+
 # fa handling dei dati in arrivo all'URL ws://localhost:8000/ws/<room_name> e spedisce anche dati ai client
 class ChatConsumer(WebsocketConsumer):
 
@@ -27,6 +30,9 @@ class ChatConsumer(WebsocketConsumer):
         text_data_json = json.loads(text_data)
         username = text_data_json["username"]
         message_payload = text_data_json["message"]
+
+        # toglie la formattazione html nei messaggi
+        message_payload = escape(message_payload)
 
         # non fa inviare i messaggi vuoti
         if (message_payload == "" or message_payload.strip() == ""):

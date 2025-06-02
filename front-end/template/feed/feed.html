@@ -21,10 +21,12 @@
                 {% for user in matched_users %}
                     <div class="chat-item" onclick="enterChat('{{ user.username }}')">
                         <div class="chat-avatar">
-                            <img class="chat-avatar" src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo"> 
+                            <!-- <img class="chat-avatar" src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo">  -->
+                             <img class="chat-avatar" src="enrico_profilo.jpg" alt="Foto Profilo"> 
                         </div>
 
                         <div class="chat-info">
+                            {{ user.profile_picture.url }}
                             <div class="chat-name">{{ user.username }}</div>
                         </div>
                         <div class="chat-timestamp">02:01 TODO</div>
