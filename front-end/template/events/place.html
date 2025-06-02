@@ -1,40 +1,71 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} | Events{% endblock %}
+{% block title %} | {{ name }}{% endblock %} {# Dynamic title for the specific place #}
 {% block style %}
-	<link rel="stylesheet" href="{% static 'css/events/events.css' %}">
-    <link rel="stylesheet" href="{% static 'css/events/places.css' %}">
+    <link rel="stylesheet" href="{% static 'css/events/places.css' %}"> {# All styles combined here #}
 {% endblock %}
 {% block content %}
-<h1>{{ name }}</h1>
-<img src="https://picsum.photos/600/400?random=1" alt="Placeholder Image" class="card-image">
-<p>Si estende in gran parte sul quartiere Pinciano e in piccola parte sul rione Campo Marzio, divisi dalle Mura aureliane</p>
+<main class="place-detail-main">
+    <section class="place-hero">
+        <div class="container">
+            <h1>{{ name }}</h1>
+            <p class="place-tagline">Discover the charm and history of this beautiful Roman gem.</p>
+        </div>
+    </section>
 
-<br><br>
-<p>Il nucleo della tenuta era già di proprietà dei Borghese nel 1580, sul sito del quale è stata identificata anche la posizione dei giardini di Lucullo (o horti luculliani).
+    <section class="place-content-section">
+        <div class="container place-content-grid">
+            <div class="place-image-wrapper">
+                <img src="{% static 'img/places/villa_borghese.jpg' %}" alt="{{ name }}" class="place-main-image" loading="lazy">
+                <p class="image-caption">A beautiful view of {{ name }}</p>
+            </div>
 
-Il possedimento fu ampliato con una serie di acquisti e acquisizioni dal cardinale Scipione Borghese, nipote di papa Paolo V e futuro patrono di Gianlorenzo Bernini, con l'intento di crearvi una "villa di delizie" e il più vasto giardino costruito a Roma dall'antichità. Nel 1606 la realizzazione degli edifici fu affidata dal cardinale agli architetti Flaminio Ponzio e, dopo la morte del predecessore, a Giovanni Vasanzio (Jan van Santen); gli architetti furono affiancati dal giardiniere Domenico Savini da Montelpulciano e dall'intervento anche di altri artisti, quali Pietro e Gianlorenzo Bernini. La villa fu completata nel 1633.
+            <div class="place-description">
+                <p class="intro-paragraph">Si estende in gran parte sul quartiere Pinciano e in piccola parte sul rione Campo Marzio, divisi dalle Mura aureliane.</p>
 
-Nel 1766 lavori di trasformazione furono intrapresi dal principe Marcantonio IV Borghese (1730-1809), nel "Casino nobile" (ora sede della Galleria Borghese) e nel "Casino dei giuochi d'acqua" (attuale "Aranciera" e sede del Museo Carlo Bilotti), e soprattutto nel parco, con la sistemazione del "Giardino del lago", ad opera degli architetti Antonio Asprucci ed il figlio Mario. Tutto il giardino venne ornato di fontane e piccole fabbriche che permettevano di godere di scorci prospettici suggestivi.
+                <p>Il nucleo della tenuta era già di proprietà dei Borghese nel 1580, sul sito del quale è stata identificata anche la posizione dei giardini di Lucullo (o horti luculliani).</p>
 
-Agli inizi del XIX secolo la villa venne ulteriormente ampliata da Camillo Borghese con l'acquisto di terreni verso porta del Popolo e porta Pinciana, che furono integrati alla villa con l'intervento dell'architetto Luigi Canina. Nel corso del secolo gran parte del precedente giardino all'italiana fu trasformato in giardino di paesaggio di gusto inglese. Durante tutto il secolo i giardini furono aperti per il passeggio festivo e vi erano ospitate feste popolari con canti e balli.
+                <p>Il possedimento fu ampliato con una serie di acquisti e acquisizioni dal cardinale Scipione Borghese, nipote di papa Paolo V e futuro patrono di Gianlorenzo Bernini, con l'intento di crearvi una "villa di delizie" e il più vasto giardino costruito a Roma dall'antichità. Nel 1606 la realizzazione degli edifici fu affidata dal cardinale agli architetti Flaminio Ponzio e, dopo la morte del predecessore, a Giovanni Vasanzio (Jan van Santen); gli architetti furono affiancati dal giardiniere Domenico Savini da Montelpulciano e dall'intervento anche di altri artisti, quali Pietro e Gianlorenzo Bernini. La villa fu completata nel 1633.</p>
 
-Il complesso - caso unico tra le grandi ville patrizie della città, i cui parchi furono tutti assoggettati a lottizzazione, e anche le ville raramente salvate - fu acquistato dallo Stato italiano nel 1901 e ceduto al comune di Roma nel 1903 per essere stabilmente aperto al pubblico, proprio mentre iniziava la lottizzazione della confinante Villa Ludovisi sui cui terreni stava sorgendo l'omonimo quartiere. La villa fu acquistata per 3 milioni di lire dell'epoca (equivalenti a circa 10 milioni di euro attuali), e denominata ufficialmente "Villa comunale Umberto I già Borghese". I romani non smisero mai di chiamarla villa Borghese.
-</p>
+                <p>Nel 1766 lavori di trasformazione furono intrapresi dal principe Marcantonio IV Borghese (1730-1809), nel "Casino nobile" (ora sede della Galleria Borghese) e nel "Casino dei giuochi d'acqua" (attuale "Aranciera" e sede del Museo Carlo Bilotti), e soprattutto nel parco, con la sistemazione del "Giardino del lago", ad opera degli architetti Antonio Asprucci ed il figlio Mario. Tutto il giardino venne ornato di fontane e piccole fabbriche che permettevano di godere di scorci prospettici suggestivi.</p>
 
-<br>
+                <p>Agli inizi del XIX secolo la villa venne ulteriormente ampliata da Camillo Borghese con l'acquisto di terreni verso porta del Popolo e porta Pinciana, che furono integrati alla villa con l'intervento dell'architetto Luigi Canina. Nel corso del secolo gran parte del precedente giardino all'italiana fu trasformato in giardino di paesaggio di gusto inglese. Durante tutto il secolo i giardini furono aperti per il passeggio festivo e vi erano ospitate feste popolari con canti e balli.</p>
 
-<div id="map">
-</div>
+                <p>Il complesso - caso unico tra le grandi ville patrizie della città, i cui parchi furono tutti assoggettati a lottizzazione, e anche le ville raramente salvate - fu acquistato dallo Stato italiano nel 1901 e ceduto al comune di Roma nel 1903 per essere stabilmente aperto al pubblico, proprio mentre iniziava la lottizzazione della confinante Villa Ludovisi sui cui terreni stava sorgendo l'omonimo quartiere. La villa fu acquistata per 3 milioni di lire dell'epoca (equivalenti a circa 10 milioni di euro attuali), e denominata ufficialmente "Villa comunale Umberto I già Borghese". I romani non smisero mai di chiamarla villa Borghese.</p>
+            </div>
+        </div>
+    </section>
 
-<br>
+    <section class="place-map-section">
+        <div class="container">
+            <h2>Location & Map</h2>
+            <div id="map" class="modern-map-container">
+                {# Map will be injected here by JS #}
+            </div>
+            <p class="map-note">Click "View larger map" to explore on OpenStreetMap.</p>
+        </div>
+    </section>
 
-<a href="https://www.sovraintendenzaroma.it/i_luoghi/ville_e_parchi_storici/ville_dei_nobili/villa_borghese">Sito Ufficiale</a><br>
-<a href="https://it.wikipedia.org/wiki/Villa_Borghese">wikipedia</a><br>
-<a href="https://www.google.it/maps/preview">google maps</a>
+    <section class="place-links-section">
+        <div class="container">
+            <h2>Useful Links</h2>
+            <ul class="link-list">
+                <li><a href="https://www.sovraintendenzaroma.it/i_luoghi/ville_e_parchi_storici/ville_dei_nobili/villa_borghese" target="_blank" rel="noopener noreferrer">Official Site of Sovrintendenza Roma &rarr;</a></li>
+                <li><a href="https://it.wikipedia.org/wiki/Villa_Borghese" target="_blank" rel="noopener noreferrer">Wikipedia Page &rarr;</a></li>
+                <li><a href="https://www.google.it/maps/search/Villa+Borghese+Rome" target="_blank" rel="noopener noreferrer">View on Google Maps &rarr;</a></li> {# Changed to a search link for more direct access #}
+            </ul>
+        </div>
+    </section>
 
-
-
+    <section class="call-to-action">
+        <div class="container">
+            <h2>Looking for more amazing places and events?</h2>
+            <p>Matchme helps you discover the best spots and meet new people who share your passions.</p>
+            <a href="#" class="btn-primary">Join Matchme Today!</a>
+            <a href="{% url 'events' %}" class="btn-secondary">Explore All Events</a>
+        </div>
+    </section>
+</main>
 {% endblock %}
 
 {% block footer %}
@@ -43,17 +74,23 @@ Il complesso - caso unico tra le grandi ville patrizie della città, i cui parch
 
 {% block script %}
 <script>
-    let lat = 41.9138822
-    let lon = 12.4828069
+    // Assuming 'lat' and 'lon' would be passed from Django context for a dynamic page
+    // For now, hardcode for Villa Borghese
+    const lat = 41.9138822;
+    const lon = 12.4828069;
 
-    const lat1 = lat - 0.0014
-    const lat2 = lat + 0.0014
-    const lon1 = lon - 0.0016
-    const lon2 = lon + 0.0016
+    const latDelta = 0.0014;
+    const lonDelta = 0.0016;
+
+    const lat1 = lat - latDelta;
+    const lat2 = lat + latDelta;
+    const lon1 = lon - lonDelta;
+    const lon2 = lon + lonDelta;
 
     const markup = `
-        <iframe width="425" height="350" src="https://www.openstreetmap.org/export/embed.html?bbox=${lon1}%2C${lat1}%2C${lon2}%2C${lat2}&amp;layer=mapnik" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/?#map=19/${lat}/${lon}">Visualizza mappa ingrandita</a></small>
-    `
-    document.getElementById("map").innerHTML = markup
+        <iframe width="100%" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=${lon1}%2C${lat1}%2C${lon2}%2C${lat2}&amp;layer=mapnik&amp;marker=${lat}%2C${lon}" style="border: 1px solid #ddd; border-radius: 8px;"></iframe><br/>
+        <small><a href="https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=17/${lat}/${lon}" target="_blank" rel="noopener noreferrer" style="color: #FF4D4D; text-decoration: none; font-weight: 600; margin-top: 10px; display: inline-block;">View larger map &rarr;</a></small>
+    `;
+    document.getElementById("map").innerHTML = markup;
 </script>
 {% endblock %}

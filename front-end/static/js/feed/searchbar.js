@@ -28,12 +28,14 @@ const searchInput = document.getElementById("search-bar")
     function displayOutput(users) {
         chatsDiv.innerHTML = ""
 
+        const profile_pic = "{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}"
+
         if (users.length > 0) {
             users.forEach(username => {
                 chatsDiv.innerHTML += `
                     <div class="chat-item" onclick="enterChat('${username}')">
                         <div class="chat-avatar">
-                            <img class="chat-avatar" src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo"> 
+                            <img class="chat-avatar" src="${profile_pic}<" alt="Foto Profilo"> 
                         </div>
 
                         <div class="chat-info">

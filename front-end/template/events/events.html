@@ -2,66 +2,147 @@
 {% load static %}
 {% block title %} | Events{% endblock %}
 {% block style %}
-	<link rel="stylesheet" href="{% static 'css/events/events.css' %}">
-    <link rel="stylesheet" href="{% static 'css/events/places.css' %}">
+    <link rel="stylesheet" href="{% static 'css/events/events.css' %}">
 {% endblock %}
 {% block content %}
-<div class="event-container">
-    <h1>Featured Events</h1>
-    <div class="slider-container">
-        <div class="slider">
-            <img src="https://picsum.photos/600/400?random=1" alt="Image 1">
-            <img src="https://picsum.photos/600/400?random=1" alt="Image 2">
-            <img src="https://picsum.photos/600/400?random=1" alt="Image 3">
-            <img src="https://picsum.photos/600/400?random=1" alt="Image 4">
+<main>
+    <section class="events-hero">
+        <div class="hero-content">
+            <h1>Discover Exciting Events with Matchme!</h1>
+            <p>Connect with new people and find unforgettable experiences. Whether you're looking for a romantic evening or a fun group outing, we've got you covered.</p>
+            <a href="#featured-events" class="btn-primary">Explore Events</a>
+            <a href="#places-to-meet" class="btn-secondary">Find Places to Meet</a>
         </div>
+    </section>
 
-        <div class="slider-nav">
-            <button class="prev-btn">&lt;</button>
-            <button class="next-btn">&gt;</button>
-        </div>
+    <section id="featured-events" class="event-slider-section">
+        <div class="container">
+            <h2>Featured Events</h2>
+            <div class="slider-wrapper">
+                <div class="slider-container">
+                    <div class="slider">
+                        {# Example: Loop through actual event data if available #}
+                        {% comment %}
+                        {% for event in featured_events %}
+                        <img src="{{ event.image.url }}" alt="{{ event.title }}">
+                        {% endfor %}
+                        {% endcomment %}
+                        <img src="https://picsum.photos/800/500?random=1" alt="City Lights Event">
+                        <img src="https://picsum.photos/800/500?random=2" alt="Outdoor Adventure Meetup">
+                        <img src="https://picsum.photos/800/500?random=3" alt="Art Exhibition Gathering">
+                        <img src="https://picsum.photos/800/500?random=4" alt="Cooking Class Social">
+                    </div>
 
-        <div class="dots-container">
-            <span class="dot active" data-slide="0"></span>
-            <span class="dot" data-slide="1"></span>
-            <span class="dot" data-slide="2"></span>
-            <span class="dot" data-slide="3"></span>
-        </div>
-    </div>
-</div>
+                    <div class="slider-nav">
+                        <button class="prev-btn" aria-label="Previous slide">&lt;</button>
+                        <button class="next-btn" aria-label="Next slide">&gt;</button>
+                    </div>
 
-<div class="places-container">
-    <h1>Places to meet IRL</h1>
-    <div class="grid-container">
-        <div class="card" onclick="gotoPlace('Villa Borghese')"> {# '{{ place.name }}' #}
-            <h3 class="card-title">Villa Borghese</h3>
-            <img src="https://picsum.photos/600/400?random=2" alt="Placeholder Image" class="card-image">
-            <p class="card-text">short description blablablblblablablalblablablalbalbalbla</p>
+                    <div class="dots-container">
+                        {# Example: Generate dots dynamically #}
+                        {% comment %}
+                        {% for event in featured_events %}
+                        <span class="dot {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.counter0 }}"></span>
+                        {% endfor %}
+                        {% endcomment %}
+                        <span class="dot active" data-slide="0"></span>
+                        <span class="dot" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                        <span class="dot" data-slide="3"></span>
+                    </div>
+                </div>
+                <p class="slider-caption">Swipe to see more exciting events!</p>
+            </div>
         </div>
+    </section>
 
-        <div class="card" onclick="gotoPlace('Villa Borghese')"> {# '{{ place.name }}' #}
-            <h3 class="card-title">Giardino degli aranci</h3>
-            <img src="https://picsum.photos/600/400?random=3" alt="Placeholder Image" class="card-image">
-            <p class="card-text">short description blablablblblablablalblablablalbalbalbla</p>
-        </div>
-        <div class="card" onclick="gotoPlace('Villa Borghese')"> {# '{{ place.name }}' #}
-            <h3 class="card-title">Villa bo</h3>
-            <img src="https://picsum.photos/600/400?random=4" alt="Placeholder Image" class="card-image">
-            <p class="card-text">short description blablablblblablablalblablablalbalbalbla</p>
-        </div>
-        <div class="card" onclick="gotoPlace('Villa Borghese')"> {# '{{ place.name }}' #}
-            <h3 class="card-title">Villa bo</h3>
-            <img src="https://picsum.photos/600/400?random=5" alt="Placeholder Image" class="card-image">
-            <p class="card-text">short description blablablblblablablalblablablalbalbalbla</p>
-        </div>
-        <div class="card" onclick="gotoPlace('Villa Borghese')"> {# '{{ place.name }}' #}
-            <h3 class="card-title">Villa bo</h3>
-            <img src="https://picsum.photos/600/400?random=6" alt="Placeholder Image" class="card-image">
-            <p class="card-text">short description blablablblblablablalblablablalbalbalbla</p>
-        </div>
-    </div>
-</div>
+    <section id="places-to-meet" class="places-section">
+        <div class="container">
+            <h2>Great Places to Meet IRL</h2>
+            <div class="grid-container">
+                {# Example: Loop through actual place data if available #}
+                {% comment %}
+                {% for place in places %}
+                <div class="card" onclick="gotoPlace('{{ place.slug }}')">
+                    <img src="{{ place.image.url }}" alt="{{ place.name }}" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">{{ place.name }}</h3>
+                        <p class="card-text">{{ place.short_description }}</p>
+                        <a href="/events/places/{{ place.slug }}" class="card-link">Learn More &rarr;</a>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endcomment %}
 
+                <div class="card" onclick="gotoPlace('Villa Borghese')">
+                    <img src="https://picsum.photos/600/400?random=5" alt="Villa Borghese" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">Villa Borghese</h3>
+                        <p class="card-text">A stunning public park in Rome with gardens, museums, and historical buildings. Perfect for a relaxed first date or a group picnic.</p>
+                        <a href="/events/places/villa-borghese" class="card-link">Learn More &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="card" onclick="gotoPlace('giardino-degli-aranci')">
+                    <img src="https://picsum.photos/600/400?random=6" alt="Giardino degli Aranci" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">Giardino degli Aranci</h3>
+                        <p class="card-text">Also known as Parco Savello, this charming orange garden offers panoramic views of Rome. Ideal for a romantic sunset stroll.</p>
+                        <a href="/events/places/giardino-degli-aranci" class="card-link">Learn More &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="card" onclick="gotoPlace('trastevere-square')">
+                    <img src="https://picsum.photos/600/400?random=7" alt="Trastevere Square" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">Piazza di Santa Maria in Trastevere</h3>
+                        <p class="card-text">The heart of Trastevere, bustling with life, street artists, and charming cafes. Great for a lively first meeting or group night out.</p>
+                        <a href="/events/places/trastevere-square" class="card-link">Learn More &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="card" onclick="gotoPlace('testaccio-market')">
+                    <img src="https://picsum.photos/600/400?random=8" alt="Testaccio Market" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">Testaccio Market</h3>
+                        <p class="card-text">A vibrant food market offering authentic Roman street food and local delights. A fantastic casual spot for foodies to connect.</p>
+                        <a href="/events/places/testaccio-market" class="card-link">Learn More &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="card" onclick="gotoPlace('villa-ada')">
+                    <img src="https://picsum.photos/600/400?random=9" alt="Villa Ada" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">Villa Ada</h3>
+                        <p class="card-text">Rome's second-largest park, known for its vast green spaces, lake, and summer concerts. Ideal for outdoor enthusiasts.</p>
+                        <a href="/events/places/villa-ada" class="card-link">Learn More &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="card" onclick="gotoPlace('coppede-quarter')">
+                    <img src="https://picsum.photos/600/400?random=10" alt="Quartiere Coppedè" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">Quartiere Coppedè</h3>
+                        <p class="card-text">A hidden gem with unique Art Nouveau and Baroque architecture. Perfect for a quirky, memorable date or photo walk.</p>
+                        <a href="/events/places/coppede-quarter" class="card-link">Learn More &rarr;</a>
+                    </div>
+                </div>
+            </div>
+            <div class="view-all-places">
+                <a href="#" class="btn-secondary">View All Places &rarr;</a> {# Assuming you have an 'all_places' URL #}
+            </div>
+        </div>
+    </section>
+
+    <section class="call-to-action">
+        <div class="container">
+            <h2>Ready to Join the Fun?</h2>
+            <p>Don't miss out on amazing events and opportunities to meet new people!</p>
+            <a href="#" class="btn-primary">Sign Up for Free!</a>
+            <a href="{% url 'contact' %}" class="btn-secondary">Contact Us</a>
+        </div>
+    </section>
+</main>
 {% endblock %}
 
 {% block footer %}
@@ -71,8 +152,18 @@
 {% block script %}
 <script src="{% static 'js/events/imageSlider.js' %}"></script>
 <script type="text/javascript">
-    function gotoPlace(placeName) {
-        window.location.href = `/events/${placeName}`;
+    function gotoPlace(placeSlug) {
+        window.location.href = `/events/${placeSlug}`;
     }
+
+    // Optional: Add some JS for smooth scrolling to sections
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
 </script>
 {% endblock %}

@@ -184,6 +184,7 @@ main {
     border-bottom: 1px solid #e0e0e0;
     z-index: 100; 
     flex-shrink: 0; 
+    border: none;
 }
 
 .menu-icon-mobile {
@@ -382,5 +383,93 @@ main {
     fill: #667781; 
     stroke: #667781; 
 }
+
+.chat-header-main {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 10px 20px;
+ height: 100px; 
+ border-bottom: 1px solid #e0e0e0;
+ z-index: 100; 
+ flex-shrink: 0; 
+
+}
+
+.chat-avatar-main:hover {
+    border-color: var(--primary-color, #ff4081);
+}
+
+.chat-header-main {
+  display: flex;
+  height: 100px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #000;
+}
+
+.chat-header-left {
+  background-color: white;
+  flex-grow: 1;
+  padding: 50px 50px;
+  clip-path: polygon(0 0, calc(100% - 40px) 0, 100% 100%, 0% 100%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  height: 100px;
+}
+
+.chat-header-right {
+  width: 180px;
+  flex-shrink: 0;
+  clip-path: polygon(40px 0, 100% 0, 100% 100%, 0% 100%);
+  z-index: 1;
+}
+
+ .chat-header-main {
+      position: relative;
+      width: 100%;
+      height: 120px;
+      background-image: url('https://picsum.photos/1200/300');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      border: none;
+    }
+
+    .chat-header-info {
+      position: relative;
+      background-color: white;
+      padding: 53px 86px 43px 26px;
+      clip-path: polygon(0 0, 104% 0, 63% 100%, -7% 100%);
+      display: flex;
+      align-items: center;
+      margin-left: -21px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+
+    .chat-avatar-main {
+      margin-right: 10px;
+    }
+
+    .chat-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .chat-details h3 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .chat-details p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: green;
+    }
 
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css");

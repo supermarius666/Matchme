@@ -233,3 +233,152 @@ body {
         font-size: 1.8em;
     }
 }
+
+.developers-section {
+    background-color: #f0f4f8; 
+    padding: 80px 0; 
+    overflow: hidden; 
+}
+
+.developers-section h2 {
+    font-size: 3em; 
+    margin-bottom: 60px; 
+    text-align: center;
+    color: #2c3e50; 
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.developers-section h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 100px; 
+    height: 5px; 
+    background-color: #FF4D4D;
+    border-radius: 2px;
+}
+
+.developer-grid {
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 0 20px; 
+}
+
+.developer-card {
+    background-color: #ffffff;
+    border-radius: 15px; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
+    overflow: hidden; 
+    text-align: center;
+    padding: 30px; 
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
+    position: relative; 
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.developer-card:hover {
+    transform: translateY(-10px); 
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); 
+}
+
+.developer-card img {
+    width: 180px; 
+    height: 180px; 
+    border-radius: 50%; 
+    object-fit: cover;
+    margin-bottom: 25px; 
+    border: 5px solid #FF4D4D; 
+    box-shadow: 0 0 0 8px rgba(255, 77, 77, 0.15); 
+    transition: transform 0.3s ease-in-out; 
+}
+
+.developer-card:hover img {
+    transform: scale(1.05); 
+}
+
+.developer-card h3 {
+    font-size: 1.8em; 
+    margin-bottom: 8px; 
+    color: #333;
+    font-weight: 700; 
+}
+
+.developer-card .role { 
+    font-size: 1.1em; 
+    color: #666;
+    margin-bottom: 15px; 
+    font-weight: 500;
+}
+
+.developer-card p {
+    font-size: 1.05em; 
+    line-height: 1.6;
+    color: #555;
+    flex-grow: 1; 
+}
+
+@media (max-width: 992px) {
+    .developers-section h2 {
+        font-size: 2.5em;
+        margin-bottom: 50px;
+    }
+    .developer-grid {
+        gap: 30px;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    .developer-card {
+        padding: 25px;
+    }
+    .developer-card img {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 20px;
+    }
+    .developer-card h3 {
+        font-size: 1.6em;
+    }
+    .developer-card .role {
+        font-size: 1em;
+    }
+    .developer-card p {
+        font-size: 0.95em;
+    }
+}
+
+@media (max-width: 768px) {
+    .developers-section h2 {
+        font-size: 2em;
+        margin-bottom: 40px;
+    }
+    .developer-grid {
+        grid-template-columns: 1fr; 
+        padding: 0 15px;
+    }
+    .developer-card {
+        padding: 20px;
+    }
+    .developer-card img {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 15px;
+    }
+    .developer-card h3 {
+        font-size: 1.4em;
+    }
+    .developer-card .role {
+        font-size: 0.9em;
+    }
+    .developer-card p {
+        font-size: 0.9em;
+    }
+}

@@ -35,17 +35,25 @@
     {# Main Chat Area #}
     <div class="main-chat-area">
         {# Chat Header #}
-        <div class="chat-header-main">
+        <div class="chat-header-main" style="
+            {% if chat_user.cover_picture %}
+            background-image: url('{{ chat_user.cover_picture.url }}');
+            {% else %}
+            background-color: white;
+            {% endif %}
+            background-size: cover;
+            background-position: center;">
+
             <div class="chat-header-info">
                 <div class="chat-avatar-main">
                     <a href="{% url 'accounts:profile' chat_user.username %}">
-                        <img class="chat-avatar" src="{% if chat_user.profile_picture %}{{ chat_user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo">
+                    <img class="chat-avatar" src="{% if chat_user.profile_picture %}{{ chat_user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo">
                     </a>
                 </div>
                 <div class="chat-details">
                     <h3>{{ chat_user.username }}</h3>
                     {% if chat_user.online %}
-                        <p>online</p>
+                    <p>online</p>
                     {% endif %}
                 </div>
             </div>
