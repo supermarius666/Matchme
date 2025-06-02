@@ -1,5 +1,3 @@
-console.log("profile.js loaded and executing (for owner).");
-
 // --- DOM Elements ---
 const myProfileView = document.getElementById('my-profile-view');
 const publicPreviewView = document.getElementById('public-preview-view');
@@ -9,7 +7,6 @@ const publicPreviewBtn = document.getElementById('public-preview-btn');
 
 const bioTextarea = document.getElementById('bio-textarea');
 const publicBioText = document.getElementById('public-bio-text');
-const charCount = document.getElementById('char-count');
 
 const messageBox = document.getElementById('status-message-box');
 
@@ -21,30 +18,16 @@ const coverUploadInput = document.getElementById('cover-upload');
 const avatarOverlay = document.querySelector('.profile-avatar-container .avatar-overlay');
 const coverOverlay = document.querySelector('.cover-photo-section .cover-overlay');
 
-const profileDataContainer = document.getElementById('profile-data-container');
+const csrfTokenInput = document.querySelector('input[name="csrfmiddlewaretoken"]');
 
-const formData = new FormData();
+const uploadUrl = '/accounts/update_profile/';
 
-let uploadUrl = '';
+// variabili globali dove metteremo l'immagine caricata dal file explorer
+let avatar_pic_file = null;
+let cover_pic_file = null;
 
 let currentView = 'myProfile';
 let isEditingMode = false;
-
-// --- Utility Functions ---
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.startsWith(name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
 
 function showMessage(message, type) {
     if (!messageBox) {
@@ -72,7 +55,7 @@ function showMessage(message, type) {
     }
 }
 
-// --- View Toggle Logic ---
+// toggle del tipo di pagina: (Anteprima Pubblica - Torna al Mio Profilo)
 function toggleView(viewName) {
     currentView = viewName;
 
@@ -101,9 +84,13 @@ function toggleView(viewName) {
     }
 }
 
+// logica di togglig: toggla isEditingMode e rende modificabili foto/textArea in base allo stato in cui si trova
 function toggleEditMode(enable) {
     isEditingMode = enable;
     
+    if (isEditingMode)
+        showMessage('Modalità modifica attivata. Clicca sulle aree per modificare.', 'info');
+
     console.log("toggleEditMode: ${isEditingMode}");
 
     avatarOverlay?.classList.toggle('active', isEditingMode);
@@ -124,52 +111,46 @@ function toggleEditMode(enable) {
 }
 
 async function editProfileHandler() {
-    console.log("mode", isEditingMode)
+    // ModificaProfilo/SalvaModifiche sono su lo stesso pulsante: quando si clicca si toggla lo stato di questa var (e la edit mode stessa)
+    // click su ModificaProfilo --> isEditingMode = true
+    // click su SalvaModifiche --> isEditingMode = false
     toggleEditMode(!isEditingMode);
-    console.log("mode", isEditingMode)
-    //if (!isEditingMode) toggleView('myProfile');
-    //showMessage(isEditingMode ? 'Modalità modifica attivata. Clicca sulle aree per modificare.' : 'Modalità modifica disattivata.', 'info');
 
     const newBio = bioTextarea.value.trim();
-    const saveUrl = '/accounts/update_profile/';
-
-    if (!saveUrl) {
-        showMessage('URL di salvataggio biografia non definito.', 'error');
-        return;
-    }
 
     if (newBio.length > bioTextarea.maxLength) {
         showMessage(`La biografia supera il limite di ${bioTextarea.maxLength} caratteri.`, 'error');
         return;
     }
 
-    // const payload = {
-    //     formData: formData,
-    //     bio: newBio
-    // };
+    // Nella richiesta HTTP POST invieremo un oggetto FormData e non un JSON perchè è questa la convenzione per inviare immagini
+    // (volendo possiamo mandare le immagini anche attraverso un json)
+    const formData = new FormData();
 
     formData.append('bio', newBio);
+    formData.append("profile_picture", avatar_pic_file);
+    formData.append("cover_picture", cover_pic_file);
 
-    console.log("mode", isEditingMode)
+    // inseriamo il 'X-CSRFToken' nel body cosi non va messo come altro campo dell'header
+    formData.append('csrfmiddlewaretoken', csrfTokenInput.value);
+
+    // se si ha cliccato su Salva Modifiche (non si è più in EditingMode) si fetchano i dati a server
     if (!isEditingMode) {
         try {
-            console.log("per inviare dati")
-
-            const response = await fetch(saveUrl, {
+            const response = await fetch(uploadUrl, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken')
-                },
-                body: formData //.stringify(payload)
+                body: formData 
             });
 
             if (!response.ok) throw new Error((await response.json()).message || 'Errore nel salvataggio.');
 
+            // la response invece è in JSON
             const data = await response.json();
-
+            
+            // si risetta la textArea della Bio a readonly
             bioTextarea.setAttribute('readonly', true);
             
+            // renderizza il messaggio di successo inviato nella response dal server
             showMessage(data.message, 'success');
             publicBioText.textContent = newBio;
 
@@ -178,78 +159,40 @@ async function editProfileHandler() {
             showMessage(error.message || 'Errore durante il salvataggio.', 'error');
         }
     }
-    else {
-        console.log("sei ")
+}
+
+async function handleImageUpload(event, imageType) {
+    const fileInput = event.target;
+    const file = fileInput.files[0];
+
+    if (!file) return showMessage('Nessun file selezionato.', 'error');
+
+    // oggetto per leggere file (per noi immagini) nel file explorer del pc
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        if (fileInput.id === 'avatar-upload') {
+            document.querySelectorAll('.profile-avatar').forEach(img => img.src = e.target.result);
+        } else if (fileInput.id === 'cover-upload') {
+            document.querySelectorAll('.cover-image').forEach(img => img.src = e.target.result);
+        }
+    };
+    reader.readAsDataURL(file);
+
+    if (imageType == "avatar") {
+        avatar_pic_file = file;
+    }
+    else if (imageType == "cover") {
+        cover_pic_file = file;
     }
 }
 
 // --- DOM Ready ---
 document.addEventListener('DOMContentLoaded', function () {
-    uploadUrl = profileDataContainer?.dataset.uploadUrl || '';
-    if (!uploadUrl) {
-        showMessage("Impossibile caricare le foto: URL di upload mancante.", "error");
-    }
-
     editProfileBtn?.addEventListener('click', editProfileHandler);
-
 
     publicPreviewBtn?.addEventListener('click', () => {
         toggleView(currentView === 'myProfile' ? 'publicPreview' : 'myProfile');
     });
-
-    // editBioBtn?.addEventListener('click', async () => {
-    //     if (editBioBtn.textContent.trim() === 'Modifica') {
-    //         bioTextarea.removeAttribute('readonly');
-    //         bioTextarea.focus();
-    //         editBioBtn.textContent = 'Salva';
-    //         editBioBtn.classList.replace('bg-blue-600', 'bg-green-600');
-    //         messageBox?.classList.add('hidden');
-    //     } else {
-    //         const newBio = bioTextarea.value.trim();
-    //         const saveUrl = editBioBtn.dataset.saveUrl;
-
-    //         if (!saveUrl) {
-    //             showMessage('URL di salvataggio biografia non definito.', 'error');
-    //             return;
-    //         }
-
-    //         if (newBio.length > bioTextarea.maxLength) {
-    //             showMessage(`La biografia supera il limite di ${bioTextarea.maxLength} caratteri.`, 'error');
-    //             return;
-    //         }
-
-    //         editBioBtn.textContent = 'Salvataggio...';
-    //         editBioBtn.disabled = true;
-
-    //         try {
-    //             const response = await fetch(saveUrl, {
-    //                 method: 'POST',
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                     'X-CSRFToken': getCookie('csrftoken')
-    //                 },
-    //                 body: JSON.stringify({ bio: newBio })
-    //             });
-
-    //             if (!response.ok) throw new Error((await response.json()).message || 'Errore nel salvataggio.');
-
-    //             const data = await response.json();
-
-    //             bioTextarea.setAttribute('readonly', true);
-    //             editBioBtn.textContent = 'Modifica';
-    //             editBioBtn.classList.replace('bg-green-600', 'bg-blue-600');
-    //             showMessage(data.message, 'success');
-    //             publicBioText.textContent = newBio;
-    //         } catch (error) {
-    //             showMessage(error.message || 'Errore durante il salvataggio.', 'error');
-    //         } finally {
-    //             editBioBtn.disabled = false;
-    //             if (editBioBtn.textContent === 'Salvataggio...') {
-    //                 editBioBtn.textContent = 'Salva';
-    //             }
-    //         }
-    //     }
-    // });
 
     editAvatarBtn?.addEventListener('click', () => {
         if (isEditingMode) avatarUploadInput?.click();
@@ -261,52 +204,10 @@ document.addEventListener('DOMContentLoaded', function () {
         else showMessage('Attiva la modalità di modifica per caricare le immagini.', 'info');
     });
 
-    async function handleImageUpload(event) {
-        const fileInput = event.target;
-        const file = fileInput.files[0];
-
-        if (!file) return showMessage('Nessun file selezionato.', 'error');
-
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            if (fileInput.id === 'avatar-upload') {
-                document.querySelectorAll('.profile-avatar').forEach(img => img.src = e.target.result);
-            } else if (fileInput.id === 'cover-upload') {
-                document.querySelectorAll('.cover-image').forEach(img => img.src = e.target.result);
-            }
-        };
-        reader.readAsDataURL(file);
-
-        //formData.append("photo", file);
-        formData.append("profile_picture", file);
-        // formData.append(fileInput.name, file);
-        formData.append('csrfmiddlewaretoken', getCookie('csrftoken'));
-   
-
-        // showMessage('Caricamento in corso...', 'info');
-
-        // try {
-        //     const response = await fetch(uploadUrl, { method: 'POST', body: formData });
-        //     const data = await response.json();
-        //     if (!response.ok) throw new Error(data.message);
-
-        //     if (fileInput.id === 'avatar-upload' && data.profile_picture_url) {
-        //         document.querySelectorAll('.profile-avatar').forEach(img => img.src = data.profile_picture_url);
-        //     } else if (fileInput.id === 'cover-upload' && data.cover_picture_url) {
-        //         document.querySelectorAll('.cover-image').forEach(img => img.src = data.cover_picture_url);
-        //     }
-
-        //     showMessage(data.message || 'Immagine aggiornata.', 'success');
-        // } catch (error) {
-        //     showMessage(error.message || 'Errore durante il caricamento.', 'error');
-        // }
-    }
-
-
-
-
-    avatarUploadInput?.addEventListener('change', handleImageUpload);
-    coverUploadInput?.addEventListener('change', handleImageUpload);
+    // event listener degli input per inserire le immagini
+    // per passargli parametri diversi ("avatar", "cover") contengono come handler un arrow function che chiama il vero handler
+    avatarUploadInput?.addEventListener('change', (event) => handleImageUpload(event, 'avatar'));
+    coverUploadInput?.addEventListener('change', (event) => handleImageUpload(event, 'cover'));
 
     // Setup iniziale
     toggleView('myProfile');

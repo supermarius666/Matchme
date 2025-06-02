@@ -96,24 +96,18 @@ def preferences_view(request):
 
     return render(request, 'accounts/preferences.html')
 
-def update_bio(request, data):
+def update_bio(request):
     try: 
-        #bio = request.POST.get('bio', '').strip()[:255]
-        bio = data["bio"]
+        bio = request.POST.get('bio', '').strip()[:255]
 
-        max_length = 255
-        if len(bio) > max_length:
+        bio_max_length = 255
+        if len(bio) > bio_max_length:
             response = {"success": False, "message": "bio non aggiornata"}
             return response
-            #return JsonResponse({'success': False, 'message': f'La biografia non può superare i {max_length} caratteri.'}, status=400)
-
+  
         request.user.biography = bio
-        print(f"questa è la bio da js: {bio}")
-        print(f"questa è la biography da js: {request.user.biography}")
-
         request.user.save()
 
-        print("assegnata bio: ", bio)
         response = {"success": True, "message": "bio aggiornata"}
         return response
     
@@ -121,65 +115,38 @@ def update_bio(request, data):
         response = {"success": False, "message": "bio non aggiornata"}
         return response
 
-    #     return JsonResponse({'success': True, 'message': 'Biografia aggiornata con successo!'})
-    # except json.JSONDecodeError:
-    #     return JsonResponse({'success': False, 'message': 'Richiesta JSON non valida.'}, status=400)
-    # except Exception as e:
-    #     return JsonResponse({'success': False, 'message': f'Errore del server: {str(e)}'}, status=500)
-
-
-def update_photo(request, data):
+def update_photo(request):
     try:
         user_profile = request.user
 
-        print("chiamata a update_photo:")
-        print("Conenuto foto: ", request.FILES.get("profile_picture"))
-        print("Conenuto foto: ", request.FILES.get("photo"))
-        if 'photo' in request.FILES:
-            file = request.FILES['photo']
+        if "profile_picture" in request.FILES:
+            file = request.FILES["profile_picture"]
             user_profile.profile_picture = file
             user_profile.save()
 
-            print("assegnata foto", file)
+        if "cover_picture" in request.FILES:
+            file = request.FILES["cover_picture"]
+            user_profile.cover_picture = file
+            user_profile.save()
 
-            response = {"success": True, "message": "photo aggiornata"}
-            return response
-        
-        # elif 'cover_picture' in request.FILES:
-        #     file = request.FILES['cover_picture']
-        #     user_profile.cover_picture = file
-        #     user_profile.save()
-        #     return JsonResponse({
-        #         'success': True,
-        #         'message': 'Foto di copertina caricata con successo!',
-        #         'cover_picture_url': user_profile.cover_picture.url
-        #     })
-        
-        # else:
-        #     return JsonResponse({
-        #         'success': False,
-        #         'message': 'Nessun file immagine valido trovato nella richiesta.'
-        #     }, status=400)
+        response = {"success": True, "message": "foto profilo e cover aggiornate"}
+        return response
 
     except Exception as e:
         response = {"success": True, "message": "photo aggiornata"}
         return response
 
-        # return JsonResponse({
-        #     'success': False,
-        #     'message': f'Errore del server durante il caricamento: {str(e)}'
-        # }, status=500)
-
-#@login_required
+@login_required
 @csrf_exempt
 def update_profile_view(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
+        bio_response = update_bio(request)
+        photo_response = update_photo(request)
 
-        bio_response = update_bio(request, data)
-        photo_response = update_photo(request, data)
-
-        return JsonResponse({'success': True, 'message': 'Aggiornato tutto con successo'})
+        if bio_response["success"] and photo_response["success"]:
+            return JsonResponse({'success': True, 'message': 'Aggiornate foto e bio con successo'})
+        else:
+            return JsonResponse({'success': False, 'message': 'Errore nel caricamento foto e/o bio'})
     else:
         return JsonResponse({'success': False, 'message': 'Metodo non permesso.'}, status=405)
 
@@ -194,51 +161,6 @@ def upload_photo_reg(request):
             return redirect('home')
     
     return render(request, 'accounts/upload_photo.html')
-
-@login_required
-def upload_photo(request):
-    if request.method == 'POST':
-        try:
-            user_profile = request.user
-
-            if 'profile_picture' in request.FILES:
-                file = request.FILES['profile_picture']
-                user_profile.profile_picture = file
-                user_profile.save()
-                return JsonResponse({
-                    'success': True,
-                    'message': 'Foto profilo caricata con successo!',
-                    'profile_picture_url': user_profile.profile_picture.url
-                })
-            
-            elif 'cover_picture' in request.FILES:
-                file = request.FILES['cover_picture']
-                user_profile.cover_picture = file
-                user_profile.save()
-                return JsonResponse({
-                    'success': True,
-                    'message': 'Foto di copertina caricata con successo!',
-                    'cover_picture_url': user_profile.cover_picture.url
-                })
-            
-            else:
-                return JsonResponse({
-                    'success': False,
-                    'message': 'Nessun file immagine valido trovato nella richiesta.'
-                }, status=400)
-
-        except Exception as e:
-            import traceback
-            traceback.print_exc()
-            return JsonResponse({
-                'success': False,
-                'message': f'Errore del server durante il caricamento: {str(e)}'
-            }, status=500)
-    else:
-        return JsonResponse({
-            'success': False,
-            'message': 'Metodo non permesso.'
-        }, status=405)
 
 @login_required
 def profile_view(request, username):
