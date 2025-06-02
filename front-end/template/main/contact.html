@@ -1,32 +1,142 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} | FAQ{% endblock %}
+{% block title %} | Contatti & FAQ{% endblock %}
+
 {% block style %}
-	<link rel="stylesheet" href="{% static 'css/main/contact.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main/contact.css' %}">
 {% endblock %}
+
 {% block content %}
-<div class="bubble-container" id="bubbleContainer"></div>
-<div class="form-wrapper">
-  <form id="contactForm" method="post">
-    {% csrf_token %}
-    <h2>Contattaci</h2>
 
-    <label for="id_nome">Name</label>
-    <input type="text" id="id_nome" name="nome" value="{{ form.nome.value|default:'' }}" required placeholder="John" />
-
-    <label for="id_email">Email</label>
-    <input type="email" id="id_email" name="email" value="{{ form.email.value|default:'' }}" required placeholder="john@test.com" />
-
-    <label for="id_msg">Message</label>
-    <textarea id="id_msg" name="msg" rows="4" required placeholder="I couldn't find my question in FAQ">{{ form.msg.value|default:'' }}</textarea>
-
-    <div class="button-group">
-      <button type="submit">Submit</button>
-      <button type="reset">Reset</button>
+<div class="contact-page-container">
+    {# Sezione Superiore per le Bolle #}
+    <div class="bubbles-section">
+        <div class="bubble-container" id="bubbleContainer"></div>
+        <h1>Connettiti con MatchMe</h1>
+        <p>Esplora le domande più frequenti o contattaci direttamente.</p>
     </div>
-  </form>
-</div>
 
+    {# Sezione Inferiore per Form, Info e FAQ #}
+    <div class="main-contact-content">
+        <div class="form-and-info-wrapper">
+            <div class="contact-form-section">
+                <h2>Contattaci</h2>
+                <p class="form-description">Hai domande o suggerimenti? Scrivici, il nostro team è pronto ad aiutarti!</p>
+                <form id="contactForm" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_nome">Nome Completo</label>
+                        <input type="text" id="id_nome" name="nome" value="{{ form.nome.value|default:'' }}" required placeholder="Mario Rossi" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_email">La tua Email</label>
+                        <input type="email" id="id_email" name="email" value="{{ form.email.value|default:'' }}" required placeholder="mariorossi@example.com" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_msg">Il tuo Messaggio</label>
+                        <textarea id="id_msg" name="msg" rows="6" required placeholder="Ho bisogno di aiuto con..." style="resize: none;"></textarea>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="submit" class="submit-btn">Invia Messaggio</button>
+                        <button type="reset" class="reset-btn">Resetta</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="contact-info-section">
+                <h2>Dove Trovarci</h2>
+                <p>Siamo qui per te. Se preferisci, puoi anche contattarci tramite i seguenti canali:</p>
+
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>Via Roma, 123, 00100 Roma RM, Italia</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <p>+39 0123 456789</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>info@matchme.com</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <p>Lun - Ven: 9:00 - 18:00</p>
+                </div>
+
+                <div class="map-placeholder">
+                    <iframe width="100%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                            src="https://www.openstreetmap.org/export/embed.html?bbox=12.4839%2C41.8902%2C12.4939%2C41.9002&amp;layer=mapnik&amp;marker=41.8952%2C12.4889"
+                            style="border: 0px solid black; border-radius: 8px;"></iframe>
+                    <small><a href="https://www.openstreetmap.org/#map=15/41.8952/12.4889" target="_blank">Visualizza mappa più grande</a></small>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-section">
+            <h2>Domande Frequenti (FAQ)</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-header">
+                        <h3 class="faq-question">Come posso creare un account?</h3>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Puoi creare un account cliccando sul pulsante "Registrati" nella homepage e seguendo le istruzioni. Ti verrà chiesto di inserire alcuni dati personali e le tue preferenze iniziali.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-header">
+                        <h3 class="faq-question">È MatchMe gratuito?</h3>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>MatchMe offre una versione base gratuita con tutte le funzionalità essenziali per iniziare a trovare match. Sono disponibili anche abbonamenti premium con funzionalità avanzate per un'esperienza migliorata.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-header">
+                        <h3 class="faq-question">Come funziona il sistema di matching?</h3>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Il nostro algoritmo di matching utilizza le preferenze che hai specificato nel tuo profilo, insieme ai dati di comportamento sull'app, per suggerirti profili compatibili. Più informazioni fornisci, migliori saranno i suggerimenti!</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-header">
+                        <h3 class="faq-question">Posso segnalare un utente?</h3>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sì, la sicurezza della nostra community è una priorità. Puoi segnalare qualsiasi comportamento inappropriato o sospetto direttamente dal profilo dell'utente o contattandoci tramite questo modulo.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-header">
+                        <h3 class="faq-question">Che cos'è la funzionalità "Boost"?</h3>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>La funzionalità "Boost" ti permette di mettere il tuo profilo in evidenza per un periodo limitato, aumentandone la visibilità e le possibilità di matching.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-header">
+                        <h3 class="faq-question">Come posso eliminare il mio account?</h3>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Per eliminare il tuo account, vai nelle impostazioni del tuo profilo, seleziona "Account" e poi "Elimina account". Ricorda che l'eliminazione è irreversibile.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block footer %}
@@ -36,5 +146,6 @@
 {% block script %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit-code.js" crossorigin="anonymous"></script> {# Assicurati che il codice sia il tuo! #}
     <script src="{% static 'js/main/contact.js' %}"></script>
 {% endblock %}
