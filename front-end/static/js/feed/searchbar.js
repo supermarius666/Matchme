@@ -28,7 +28,6 @@ function fetchSearchOutput() {
 function displayOutput(users) {
     chatsDiv.innerHTML = ""
 
-    const profile_pic = "{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}"
 
     if (users.length > 0) {
         console.log(users);

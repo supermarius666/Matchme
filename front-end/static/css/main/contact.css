@@ -41,7 +41,7 @@ body {
     margin-bottom: 10px;
     font-weight: 800;
     z-index: 10;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .bubbles-section p {
@@ -49,7 +49,7 @@ body {
     max-width: 600px;
     line-height: 1.5;
     z-index: 10;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .bubble-container {
@@ -181,10 +181,10 @@ textarea {
 
 .button-group {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     gap: 15px;
     margin-top: 30px;
-    width: 100%; 
+    width: 100%;
 }
 
 .button-group button {
@@ -196,8 +196,8 @@ textarea {
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    flex-grow: 1; 
-    max-width: 200px; 
+    flex-grow: 1;
+    max-width: 200px;
 }
 
 .button-group .submit-btn {
@@ -277,26 +277,25 @@ textarea {
 
 .faq-grid {
     display: grid;
-
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px; 
+    gap: 25px;
     max-width: 1000px;
     margin: 0 auto;
-    padding: 0 20px; 
-    align-items: start; 
+    padding: 0 20px;
+    align-items: start;
 }
 
 .faq-item {
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-    overflow: hidden; 
+    overflow: hidden;
     transition: all 0.3s ease;
     cursor: pointer;
     border: 1px solid #eee;
-    display: flex; 
-    flex-direction: column; 
-    height: fit-content; 
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
 }
 
 .faq-item:hover {
@@ -312,7 +311,7 @@ textarea {
     border-bottom: 1px solid #f0f0f0;
     background-color: #fcfcfc;
     transition: background-color 0.3s ease;
-    flex-shrink: 0; 
+    flex-shrink: 0;
 }
 
 .faq-item.active .faq-header {
@@ -345,20 +344,20 @@ textarea {
     font-size: 1.2em;
     color: #ff4081;
     transition: transform 0.3s ease, color 0.3s ease;
-    margin-left: 15px; 
-    flex-shrink: 0; 
+    margin-left: 15px;
+    flex-shrink: 0;
 }
 
 .faq-item.active .faq-header i {
-    transform: rotate(45deg); 
+    transform: rotate(45deg);
     color: white;
 }
 
 .faq-answer {
-    max-height: 0; 
+    max-height: 0;
     overflow: hidden;
     transition: max-height 0.4s ease-out, padding 0.4s ease-out;
-    padding: 0 25px; 
+    padding: 0 25px;
     box-sizing: border-box;
     color: #555;
     font-size: 0.95em;
@@ -366,11 +365,11 @@ textarea {
 }
 
 .faq-answer p {
-    margin: 0; 
+    margin: 0;
 }
 
 .faq-answer.open {
-    max-height: 1000px; 
+    max-height: 1000px;
     padding-top: 15px;
     padding-bottom: 20px;
 }
@@ -419,14 +418,14 @@ textarea {
     }
 
     .button-group {
-        flex-direction: column; 
+        flex-direction: column;
         gap: 10px;
-        align-items: center; 
+        align-items: center;
     }
 
     .button-group button {
-        width: 100%; 
-        max-width: none; 
+        width: 100%;
+        max-width: none;
     }
 
     .faq-section {
@@ -434,7 +433,7 @@ textarea {
     }
 
     .faq-grid {
-        grid-template-columns: 1fr; 
+        grid-template-columns: 1fr;
         gap: 15px;
         padding: 0 15px;
     }

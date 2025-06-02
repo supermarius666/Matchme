@@ -11,9 +11,9 @@ body {
     padding: 20px;
 }
 
-.events-hero { 
+.events-hero {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{% static "img/events_hero_bg.jpg" %}') no-repeat center center/cover;
-    background-attachment: fixed; 
+    background-attachment: fixed;
     color: white;
     text-align: center;
     padding: 100px 20px;
@@ -22,13 +22,13 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow: inset 0 -10px 15px rgba(0,0,0,0.2); 
+    box-shadow: inset 0 -10px 15px rgba(0, 0, 0, 0.2);
 }
 
 .events-hero h1 {
     font-size: 4em;
     margin-bottom: 10px;
-    text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
     letter-spacing: -2px;
 }
 
@@ -36,10 +36,11 @@ body {
     font-size: 1.4em;
     max-width: 800px;
     margin: 0 auto;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
-.btn-primary, .btn-secondary {
+.btn-primary,
+.btn-secondary {
     display: inline-block;
     padding: 14px 30px;
     border-radius: 50px;
@@ -309,12 +310,12 @@ section h2::after {
 }
 
 .place-detail-main {
-    padding-bottom: 60px; 
+    padding-bottom: 60px;
 }
 
 .place-hero {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{% static "img/places/villa_borghese_hero.jpg" %}') no-repeat center center/cover;
-    background-attachment: fixed; 
+    background-attachment: fixed;
     color: white;
     text-align: center;
     padding: 100px 20px;
@@ -322,13 +323,13 @@ section h2::after {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: inset 0 -10px 15px rgba(0,0,0,0.2); 
+    box-shadow: inset 0 -10px 15px rgba(0, 0, 0, 0.2);
 }
 
 .place-hero h1 {
     font-size: 4em;
     margin-bottom: 10px;
-    text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
     letter-spacing: -2px;
 }
 
@@ -336,7 +337,7 @@ section h2::after {
     font-size: 1.4em;
     max-width: 800px;
     margin: 0 auto;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .place-content-section {
@@ -346,35 +347,35 @@ section h2::after {
 
 .place-content-grid {
     display: grid;
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr;
     gap: 40px;
     align-items: start;
 }
 
 @media (min-width: 992px) {
     .place-content-grid {
-        grid-template-columns: 1fr 2fr; 
+        grid-template-columns: 1fr 2fr;
     }
 }
 
 .place-image-wrapper {
     text-align: center;
-    position: sticky; 
-    top: 20px; 
-    align-self: start; 
-    padding: 10px; 
-    background-color: #fff; 
+    position: sticky;
+    top: 20px;
+    align-self: start;
+    padding: 10px;
+    background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 .place-main-image {
     width: 100%;
-    height: auto; 
-    max-height: 450px; 
+    height: auto;
+    max-height: 450px;
     object-fit: cover;
     border-radius: 8px;
-    display: block; 
+    display: block;
 }
 
 .image-caption {
@@ -385,14 +386,14 @@ section h2::after {
 }
 
 .place-description {
-    display: grid; 
-    grid-template-columns: 1fr; 
-    gap: 20px; 
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
 }
 
 @media (min-width: 768px) {
     .place-description {
-        grid-template-columns: repeat(2, 1fr); 
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -408,7 +409,7 @@ section h2::after {
     font-weight: 500;
     color: #222;
     margin-bottom: 1.5em;
-    grid-column: 1 / -1; 
+    grid-column: 1 / -1;
 }
 
 .place-map-section {
@@ -419,16 +420,16 @@ section h2::after {
 
 .modern-map-container {
     border-radius: 12px;
-    overflow: hidden; 
+    overflow: hidden;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    max-width: 900px; 
-    margin: 0 auto; 
-    border: 1px solid #ddd; 
+    max-width: 900px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
 }
 
 .modern-map-container iframe {
-    width: 100%; 
-    height: 450px; 
+    width: 100%;
+    height: 450px;
     display: block;
 }
 
@@ -448,7 +449,7 @@ section h2::after {
     list-style: none;
     padding: 0;
     margin: 0 auto;
-    max-width: 600px; 
+    max-width: 600px;
     text-align: center;
 }
 
@@ -463,28 +464,32 @@ section h2::after {
     font-weight: 600;
     font-size: 1.1em;
     transition: color 0.3s ease, transform 0.2s ease;
-    padding: 8px 0; 
+    padding: 8px 0;
 }
 
 .link-list li a:hover {
     color: #E60000;
-    transform: translateX(5px); 
+    transform: translateX(5px);
 }
 
 @media (max-width: 992px) {
     .place-hero h1 {
         font-size: 3em;
     }
+
     .place-tagline {
         font-size: 1.2em;
     }
+
     .place-content-grid {
-        grid-template-columns: 1fr; 
+        grid-template-columns: 1fr;
     }
+
     .place-image-wrapper {
-        position: static; 
+        position: static;
         top: auto;
     }
+
     .place-main-image {
         max-height: 350px;
     }
@@ -495,18 +500,24 @@ section h2::after {
         padding: 80px 15px;
         min-height: 300px;
     }
+
     .place-hero h1 {
         font-size: 2.5em;
     }
+
     .place-tagline {
         font-size: 1em;
     }
-    .place-description p, .place-description .intro-paragraph {
+
+    .place-description p,
+    .place-description .intro-paragraph {
         font-size: 0.95em;
     }
+
     .modern-map-container iframe {
         height: 350px;
     }
+
     .link-list li a {
         font-size: 1em;
     }
@@ -516,13 +527,16 @@ section h2::after {
     .place-hero h1 {
         font-size: 2em;
     }
+
     .place-main-image {
         max-height: 250px;
     }
+
     .modern-map-container iframe {
         height: 280px;
     }
+
     .place-image-wrapper {
-      padding: 5px; 
+        padding: 5px;
     }
 }

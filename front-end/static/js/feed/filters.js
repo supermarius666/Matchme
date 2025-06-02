@@ -119,7 +119,7 @@ function displayFeed(data) {
                 
                 <div class="feed-post-actions">
                     <button type="button" onclick="sendLike('${user[0]}')" class="feed-action-button feed-like-button"><i class="far fa-heart"></i>Like</button>
-                    <button type="button" onclick="sendDislike('${user[0]}')" class="feed-action-button feed-dislike-button"><i class="far fa-thumbs-down"></i>Dont Like</button>
+                    <button type="button" onclick="sendzDislike('${user[0]}')" class="feed-action-button feed-dislike-button"><i class="far fa-thumbs-down"></i>Dont Like</button>
                 </div>
                 
             </div>

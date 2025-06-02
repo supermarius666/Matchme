@@ -81,8 +81,7 @@
                 </div> {# Chiusura di .profile-header-section #}
 
 
-                {# Contenuto del profilo basato su chi lo sta visualizzando #}
-                {# Imposta la visibilità iniziale con hidden class, il JS la gestirà #}
+                
                 <div id="my-profile-view" class="profile-content-section {% if not is_owner %}hidden{% endif %}">
                     {# MY PROFILE VIEW - Default active for the logged-in user #}
                     {# BIOGRAFIA - Editable for my profile view #}
@@ -104,8 +103,6 @@
                             </button>
                             <div id="char-count" style="font-size: 0.8em; color: #666; text-align: right; margin-top: 5px;">0/255</div>
                         </div>
-                        {# IL VECCHIO message-box è stato spostato sopra e rinominato status-message-box #}
-                        {# <div id="message-box" class="mt-4 p-3 rounded-md text-sm hidden"></div> #}
                     </div>
 
                     {# INTERESSI #}
@@ -136,7 +133,7 @@
                         <div class="tab-buttons">
                             <button class="tab-button active" data-tab="user-stats">Statistiche Utente</button>
                             <button class="tab-button" data-tab="user-posts">Post Utente</button>
-                            <button class="tab-button" data-tab="photo-gallery">Galleria Foto</button>
+                            <!-- <button class="tab-button" data-tab="photo-gallery">Galleria Foto</button> -->
                         </div>
                         <div class="tab-content-wrapper">
                             <div id="user-stats" class="tab-content active">
@@ -189,29 +186,34 @@
                                         <button><i class="fas fa-smile"></i> Umore/Attività</button>
                                     </div>
                                 </div>
-                                <div class="posts-list">
-                                    {% for post in user_profile.post_set.all %}
-                                    <div class="user-post">
-                                        <div class="post-header">
-                                            <img src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo">
-                                            <div>
-                                                <h4>{{ user_profile.first_name }} {{ user_profile.last_name }}</h4>
+
+
+                                 <!-- griglia post -->
+                                     <div class="posts-grid">
+                                        {% for post in user_profile.post_set.all %}
+                                        <div class="post-item">
+                                            <div class="post-image-container">
+                                                {% if post.post_pic %}
+                                                <img src="{{ post.post_pic.url }}" alt="Post Image" class="post-image">
+                                                {% endif %}
+                                                <div class="post-overlay">
+                                                    <button class="view-post-btn" data-post-id="{{ post.id }}">
+                                                        <i class="fas fa-eye"></i> Vedi Post
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="post-details" id="post-{{ post.id }}" style="display: none;">
+                                                <p class="post-content">{{ post.text }}</p>
                                                 <span class="post-date">{{ post.time_stamp|date:"d M H:i" }}</span>
                                             </div>
                                         </div>
-                                        <p class="post-content">{{ post.text }}</p>
-                                        {% if post.post_pic %}
-                                        <img src="{{ post.post_pic.url }}" alt="Post Image" class="post-image">
-                                        {% endif %}
-                                        <div class="post-actions">
-                                            <button><i class="fas fa-heart"></i> Mi Piace</button>
-                                            <button><i class="fas fa-comment"></i> Commenta</button>
-                                        </div>
+                                        {% empty %}
+                                        <p class="no-content-message">Nessun post pubblicato ancora. Condividi qualcosa di te!</p>
+                                        {% endfor %}
                                     </div>
-                                    {% empty %}
-                                    <p class="no-content-message">Nessun post pubblicato ancora. Condividi qualcosa di te!</p>
-                                    {% endfor %}
-                                </div>
+
+
+
                             </div>
 
                             <div id="photo-gallery" class="tab-content">
@@ -270,42 +272,32 @@
                         <div class="tab-content-wrapper">
                             <div id="public-user-posts" class="tab-content active">
                                 <h2>Post Recenti</h2>
-                                <div class="posts-list">
-                                    {% for post in user_profile.post_set.all %}
-                                    <div class="user-post">
-                                        <div class="post-header">
-                                            <img src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo">
-                                            <div>
-                                                <!-- <h4>{{ user_profile.first_name }} {{ user_profile.last_name }}</h4> -->
-                                                <span class="post-date">{{ post.date|date:"d M H:i" }}</span>
+
+                                    <!-- griglia post -->
+                                     <div class="posts-grid">
+                                        {% for post in user_profile.post_set.all %}
+                                        <div class="post-item">
+                                            <div class="post-image-container">
+                                                {% if post.post_pic %}
+                                                <img src="{{ post.post_pic.url }}" alt="Post Image" class="post-image">
+                                                {% endif %}
+                                                <div class="post-overlay">
+                                                    <button class="view-post-btn" data-post-id="{{ post.id }}">
+                                                        <i class="fas fa-eye"></i> Vedi Post
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="post-details" id="post-{{ post.id }}" style="display: none;">
+                                                <p class="post-content">{{ post.text }}</p>
+                                                <span class="post-date">{{ post.time_stamp|date:"d M H:i" }}</span>
                                             </div>
                                         </div>
-                                        <p class="post-content">{{ post.text }}</p>
-                                        {% if post.post_pic %}
-                                        <img src="{{ post.post_pic.url }}" alt="Post Image" class="post-image">
-                                        {% endif %}
-                                        <div class="post-actions">
-                                            <!-- <button><i class="fas fa-heart"></i> Mi Piace</button>
-                                            <button><i class="fas fa-comment"></i> Commenta</button> -->
-                                        </div>
+                                        {% empty %}
+                                        <p class="no-content-message">Nessun post pubblicato ancora. Condividi qualcosa di te!</p>
+                                        {% endfor %}
                                     </div>
-                                    {% empty %}
-                                    <p class="no-content-message">Nessun post pubblico disponibile.</p>
-                                    {% endfor %}
-                                </div>
-                            </div>
 
-                            <div id="public-photo-gallery" class="tab-content">
-                                <h2>Galleria Pubblica</h2>
-                                <div class="photo-grid">
-                                    {% for photo in user_profile.gallery_photos.all %}
-                                    <div class="photo-item">
-                                        <img src="{{ photo.image.url }}" alt="Foto Galleria">
-                                    </div>
-                                    {% empty %}
-                                    <p class="no-content-message">Nessuna foto pubblica disponibile.</p>
-                                    {% endfor %}
-                                </div>
+
                             </div>
                         </div>
                     </div>

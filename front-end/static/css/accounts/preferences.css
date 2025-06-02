@@ -1,0 +1,228 @@
+body {
+    background-image: url("/static/img/panna_doodles.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 60px);
+    padding: 30px 20px;
+    box-sizing: border-box;
+}
+
+.card_pref {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 90%;
+    box-sizing: border-box;
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card_pref h2 {
+    font-size: 2.2em;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #ff4081;
+    font-weight: 700;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label.title {
+    display: block;
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #555;
+}
+
+.preference-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.preference-options label {
+    display: inline-block;
+    padding: 10px 18px;
+    border: 1px solid #e0e0e0;
+    border-radius: 25px;
+    cursor: pointer;
+    background-color: #f8f8f8;
+    color: #666;
+    font-size: 0.95em;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.preference-options label:hover {
+    background-color: #ffeded;
+    border-color: #ffb3cc;
+    color: #e03570;
+}
+
+.preference-options label.selected {
+    background-color: #ff4081;
+    border-color: #ff4081;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(255, 64, 129, 0.2);
+}
+
+.preference-options input[type="checkbox"] {
+    display: none;
+}
+
+textarea {
+    width: 100%;
+    height: 120px;
+    font-size: 1em;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    resize: vertical;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+textarea:focus {
+    border-color: #ff4081;
+    box-shadow: 0 0 0 3px rgba(255, 64, 129, 0.2);
+    outline: none;
+}
+
+.char-counter {
+    font-size: 0.85em;
+    text-align: right;
+    color: #888;
+    margin-top: 8px;
+    font-weight: 500;
+}
+
+button[type="submit"] {
+    background-color: #ff4081;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-top: 30px;
+    display: block;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #e03570;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 64, 129, 0.3);
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background-color: #f0f0f0;
+    margin: 30px 0;
+}
+
+.bio-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .card_pref {
+        padding: 30px 20px;
+        border-radius: 10px;
+    }
+
+    .card_pref h2 {
+        font-size: 1.8em;
+        margin-bottom: 25px;
+    }
+
+    .form-group label.title {
+        font-size: 1.1em;
+        margin-bottom: 10px;
+    }
+
+    .preference-options label {
+        padding: 8px 15px;
+        font-size: 0.9em;
+        border-radius: 20px;
+    }
+
+    textarea {
+        height: 100px;
+        padding: 12px;
+    }
+
+    button[type="submit"] {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 15px;
+    }
+    .card_pref {
+        padding: 20px 15px;
+        border-radius: 8px;
+    }
+
+    .card_pref h2 {
+        font-size: 1.6em;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .preference-options {
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .preference-options label {
+        padding: 7px 12px;
+        font-size: 0.85em;
+    }
+
+    .char-counter {
+        font-size: 0.8em;
+    }
+
+    .divider {
+        margin: 20px 0;
+    }
+}
