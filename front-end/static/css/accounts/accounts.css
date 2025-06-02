@@ -1,159 +1,22 @@
 body {
-
     background-image: url("/static/img/panna_doodles.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-
     font-family: sans-serif;
 }
 
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
     display: none;
 }
 
 main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 60px);
-  padding-bottom: 5px;
-}
-
-.card_pref {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 900px;
+    display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.card_pref h2 {
-    font-size: 24px;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label.title {
-    display: block;
-    font-size: 18px;
-    margin-bottom: 8px;
-}
-
-.preference-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.preference-options label {
-    display: inline-block;
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    cursor: pointer;
-    background-color: #eee;
-    color: #333;
-    font-size: 14px;
-    transition: all 0.2s ease;
-}
-
-.preference-options label.selected {
-    background-color: #ff4081;
-    border-color: #ff4081;
-    color: white;
-}
-
-.preference-options input[type="checkbox"] {
-    display: none;
-}
-
-textarea {
-    width: 100%;
-    height: 80px;
-    font-size: 14px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    resize: none;
-    font-family: inherit;
-}
-
-.char-counter {
-    font-size: 12px;
-    text-align: right;
-    color: #666;
-    margin-top: 4px;
-}
-
-button {
-    background-color: #ff4081;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px;
-    display: block;
-    width: 100%;
-}
-
-button:hover {
-    background-color: #e73370;
-}
-
-.geo-button {
-    display: inline-block;
-    width: 10px;
-    height: 20px;
-    background-color: #ff4081;
-}
-
-#reg-city { 
-    border: none;
-    background-color: transparent;
-    padding: 0;
-    margin-bottom: 15px; 
-    font-size: 1em;
-    color: #333;
-    white-space: normal;
-    height: auto;
-    overflow: visible;
-}
-
-.divider {
-    width: 100%;
-    height: 1px;
-    background-color: #ddd;
-    margin: 15px 0;
-}
-
-.bio-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;           
-}
-
-.bio-wrapper textarea {
-    width: 95%;
-    max-width: 100%;
-    text-align: left;
-}
-
-.bio-wrapper .char-counter {
-    width: 80%;
-    max-width: 500px;
-    text-align: right;
+    min-height: calc(100vh - 60px);
+    padding-bottom: 5px;
 }
 
 .form-container {
@@ -168,7 +31,7 @@ button:hover {
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 450px;
+    width: 500px;
     text-align: center;
     margin-bottom: 20px;
 }
@@ -182,6 +45,7 @@ button:hover {
 .form-group {
     margin-bottom: 15px;
     text-align: left;
+    position: relative;
 }
 
 .form-group label {
@@ -200,6 +64,7 @@ button:hover {
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
+    font-family: inherit;
 }
 
 .form-row {
@@ -222,6 +87,8 @@ button {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 10px;
 }
 
 button:hover {
@@ -233,6 +100,7 @@ button:hover {
     text-decoration: none;
     cursor: pointer;
     font-size: 14px;
+    margin-top: 10px;
 }
 
 .toggle-link:hover {
@@ -260,7 +128,6 @@ button:hover {
 
 .input-icon {
     position: relative;
-
 }
 
 .input-icon i {
@@ -271,34 +138,20 @@ button:hover {
     color: #aaa;
     font-size: 16px;
     pointer-events: none;
-
 }
 
-.form-group input[type="text"],
-.form-group input[type="password"],
-.form-group input[type="email"],
-.form-group input[type="date"],
-.form-group select {
-    width: 100%;
-    padding: 10px;
-
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-
-}
-
-.input-icon input[type="text"] {
+.input-icon input[type="text"],
+.input-icon input[type="email"],
+.input-icon input[type="date"],
+.input-icon input[type="password"] {
     padding-left: 35px;
-
 }
 
-.password-toggle {
-    position: relative;
-
-}
-
-.password-toggle i {
+.password-toggle i.fa-eye,
+.password-toggle i.fa-eye-slash {
+    right: 10px;
+    left: auto;
+    pointer-events: auto;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -306,21 +159,17 @@ button:hover {
     color: #aaa;
 }
 
-.password-toggle .fa-eye,
-.password-toggle .fa-eye-slash {
-
-    pointer-events: auto;
-    right: 10px;
-
-    left: auto;
-
+.password-toggle input[type="password"] {
+    padding-right: 35px;
 }
 
-.form-group.input-icon.password-toggle input[type="password"] {
+.password-toggle.input-icon input[type="password"] {
     padding-left: 35px;
-
     padding-right: 35px;
+}
 
+.geo-input-wrapper input[type="text"] {
+    cursor: pointer; 
 }
 
 .error-message {
@@ -329,4 +178,57 @@ button:hover {
     padding: 10px;
     margin-bottom: 15px;
     border-radius: 5px;
+    width: 100%;
+    max-width: 500px;
+    text-align: left;
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.terms-consent {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-size: 0.9em;
+    color: #555;
+    text-align: left;
+}
+
+.terms-consent input[type="checkbox"] {
+    margin-right: 10px;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    accent-color: #ff4081;
+    border: 1px solid #ddd;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.terms-consent label {
+    display: block;
+    margin-bottom: 0;
+    line-height: 1.4;
+    cursor: pointer;
+}
+
+.terms-consent .terms-link {
+    color: #ff4081;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.terms-consent .terms-link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .terms-consent {
+        font-size: 0.85em;
+        flex-direction: row;
+        align-items: flex-start;
+    }
 }

@@ -1,82 +1,77 @@
-// NOTA: dal alcuni broswer si può settare la posizione
+const regCityDisplayInput = document.getElementById("reg-city-display");
+const regCityHiddenInput = document.getElementById("reg-city-hidden");   
 
-const regCityInput = document.getElementById("reg-city")
-const regCityParagraph = document.getElementById("reg-city-paragraph")
-
-if (!navigator.geolocation) {
-    throw new Error("No geolocation avaiable")
+if (regCityDisplayInput) {
+    regCityDisplayInput.addEventListener('click', handleCityInputClick);
+    regCityDisplayInput.addEventListener('focus', handleCityInputClick); 
+} else {
+    console.error("Errore: Impossibile trovare l'elemento #reg-city-display nel DOM.");
 }
 
-// function success(pos) {
-//     const lat = pos.coords.latitude
-//     const lng = pos.coords.longitude
-
-//     // link ad un free mapping service (16 è lo zoom)
-//     const link_to_streetmap = `
-//         <a href="https://www.openstreetmap.org/#map=16/${lat}/${lng}">
-//             Your current position: latitude: ${lat}, longitude: ${lng}
-//         </a>
-//     `
-//     const coords = `lat: ${lat}, long: ${lng}`
-//     document.getElementById("geolocation").innerHTML += coords
-
-//     console.log(pos)
-// }
+function handleCityInputClick() {
+    if (!navigator.geolocation) {
+        if (regCityDisplayInput) {
+            regCityDisplayInput.value = "Geolocalizzazione non disponibile.";
+        }
+        return; 
+    }
+    
+    getPosition();
+}
 
 
 function success(pos) {
     const lat = pos.coords.latitude;
     const lng = pos.coords.longitude;
 
-    // Reverse geocoding con Nominatim  //TODO: da vedere meglio come trovare la città
     fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`)
         .then(response => response.json())
         .then(data => {
             const city = data.address.city || data.address.town || data.address.village || "Città non trovata";
-            regCityInput.value = `${city}`;
-            regCityParagraph.innerHTML = ` <i class="fas fa-map-marker-alt"></i>${city}`;
+            
+            if (regCityDisplayInput) {
+                regCityDisplayInput.value = city;
+            }
+            if (regCityHiddenInput) {
+                regCityHiddenInput.value = city;
+            }
         })
         .catch(error => {
             console.error("Errore nel reverse geocoding:", error);
-            regCityInput.innerHTML = `<em>Errore nel recupero della città</em>`;
+            if (regCityDisplayInput) {
+                regCityDisplayInput.value = "Errore nel recupero della città.";
+            }
+            if (regCityHiddenInput) {
+                regCityHiddenInput.value = ""; 
+            }
         });
 
     console.log("Posizione:", pos);
 }
 
-
-
 function error(err) {
-    console.log(err)
+    console.log(err);
+    let message = "";
     if (err.code === 1) {
-        alert("Please allow access to geolocation")
+        message = "Permesso di geolocalizzazione negato.";
+    } else {
+        message = "Posizione non disponibile.";
     }
-    else {
-        alert("Position unavailable")
+    if (regCityDisplayInput) {
+        regCityDisplayInput.value = message;
+    }
+    if (regCityHiddenInput) {
+        regCityHiddenInput.value = "";
     }
 }
 
 const options = {
     enableHighAccuracy: true,
-
-    // tempo in ms che aspetta per ricevere le coord
     timeout: 5000,
-
-    // tempo max di vita di una posizione salvata in un cache server per accettarla 
-    // mettendola a zero si richiede sempre la posizione al server principale 
     maximumAge: 10000,
 }
 
-// chiama l'API di geolocalizzazione:
-// salva coordinate in un oggetto "pos" che passa alla funzione success()
-// se la richiesta all'API non va a buon fine chiama error()
-// viene chiamata quando si carica la pagina
-   
-
-// fa stessa cosa ma viene chiamata ogni volta che lo user cambia posizione
-//const id = navigator.geolocation.watchPosition(success, error, options)
 
 function getPosition() {
-    navigator.geolocation.getCurrentPosition(success, error, options)
+    navigator.geolocation.getCurrentPosition(success, error, options);
 }
-

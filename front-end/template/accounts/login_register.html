@@ -4,6 +4,7 @@
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/accounts/accounts.css' %}">
 {% endblock %}
+
 {% block content %}
 <div class="form-container">
 
@@ -26,10 +27,10 @@
                 <input type="text" id="login-username" name="username" required placeholder="Username">
             </div>
 
-           <div class="form-group input-icon password-toggle"> 
+            <div class="form-group input-icon password-toggle"> 
                 <i class="fa fa-lock"></i> 
                 <input type="password" id="login-password" name="password" required placeholder="Password"> 
-                <i class="fa fa-eye" id="toggle-password"></i>
+                <i class="fa fa-eye toggle-password"></i>
             </div>
 
             <button type="submit">Accedi</button>
@@ -42,42 +43,39 @@
             {% csrf_token %}
             <input type="hidden" name="action_type" value="register">
 
-            <div class="form-group">
-                <label for="reg-username">Username:</label>
-                <input type="text" id="reg-username" name="username_r" required>
+            <div class="form-group input-icon">
+                <i class="fa fa-user"></i>
+                <input type="text" id="reg-username" name="username_r" required placeholder="Username">
             </div>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="reg-nome">Nome:</label>
-                    <input type="text" id="reg-nome" name="first_name" required>
+                    <input type="text" id="reg-nome" name="first_name" required placeholder="Nome">
                 </div>
                 <div class="form-group">
-                    <label for="reg-cognome">Cognome:</label>
-                    <input type="text" id="reg-cognome" name="last_name" required>
+                    <input type="text" id="reg-cognome" name="last_name" required placeholder="Cognome">
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group input-icon">
-                    <label for="reg-data-nascita">Data di Nascita:</label>
                     <i class="fa fa-calendar-alt"></i>
                     <input type="date" id="reg-data-nascita" name="data_nascita" required>
                 </div>
-                <div class="form-group input-icon">
-                    <label for="reg-data-nascita">Dove vivi:</label>
-                    <button class="geo-button" onclick="getPosition()"><i class="fas fa-map-marker-alt"></i></button>
-                    {# deve diventare un input per il form #}
-                    <p style="display: inline-block;" id="reg-city-paragraph"></p>
-                    <input type="hidden" id="reg-city" name="citta" readonly>
+
+
+                <div class="form-group input-icon geo-input-wrapper">
+                    <i class="fas fa-map-marker-alt"></i> {# Icona del marker #}
+                    <input type="text" id="reg-city-display" name="citta_display" placeholder="La tua città" readonly> {# Campo visibile #}
+                    <input type="hidden" id="reg-city-hidden" name="citta"> {# Campo nascosto per l'invio #}
                 </div>
+
+
             </div>
-            
 
             <div class="form-group">
-                <label for="reg-sesso">Sesso:</label>
                 <select id="reg-sesso" name="sesso" required>
-                    <option value="">Seleziona</option>
+                    <option value="">Sesso</option>
                     <option value="M">Maschio</option>
                     <option value="F">Femmina</option>
                     <option value="O">Altro</option>
@@ -85,29 +83,30 @@
             </div>
 
             <div class="form-group input-icon">
-                <label for="reg-email">Email:</label>
                 <i class="fa fa-envelope"></i>
-                <input type="email" id="reg-email" name="email" required placeholder="La tua email">
+                <input type="email" id="reg-email" name="email" required placeholder="Email">
             </div>
 
-           <div class="form-row">
+            <div class="form-row">
                 <div class="form-group input-icon password-toggle">
-                    <label for="reg-password">Password:</label>
                     <i class="fa fa-lock"></i>
                     <input type="password" id="reg-password" name="password1_r" required placeholder="Crea una password">
-                    <i class="fa fa-eye" id="toggle-reg-password1"></i> </div>
+                    <i class="fa fa-eye toggle-password"></i>
+                </div>
                 <div class="form-group input-icon password-toggle">
-                    <label for="reg-conferma-password">Conferma Password:</label>
                     <i class="fa fa-lock"></i>
                     <input type="password" id="reg-conferma-password" name="password2_r" required placeholder="Conferma la password">
-                    <i class="fa fa-eye" id="toggle-reg-password2"></i> </div>
-            </div>
-            
-            <div class="form-group" style="text-align: center; font-size: 0.9em; margin-top: 20px;">
-                <input type="checkbox" id="accept-terms" name="accept_terms" required>
-                <label for="accept-terms">Accetto i <a href="#" class="toggle-link">Termini e Condizioni</a> e l'<a href="#" class="toggle-link">Informativa sulla Privacy</a></label>
+                    <i class="fa fa-eye toggle-password"></i>
+                </div>
             </div>
 
+            
+            <div class="terms-consent">
+                <input type="checkbox" id="accept-terms" name="accept_terms" required>
+                <label for="accept-terms">
+                    Accetto i <a href="#" class="terms-link">Termini e Condizioni</a> e l'<a href="#" class="terms-link">Informativa sulla Privacy</a>
+                </label>
+            </div>
             <button type="submit">Registrati</button>
         </form>
     </div>
@@ -115,7 +114,6 @@
     <a href="#" class="toggle-link" id="toggle-to-registration">Non hai un account? Registrati qui</a>
     <a href="#" class="toggle-link" id="toggle-to-login" style="display: none;">Hai già un account? Accedi qui</a>
 </div>
-
 {% endblock %}
 
 {% block footer %}
