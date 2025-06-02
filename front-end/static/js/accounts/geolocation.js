@@ -25,12 +25,12 @@ function success(pos) {
     const lat = pos.coords.latitude;
     const lng = pos.coords.longitude;
 
-    // Reverse geocoding con Nominatim
+    // Reverse geocoding con Nominatim  //TODO: da vedere meglio come trovare la città
     fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`)
         .then(response => response.json())
         .then(data => {
             const city = data.address.city || data.address.town || data.address.village || "Città non trovata";
-            document.getElementById("geolocation").innerHTML = `<strong>${city}</strong>`;
+            document.getElementById("geolocation").innerHTML = ` <i class="fas fa-map-marker-alt"></i> <strong>${city}</strong>`;
         })
         .catch(error => {
             console.error("Errore nel reverse geocoding:", error);
@@ -67,7 +67,8 @@ const options = {
 // salva coordinate in un oggetto "pos" che passa alla funzione success()
 // se la richiesta all'API non va a buon fine chiama error()
 // viene chiamata quando si carica la pagina
-navigator.geolocation.getCurrentPosition(success, error, options)
+    navigator.geolocation.getCurrentPosition(success, error, options)
 
 // fa stessa cosa ma viene chiamata ogni volta che lo user cambia posizione
 //const id = navigator.geolocation.watchPosition(success, error, options)
+

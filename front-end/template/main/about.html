@@ -7,74 +7,74 @@
 {% block content %}
 
     <section class="about-hero">
-        <div class="hero-content">
-            <h1>Welcome to Matchme: Find Your Perfect Match</h1>
-            <p>Our mission is to connect hearts and build meaningful relationships. Discover who we are and what makes us different.</p>
-            <a href="#our-story" class="btn-primary">Our Story</a>
-        </div>
-    </section>
+    <div class="hero-content">
+        <h1>Welcome to Matchme: Find Your Perfect Match</h1>
+        <p>Our mission is to connect hearts and build meaningful relationships. Discover who we are and what makes us different.</p>
+        <a href="#our-story" class="btn-primary">Our Story</a>
+    </div>
+</section>
 
-    <section id="our-story" class="about-section">
-        <div class="container">
-            <div class="section-text">
-                <h2>Our Story</h2>
-                <p>Matchme was born from a simple, yet powerful idea: to create a place where people can truly **find love**, not just a date. In today's digital world, it's easy to feel lost among thousands of profiles. We wanted to build a platform that focuses on **authenticity, compatibility, and deep connections**.</p>
-                <p>We started this journey with the goal of overcoming the superficiality of online dating, focusing on what truly matters: **common interests, shared values, and mutual understanding**. Since our launch, thousands of people have met and built lasting relationships thanks to Matchme.</p>
-            </div>
-            <div class="section-image">
-                <img src="{% static 'img/about_1.jpg' %}" alt="Two smiling people holding hands" loading="lazy">
-            </div>
+<section id="our-story" class="about-section" data-animate>
+    <div class="container">
+        <div class="section-text">
+            <h2>Our Story</h2>
+            <p>Matchme was born from a simple, yet powerful idea: to create a place where people can truly <strong>find love</strong>, not just a date...</p>
+            <p>We started this journey with the goal of overcoming the superficiality of online dating...</p>
         </div>
-    </section>
+        <div class="section-image">
+            <img src="{% static 'img/about_1.jpg' %}" alt="Two smiling people holding hands" loading="lazy">
+        </div>
+    </div>
+</section>
 
-    <section class="about-section highlight-section "> {# Class reverse-columns for image on left, text on right #}
-        <div class="container reverse-columns">
-            <div class="section-image">
-                <img src="{% static 'img/about_2.jpg' %}" alt="People interacting and laughing" loading="lazy">
-            </div>
-            <div class="section-text">
-                <h2>Our Mission</h2>
-                <p>Matchme's mission is twofold:</p>
-                <ul>
-                    <li>**Facilitate authentic connections:** We go beyond photos, encouraging users to express their personality and interests.</li>
-                    <li>**Ensure a safe and respectful environment:** The safety of our users is our top priority. We implement strict security and moderation measures to ensure a positive experience for everyone.</li>
-                    <li>**Offer an intuitive and personalized user experience:** We use advanced algorithms to suggest truly compatible matches, based on what matters to you.</li>
-                </ul>
-            </div>
+<section class="about-section highlight-section" data-animate>
+    <div class="container reverse-columns">
+        <div class="section-image">
+            <img src="{% static 'img/about_2.jpg' %}" alt="People interacting and laughing" loading="lazy">
         </div>
-    </section>
+        <div class="section-text">
+            <h2>Our Mission</h2>
+            <p>Matchme's mission is twofold:</p>
+            <ul>
+                <li><strong>Facilitate authentic connections:</strong> We go beyond photos...</li>
+                <li><strong>Ensure a safe and respectful environment:</strong> The safety of our users is our top priority...</li>
+                <li><strong>Offer an intuitive and personalized user experience:</strong> We use advanced algorithms...</li>
+            </ul>
+        </div>
+    </div>
+</section>
 
-    <section class="about-section">
-        <div class="container">
-            <div class="section-text">
-                <h2>What Makes Us Different</h2>
-                <p>In a crowded landscape of dating apps, Matchme stands out for:</p>
-                <ul>
-                    <li>**Intelligent Compatibility Algorithm:** Our system is not just based on what you like, but on who you are.</li>
-                    <li>**Focus on Quality, not Quantity:** We prefer a few meaningful matches over many generic profiles.</li>
-                    <li>**Verified Community:** We foster an environment where trust and mutual respect are fundamental.</li>
-                    <li>**Dedicated Support:** We are here to assist you every step of your journey.</li>
-                </ul>
-            </div>
-            <div class="section-image">
-                <img src="{% static 'img/about_3.jpg' %}" alt="Icons representing security, quality, and support" loading="lazy">
-            </div>
+<section class="about-section" data-animate>
+    <div class="container">
+        <div class="section-text">
+            <h2>What Makes Us Different</h2>
+            <p>In a crowded landscape of dating apps, Matchme stands out for:</p>
+            <ul>
+                <li><strong>Intelligent Compatibility Algorithm:</strong> Our system is not just based on what you like, but on who you are.</li>
+                <li><strong>Focus on Quality, not Quantity:</strong> We prefer a few meaningful matches...</li>
+                <li><strong>Verified Community:</strong> We foster an environment where trust and mutual respect are fundamental.</li>
+                <li><strong>Dedicated Support:</strong> We are here to assist you every step of your journey.</li>
+            </ul>
         </div>
-    </section>
+        <div class="section-image">
+            <img src="{% static 'img/about_3.jpg' %}" alt="Icons representing security, quality, and support" loading="lazy">
+        </div>
+    </div>
+</section>
 
-    <section class="about-section highlight-section"> {# New section for groups/events #}
-        <div class="container">
-            <div class="section-image">
-                <img src="{% static 'img/about_4.jpeg' %}" alt="Group of friends attending an event" loading="lazy">
-            </div>
-            <div class="section-text">
-                <h2>New Friends and Events!</h2>
-                <p>Matchme is not just for finding your soulmate. We believe that building **meaningful relationships** also means expanding your social circle. That's why our platform helps you connect with people who share your interests to form **friend groups**.</p>
-                <p>We also organize **exclusive events** that you can attend! From themed nights to outdoor activities, you'll always find something interesting to socialize, have fun, and maybe meet that special someone in a more relaxed and authentic setting.</p>
-                <a href="{% url 'events' %}" class="btn-primary">Discover Upcoming Events</a>
-            </div>
+<section class="about-section highlight-section" data-animate>
+    <div class="container">
+        <div class="section-image">
+            <img src="{% static 'img/about_4.jpeg' %}" alt="Group of friends attending an event" loading="lazy">
         </div>
-    </section>
+        <div class="section-text">
+            <h2>New Friends and Events!</h2>
+            <p>Matchme is not just for finding your soulmate...</p>
+            <p>We also organize <strong>exclusive events</strong> that you can attend...</p>
+            <a href="{% url 'events' %}" class="btn-primary">Discover Upcoming Events</a>
+        </div>
+    </div>
+</section>
 
      <section class="about-section developers-section">
         <div class="container">
@@ -110,5 +110,6 @@
 {% endblock %}
 
 {% block script %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
   <script src="{% static 'js/main/about.js' %}"></script>
 {% endblock %}

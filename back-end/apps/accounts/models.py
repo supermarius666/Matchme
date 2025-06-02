@@ -63,6 +63,11 @@ class UserProfile(AbstractUser):
         default=False
     )
 
+    city = models.CharField(
+        max_length=255,
+        blank=True
+    )
+
     # Groups e Permissions sono concetti che indicano cosa possono fare gli utenti autenticati
     # AbstractUser possiede un campo groups e user_permission di tipo ManyToMany (una ForeignKey doppia)
     # --> Li possiedono anche UserProfile e User essendo figli di AbstractUser

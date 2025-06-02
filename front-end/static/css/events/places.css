@@ -12,31 +12,31 @@ body {
 }
 
 .events-hero { 
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{% static "img/events_hero_bg.jpg" %}') no-repeat center center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{% static "img/events_hero_bg.jpg" %}') no-repeat center center/cover;
+    background-attachment: fixed; 
     color: white;
     text-align: center;
-    padding: 120px 20px;
+    padding: 100px 20px;
+    min-height: 350px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 450px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 -10px 15px rgba(0,0,0,0.2); 
 }
 
 .events-hero h1 {
-    font-size: 3.5em;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
-    letter-spacing: -1px;
+    font-size: 4em;
+    margin-bottom: 10px;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+    letter-spacing: -2px;
 }
 
 .events-hero p {
-    font-size: 1.3em;
-    margin-bottom: 40px;
+    font-size: 1.4em;
     max-width: 800px;
-    line-height: 1.5;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+    margin: 0 auto;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
 }
 
 .btn-primary, .btn-secondary {
@@ -210,7 +210,6 @@ section h2::after {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
     padding: 0 20px;
-
 }
 
 .card {
@@ -222,7 +221,6 @@ section h2::after {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-
 }
 
 .card:hover {
@@ -235,7 +233,6 @@ section h2::after {
     height: 220px;
     object-fit: cover;
     border-bottom: 1px solid #eee;
-
 }
 
 .card-content {
@@ -250,10 +247,9 @@ section h2::after {
     font-weight: 700;
     margin-bottom: 10px;
     color: #333;
-    white-space: normal; 
+    white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
-
 }
 
 .card-text {
@@ -264,7 +260,7 @@ section h2::after {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 4; 
+    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
 }
 
@@ -388,6 +384,18 @@ section h2::after {
     font-style: italic;
 }
 
+.place-description {
+    display: grid; 
+    grid-template-columns: 1fr; 
+    gap: 20px; 
+}
+
+@media (min-width: 768px) {
+    .place-description {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
 .place-description p {
     margin-bottom: 1.2em;
     font-size: 1.05em;
@@ -400,6 +408,7 @@ section h2::after {
     font-weight: 500;
     color: #222;
     margin-bottom: 1.5em;
+    grid-column: 1 / -1; 
 }
 
 .place-map-section {

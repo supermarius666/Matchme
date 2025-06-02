@@ -57,10 +57,15 @@
                     <div class="profile-info-and-actions">
                         <h1 class="profile-name">{{ user_profile.first_name }} {{ user_profile.last_name }}{% if user_profile.age %}, {{ user_profile.age }}{% endif %}</h1>
                         <p class="location" id="geolocation">
-                            <i class="fas fa-map-marker-alt"></i>
-                            {% if user_profile.location %}
-                                {{ user_profile.location }}
+                            {% if user_profile.city %}  
+                                <i class="fas fa-map-marker-alt"></i>
+                                {{ user_profile.city }}
+                            {% else %}
+                                <i class="fas fa-map-marker-alt"></i>
+                                Planet of Love
+
                             {% endif %}
+                            
                         </p>
                         {% if is_owner %} {# Mostra i pulsanti modifica e anteprima solo se sei il proprietario #}
                             <div class="profile-actions">
@@ -70,8 +75,8 @@
                         {% else %} {# Altrimenti mostra i pulsanti di interazione per gli altri utenti #}
                             <div class="profile-actions">
                                 {# Qui puoi aggiungere pulsanti come "Metti Like", "Messaggia", ecc. #}
-                                <button class="btn btn-primary">Mi Piace</button>
-                                <button class="btn btn-secondary">Messaggia</button>
+                                <button class="btn btn-primary">SMASH</button>
+                                <button class="btn btn-secondary">PASS</button>
                             </div>
                         {% endif %}
                     </div> {# Chiusura di .profile-info-and-actions #}
@@ -262,7 +267,7 @@
                         <div class="tab-buttons">
                             {# Le tab per i profili pubblici sono solo "Post Utente" e "Galleria Foto" #}
                             <button class="tab-button active" data-tab="public-user-posts">Post Utente</button>
-                            <button class="tab-button" data-tab="public-photo-gallery">Galleria Foto</button>
+                            <!-- <button class="tab-button" data-tab="public-photo-gallery">Galleria Foto</button> -->
                         </div>
                         <div class="tab-content-wrapper">
                             <div id="public-user-posts" class="tab-content active">
@@ -273,7 +278,7 @@
                                         <div class="post-header">
                                             <img src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" alt="Foto Profilo">
                                             <div>
-                                                <h4>{{ user_profile.first_name }} {{ user_profile.last_name }}</h4>
+                                                <!-- <h4>{{ user_profile.first_name }} {{ user_profile.last_name }}</h4> -->
                                                 <span class="post-date">{{ post.date|date:"d M H:i" }}</span>
                                             </div>
                                         </div>
@@ -282,8 +287,8 @@
                                         <img src="{{ post.post_pic.url }}" alt="Post Image" class="post-image">
                                         {% endif %}
                                         <div class="post-actions">
-                                            <button><i class="fas fa-heart"></i> Mi Piace</button>
-                                            <button><i class="fas fa-comment"></i> Commenta</button>
+                                            <!-- <button><i class="fas fa-heart"></i> Mi Piace</button>
+                                            <button><i class="fas fa-comment"></i> Commenta</button> -->
                                         </div>
                                     </div>
                                     {% empty %}
@@ -327,5 +332,4 @@
         <div id="profile-data-container" data-upload-url="{% url 'accounts:upload_photo' %}" style="display: none;"></div>
         <script src="{% static 'js/accounts/profile.js' %}"></script>
     {% endif %}
-    <script src="{% static 'js/accounts/geolocation.js' %}"></script>
 {% endblock %}

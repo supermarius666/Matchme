@@ -10,75 +10,65 @@
         <div class="hero-content">
             <h1>Discover Exciting Events with Matchme!</h1>
             <p>Connect with new people and find unforgettable experiences. Whether you're looking for a romantic evening or a fun group outing, we've got you covered.</p>
-            <a href="#featured-events" class="btn-primary">Explore Events</a>
-            <a href="#places-to-meet" class="btn-secondary">Find Places to Meet</a>
+            <a href="#places-to-meet" class="btn-primary">Explore Places & Events</a>
+            <a href="#call-to-action" class="btn-secondary">Join Our Community</a>
         </div>
     </section>
 
-    <section id="featured-events" class="event-slider-section">
+    <section id="upcoming-events-section" class="upcoming-events-section"> {# ID e classe rinominati per chiarezza #}
         <div class="container">
-            <h2>Featured Events</h2>
-            <div class="slider-wrapper">
+            <h2>Upcoming Events</h2>
+
+            {% if upcoming_events %}
                 <div class="slider-container">
-                    <div class="slider">
-                        {# Example: Loop through actual event data if available #}
-                        {% comment %}
-                        {% for event in featured_events %}
-                        <img src="{{ event.image.url }}" alt="{{ event.title }}">
+                    <div class="events-slider"> {# Il contenitore che scorrerà #}
+                        {% for event in upcoming_events %}
+                            <div class="event-card">
+                                <img src="{{ event.image.url }}" alt="{{ event.title }}" class="event-card-image">
+                                <div class="event-card-content">
+                                    <h3 class="event-card-title">{{ event.title }}</h3>
+                                    <p class="event-card-date">{{ event.date|date:"F d, Y P" }}</p>
+                                    <p class="event-card-location">{{ event.location }}</p>
+                                    <p class="event-card-description">{{ event.description }}</p>
+                                    <a href="/events/{{ event.slug }}" class="event-card-link btn-small-primary">View Details &rarr;</a>
+                                </div>
+                            </div>
                         {% endfor %}
-                        {% endcomment %}
-                        <img src="https://picsum.photos/800/500?random=1" alt="City Lights Event">
-                        <img src="https://picsum.photos/800/500?random=2" alt="Outdoor Adventure Meetup">
-                        <img src="https://picsum.photos/800/500?random=3" alt="Art Exhibition Gathering">
-                        <img src="https://picsum.photos/800/500?random=4" alt="Cooking Class Social">
                     </div>
 
                     <div class="slider-nav">
-                        <button class="prev-btn" aria-label="Previous slide">&lt;</button>
-                        <button class="next-btn" aria-label="Next slide">&gt;</button>
+                        <button class="prev-slide-btn" aria-label="Previous slide">&lt;</button>
+                        <button class="next-slide-btn" aria-label="Next slide">&gt;</button>
                     </div>
 
                     <div class="dots-container">
-                        {# Example: Generate dots dynamically #}
-                        {% comment %}
-                        {% for event in featured_events %}
-                        <span class="dot {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.counter0 }}"></span>
-                        {% endfor %}
-                        {% endcomment %}
-                        <span class="dot active" data-slide="0"></span>
-                        <span class="dot" data-slide="1"></span>
-                        <span class="dot" data-slide="2"></span>
-                        <span class="dot" data-slide="3"></span>
+                        {# I dots verranno generati dinamicamente dal JavaScript #}
                     </div>
                 </div>
-                <p class="slider-caption">Swipe to see more exciting events!</p>
+            {% else %}
+                <p class="no-events-message">No upcoming events at the moment. Check back soon!</p>
+            {% endif %}
+
+            {# Ho rimosso i demo events per pulizia, assumendo dati da backend #}
+            {# Se necessario, puoi reintrodurli per il testing locale #}
+
+            <div class="view-all-events">
+                <a href="#" class="btn-secondary">View All Events &rarr;</a> {# Mantiene il link per una pagina di tutti gli eventi #}
             </div>
         </div>
     </section>
 
     <section id="places-to-meet" class="places-section">
         <div class="container">
-            <h2>Great Places to Meet IRL</h2>
+            <h2>Explore Great Places to Meet IRL</h2>
             <div class="grid-container">
-                {# Example: Loop through actual place data if available #}
-                {% comment %}
-                {% for place in places %}
-                <div class="card" onclick="gotoPlace('{{ place.slug }}')">
-                    <img src="{{ place.image.url }}" alt="{{ place.name }}" class="card-image">
-                    <div class="card-content">
-                        <h3 class="card-title">{{ place.name }}</h3>
-                        <p class="card-text">{{ place.short_description }}</p>
-                        <a href="/events/places/{{ place.slug }}" class="card-link">Learn More &rarr;</a>
-                    </div>
-                </div>
-                {% endfor %}
-                {% endcomment %}
-
-                <div class="card" onclick="gotoPlace('Villa Borghese')">
+                {# Qui mantieni le tue card statiche o le fai ciclare su un'altra variabile 'places' #}
+                <div class="card" onclick="gotoPlace('villa-borghese')">
                     <img src="https://picsum.photos/600/400?random=5" alt="Villa Borghese" class="card-image">
                     <div class="card-content">
                         <h3 class="card-title">Villa Borghese</h3>
                         <p class="card-text">A stunning public park in Rome with gardens, museums, and historical buildings. Perfect for a relaxed first date or a group picnic.</p>
+                        <p class="card-events-info">Upcoming events here: **Evening Gala (June 15th)**</p>
                         <a href="/events/places/villa-borghese" class="card-link">Learn More &rarr;</a>
                     </div>
                 </div>
@@ -88,6 +78,7 @@
                     <div class="card-content">
                         <h3 class="card-title">Giardino degli Aranci</h3>
                         <p class="card-text">Also known as Parco Savello, this charming orange garden offers panoramic views of Rome. Ideal for a romantic sunset stroll.</p>
+                        <p class="card-events-info">Often hosts sunset gatherings.</p>
                         <a href="/events/places/giardino-degli-aranci" class="card-link">Learn More &rarr;</a>
                     </div>
                 </div>
@@ -97,6 +88,7 @@
                     <div class="card-content">
                         <h3 class="card-title">Piazza di Santa Maria in Trastevere</h3>
                         <p class="card-text">The heart of Trastevere, bustling with life, street artists, and charming cafes. Great for a lively first meeting or group night out.</p>
+                        <p class="card-events-info">Upcoming events here: **Pasta Making Class (June 16th)**</p>
                         <a href="/events/places/trastevere-square" class="card-link">Learn More &rarr;</a>
                     </div>
                 </div>
@@ -106,6 +98,7 @@
                     <div class="card-content">
                         <h3 class="card-title">Testaccio Market</h3>
                         <p class="card-text">A vibrant food market offering authentic Roman street food and local delights. A fantastic casual spot for foodies to connect.</p>
+                        <p class="card-events-info">Regular food tasting meetups.</p>
                         <a href="/events/places/testaccio-market" class="card-link">Learn More &rarr;</a>
                     </div>
                 </div>
@@ -115,6 +108,7 @@
                     <div class="card-content">
                         <h3 class="card-title">Villa Ada</h3>
                         <p class="card-text">Rome's second-largest park, known for its vast green spaces, lake, and summer concerts. Ideal for outdoor enthusiasts.</p>
+                        <p class="card-events-info">Hosts summer concerts and festivals.</p>
                         <a href="/events/places/villa-ada" class="card-link">Learn More &rarr;</a>
                     </div>
                 </div>
@@ -123,18 +117,19 @@
                     <img src="https://picsum.photos/600/400?random=10" alt="Quartiere Coppedè" class="card-image">
                     <div class="card-content">
                         <h3 class="card-title">Quartiere Coppedè</h3>
-                        <p class="card-text">A hidden gem with unique Art Nouveau and Baroque architecture. Perfect for a quirky, memorable date or photo walk.</p>
+                        <p class="card-text">A hidden gem with unique Art Nouveau and Baroque architecture. Perfect for a quirky, memorabile date or photo walk.</p>
+                        <p class="card-events-info">Upcoming events here: **Coppedè Photo Walk (June 22nd)**</p>
                         <a href="/events/places/coppede-quarter" class="card-link">Learn More &rarr;</a>
                     </div>
                 </div>
             </div>
             <div class="view-all-places">
-                <a href="#" class="btn-secondary">View All Places &rarr;</a> {# Assuming you have an 'all_places' URL #}
+                <a href="#" class="btn-secondary">View All Places &rarr;</a>
             </div>
         </div>
     </section>
 
-    <section class="call-to-action">
+    <section id="call-to-action" class="call-to-action">
         <div class="container">
             <h2>Ready to Join the Fun?</h2>
             <p>Don't miss out on amazing events and opportunities to meet new people!</p>
@@ -150,13 +145,11 @@
 {% endblock %}
 
 {% block script %}
-<script src="{% static 'js/events/imageSlider.js' %}"></script>
 <script type="text/javascript">
     function gotoPlace(placeSlug) {
         window.location.href = `/events/${placeSlug}`;
     }
 
-    // Optional: Add some JS for smooth scrolling to sections
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -166,4 +159,5 @@
         });
     });
 </script>
+<script src="{% static 'js/eventsSlider.js' %}"></script> {# Nuovo script per lo slider #}
 {% endblock %}

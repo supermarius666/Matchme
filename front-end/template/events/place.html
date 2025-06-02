@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} | {{ name }}{% endblock %} {# Dynamic title for the specific place #}
+{% block title %} | {{ name }}{% endblock %}
 {% block style %}
-    <link rel="stylesheet" href="{% static 'css/events/places.css' %}"> {# All styles combined here #}
+    <link rel="stylesheet" href="{% static 'css/events/places.css' %}">
 {% endblock %}
 {% block content %}
 <main class="place-detail-main">
@@ -50,9 +50,9 @@
         <div class="container">
             <h2>Useful Links</h2>
             <ul class="link-list">
-                <li><a href="https://www.sovraintendenzaroma.it/i_luoghi/ville_e_parchi_storici/ville_dei_nobili/villa_borghese" target="_blank" rel="noopener noreferrer">Official Site of Sovrintendenza Roma &rarr;</a></li>
+                <li><a href="https://www.sovraintendenzaroma.it/i_luoghi/ville_e_parchi_storici/ville_dei_nobili/villa_borghese" target="_blank" rel="noopener noreferrer">Official Site of Sovraintendenza Roma &rarr;</a></li>
                 <li><a href="https://it.wikipedia.org/wiki/Villa_Borghese" target="_blank" rel="noopener noreferrer">Wikipedia Page &rarr;</a></li>
-                <li><a href="https://www.google.it/maps/search/Villa+Borghese+Rome" target="_blank" rel="noopener noreferrer">View on Google Maps &rarr;</a></li> {# Changed to a search link for more direct access #}
+                <li><a href="https://www.google.it/maps/search/Villa+Borghese+Rome" target="_blank" rel="noopener noreferrer">View on Google Maps &rarr;</a></li>
             </ul>
         </div>
     </section>

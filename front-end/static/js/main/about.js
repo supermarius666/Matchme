@@ -1,48 +1,27 @@
-// Aggiungi questo codice in static/js/main/about.js
-document.addEventListener('DOMContentLoaded', function() {
-    // Esempio: Animazione all'apparizione delle sezioni
-    const sections = document.querySelectorAll('.about-section');
-
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-
-    const sectionObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in'); // Aggiungi una classe per l'animazione
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
+document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('[data-animate]');
 
     sections.forEach(section => {
-        sectionObserver.observe(section);
-    });
+        const text = section.querySelector('.section-text');
+        const image = section.querySelector('.section-image');
+        const isReversed = section.querySelector('.container').classList.contains('reverse-columns');
 
-    // Puoi aggiungere CSS per .fade-in nel tuo about.css
-    // .fade-in {
-    //    opacity: 0;
-    //    transform: translateY(20px);
-    //    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    // }
-    // .fade-in.is-visible { /* Aggiungi questa classe quando la sezione è visibile */
-    //    opacity: 1;
-    //    transform: translateY(0);
-    // }
+        gsap.set(text, { opacity: 0, x: isReversed ? 100 : -100 });
+        gsap.set(image, { opacity: 0, x: isReversed ? -100 : 100 });
 
-    // Esempio: Smooth scroll per il link "La Nostra Storia"
-    const smoothScrollLink = document.querySelector('.hero-content .btn-primary');
-    if (smoothScrollLink) {
-        smoothScrollLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            document.querySelector(targetId).scrollIntoView({
-                behavior: 'smooth'
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const tl = gsap.timeline();
+
+                    tl.to(text, { opacity: 1, x: 0, duration: 0.8, ease: 'bounce.out' })
+                      .to(image, { opacity: 1, x: 0, duration: 0.8, ease: 'bounce.out' }, '+=0.1');
+
+                    observer.unobserve(entry.target);
+                }
             });
-        });
-    }
+        }, { threshold: 0.3 });
 
+        observer.observe(section);
+    });
 });
