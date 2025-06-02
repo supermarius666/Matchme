@@ -48,5 +48,5 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', updateSlider);
 
     // Initial setup
-    updateSlider(); // Set initial position and active dot
+    updateSlider();
 });

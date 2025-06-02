@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .feed_utils import algorithm
 
 urlpatterns = [
     path('', views.feed_view, name="feed"),

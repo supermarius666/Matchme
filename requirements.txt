@@ -1,4 +1,6 @@
 django
+
+# per usare le immagini in Python
 Pillow
 
 # se non va channels==3.0.5 provare con channels e basta
@@ -6,3 +8,9 @@ channels==3.0.5
 
 # per usare modalità DEBUG = False (?)
 whitenoise
+
+# per fare richieste HTTP dal backend alle API
+requests
+
+# per accedere alle variabili d'ambiente definite in .env attraverso os.getenv()
+python-dotenv
