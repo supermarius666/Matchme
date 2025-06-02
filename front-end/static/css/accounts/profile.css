@@ -1297,3 +1297,40 @@ body {
         height: 120px;
     }
 }
+
+
+
+/*preferenze*/
+
+.preference-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.preference-options label {
+    display: inline-block;
+    padding: 10px 18px;
+    border: 1px solid #e0e0e0;
+    border-radius: 25px;
+    cursor: pointer;
+    background-color: #ff4081;
+    color: #fff;
+    font-size: 0.95em;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.preference-options label.selected {
+    background-color: #ff4081;
+    border-color: #ff4081;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(255, 64, 129, 0.2);
+}
+
+
+.preference-options input[type="checkbox"] {
+    display: none;
+}

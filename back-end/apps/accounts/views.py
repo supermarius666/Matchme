@@ -10,6 +10,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 from django.views.decorators.csrf import csrf_exempt
+from django.utils import timezone
 
 def auth_view(request):
     if request.method == 'POST':
@@ -50,6 +51,13 @@ def auth_view(request):
                     gender=sesso,
                     city=citta
                 )
+
+                user_stats = UserStats.objects.create(
+                    user=user,
+                    registration_day=timezone.now().date()
+                )
+
+
                 subject = "Benvenuto su MatchMe!"
                 message = f"Ciao {user.first_name},\n\nGrazie per esserti registrato su MatchMe! Siamo felici di averti con noi.\n\nCordiali saluti,\nIl team di MatchMe"
                 from_email = settings.EMAIL_HOST_USER
@@ -162,13 +170,34 @@ def upload_photo_reg(request):
     
     return render(request, 'accounts/upload_photo.html')
 
+
+def get_pref_values(prefs):
+    user_prefs = dict()
+
+    for field in prefs._meta.fields:
+        field_name = field.name
+        if field_name != "id" and field_name != "user":
+            field_value = getattr(prefs, field_name) # Get field value
+            #print(field_name, field_value)
+            user_prefs[field_name] = field_value
+    return user_prefs
+
 @login_required
 def profile_view(request, username):
     viewed_user = get_object_or_404(UserProfile, username=username)
     
+   
+
     viewed_user_preferences = None
     try:
         viewed_user_preferences = UserPreferences.objects.get(user=viewed_user)
+        prefs = get_pref_values(viewed_user_preferences)
+        prefs_list = []
+        for key in prefs:
+            if prefs[key] == True:
+                prefs_list.append(key)
+
+
     except UserPreferences.DoesNotExist:
         pass
 
@@ -182,7 +211,7 @@ def profile_view(request, username):
 
     return render(request, 'accounts/profile.html', {
         'user_profile': viewed_user,
-        'user_preferences': viewed_user_preferences,
+        'user_preferences': prefs_list,
         'user_stats': viewed_user_stats,
         'current_user': request.user,
         'is_owner': is_owner,

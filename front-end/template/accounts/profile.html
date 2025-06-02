@@ -101,14 +101,14 @@
                             <i class="fas fa-star icon-interest"></i>
                             <h4>Interessi:</h4>
                             {% if user_preferences %}
-                                <div class="preferences-list">
-                                    {% for field in user_preferences.get_interest_fields %}
-                                        {% if field.value %}
-                                            <span class="preference-tag">{{ field.label }}</span>
-                                        {% endif %}
+                                <div class="preference-options">
+                                    {% for field in user_preferences %}
+
+                                           <label><input type="checkbox" name="interested_in" value="musica"> {{ field }}</label>
+                                        
                                     {% endfor %}
                                     {# Questo messaggio appare se non ci sono interessi selezionati #}
-                                    {% if not user_preferences.get_interest_fields %}
+                                    {% if not user_preferences %}
                                         <p>Nessun interesse selezionato.</p>
                                     {% endif %}
                                 </div>
@@ -235,14 +235,15 @@
                         <div class="detail-item card">
                             <i class="fas fa-star icon-interest"></i>
                             <h4>Interessi:</h4>
-                            {% if user_preferences %}
-                                <div class="preferences-list">
-                                    {% for field in user_preferences.get_interest_fields %}
-                                        {% if field.value %}
-                                            <span class="preference-tag">{{ field.label }}</span>
-                                        {% endif %}
+                             {% if user_preferences %}
+                                <div class="preference-options">
+                                    {% for field in user_preferences %}
+
+                                           <label><input type="checkbox" name="interested_in" value="musica"> {{ field }}</label>
+                                        
                                     {% endfor %}
-                                    {% if not user_preferences.get_interest_fields %}
+                                    {# Questo messaggio appare se non ci sono interessi selezionati #}
+                                    {% if not user_preferences %}
                                         <p>Nessun interesse selezionato.</p>
                                     {% endif %}
                                 </div>

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Match
 from apps.chat.models import ChatRoom
-from apps.accounts.models import UserProfile
+from apps.accounts.models import UserProfile, UserStats
 
 import json
 from django.views.decorators.csrf import csrf_exempt
@@ -44,6 +44,35 @@ def generate_feed(request):
             "matched_users": matched_users
         })
 
+
+def update_stats(user, action):
+    stats = UserStats.objects.get(user=user)
+
+    if action == 'like_sent':
+        stats.like_sent_counter += 1
+    elif action == 'like_recv':
+        stats.like_recv_counter += 1
+    elif action == "dislike_sent":
+        stats.dislike_sent_counter += 1
+    elif action == "dislike_recv":
+        stats.dislike_recv_counter += 1
+    elif action == "match":
+        stats.match_counter += 1
+    
+    if stats.like_sent_counter != 0:
+        ratio = stats.match_counter / stats.like_sent_counter 
+        stats.match_rate = ratio
+    else:
+        ratio = 0
+        stats.match_rate = ratio
+
+    stats.save()
+        
+
+
+
+
+
 def update_matches_to_db(request, data):
     logged_user = request.user
 
@@ -59,9 +88,13 @@ def update_matches_to_db(request, data):
     matched_users = get_matched_users(logged_user)
 
     if liked_user_username:
+
         liked_user = UserProfile.objects.get(username=liked_user_username)
         liked_user_info = get_user_info(liked_user)
         print(f"{logged_user} LIKED {liked_user}")
+
+        update_stats(logged_user, "like_sent")
+        update_stats(liked_user, "like_recv")
 
         # se il liked_user ti aveva già messo like si completa il match
         if liked_user_info in pending_users_arrived:
@@ -81,6 +114,9 @@ def update_matches_to_db(request, data):
             match.room = room
 
             match.save()
+            update_stats(liked_user, "match")
+            update_stats(logged_user, "match")
+
         # altrimenti si crea una nuova entry tipo Match con status "PENDING" (sempre se non è già stata creata)
         elif liked_user not in pending_users_sent and liked_user not in matched_users:
             match = Match.objects.create(
