@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} | Contatti & FAQ{% endblock %}
+{% block title %} | Contacts & FAQ{% endblock %}
 
 {% block style %}
     <link rel="stylesheet" href="{% static 'css/main/contact.css' %}">
@@ -9,50 +9,50 @@
 {% block content %}
 
 <div class="contact-page-container">
-    {# Sezione Superiore per le Bolle #}
+    {# Upper Section for Bubbles #}
     <div class="bubbles-section">
         <div class="bubble-container" id="bubbleContainer"></div>
-        <h1>Connettiti con MatchMe</h1>
-        <p>Esplora le domande più frequenti o contattaci direttamente.</p>
+        <h1>Connect with MatchMe</h1>
+        <p>Explore frequently asked questions or contact us directly.</p>
     </div>
 
-    {# Sezione Inferiore per Form, Info e FAQ #}
+    {# Lower Section for Form, Info and FAQ #}
     <div class="main-contact-content">
         <div class="form-and-info-wrapper">
             <div class="contact-form-section">
-                <h2>Contattaci</h2>
-                <p class="form-description">Hai domande o suggerimenti? Scrivici, il nostro team è pronto ad aiutarti!</p>
+                <h2>Contact Us</h2>
+                <p class="form-description">Do you have questions or suggestions? Write to us, our team is ready to help you!</p>
                 <form id="contactForm" method="post">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="id_nome">Nome Completo</label>
+                        <label for="id_nome">Full Name</label>
                         <input type="text" id="id_nome" name="nome" value="{{ form.nome.value|default:'' }}" required placeholder="Mario Rossi" />
                     </div>
 
                     <div class="form-group">
-                        <label for="id_email">La tua Email</label>
+                        <label for="id_email">Your Email</label>
                         <input type="email" id="id_email" name="email" value="{{ form.email.value|default:'' }}" required placeholder="mariorossi@example.com" />
                     </div>
 
                     <div class="form-group">
-                        <label for="id_msg">Il tuo Messaggio</label>
-                        <textarea id="id_msg" name="msg" rows="6" required placeholder="Ho bisogno di aiuto con..." style="resize: none;"></textarea>
+                        <label for="id_msg">Your Message</label>
+                        <textarea id="id_msg" name="msg" rows="6" required placeholder="I need help with..." style="resize: none;"></textarea>
                     </div>
 
                     <div class="button-group">
-                        <button type="submit" class="submit-btn">Invia Messaggio</button>
-                        <button type="reset" class="reset-btn">Resetta</button>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                        <button type="reset" class="reset-btn">Reset</button>
                     </div>
                 </form>
             </div>
 
             <div class="contact-info-section">
-                <h2>Dove Trovarci</h2>
-                <p>Siamo qui per te. Se preferisci, puoi anche contattarci tramite i seguenti canali:</p>
+                <h2>Where to Find Us</h2>
+                <p>We are here for you. If you prefer, you can also contact us through the following channels:</p>
 
                 <div class="info-item">
                     <i class="fas fa-map-marker-alt"></i>
-                    <p>Via Roma, 123, 00100 Roma RM, Italia</p>
+                    <p>Via Roma, 123, 00100 Rome RM, Italy</p>
                 </div>
                 <div class="info-item">
                     <i class="fas fa-phone-alt"></i>
@@ -64,73 +64,73 @@
                 </div>
                 <div class="info-item">
                     <i class="fas fa-clock"></i>
-                    <p>Lun - Ven: 9:00 - 18:00</p>
+                    <p>Mon - Fri: 9:00 - 18:00</p>
                 </div>
 
                 <div class="map-placeholder">
                     <iframe width="100%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
                             src="https://www.openstreetmap.org/export/embed.html?bbox=12.4839%2C41.8902%2C12.4939%2C41.9002&amp;layer=mapnik&amp;marker=41.8952%2C12.4889"
                             style="border: 0px solid black; border-radius: 8px;"></iframe>
-                    <small><a href="https://www.openstreetmap.org/#map=15/41.8952/12.4889" target="_blank">Visualizza mappa più grande</a></small>
+                    <small><a href="https://www.openstreetmap.org/#map=15/41.8952/12.4889" target="_blank">View larger map</a></small>
                 </div>
             </div>
         </div>
 
         <div class="faq-section">
-            <h2>Domande Frequenti (FAQ)</h2>
+            <h2>Frequently Asked Questions (FAQ)</h2>
             <div class="faq-grid">
                 <div class="faq-item">
                     <div class="faq-header">
-                        <h3 class="faq-question">Come posso creare un account?</h3>
+                        <h3 class="faq-question">How can I create an account?</h3>
                         <i class="fas fa-plus"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Puoi creare un account cliccando sul pulsante "Registrati" nella homepage e seguendo le istruzioni. Ti verrà chiesto di inserire alcuni dati personali e le tue preferenze iniziali.</p>
+                        <p>You can create an account by clicking on the "Sign Up" button on the homepage and following the instructions. You will be asked to enter some personal data and your initial preferences.</p>
                     </div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-header">
-                        <h3 class="faq-question">È MatchMe gratuito?</h3>
+                        <h3 class="faq-question">Is MatchMe free?</h3>
                         <i class="fas fa-plus"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>MatchMe offre una versione base gratuita con tutte le funzionalità essenziali per iniziare a trovare match. Sono disponibili anche abbonamenti premium con funzionalità avanzate per un'esperienza migliorata.</p>
+                        <p>MatchMe offers a free basic version with all the essential features to start finding matches. Premium subscriptions with advanced features are also available for an improved experience.</p>
                     </div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-header">
-                        <h3 class="faq-question">Come funziona il sistema di matching?</h3>
+                        <h3 class="faq-question">How does the matching system work?</h3>
                         <i class="fas fa-plus"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Il nostro algoritmo di matching utilizza le preferenze che hai specificato nel tuo profilo, insieme ai dati di comportamento sull'app, per suggerirti profili compatibili. Più informazioni fornisci, migliori saranno i suggerimenti!</p>
+                        <p>Our matching algorithm uses the preferences you specified in your profile, along with in-app behavior data, to suggest compatible profiles. The more information you provide, the better the suggestions!</p>
                     </div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-header">
-                        <h3 class="faq-question">Posso segnalare un utente?</h3>
+                        <h3 class="faq-question">Can I report a user?</h3>
                         <i class="fas fa-plus"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Sì, la sicurezza della nostra community è una priorità. Puoi segnalare qualsiasi comportamento inappropriato o sospetto direttamente dal profilo dell'utente o contattandoci tramite questo modulo.</p>
+                        <p>Yes, the safety of our community is a priority. You can report any inappropriate or suspicious behavior directly from the user's profile or by contacting us via this form.</p>
                     </div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-header">
-                        <h3 class="faq-question">Che cos'è la funzionalità "Boost"?</h3>
+                        <h3 class="faq-question">What is the "Boost" feature?</h3>
                         <i class="fas fa-plus"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>La funzionalità "Boost" ti permette di mettere il tuo profilo in evidenza per un periodo limitato, aumentandone la visibilità e le possibilità di matching.</p>
+                        <p>The "Boost" feature allows you to highlight your profile for a limited period, increasing its visibility and chances of matching.</p>
                     </div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-header">
-                        <h3 class="faq-question">Come posso eliminare il mio account?</h3>
+                        <h3 class="faq-question">How can I delete my account?</h3>
                         <i class="fas fa-plus"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Per eliminare il tuo account, vai nelle impostazioni del tuo profilo, seleziona "Account" e poi "Elimina account". Ricorda che l'eliminazione è irreversibile.</p>
+                        <p>To delete your account, go to your profile settings, select "Account" and then "Delete account". Remember that deletion is irreversible.</p>
                     </div>
                 </div>
             </div>
@@ -147,15 +147,15 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
-    <script src="https://kit.fontawesome.com/your-font-awesome-kit-code.js" crossorigin="anonymous"></script> {# Assicurati che il codice sia il tuo! #}
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit-code.js" crossorigin="anonymous"></script> {# Make sure the code is yours! #}
     <script src="{% static 'js/main/contact.js' %}"></script>
     {% if sent %}
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Messaggio inviato!',
-                    text: 'Grazie per averci contattato. Ti risponderemo al più presto.',
+                    title: 'Message sent!',
+                    text: 'Thank you for contacting us. We will get back to you as soon as possible.',
                     confirmButtonColor: '#ff4081',
                     confirmButtonText: 'OK'
                 });

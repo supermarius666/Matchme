@@ -343,3 +343,56 @@ main {
 * {
     scrollbar-width: none;
 }
+
+.feed-post-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+.feed-action-button {
+    border: 2px solid transparent;
+    font-size: 20px;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: #999;
+    transition: all 0.3s ease;
+}
+
+.feed-action-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+.like-button {
+    border-color: #ff4081;
+    background-color: #ffe4ec;
+    color: #ff4081; 
+}
+
+.like-button:hover {
+    background-color: #ff4081;
+}
+
+.dislike-button {
+    border-color: #ff1744;
+    background-color: #f8ccd2;
+    color: #ff1744;
+}
+
+.dislike-button:hover {
+    background-color: #ff1744;
+}
+
+.feed-action-button i {
+    pointer-events: none;
+}

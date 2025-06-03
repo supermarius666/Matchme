@@ -32,9 +32,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const bubbleContainer = document.getElementById('bubbleContainer');
     const bubbleTexts = [
-        "Amore", "Passione", "Felicità", "Incontri", "Connessione",
-        "Vita", "Amici", "Coppia", "Cuore", "Desiderio",
-        "Sogni", "Viaggi", "Avventura", "Gioia"
+        "Love", "Passion", "Happiness", "Dates", "Connection",
+        "Life", "Friends", "Couple", "Heart", "Desire",
+        "Dreams", "Romance", "Adventure", "Joy", "Match",
+        "Soulmate", "Chemistry", "Flirt", "Swipe", "Chat"
     ];
 
     const numBubbles = 10;

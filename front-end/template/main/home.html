@@ -3,7 +3,7 @@
 {% block title %} | Home{% endblock %}
 {% block style %}
     <link rel="stylesheet" href="{% static 'css/main/home.css' %}">
-    {# Assicurati di avere Font Awesome per l'icona nel CTA, se non è già nel base.html #}
+    {# Make sure you have Font Awesome for the icon in the CTA, if not already in base.html #}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 {% endblock %}
 {% block content %}
@@ -16,13 +16,13 @@
 <div class="gallery-container">
 <div class="prova">
     <h1>MatchMe</h1>
-    <h3>Connecting Hearts, One Match at a Time.</h3>
+    <h3>Your Next Great Love Story Starts Here.</h3>
 </div>
 <div class="gallery-break">
     <br><br><br>
 </div>
 <div class="gallery-hidden">
-    <div class="wavy-word">Beyond the Initial Spark: Chat, Connect, and Build Unforgettable Stories with Your Matches and Not Just Them!</div>
+    <div class="wavy-word">Ready for more than just a glance? Dive into captivating chats, forge genuine connections, and craft unforgettable memories with your matches and beyond!</div>
 </div>
 <div class="gallery">
     
@@ -52,7 +52,7 @@
     <br><br><br><br><br><br><br><br><br><br><br>
 </div>
 <div class="wavy-container">
-    <div class="wavy-word">Chatta con i tuoi match e altro ancora!</div>
+    <div class="wavy-word">Spark up conversations with your matches and discover endless possibilities!</div>
 </div>
 
 <div class="page-container">
@@ -66,9 +66,9 @@
                             <img src="https://i.pravatar.cc/40?img=1" class="avatar" alt="Avatar Marius" />
                             <span class="username">Marius</span>
                         </div>
-                        <div class="message other">Ciao!</div>
-                        <div class="message user">Come va?</div>
-                        <div class="message other">Tutto bene!</div>
+                        <div class="message other">Hey there!</div>
+                        <div class="message user">How's your day going? 😉</div>
+                        <div class="message other">Doing great, thanks! And you?</div>
                     </div>
                 </li>
 
@@ -84,10 +84,10 @@
                             <img src="https://i.pravatar.cc/40?img=2" class="avatar" alt="Avatar Anna" />
                             <span class="username">Anna</span>
                         </div>
-                        <div class="message user">Hai visto il film?</div>
-                        <div class="message other">Sì!</div>
-                        <div class="message user">Ti è piaciuto?</div>
-                        <div class="message other">Sì, molto.</div>
+                        <div class="message user">Caught any good movies lately?</div>
+                        <div class="message other">Totally!</div>
+                        <div class="message user">What did you think?</div>
+                        <div class="message other">Loved it! Definitely recommend.</div>
                     </div>
                 </li>
 
@@ -103,10 +103,10 @@
                             <img src="https://i.pravatar.cc/40?img=3" class="avatar" alt="Avatar Giulia" />
                             <span class="username">Giulia</span>
                         </div>
-                        <div class="message user">Che fai domani?</div>
-                        <div class="message other">Nulla, perché?</div>
-                        <div class="message user">Si esce?</div>
-                        <div class="message other">Mi sa proprio di sì!!!</div>
+                        <div class="message user">Got any exciting plans for tomorrow?</div>
+                        <div class="message other">Nothing yet, why do you ask?</div>
+                        <div class="message user">Want to make some plans?</div>
+                        <div class="message other">Absolutely!!! Can't wait!</div>
                     </div>
                 </li>
             </ul>
@@ -115,8 +115,8 @@
         <div class="right">
             <ul id="cards-right">
                 <li class="rcard floating-card">
-                    <div class="sub">Creatività</div>
-                    <div class="content">Per le conversazioni più che originali</div>
+                    <div class="sub">Creativity</div>
+                    <div class="content">For conversations that truly sparkle</div>
                 </li>
                 <li class="rcard floating-card">
                     <div class="sub">Lorem Ipsum</div>
@@ -128,19 +128,19 @@
                 </li>
                 <li class="rcard floating-card">
                     <div class="sub">Extra Card</div>
-                    <div class="content">Un'altra card per completare</div>
+                    <div class="content">Another card to complete</div>
                 </li>
                 <li class="rcard floating-card">
                     <div class="sub">Final Card</div>
-                    <div class="content">Eccoci alla quinta!</div>
+                    <div class="content">Here we are at the fifth!</div>
                 </li>
                 <li class="rcard floating-card">
                     <div class="sub">LUCA</div>
-                    <div class="content">Per le conversazioni più che originali</div>
+                    <div class="content">For conversations that truly sparkle</div>
                 </li>
                 <li class="rcard floating-card">
                     <div class="sub">MIAO</div>
-                    <div class="content">Per le conversazioni più che originali</div>
+                    <div class="content">For conversations that truly sparkle</div>
                 </li>
             </ul>
         </div>
@@ -150,22 +150,22 @@
 
 
 <section class="hero-section modern-hero">
-    {# Background Video con Fallback Image #}
+    {# Background Video with Fallback Image #}
     <div class="hero-background">
         <video autoplay muted loop playsinline class="video-background">
             <source src="{% static 'video/matchme_hero_video.mp4' %}" type="video/mp4">
             {# Fallback image for browsers that don't support video #}
-            <img src="{% static 'img/hero_fallback_image.jpg' %}" alt="Persone che si connettono" class="fallback-image">
+            <img src="{% static 'img/hero_fallback_image.jpg' %}" alt="People connecting" class="fallback-image">
         </video>
     </div>
 
-    <div class="overlay modern-overlay"></div> {# Overlay più scuro per il contrasto #}
+    <div class="overlay modern-overlay"></div> {# Darker overlay for contrast #}
 
     <div class="content_get_started modern-content">
-        <h1 class="animate-fade-in">Trova la tua metà perfetta.</h1> {# Headline più d'impatto #}
-        <p class="hero-subtitle animate-fade-in delay-1s">Connettiti, innamorati e vivi esperienze uniche.</p> {# Sottotitolo descrittivo #}
+        <h1 class="animate-fade-in">Ready to meet your perfect someone?</h1> {# More impactful headline #}
+        <p class="hero-subtitle animate-fade-in delay-1s">Flirt, connect, and let sparks fly as you create unforgettable moments.</p> {# Descriptive subtitle #}
         <a href="{% url 'accounts:authenticate' %}" class="btn_start modern-btn animate-scale-in delay-2s">
-            Inizia la tua storia ora <i class="fas fa-arrow-right"></i>
+            Find your spark today <i class="fas fa-arrow-right"></i>
         </a>
     </div>
 </section>
@@ -173,8 +173,8 @@
 <section class="download-section">
     <div class="download-grid">
         <div class="download-content">
-            <h1>Scarica MatchMe e inizia a chattare all'istante!</h1>
-            <p>Trova persone compatibili vicino a te — ovunque, in qualsiasi momento.</p>
+            <h1>Download MatchMe and ignite your connections!</h1>
+            <p>Discover amazing singles nearby — your next connection is just a tap away.</p>
 
             <div class="download-buttons">
                 <a href="https://apps.apple.com" target="_blank" class="download-button">
@@ -188,14 +188,14 @@
             </div>
 
             <div class="rating">
-            ⭐⭐⭐⭐ Valutato 4.8 su App Store · Oltre 10.000 download
+            ⭐⭐⭐⭐ Rated 4.8 on App Store · Over 10,000 downloads
             </div>
         </div>
 
         <div class="download-mockup">
-            {# Qui inserisci il tuo mockup del telefono con uno screenshot dell'app #}
-            {# Assicurati che l'immagine sia in static/img/ #}
-            <img src="{% static 'img/mockup.png' %}" alt="Mockup dell'app MatchMe">
+            {# Insert your phone mockup with an app screenshot here #}
+            {# Make sure the image is in static/img/ #}
+            <img src="{% static 'img/mockup.png' %}" alt="MatchMe app mockup">
         </div>
     </div>
 </section>

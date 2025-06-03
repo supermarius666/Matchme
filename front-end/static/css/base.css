@@ -126,11 +126,15 @@ main {
     margin: 10px;
 }
 
-.footer-title {
+.footer-section .footer-title {
     font-size: 1.8em;
     font-weight: bold;
     color: #ff4081;
     margin-bottom: 10px;
+}
+
+.footer-title::after{
+    display: none;
 }
 
 .footer-heading {
