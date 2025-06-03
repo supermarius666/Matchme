@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} | {{ name.formatted_name }}{% endblock %}
+{% block title %} | {{ place.name }}{% endblock %}
 
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/events/places.css' %}">
@@ -11,7 +11,7 @@
 <main class="place-detail-main">
     <section class="place-hero">
         <div class="container">
-            <h1>{{ name.formatted_name }}</h1>
+            <h1>{{ place.name }}</h1>
             <p class="place-tagline">Discover the charm and history of this beautiful Roman gem.</p>
         </div>
     </section>
@@ -19,14 +19,15 @@
     <section class="place-content-section">
         <div class="container place-content-grid">
             <div class="place-image-wrapper">
-                <img src="{% static image %}" alt="{{ name.formatted_name }}" class="place-main-image" loading="lazy">
-                <p class="image-caption">A beautiful view of {{ name.formatted_name }}</p>
+                <img src='{{ place.image.url }}' alt="{{ place.name }}" class="place-main-image" loading="lazy">
+                <p class="image-caption">A beautiful view of {{ place.name }}</p>
             </div>
 
             <div class="place-description">
-                {% for paragraph in description_paragraphs %}
-                    <p>{{ paragraph }}</p>
-                {% endfor %}
+                <p>{{ place.description_intro }}</p>
+                <p>{{ place.description_couples }}</p>
+                <p>{{ place.description_history }}</p>
+                <p>{{ place.description_outro }}</p>
             </div>
         </div>
     </section>
@@ -45,9 +46,8 @@
         <div class="container">
             <h2>Useful Links</h2>
             <ul class="link-list">
-                {% for link in links %}
-                    <li><a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.title }} &rarr;</a></li>
-                {% endfor %}
+                <li><a href="{{ place.link1 }}" rel="noopener noreferrer">Wikipedia &rarr;</a></li>
+                <li><a href="{{ place.link2 }}" rel="noopener noreferrer">Google Maps &rarr;</a></li>
             </ul>
         </div>
     </section>
@@ -60,8 +60,8 @@
 
 {% block script %}
 <script>
-    const lat = {{ lat }};
-    const lon = {{ lon }};
+    const lat = {{ place.latitude }};
+    const lon = {{ place.longitude }};
 
     const latDelta = 0.0014;
     const lonDelta = 0.0016;
