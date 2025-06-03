@@ -1,48 +1,33 @@
+/* Base Styles */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #dadbd3;
-    min-height: 100vh;
+    min-height: 100dvh;
     overflow: hidden;
 }
 
+/* Main Layout */
 main {
     display: flex;
     flex-grow: 1;
     width: 100%;
-    height: 100vh;
+    min-height: 100dvh;
     justify-content: flex-start;
     align-items: stretch;
-    max-height: 95vh;
 }
 
+/* Feed Layout */
 .feed-layout {
     display: flex;
     flex-grow: 1;
     width: 100%;
-    max-width: none;
     height: 100%;
     background-color: #f0f2f5;
-    box-shadow: none;
-    border-radius: 0;
     overflow: hidden;
 }
 
-@media (min-width: 768px) {
-    main {
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
-
-    .feed-layout {
-        width: 95%;
-        height: 93vh;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 5px;
-    }
-}
-
+/* Sidebar */
 .feed-left-sidebar {
     width: 25%;
     background-color: #ffffff;
@@ -51,46 +36,27 @@ main {
     flex-direction: column;
     flex-shrink: 0;
     overflow-y: auto;
-    height: 100vh;
-    top: 0;
     position: sticky;
+    top: 0;
+    height: 100dvh;
 }
 
 .chat-list-sidebar {
     flex-grow: 1;
     overflow-y: auto;
     height: 30%;
-    box-sizing: border-box;
 }
 
 .feed-filters-sidebar {
     flex-grow: 1;
     overflow-y: auto;
     height: 50%;
+    padding: 0 15px;
     box-sizing: border-box;
     border-top: 1px solid #ccc;
-    padding-right: 15px;
-    padding-left: 15px;
 }
 
-@media (max-width: 767px) {
-    .chat-list-sidebar {
-        display: none;
-        width: 100%;
-        min-width: unset;
-        max-width: unset;
-        border-right: none;
-        position: absolute;
-        left: 0;
-        top: 0;
-        z-index: 200;
-    }
-
-    .chat-list-sidebar.active {
-        display: flex;
-    }
-}
-
+/* Sidebar Header */
 .sidebar-header {
     display: flex;
     justify-content: space-between;
@@ -111,11 +77,9 @@ main {
     cursor: pointer;
 }
 
+/* Search Bar */
 .search-bar {
-    padding-top: 25px;
-    padding-bottom: 12px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 25px 20px 12px;
     background-color: #f6f6f6;
     border-bottom: 1px solid #e0e0e0;
     position: sticky;
@@ -128,11 +92,12 @@ main {
     border: 1px solid #ddd;
     border-radius: 20px;
     font-size: 0.9em;
-    outline: none;
     background-color: #fff;
     box-sizing: border-box;
+    outline: none;
 }
 
+/* Chat List */
 .chats {
     flex-grow: 1;
     overflow-y: auto;
@@ -170,7 +135,7 @@ main {
 .chat-name {
     font-weight: bold;
     color: #111b21;
-    font-size: 1.05em;
+    font-size: clamp(14px, 2vw, 16px);
 }
 
 .chat-timestamp {
@@ -179,9 +144,10 @@ main {
     margin-left: auto;
 }
 
+/* Feed Container */
 .feed-feed-container {
     flex-grow: 1;
-    padding: 20px 80px;
+    padding: clamp(10px, 5vw, 40px);
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -190,12 +156,7 @@ main {
     align-items: center;
 }
 
-@media (max-width: 767px) {
-    .feed-feed-container {
-        padding: 10px 20px;
-    }
-}
-
+/* Post Styles */
 .feed-post {
     background-color: #ffffff;
     border: 1px solid #dbdbdb;
@@ -222,20 +183,17 @@ main {
 
 .feed-username {
     font-weight: 600;
-    font-size: 14px;
-    border: none;
+    font-size: clamp(13px, 1.5vw, 15px);
     background: white;
+    border: none;
 }
 
 .feed-post-image img {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #fafafa;
-    overflow: hidden;
+    height: auto;
     max-height: 400px;
     object-fit: contain;
+    background-color: #fafafa;
 }
 
 .feed-post-caption {
@@ -243,33 +201,61 @@ main {
     font-size: 0.95em;
     color: #262626;
     line-height: 1.5;
-    border-radius: 0 0 8px 8px;
 }
 
 .feed-post-actions {
-    padding: 8px 16px;
     display: flex;
-    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
 }
 
 .feed-action-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 0;
-    color: #262626;
-}
-
-.feed-action-button i {
+    border: 2px solid transparent;
     font-size: 20px;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: #999;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
 }
 
 .feed-action-button:hover {
-    color: #8e8e8e;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+.feed-action-button i {
+    pointer-events: none;
+    font-size: 20px;
+}
+
+.like-button {
+    border-color: #ff4081;
+    background-color: #ffe4ec;
+    color: #ff4081;
+}
+
+.like-button:hover {
+    background-color: #ff4081;
+}
+
+.dislike-button {
+    border-color: #727272;
+    background-color: #acacac;
+    color: #5a5a5a;
+}
+
+.dislike-button:hover {
+    background-color: #727272;
 }
 
 .feed-like-button.feed-liked i {
@@ -277,6 +263,20 @@ main {
     font-weight: 900;
 }
 
+
+@media (min-width: 768px) {
+    main {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .feed-layout {
+        width: 95%;
+        height: 93vh;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+    }
+}
 @media (max-width: 768px) {
     .feed-left-sidebar {
         width: 70px;
@@ -286,8 +286,6 @@ main {
         left: 0;
     }
 
-    .feed-left-sidebar h1,
-    .feed-left-sidebar .feed-sidebar-content p,
     .feed-feed-container {
         margin-left: 70px;
         padding: 15px;
@@ -296,9 +294,20 @@ main {
     .feed-post {
         max-width: 100%;
     }
+
+    .feed-post-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .feed-action-button {
+        width: 50px;
+        height: 50px;
+        font-size: 18px;
+    }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .feed-left-sidebar {
         display: none;
     }
@@ -322,17 +331,10 @@ main {
         font-size: 13px;
     }
 
-    .feed-post-actions {
-        padding: 6px 12px;
-        gap: 12px;
-    }
-
-    .feed-action-button i {
-        font-size: 18px;
-    }
-
     .feed-action-button {
-        font-size: 13px;
+        width: 45px;
+        height: 45px;
+        font-size: 16px;
     }
 }
 
@@ -344,55 +346,34 @@ main {
     scrollbar-width: none;
 }
 
-.feed-post-actions {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-    gap: 20px;
+@media (max-width: 767px) {
+    .chat-list-sidebar {
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 200;
+        width: 100%;
+    }
+
+    .chat-list-sidebar.active {
+        display: flex;
+    }
 }
 
-.feed-action-button {
-    border: 2px solid transparent;
-    font-size: 20px;
-    cursor: pointer;
-    width: 60px;
-    height: 60px;
+.mobile-sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: white;
+    padding: 10px;
     border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-    color: #999;
-    transition: all 0.3s ease;
+    z-index: 1000;
 }
 
-.feed-action-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    color: white;
-}
-
-.like-button {
-    border-color: #ff4081;
-    background-color: #ffe4ec;
-    color: #ff4081; 
-}
-
-.like-button:hover {
-    background-color: #ff4081;
-}
-
-.dislike-button {
-    border-color: #ff1744;
-    background-color: #f8ccd2;
-    color: #ff1744;
-}
-
-.dislike-button:hover {
-    background-color: #ff1744;
-}
-
-.feed-action-button i {
-    pointer-events: none;
+@media (max-width: 768px) {
+    .mobile-sidebar-toggle {
+        display: block;
+    }
 }
