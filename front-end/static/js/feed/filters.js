@@ -88,6 +88,9 @@ function displayFeed(data) {
     const pending_users_sent = data.pending_users_sent
     const matched_users = data.matched_users
 
+    const post_image = data.post_photo
+    const post_text = data.text_photo
+
     feedContainer.innerHTML = ""
 
     pending_users_arrived.forEach(user => {
@@ -101,12 +104,13 @@ function displayFeed(data) {
                 </div>
 
                 <div class="feed-post-image">
-                    <img src="https://picsum.photos/600/400?random=1" alt="Post Image">
+                    <img src="${user[2]}" alt="Post Image">
                 </div>
                 
                 <div class="feed-post-actions">
                     <button type="button" onclick="sendLike('${user[0]}')" class="feed-action-button like-button"><i class="far fa-heart"></i></button>
-                    <button type="button" onclick="sendzDislike('${user[0]}')" class="feed-action-button dislike-button"><i class="far fa-thumbs-down"></i></button>
+                    <button type="button" onclick="sendzDislike('${user[0]}')" class="feed-action-button dislike-button"><i class="fas fa-times"></i></button>
+
                 </div>
                 
             </div>
@@ -129,12 +133,14 @@ function displayFeed(data) {
                     </div>
 
                     <div class="feed-post-image">
-                        <img src="https://picsum.photos/600/400?random=1" alt="Post Image">
+                        <img src="${user[2]}" alt="Post Image">
                     </div>
                     
                     <div class="feed-post-actions">
                         <button type="button" onclick="sendLike('${user[0]}')" class="feed-action-button like-button"><i class="far fa-heart"></i></button>
-                        <button type="button" onclick="sendzDislike('${user[0]}')" class="feed-action-button dislike-button"><i class="fas fa-times"></i></button>                    </div>
+                        <button type="button" onclick="sendzDislike('${user[0]}')" class="feed-action-button dislike-button"><i class="fas fa-times"></i></button>
+
+                    </div>
                     
                 </div>
             `

@@ -95,12 +95,19 @@ button:hover {
     background-color: #e03570;
 }
 
+.toggle-container {
+    background: rgba(200,200,200, 0.5);
+}
+
 .toggle-link {
     color: #e03570;
     text-decoration: none;
     cursor: pointer;
     font-size: 14px;
     margin-top: 10px;
+    font-weight: bolder;
+    /* text-shadow: #000000 0px 0px 1px, #fff 0px 0px 2px, #fff 0px 0px 12px; */
+
 }
 
 .toggle-link:hover {

@@ -10,7 +10,8 @@ from django.utils import timezone
 import re
 
 def get_user_info(user):
-    return [user.username, user.profile_picture.url]
+    main_post = None
+    return [user.username, user.profile_picture.url, main_post]
 
 def get_pending_users_arrived(logged_user):
     # select tutti i match in arrivo al logged_user

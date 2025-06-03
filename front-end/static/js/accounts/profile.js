@@ -188,6 +188,8 @@ async function handleImageUpload(event, imageType) {
 
 // --- DOM Ready ---
 document.addEventListener('DOMContentLoaded', function () {
+ 
+
     editProfileBtn?.addEventListener('click', editProfileHandler);
 
     publicPreviewBtn?.addEventListener('click', () => {

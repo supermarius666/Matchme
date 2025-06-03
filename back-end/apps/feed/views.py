@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import Match
+from .models import Match, Post
 from apps.chat.models import ChatRoom
 from apps.accounts.models import UserProfile, UserStats
 
@@ -14,6 +14,16 @@ from .feed_utils.algorithm import *
 from .feed_utils.users import *
 
 MAX_USERS = 10
+
+
+def get_post_for_users(users_list):
+    # prendiamo il post
+    for user in users_list:    
+        if Post.objects.filter(user__username=user[0]).exists():
+            main_post = Post.objects.filter(user__username=user[0]).latest('time_stamp')
+            image_url = main_post.post_pic.url
+            post_text = main_post.text
+            user[2] = image_url
 
 def generate_feed(request, filters):
     logged_user = request.user
@@ -35,13 +45,22 @@ def generate_feed(request, filters):
 
     #print_actions_in_server_log(selected_users, logged_user, pending_users_arrived, pending_users_sent, matched_users)
 
+    # prendiamo il post
+    get_post_for_users(selected_users)
+    get_post_for_users(pending_users_arrived)
+    get_post_for_users(pending_users_sent)
+    get_post_for_users(matched_users)
+
+
     return JsonResponse(
         {
             "logged_user": logged_user.username,
             "selected_users": selected_users,
             "pending_users_arrived": pending_users_arrived,
             "pending_users_sent": pending_users_sent,
-            "matched_users": matched_users
+            "matched_users": matched_users,
+            # "post_photo":image_url,
+            # "post_text":post_text,
         })
 
 def update_stats(user, action):
@@ -123,7 +142,7 @@ def update_matches_to_db(request, data):
 def feed_actions_view(request):
     logged_user = request.user
 
-    if request.method == "POST": # sta venendo messo like
+    if request.method == "POST": # sta venendo
         data = json.loads(request.body)
         type = data.get("type")
 
@@ -161,3 +180,40 @@ def search_chat_view(request):
     # ritorna oggetto json senza ricaricare la pagina html
     # --> i cambiamenti vengono fatti lato client dal javascript che riceve questo oggetto json
     return JsonResponse({"searched_users": users})
+
+
+def post_view(request):
+    print("ricevuto post")
+    if request.method == 'POST':
+        try:
+            post_created = False
+            if "post_picture" in request.FILES:
+                post = Post.objects.create(
+                    user=request.user,
+                    post_pic=request.FILES["post_picture"],
+                    text=request.POST.get('post_text', ''),
+                    time_stamp=timezone.now()
+                )
+                print("post creato con immagine")
+                post_created = True
+            elif request.POST.get('post_text', '').strip():
+                post = Post.objects.create(
+                    user=request.user,
+                    text=request.POST.get('post_text', ''),
+                    time_stamp=timezone.now()
+                )
+                print("post creato solo con testo")
+                post_created = True
+
+            if post_created:
+                response_data = {"success": True, "message": "Post creato con successo!"}
+                return JsonResponse(response_data, status=201)
+
+        except Exception as e:
+            print(f"Errore durante la creazione del post: {e}")
+            response_data = {"success": False, "message": f"Errore interno del server: {e}"}
+            return JsonResponse(response_data, status=500) 
+    else:
+       
+        response_data = {"success": False, "message": "Metodo non consentito."}
+        return JsonResponse(response_data, status=405) 

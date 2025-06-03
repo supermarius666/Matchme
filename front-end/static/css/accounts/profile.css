@@ -538,6 +538,16 @@ body {
     min-height: 300px;
 }
 
+@media(min-width: 768px) {
+    .profile-tabs .tab-content-wrapper {
+        padding-top: 25px;
+        padding-right: 120px;
+        padding-left: 120px;
+        min-height: 300px;
+    }
+}
+
+
 .profile-tabs .tab-content {
     display: none;
 }
@@ -591,6 +601,8 @@ body {
     margin-top: 5px;
 }
 
+
+/**************** POST-TAB ***********************/
 .tab-content .create-post-area {
     background-color: #f8f9fa;
     padding: 15px;
@@ -613,8 +625,8 @@ body {
 
 .tab-content .create-post-area .options {
     display: flex;
-    justify-content: flex-start;
-    gap: 15px;
+    justify-content: space-between; /* Modificato per spostare il pulsante Post a destra */
+    align-items: center;
     border-top: 1px solid #f0f2f5;
     padding-top: 10px;
 }
@@ -645,6 +657,149 @@ body {
 .tab-content .create-post-area .options button:hover i {
     color: #ff4081;
 }
+
+/* Stili per il pulsante Post */
+.tab-content .create-post-area .options .post-button {
+    background-color: #ff4081;
+    color: white;
+    font-weight: bold;
+    padding: 8px 20px;
+    border-radius: 20px;
+}
+
+.tab-content .create-post-area .options .post-button:hover {
+    background-color: #e03874;
+    color: white;
+}
+.image-preview-container {
+    margin-bottom: 15px;
+    position: relative;
+    max-height: 200px;
+    max-width: 100%;
+}
+
+.image-preview {
+    max-width: 100%; /* Mantiene la larghezza massima al 100% del contenitore */
+    /* Rimuovi o aumenta l'altezza fissa se presente, o usa min-height per un'altezza minima */
+    /* height: auto; /* Già presente, assicura che l'altezza si adatti */
+    min-height: 200px; /* Esempio: imposta un'altezza minima per una preview più grande */
+    max-height: 200px;
+    object-fit: contain; /* Assicura che l'intera immagine sia visibile e non tagliata */
+    border-radius: 8px;
+    display: block;
+    margin-top: 10px;
+}
+
+.remove-image-button {
+    position: absolute;
+    left: 0px;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.remove-image-button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    border-color: #ff4081;
+    box-shadow: 0 0 0 3px rgba(255, 64, 129, 0.2);
+    outline: none;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+
+/**************** POST-TAB ***********************/
+
+
+/* Stili per il feed dei post (aggiunti per chiarezza) */
+#posts-feed {
+    margin-top: 30px;
+}
+
+.post-card {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    border: 1px solid #e4e6eb;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.post-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.post-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-author {
+    font-weight: bold;
+    color: #333;
+}
+
+.post-time {
+    font-size: 13px;
+    color: #65676b;
+}
+
+.post-content {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.post-image {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 10px;
+    display: block;
+}
+
+
 
 .tab-content .posts-list {
     margin-top: 20px;
@@ -1210,12 +1365,31 @@ body {
     font-size: 24px;
 }
 
+
+
 .posts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
+    display: grid; /* Essential: enables grid layout */
+    grid-template-columns: repeat(3, 1fr); /* Creates 3 equal-width columns */
+    gap: 15px; /* Adjust the spacing between grid items */
     margin-top: 20px;
+    /* grid-template-rows: auto; <--- You typically don't need to explicitly set this for 'n' rows */
+    /* Instead, let rows create themselves with auto-placement */
 }
+
+/* Optional: For responsiveness on smaller screens */
+@media (max-width: 768px) {
+    .posts-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .posts-grid {
+        grid-template-columns: 1fr; /* 1 column on small screens */
+    }
+}
+
+
 
 .post-item {
     border: 1px solid #ddd;

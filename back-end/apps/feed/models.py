@@ -68,5 +68,6 @@ class Post(models.Model):
     )
 
     time_stamp = models.DateTimeField(
-
+        null=True,
+        blank=True
     )
