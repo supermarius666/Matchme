@@ -568,11 +568,11 @@ section {
 }
 
 .prova h1 {
-    font-size: 14rem;
+    font-size: 10vw;
     font-family: sans-serif;
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 40%;
     transform: translate(-50%, -50%);
     z-index: 1;
     margin: 0;
@@ -581,17 +581,57 @@ section {
 }
 
 .prova h3 {
-    font-size: 4rem;
+    font-size: 4vw;
     font-family: sans-serif;
     position: absolute;
     left: 50%;
-    top: 70%;
+    top: 60%;
     transform: translate(-50%, -50%);
     z-index: 1;
     margin: 0;
     color: #363636;
     white-space: nowrap;
 }
+
+/* Mobile (phones under 600px) */
+@media (max-width: 600px) {
+    .prova h1 {
+        font-size: 12vw;
+        top: 35%;
+    }
+
+    .prova h3 {
+        font-size: 6vw;
+        top: 55%;
+    }
+}
+
+/* Tablet (600px to 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .prova h1 {
+        font-size: 8vw;
+        top: 40%;
+    }
+
+    .prova h3 {
+        font-size: 4.5vw;
+        top: 60%;
+    }
+}
+
+/* Desktop (larger than 1024px) */
+@media (min-width: 1025px) {
+    .prova h1 {
+        font-size: 6vw;
+        top: 45%;
+    }
+
+    .prova h3 {
+        font-size: 2vw;
+        top: 65%;
+    }
+}
+
 
 .download-section {
     display: flex;
@@ -980,6 +1020,12 @@ li::marker {
 
 @media (max-width: 900px) {
     .gallery-container {
+        display: none;
+    }
+}
+
+@media (max-width: 768px){
+    .wavy-word {
         display: none;
     }
 }

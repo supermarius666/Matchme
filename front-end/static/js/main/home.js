@@ -45,49 +45,56 @@ document.querySelectorAll('.left .card').forEach(card => {
 });
 
 /* marquee */
- gsap.registerPlugin(ScrollTrigger)
+function initGSAP() {
+  if (window.innerWidth > 900) {
+    gsap.registerPlugin(ScrollTrigger)
     gsap.to("body", {
-        backgroundColor: "black",
-        scrollTrigger: {
-            trigger: ".gallery-container",
-            start: "20% center", 
-            end: "95% center",
-            toggleActions: "play reverse play reverse",
-            scrub: false,
-        }
+      backgroundColor: "black",
+      scrollTrigger: {
+        trigger: ".gallery-container",
+        start: "20% center",
+        end: "95% center",
+        toggleActions: "play reverse play reverse",
+        scrub: false,
+      }
     });
     const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
     })
 
     function raf(time) {
-        lenis.raf(time)
-        requestAnimationFrame(raf)
+      lenis.raf(time)
+      requestAnimationFrame(raf)
     }
-
     requestAnimationFrame(raf)
-
     const tl = gsap.timeline({
-        scrollTrigger: {
+      scrollTrigger: {
         trigger: '.mimg',
         scrub: true
-        }
+      }
     })
-    .to('.mimg', {
+      .to('.mimg', {
         stagger: .2,
         y: -700,
         scrub: true
-    })
+      })
+  } else {
+    gsap.killTweensOf("body");
+  }
+}
+  initGSAP();
+  window.addEventListener('resize', initGSAP);
 
-    let split = SplitText.create(".wavy-word", {type: "chars,words"});
-    gsap.to(split.chars, {
-      y: "-10%",
-      duration: 1,
-      ease: "sine.inOut",
-      stagger: {
-          each: 0.04,
-          repeat: -1,
-          yoyo: true
-      }
-    });
+  // Wavy text animation
+  let split = SplitText.create(".wavy-word", { type: "chars,words" });
+  gsap.to(split.chars, {
+    y: "-10%",
+    duration: 1,
+    ease: "sine.inOut",
+    stagger: {
+      each: 0.04,
+      repeat: -1,
+      yoyo: true
+    }
+  })    
