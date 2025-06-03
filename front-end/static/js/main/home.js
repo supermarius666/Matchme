@@ -52,7 +52,7 @@ function initGSAP() {
       backgroundColor: "black",
       scrollTrigger: {
         trigger: ".gallery-container",
-        start: "20% center",
+        start: "-20% center",
         end: "95% center",
         toggleActions: "play reverse play reverse",
         scrub: false,
