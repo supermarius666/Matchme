@@ -161,10 +161,10 @@ def get_users_algorithm(logged_user, all_users, max_users, filters):
                 print("filter1")
                 evaluated_users[user] = 0
             elif filters and distance >= filters.get("distance_max"):
-                print(f"fil2-> distance: {distance}, max: {filters.get("distance_max")}")
+                #print(f"fil2-> distance: {distance}, max: {filters.get("distance_max")}")
                 evaluated_users[user] = 0
             elif filters and (user.age < filters.get("age_min") or user.age > filters.get("age_max")):
-                print(f"fil3-> user age: {user.age}, range [{filters.get("age_min")}, {filters.get("age_max")}]")
+                #print(f"fil3-> user age: {user.age}, range [{filters.get("age_min")}, {filters.get("age_max")}]")
                 evaluated_users[user] = 0
             else:
                 print("passato")
@@ -189,7 +189,7 @@ def get_users_algorithm(logged_user, all_users, max_users, filters):
     
     #ordered_users = order_users(evaluated_users)
     ordered_users = sorted(evaluated_users.items(), key=lambda item: item[1], reverse=True)
-    print(f"ORDERED USERS {ordered_users}")
+    #print(f"ORDERED USERS {ordered_users}")
 
     # prende solo lo user dei primi max_users elementi in ordered_users (che è una lista di tuple (<UserProfile>, <score>))
     best_users_list = []
@@ -205,5 +205,5 @@ def get_users_algorithm(logged_user, all_users, max_users, filters):
         if counter > max_users:
             break
 
-    print(f"BEST USERS {best_users_list}")
+    #print(f"BEST USERS {best_users_list}")
     return best_users_list

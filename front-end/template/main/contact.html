@@ -144,8 +144,22 @@
 {% endblock %}
 
 {% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
     <script src="https://kit.fontawesome.com/your-font-awesome-kit-code.js" crossorigin="anonymous"></script> {# Assicurati che il codice sia il tuo! #}
     <script src="{% static 'js/main/contact.js' %}"></script>
+    {% if sent %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Messaggio inviato!',
+                    text: 'Grazie per averci contattato. Ti risponderemo al più presto.',
+                    confirmButtonColor: '#ff4081',
+                    confirmButtonText: 'OK'
+                });
+            });
+        </script>
+    {% endif %}
 {% endblock %}

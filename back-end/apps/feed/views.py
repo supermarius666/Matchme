@@ -134,7 +134,7 @@ def feed_actions_view(request):
                 "distance_max": int(data.get("distanceMax"))
             }
 
-            print(f"Age Range: [{data.get("ageMin")}-{data.get("ageMax")}] \n Max Distance: {data.get("distanceMax")}")
+            #print(f"Age Range: [{data.get("ageMin")}-{data.get("ageMax")}] \n Max Distance: {data.get("distanceMax")}")
 
             feed_response = generate_feed(request, filters)
             #print(f"feed responsee::: {feed_response}")

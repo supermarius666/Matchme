@@ -22,7 +22,7 @@ def custom_404_view(request, exception):
 
 def contact_view(request):
     # print("[+] contact_view called") # debug print
-    sent = False
+    sent = request.session.pop('sent', False)
     form = ContactForm()   
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -36,7 +36,7 @@ def contact_view(request):
                 subject=f"Messaggio da {nome}",
                 message=msg,
                 from_email=settings.EMAIL_HOST_USER,
-                recipient_list=['fracchetto1995@gmail.com'], # indirizzo del team
+                recipient_list=['matchme.vmf@gmail.com'], # indirizzo del team
                 fail_silently=False,
             )
 
@@ -54,6 +54,7 @@ def contact_view(request):
                 recipient_list=[email],
                 fail_silently=False,
             )
-
+            request.session['sent'] = True
+            return redirect('contact')
             #return redirect('contact_success')  # redirect a success.html
     return render(request, 'main/contact.html', {'form': form, 'sent': sent})
