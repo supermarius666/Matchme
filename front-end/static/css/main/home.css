@@ -971,3 +971,15 @@ section {
 li::marker {
     content: "";
 }
+
+@media (max-width: 1024px) {
+    .page-container{
+        display: none;
+    }
+}
+
+@media (max-width: 900px) {
+    .gallery-container {
+        display: none;
+    }
+}
