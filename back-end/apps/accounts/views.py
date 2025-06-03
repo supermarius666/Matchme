@@ -12,44 +12,50 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 
+from datetime import datetime, timedelta
+
+import os
+from django.core.files import File
+
 def auth_view(request):
+    return render(request, 'accounts/login_register.html')
+
+#@csrf_exempt
+def auth_request_view(request):
     if request.method == 'POST':
-        action = request.POST.get('action_type')
+        data = json.loads(request.body)
+        action = data.get("type")
 
         if action == 'login':
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-            user = authenticate(request, username=username, password=password)
+            user = authenticate(request, username=data.get("loginUsername"), password=data.get("loginPassword"))
             print("USER: ", user)
             if user:
                 login(request, user)
-                return redirect('home')
+                #return redirect('home')
+                return JsonResponse({
+                            "success": True,
+                            "message": "utente acceduto con successo."
+                        })
             else:
-                messages.error(request, 'Credenziali non valide.')
+                return JsonResponse({
+                        "success": False,
+                        "message": "Credenziali invalide."
+                    })
 
         elif action == 'register':
-            username = request.POST.get('username_r')
-            nome = request.POST.get('first_name')
-            cognome = request.POST.get('last_name')
-            email = request.POST.get('email')
-            password = request.POST.get('password1_r')
-            conferma_password = request.POST.get('password2_r')
-            sesso = request.POST.get('sesso')
-            citta = request.POST.get('citta')
+            userExists = UserProfile.objects.filter(username=data.get("regUsername")).exists()
 
-            if password != conferma_password:
-                messages.error(request, 'Le password non corrispondono.')
-            elif UserProfile.objects.filter(username=username).exists():
-                messages.error(request, 'Username già esistente.')
-            else:
+            # regBirthDate : regBirthDate,
+
+            if not userExists:
                 user = UserProfile.objects.create_user(
-                    username=username,
-                    email=email,
-                    password=password,
-                    first_name=nome,
-                    last_name=cognome,
-                    gender=sesso,
-                    city=citta
+                    username=data.get("regUsername"),
+                    first_name=data.get("regNome"),
+                    last_name=data.get("regCognome"),
+                    email=data.get("regMail"),
+                    password=data.get("regPassword"),
+                    gender=data.get("regGender"),
+                    city=data.get("regCity")
                 )
 
                 user_stats = UserStats.objects.create(
@@ -57,19 +63,33 @@ def auth_view(request):
                     registration_day=timezone.now().date()
                 )
 
-
                 subject = "Benvenuto su MatchMe!"
                 message = f"Ciao {user.first_name},\n\nGrazie per esserti registrato su MatchMe! Siamo felici di averti con noi.\n\nCordiali saluti,\nIl team di MatchMe"
                 from_email = settings.EMAIL_HOST_USER
                 recipient_list = [user.email]
+
                 try:
                     send_mail(subject, message, from_email, recipient_list)
                 except Exception as e:
                     print(f"Errore nell'invio dell'email: {e}")
                 login(request, user)
-                return redirect('accounts:preferences')
 
-    return render(request, 'accounts/login_register.html')
+                print("SUCECSSO")
+
+                return JsonResponse({
+                        "success": True,
+                        "message": "utente creato con successo"
+                    })
+            else:
+                return JsonResponse({
+                        "success": False,
+                        "message": "utente già esistente"
+                    })
+
+    return JsonResponse({
+            "success": False,
+            "message": "Richiesta sbagliata"
+        })
 
 @login_required
 def logout_view(request):
@@ -161,15 +181,23 @@ def update_profile_view(request):
 @login_required
 def upload_photo_reg(request):
     if request.method == 'POST':
+        user_profile = request.user
         profile_pic = request.FILES.get("profile_picture")
+
         if profile_pic:
-            user_profile = request.user
             user_profile.profile_picture = profile_pic
             user_profile.save()
-            return redirect('home')
+        else:
+            image_path = "../front-end/media/profile_pics/default_profile_pic.png"
+            #image_path = "/media/profile_pics/default_profile_pic.png"
+            with open(image_path, 'rb') as f:
+                image_file = File(f, name=os.path.basename(image_path))
+                user_profile.profile_picture = image_file
+                user_profile.save()
+
+        return redirect('home')
     
     return render(request, 'accounts/upload_photo.html')
-
 
 def get_pref_values(prefs):
     user_prefs = dict()
@@ -185,10 +213,8 @@ def get_pref_values(prefs):
 @login_required
 def profile_view(request, username):
     viewed_user = get_object_or_404(UserProfile, username=username)
-    
-   
-
     viewed_user_preferences = None
+
     try:
         viewed_user_preferences = UserPreferences.objects.get(user=viewed_user)
         prefs = get_pref_values(viewed_user_preferences)

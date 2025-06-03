@@ -8,18 +8,22 @@
 {% block content %}
 <div class="form-container">
 
-    {% if messages %}
+    <!-- {% if messages %}
     <div class="error-message">
         {% for message in messages %}
         <p>{{ message }}</p>
         {% endfor %}
     </div>
-    {% endif %}
+    {% endif %} -->
 
     <div id="login-card" class="account-card">
+        <div id="login-error-message">
+        </div>
+
         <h2>Login</h2>
-        <form id="login-form" method="post" action="{% url 'accounts:authenticate' %}">
-            {% csrf_token %}
+        <!-- <form id="login-form" method="post" action="{% url 'accounts:authenticate' %}"> -->
+        <form id="login-form" method="post">
+            <!-- {% csrf_token %} -->
             <input type="hidden" name="action_type" value="login">
 
             <div class="form-group input-icon">
@@ -38,8 +42,12 @@
     </div>
 
     <div id="registration-card" class="account-card" style="display:none;">
+        <div id="register-error-message">
+        </div>
+
         <h2>Registrazione</h2>
-        <form id="registration-form" method="post" action="{% url 'accounts:authenticate' %}">
+        <!-- <form id="registration-form" method="post" action="{% url 'accounts:authenticate' %}"> -->
+        <form id="registration-form" method="post">
             {% csrf_token %}
             <input type="hidden" name="action_type" value="register">
 

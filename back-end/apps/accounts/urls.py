@@ -7,6 +7,7 @@ app_name = 'accounts'  #namespace per poter usare questi urls su altre app
 
 urlpatterns = [
     path('', views.auth_view, name="authenticate"),
+    path('auth_request/', views.auth_request_view, name="auth_request"), # per il js
     path("logout/", views.logout_view, name="logout"),
     path("preferences/", views.preferences_view, name="preferences"),
     path("upload_photo_reg/", views.upload_photo_reg, name="upload_photo_reg"),
