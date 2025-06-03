@@ -53,6 +53,16 @@ class UserProfile(AbstractUser):
         default='O'
     )
 
+    birth_date = models.DateField(
+        blank=True,
+        null=True
+    )
+
+    age = models.IntegerField(
+        blank=True,
+        null=True
+    )
+
     biography = models.CharField(
         max_length=255,
         blank=True

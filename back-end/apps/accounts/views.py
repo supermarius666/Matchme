@@ -55,6 +55,8 @@ def auth_request_view(request):
                     email=data.get("regMail"),
                     password=data.get("regPassword"),
                     gender=data.get("regGender"),
+                    birth_date=data.get("regBirthDate"),
+                    age=data.get("regAge"),
                     city=data.get("regCity")
                 )
 
@@ -193,6 +195,12 @@ def upload_photo_reg(request):
             with open(image_path, 'rb') as f:
                 image_file = File(f, name=os.path.basename(image_path))
                 user_profile.profile_picture = image_file
+                user_profile.save()
+        
+        image_path = "../front-end/media/cover_pics/default_cover_pic.jpg"
+        with open(image_path, 'rb') as f:
+                image_file = File(f, name=os.path.basename(image_path))
+                user_profile.cover_picture = image_file
                 user_profile.save()
 
         return redirect('home')

@@ -15,14 +15,14 @@ from .feed_utils.users import *
 
 MAX_USERS = 10
 
-def generate_feed(request):
+def generate_feed(request, filters):
     logged_user = request.user
 
     # lista di tutti gli user
     all_users = UserProfile.objects.all()
 
     # lista dei primi MAX_USERS user selezionati dall'algoritmo in base alle pref. del logged_user
-    selected_users = get_users_algorithm(logged_user, all_users, MAX_USERS)
+    selected_users = get_users_algorithm(logged_user, all_users, MAX_USERS, filters)
 
     # lista degli user che hanno mandato richiesta di match al logged_user 
     pending_users_arrived = get_pending_users_arrived(logged_user)
@@ -43,7 +43,6 @@ def generate_feed(request):
             "pending_users_sent": pending_users_sent,
             "matched_users": matched_users
         })
-
 
 def update_stats(user, action):
     stats = UserStats.objects.get(user=user)
@@ -67,11 +66,6 @@ def update_stats(user, action):
         stats.match_rate = ratio
 
     stats.save()
-        
-
-
-
-
 
 def update_matches_to_db(request, data):
     logged_user = request.user
@@ -134,18 +128,19 @@ def feed_actions_view(request):
         type = data.get("type")
 
         if type == "feed":
-            genderSelected = data.get("genderSelected", [])
-            ageMin = data.get("ageMin")
-            ageMax = data.get("ageMax")
-            distanceMax = data.get("distanceMax")
+            filters = {
+                "age_min": int(data.get("ageMin")),
+                "age_max": int(data.get("ageMax")),
+                "distance_max": int(data.get("distanceMax"))
+            }
 
-            print(f"Gender Selected: {genderSelected} \nAge Range: [{ageMin}-{ageMax}] \n Max Distance: {distanceMax}")
+            print(f"Age Range: [{data.get("ageMin")}-{data.get("ageMax")}] \n Max Distance: {data.get("distanceMax")}")
 
-            feed_response = generate_feed(request)
+            feed_response = generate_feed(request, filters)
             #print(f"feed responsee::: {feed_response}")
         elif type == "like":
             update_matches_to_db(request, data)
-            feed_response = generate_feed(request)
+            feed_response = generate_feed(request, None)
         return feed_response
 
     return None

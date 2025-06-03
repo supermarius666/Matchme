@@ -134,6 +134,8 @@ document.getElementById('registration-form').addEventListener('submit', async fu
 
     const errorMessage = document.getElementById("register-error-message")
 
+    let age;
+
     if (regPassword !== regConfirmPass) {
         errorMessage.innerHTML = `<div class="error-message">Le password non coincidono.</div>`
         event.preventDefault();
@@ -148,7 +150,7 @@ document.getElementById('registration-form').addEventListener('submit', async fu
         const today = new Date();
         const birthDate = new Date(regBirthDate);
         console.log("Selected Date!!!:", birthDate);
-        let age = today.getFullYear() - birthDate.getFullYear();
+        age = today.getFullYear() - birthDate.getFullYear();
         const m = today.getMonth() - birthDate.getMonth();
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
             age--;
@@ -166,6 +168,7 @@ document.getElementById('registration-form').addEventListener('submit', async fu
         regNome : regNome,
         regCognome : regCognome,
         regBirthDate : regBirthDate,
+        regAge: age,
         regCity : regCity,
         regGender : regGender,
         regMail : regMail,

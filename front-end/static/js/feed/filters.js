@@ -196,7 +196,7 @@ function updateSlidebarRangeDisplay() {
     normalSliderValue.textContent = normalSlider.value;
 
     let minOverall = 0;
-    let maxOverall = 100;
+    let maxOverall = 750;
 
     const totalRange = maxOverall - minOverall;
     const leftPercentage = ((normalSlider.value - minOverall) / totalRange) * 100;
