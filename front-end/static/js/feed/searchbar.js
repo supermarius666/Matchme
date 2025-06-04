@@ -41,7 +41,7 @@ function displayOutput(users) {
                     <div class="chat-info">
                         <div class="chat-name">${user[0]}</div>
                     </div>
-                    <div class="chat-timestamp">${user[2]}</div>
+                    <div class="chat-timestamp">${user[3]}</div>
                 </div>
             `
         })
