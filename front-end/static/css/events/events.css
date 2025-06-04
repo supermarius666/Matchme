@@ -95,7 +95,7 @@ h2::after {
 }
 
 .events-hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/static/img/events_hero_bg.jpg') no-repeat center center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/static/img/events_wallpaper.jpg') no-repeat center center/cover;
     color: white;
     text-align: center;
     padding: 120px 20px;
@@ -691,3 +691,5 @@ h2::after {
     margin-top: 0.2rem;
     text-align: center;
 }
+
+body::-webkit-scrollbar{display:none;}

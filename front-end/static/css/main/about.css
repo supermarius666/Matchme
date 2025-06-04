@@ -12,7 +12,7 @@ body {
 }
 
 .about-hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/static/img/about_hero.jpeg') no-repeat center center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/static/img/about3.jpg') no-repeat center center/cover;
     background-attachment: fixed;
     color: white;
     text-align: center;
@@ -461,3 +461,5 @@ body {
         font-size: 1.2em;
     }
 }
+
+body::-webkit-scrollbar{display:none;}

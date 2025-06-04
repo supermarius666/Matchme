@@ -526,3 +526,5 @@ section h2::after {
         padding: 5px;
     }
 }
+
+body::-webkit-scrollbar{display:none;}

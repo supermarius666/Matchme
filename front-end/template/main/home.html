@@ -61,52 +61,32 @@
         <div class="left">
             <ul id="cards-left">
                 <li class="card floating-card">
-                    <div class="card-body">
-                        <div class="user-header">
-                            <img src="https://i.pravatar.cc/40?img=1" class="avatar" alt="Avatar Marius" />
-                            <span class="username">Marius</span>
-                        </div>
-                        <div class="message other">Hey there!</div>
-                        <div class="message user">How's your day going? 😉</div>
-                        <div class="message other">Doing great, thanks! And you?</div>
+                    <div class="card-body image-card">
+                        <img src="{% static 'img/chat1.jpg' %}" class="full-image" alt="Uploaded Image">
                     </div>
                 </li>
 
                 <li class="card floating-card">
                     <div class="card-body image-card">
-                        <img src="https://media.istockphoto.com/id/1412157363/it/foto/giovane-coppia-felice-rilassata-a-casa-sul-letto.jpg?s=2048x2048&w=is&k=20&c=CO0mHnzbqeAX9EfrciSFrocCJ9G1kEZNigQH5s372os=" class="full-image" alt="Uploaded Image">
-                    </div>
-                </li>
-
-                <li class="card floating-card">
-                    <div class="card-body">
-                        <div class="user-header">
-                            <img src="https://i.pravatar.cc/40?img=2" class="avatar" alt="Avatar Anna" />
-                            <span class="username">Anna</span>
-                        </div>
-                        <div class="message user">Caught any good movies lately?</div>
-                        <div class="message other">Totally!</div>
-                        <div class="message user">What did you think?</div>
-                        <div class="message other">Loved it! Definitely recommend.</div>
+                        <img src="{% static 'img/beer.jpg' %}" class="full-image" alt="Uploaded Image">
                     </div>
                 </li>
 
                 <li class="card floating-card">
                     <div class="card-body image-card">
-                        <img src="https://danieletorella.com/wp-content/uploads/2016/03/Foto-romantiche-07.jpg" class="full-image" alt="Second Image">
+                        <img src="{% static 'img/chat2.jpg' %}" class="full-image" alt="Uploaded Image">
                     </div>
                 </li>
 
                 <li class="card floating-card">
-                    <div class="card-body">
-                        <div class="user-header">
-                            <img src="https://i.pravatar.cc/40?img=3" class="avatar" alt="Avatar Giulia" />
-                            <span class="username">Giulia</span>
-                        </div>
-                        <div class="message user">Got any exciting plans for tomorrow?</div>
-                        <div class="message other">Nothing yet, why do you ask?</div>
-                        <div class="message user">Want to make some plans?</div>
-                        <div class="message other">Absolutely!!! Can't wait!</div>
+                    <div class="card-body image-card">
+                        <img src="{% static 'img/sezze.jpg' %}" class="full-image" alt="Second Image">
+                    </div>
+                </li>
+
+                <li class="card floating-card">
+                    <div class="card-body image-card">
+                        <img src="{% static 'img/chat3.jpg' %}" class="full-image" alt="Uploaded Image">
                     </div>
                 </li>
             </ul>
@@ -115,32 +95,32 @@
         <div class="right">
             <ul id="cards-right">
                 <li class="rcard floating-card">
-                    <div class="sub">Creativity</div>
-                    <div class="content">For conversations that truly sparkle</div>
+                    <div class="sub">Vibe Check</div>
+                    <div class="content">Find your match and make every chat count.</div>
                 </li>
                 <li class="rcard floating-card">
-                    <div class="sub">Lorem Ipsum</div>
-                    <div class="content">Dolorete sit amet</div>
+                    <div class="sub">Connection Catalyst</div>
+                    <div class="content">Ignite conversations that truly sparkle.</div>
                 </li>
                 <li class="rcard floating-card">
-                    <div class="sub">Lorem Ipsum2</div>
-                    <div class="content">Dolorete sit amet2</div>
+                    <div class="sub">Your Next Adventure</div>
+                    <div class="content">Discover someone new and exciting.</div>
                 </li>
                 <li class="rcard floating-card">
-                    <div class="sub">Extra Card</div>
-                    <div class="content">Another card to complete</div>
+                    <div class="sub">Spontaneity Seeker</div>
+                    <div class="content">Ready for whatever comes next?</div>
                 </li>
                 <li class="rcard floating-card">
-                    <div class="sub">Final Card</div>
-                    <div class="content">Here we are at the fifth!</div>
+                    <div class="sub">Authentic Encounters</div>
+                    <div class="content">Real people, real connections.</div>
                 </li>
                 <li class="rcard floating-card">
-                    <div class="sub">LUCA</div>
-                    <div class="content">For conversations that truly sparkle</div>
+                    <div class="sub">Heartbeat Harmonizer</div>
+                    <div class="content">Sync up with someone special.</div>
                 </li>
                 <li class="rcard floating-card">
-                    <div class="sub">MIAO</div>
-                    <div class="content">For conversations that truly sparkle</div>
+                    <div class="sub">Unforgettable Moments</div>
+                    <div class="content">Craft your story, one date at a time.</div>
                 </li>
             </ul>
         </div>
@@ -153,7 +133,6 @@
     {# Background Video with Fallback Image #}
     <div class="hero-background">
         <video autoplay muted loop playsinline class="video-background">
-            <source src="{% static 'video/matchme_hero_video.mp4' %}" type="video/mp4">
             {# Fallback image for browsers that don't support video #}
             <img src="{% static 'img/hero_fallback_image.jpg' %}" alt="People connecting" class="fallback-image">
         </video>
@@ -195,7 +174,7 @@
         <div class="download-mockup">
             {# Insert your phone mockup with an app screenshot here #}
             {# Make sure the image is in static/img/ #}
-            <img src="{% static 'img/mockup.png' %}" alt="MatchMe app mockup">
+            <img src="{% static 'img/mockup.jpg' %}" alt="MatchMe app mockup">
         </div>
     </div>
 </section>

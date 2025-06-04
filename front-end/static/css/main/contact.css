@@ -478,3 +478,5 @@ textarea {
         font-size: 2em;
     }
 }
+
+body::-webkit-scrollbar{display:none;}
